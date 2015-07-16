@@ -45,6 +45,7 @@ extensions = [
 
 plantuml = 'plantuml'
 
+sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

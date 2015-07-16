@@ -1,4 +1,5 @@
-Socket server
-=============
+Socketserver
+============
 
-
+.. automodule:: socketserver
+    :members:

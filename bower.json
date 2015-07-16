@@ -1,0 +1,18 @@
+
+
+{
+  "name": "angularchat",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "1.4.0",
+    "jquery": "~1.10.2",
+    "bootstrap": "~3.1.1",
+    "restangular": "~1.5.1",
+    "angular-ui-router": "0.2.0",
+    "underscore": "~1.8.3",
+    "angular-resource": "1.4.0",
+    "angular-cookies": "1.4.0"
+  }
+
+}
+

@@ -11,9 +11,12 @@ Contents:
 .. toctree::
     :maxdepth: 2
 
+    install
     socketserver
     architecture
     db
+    socketserver
+
 
 
 .. uml::

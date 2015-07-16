@@ -1,0 +1,5 @@
+redis==2.10.1
+sockjs-tornado==1.0.1
+tornado==4.0.1
+fabric
+sphinx

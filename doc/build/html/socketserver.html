@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Socket server &mdash; Angular chat 1 documentation</title>
+  <title>Socketserver &mdash; Angular chat 1 documentation</title>
   
 
   
@@ -31,8 +31,7 @@
 
   
     <link rel="top" title="Angular chat 1 documentation" href="index.html"/>
-        <link rel="next" title="Architecture" href="architecture.html"/>
-        <link rel="prev" title="Angular chat’s documentation." href="index.html"/> 
+        <link rel="prev" title="Database structure" href="db.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -72,9 +71,11 @@
           
           
               <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">Socket server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Socketserver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="db.html">Database structure</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Socketserver</a></li>
 </ul>
 
           
@@ -99,7 +100,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Socket server</li>
+    <li>Socketserver</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -112,8 +113,23 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="socket-server">
-<h1>Socket server<a class="headerlink" href="#socket-server" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-socketserver">
+<span id="socketserver"></span><h1>Socketserver<a class="headerlink" href="#module-socketserver" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="socketserver.WSHandler">
+<em class="property">class </em><code class="descclassname">socketserver.</code><code class="descname">WSHandler</code><span class="sig-paren">(</span><em>application</em>, <em>request</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/socketserver.html#WSHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#socketserver.WSHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a simple Websocket Echo server that uses the Tornado websocket handler.
+Please run <cite>pip install tornado</cite> with python of version 2.7.9 or greater to install tornado.
+This program will echo back the reverse of whatever it recieves.
+Messages are output to the terminal for debuggin purposes.</p>
+<dl class="method">
+<dt id="socketserver.WSHandler.on_message">
+<code class="descname">on_message</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/socketserver.html#WSHandler.on_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#socketserver.WSHandler.on_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accepting message from javasctipt client</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -122,10 +138,8 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="architecture.html" class="btn btn-neutral float-right" title="Architecture" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="index.html" class="btn btn-neutral" title="Angular chat’s documentation." accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="db.html" class="btn btn-neutral" title="Database structure" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
