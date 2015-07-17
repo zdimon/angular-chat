@@ -31,7 +31,8 @@
 
   
     <link rel="top" title="Angular chat 1 documentation" href="index.html"/>
-        <link rel="prev" title="Database structure" href="db.html"/> 
+        <link rel="next" title="Architecture" href="architecture.html"/>
+        <link rel="prev" title="Installation" href="install.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -75,7 +76,15 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="">Socketserver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="db.html">Database structure</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Socketserver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Signalserver API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/authentication.html">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/authentication.html#is-auth-method"><strong>is_auth</strong> method.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/authentication.html#login-method"><strong>login</strong> method.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">Chat Model</a><ul class="simple">
+</ul>
+</li>
 </ul>
 
           
@@ -117,15 +126,31 @@
 <span id="socketserver"></span><h1>Socketserver<a class="headerlink" href="#module-socketserver" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="socketserver.WSHandler">
-<em class="property">class </em><code class="descclassname">socketserver.</code><code class="descname">WSHandler</code><span class="sig-paren">(</span><em>application</em>, <em>request</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/socketserver.html#WSHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#socketserver.WSHandler" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a simple Websocket Echo server that uses the Tornado websocket handler.
-Please run <cite>pip install tornado</cite> with python of version 2.7.9 or greater to install tornado.
-This program will echo back the reverse of whatever it recieves.
-Messages are output to the terminal for debuggin purposes.</p>
+<em class="property">class </em><code class="descclassname">socketserver.</code><code class="descname">WSHandler</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/socketserver.html#WSHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#socketserver.WSHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Websocket server that uses the Tornado websocket handler.
+Please run <cite>pip install tornado</cite> with python of version 2.7.9 or greater to install tornado.</p>
+<dl class="method">
+<dt id="socketserver.WSHandler.on_close">
+<code class="descname">on_close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/socketserver.html#WSHandler.on_close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#socketserver.WSHandler.on_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method whith fires when connection is closed.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="socketserver.WSHandler.on_message">
 <code class="descname">on_message</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/socketserver.html#WSHandler.on_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#socketserver.WSHandler.on_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Accepting message from javasctipt client</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-processor"></span><dl class="class">
+<dt id="processor.MessageProcessor">
+<em class="property">class </em><code class="descclassname">processor.</code><code class="descname">MessageProcessor</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processor.html#MessageProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#processor.MessageProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>This  class manages with income messages from javascript.</p>
+<dl class="method">
+<dt id="processor.MessageProcessor.subscribe">
+<code class="descname">subscribe</code><span class="sig-paren">(</span><em>room</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/processor.html#MessageProcessor.subscribe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#processor.MessageProcessor.subscribe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subscribing user to the channel in the REDIS server</p>
 </dd></dl>
 
 </dd></dl>
@@ -138,8 +163,10 @@ Messages are output to the terminal for debuggin purposes.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="architecture.html" class="btn btn-neutral float-right" title="Architecture" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="db.html" class="btn btn-neutral" title="Database structure" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="install.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

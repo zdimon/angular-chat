@@ -2,7 +2,8 @@
         'ui.router',
         'restangular',
         'app.controllers',
-        'ngCookies'
+        'ngCookies',
+        'ngWebSocket' 
     ]).config(function($interpolateProvider,$httpProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');

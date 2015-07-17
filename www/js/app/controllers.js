@@ -10,9 +10,16 @@ angular.module('app.controllers', [])
         
 
       };
+
+   
+
+
     })
 
     
+ .controller('ChatUserOnline', function ($scope, WS) {
+      $scope.ws = WS;
+    });
 
 
 

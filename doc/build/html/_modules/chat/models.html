@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>chat.models &mdash; Angular chat 1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Angular chat 1 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../index.html" class="icon icon-home"> Angular chat
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../socketserver.html">Socketserver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../db.html">Database structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">Signalserver API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/authentication.html">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/authentication.html#is-auth-method"><strong>is_auth</strong> method.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/authentication.html#login-method"><strong>login</strong> method.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../model.html">Chat Model</a><ul class="simple">
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Angular chat</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>chat.models</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for chat.models</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">django.utils.safestring</span> <span class="kn">import</span> <span class="n">mark_safe</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="c"># Create your models here.</span>
+<div class="viewcode-block" id="Tpa"><a class="viewcode-back" href="../../model.html#chat.models.Tpa">[docs]</a><span class="k">class</span> <span class="nc">Tpa</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Third Part Applications. Table with sites which integrate this chat.</span>
+<span class="sd">    Primary key used as app_id in all API requests. &#39;&#39;&#39;</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="s">&quot;Site&quot;</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s">&quot;Sites&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">),</span> <span class="n">db_index</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">domain</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Domain&#39;</span><span class="p">))</span>
+    <span class="n">secret</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Secret key&#39;</span><span class="p">))</span>
+    <span class="n">timeout_chating</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Chat timeout&#39;</span><span class="p">),</span> <span class="n">default</span> <span class="o">=</span> <span class="mi">180</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain</span>
+</div>
+<div class="viewcode-block" id="ChatUser"><a class="viewcode-back" href="../../model.html#chat.models.ChatUser">[docs]</a><span class="k">class</span> <span class="nc">ChatUser</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="s">&quot;User&quot;</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s">&quot;Users&quot;</span>
+
+    <span class="n">GENDERS</span> <span class="o">=</span> <span class="p">(</span> <span class="p">(</span><span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Man&#39;</span><span class="p">)),</span> <span class="p">(</span><span class="s">&#39;w&#39;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Woman&#39;</span><span class="p">))</span> <span class="p">)</span>
+    <span class="n">CULTURES</span> <span class="o">=</span> <span class="p">(</span> <span class="p">(</span><span class="s">&#39;ru&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s">&#39;Russian&#39;</span><span class="p">)),</span> <span class="p">(</span><span class="s">&#39;en&#39;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;English&#39;</span><span class="p">)),</span> <span class="p">(</span><span class="s">&#39;ua&#39;</span><span class="p">,</span> <span class="s">&#39;Ukrainian&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;fr&#39;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;French&#39;</span><span class="p">)),</span> <span class="p">(</span><span class="s">&#39;sp&#39;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Spain&#39;</span><span class="p">)),</span> <span class="p">(</span><span class="s">&#39;de&#39;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;German&#39;</span><span class="p">))</span> <span class="p">)</span>
+    <span class="n">ONLINE</span> <span class="o">=</span> <span class="p">(</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;No&#39;</span><span class="p">)),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Yes&#39;</span><span class="p">))</span> <span class="p">)</span>
+
+    <span class="n">gender</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">choices</span> <span class="o">=</span> <span class="n">GENDERS</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Gender&#39;</span><span class="p">))</span>
+    <span class="n">user_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;User ID&#39;</span><span class="p">),</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">signature</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;User hash&#39;</span><span class="p">),</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">null</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Public name&#39;</span><span class="p">))</span>
+    <span class="n">age</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Age&#39;</span><span class="p">))</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;E-Mail&#39;</span><span class="p">))</span>
+    <span class="n">country</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;User</span><span class="se">\&#39;</span><span class="s">s country&#39;</span><span class="p">))</span>
+    <span class="n">city</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;User</span><span class="se">\&#39;</span><span class="s">s city&#39;</span><span class="p">))</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">null</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Image&#39;</span><span class="p">))</span>
+    <span class="n">profile_url</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Url on profile page in the client site&#39;</span><span class="p">))</span>
+    <span class="n">culture</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">choices</span> <span class="o">=</span> <span class="n">CULTURES</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Users language code&#39;</span><span class="p">))</span>
+    <span class="n">is_online</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">choices</span> <span class="o">=</span> <span class="n">ONLINE</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Is user online now&#39;</span><span class="p">),</span> <span class="n">db_index</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">tpa</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Tpa</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;TPA&#39;</span><span class="p">))</span> <span class="c"># client_id</span>
+    <span class="n">account</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span><span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">u&#39;Account&#39;</span><span class="p">),</span> <span class="n">max_digits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">decimal_places</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">is_camera_active</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Is active?&#39;</span><span class="p">),</span> <span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="n">is_invisible</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Is user invisible&#39;</span><span class="p">))</span>
+    <span class="n">is_invitation_enabled</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Is invitations enabled?&#39;</span><span class="p">))</span>
+    <span class="nd">@property</span>  
+    <span class="k">def</span> <span class="nf">avatar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">mark_safe</span><span class="p">(</span><span class="s">u&#39;&lt;img src=&quot;</span><span class="si">%s</span><span class="s">&quot; /&gt;&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>  
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+
+
+</div>
+<div class="viewcode-block" id="ChatRoom"><a class="viewcode-back" href="../../model.html#chat.models.ChatRoom">[docs]</a><span class="k">class</span> <span class="nc">ChatRoom</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">duration</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Duration (min)&#39;</span><span class="p">))</span>
+    <span class="n">sign</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Identifier&#39;</span><span class="p">),</span> <span class="n">editable</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="n">created</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">auto_now</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">null</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">tpa</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Tpa</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;TPA&#39;</span><span class="p">))</span>
+    <span class="n">is_charging</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Allow charging?&#39;</span><span class="p">),</span> <span class="n">default</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Chat session&quot;</span><span class="p">)</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Chat sessions&quot;</span><span class="p">)</span>
+        <span class="n">ordering</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;-id&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;Chat session №&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s">u&#39; &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+
+        
+    <span class="k">def</span> <span class="nf">add_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">user</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ChatUser2Room</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span><span class="p">,</span> <span class="n">room</span> <span class="o">=</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">u2r</span> <span class="o">=</span> <span class="n">ChatUser2Room</span><span class="p">()</span>
+            <span class="n">u2r</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>
+            <span class="n">u2r</span><span class="o">.</span><span class="n">room</span> <span class="o">=</span> <span class="bp">self</span>
+            <span class="n">u2r</span><span class="o">.</span><span class="n">tpa</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tpa</span>
+            <span class="n">u2r</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>    
+
+    <span class="k">def</span> <span class="nf">set_sign</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">gmtime</span><span class="p">,</span> <span class="n">strftime</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">strftime</span><span class="p">(</span><span class="s">&quot;%Y-%m-</span><span class="si">%d</span><span class="s"> %H:%M:%S&quot;</span><span class="p">,</span> <span class="n">gmtime</span><span class="p">())</span>
+        <span class="kn">import</span> <span class="nn">hashlib</span>
+        <span class="n">hash_object</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sign</span> <span class="o">=</span> <span class="n">hash_object</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">get_last_message</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ChatMessage</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">room</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">&#39;-id&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">get_last_message_enother_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">mes</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ChatMessage</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">room</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">mes</span><span class="o">.</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">&#39;-id&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+
+        
+    <span class="k">def</span> <span class="nf">get_participants</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="n">ChatUser2Room</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">room</span> <span class="o">=</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span>
+        
+    <span class="k">def</span> <span class="nf">get_participantsm2m</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="n">ChatUser2Room</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">room</span> <span class="o">=</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">items</span>        
+        
+    <span class="k">def</span> <span class="nf">get_participants_except_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">user</span><span class="p">):</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="n">ChatUser2Room</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">room</span> <span class="o">=</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span>
+    <span class="k">def</span> <span class="nf">close_me</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">user</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">brukva</span>
+        <span class="n">bclient</span> <span class="o">=</span> <span class="n">brukva</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
+        <span class="n">bclient</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>    
+        <span class="c">#import pdb; pdb.set_trace()</span>
+        <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_participants</span><span class="p">():</span>          
+            <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;act&#39;</span><span class="p">:</span> <span class="s">&#39;i_live_room&#39;</span><span class="p">,</span> <span class="s">&#39;chanel&#39;</span><span class="p">:</span> <span class="s">&#39;wc_</span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">id</span> <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tpa</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="p">}</span>
+            <span class="n">destination</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tpa</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+            <span class="n">bclient</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">mes</span><span class="p">))</span>
+            <span class="k">print</span> <span class="s">&#39;Try to close </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">destination</span>
+</div>
+<div class="viewcode-block" id="ChatUser2Room"><a class="viewcode-back" href="../../model.html#chat.models.ChatUser2Room">[docs]</a><span class="k">class</span> <span class="nc">ChatUser2Room</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;User&#39;</span><span class="p">))</span>
+    <span class="n">room</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatRoom</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Room&#39;</span><span class="p">))</span>
+    <span class="n">tpa</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Tpa</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;TPA&#39;</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;Chat user 2 room relation&#39;</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="ChatMessage"><a class="viewcode-back" href="../../model.html#chat.models.ChatMessage">[docs]</a><span class="k">class</span> <span class="nc">ChatMessage</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">GENDERS</span> <span class="o">=</span> <span class="p">(</span> <span class="p">(</span><span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Man&#39;</span><span class="p">)),</span> <span class="p">(</span><span class="s">&#39;w&#39;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Woman&#39;</span><span class="p">))</span> <span class="p">)</span>
+    <span class="n">gender</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">choices</span> <span class="o">=</span> <span class="n">GENDERS</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Gender&#39;</span><span class="p">))</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;User&#39;</span><span class="p">))</span>
+    <span class="n">room</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatRoom</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Chat session&#39;</span><span class="p">))</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Message&#39;</span><span class="p">))</span>
+    <span class="n">created</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">auto_now</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">tpa</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Tpa</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;TPA&#39;</span><span class="p">))</span>
+    <span class="n">is_old</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Is active?&#39;</span><span class="p">),</span> <span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">)</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Chat messages&quot;</span><span class="p">)</span>
+        <span class="n">ordering</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;-id&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;Chat message&#39;</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="ChatInvitations"><a class="viewcode-back" href="../../model.html#chat.models.ChatInvitations">[docs]</a><span class="k">class</span> <span class="nc">ChatInvitations</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">from_user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">related_name</span> <span class="o">=</span> <span class="s">&#39;from_user&#39;</span><span class="p">)</span>
+    <span class="n">to_user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">related_name</span> <span class="o">=</span> <span class="s">&#39;to_user&#39;</span><span class="p">)</span>
+    <span class="n">created</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">auto_now</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">is_accepted</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="n">from_token</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">tpa</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Tpa</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;TPA&#39;</span><span class="p">))</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="s">&quot;Invitation&quot;</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s">&quot;Invitations&quot;</span>
+        <span class="n">ordering</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;-id&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="ChatContacts"><a class="viewcode-back" href="../../model.html#chat.models.ChatContacts">[docs]</a><span class="k">class</span> <span class="nc">ChatContacts</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">owner</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">related_name</span> <span class="o">=</span> <span class="s">&#39;contact_owner_user&#39;</span><span class="p">)</span>
+    <span class="n">contact</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">related_name</span> <span class="o">=</span> <span class="s">&#39;contact_user&#39;</span><span class="p">)</span>
+    <span class="n">created</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">auto_now</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">has_new_message</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&#39;Has unreaded messages.&#39;</span><span class="p">))</span>
+    <span class="n">successfuly_connected</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&#39;Opponent accepted invitation.&#39;</span><span class="p">))</span>
+    <span class="n">is_active</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&#39;User selected this contact the last.&#39;</span><span class="p">))</span>
+    <span class="n">tpa</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Tpa</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;TPA&#39;</span><span class="p">))</span>
+    <span class="n">room</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatRoom</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Chat session&#39;</span><span class="p">),</span><span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">null</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">is_man_camera_active</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&#39;Is man camera active.&#39;</span><span class="p">))</span>
+    <span class="n">is_woman_camera_active</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&#39;Is woman camera active.&#39;</span><span class="p">))</span>
+    <span class="n">is_ununswerd</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&#39;Is ununswerd.&#39;</span><span class="p">))</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="s">&quot;Contact&quot;</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s">&quot;Contacts&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+</div>
+<div class="viewcode-block" id="ChatFriends"><a class="viewcode-back" href="../../model.html#chat.models.ChatFriends">[docs]</a><span class="k">class</span> <span class="nc">ChatFriends</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">owner</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">related_name</span> <span class="o">=</span> <span class="s">&#39;friend_owner_user&#39;</span><span class="p">)</span>
+    <span class="n">friend</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">related_name</span> <span class="o">=</span> <span class="s">&#39;friend_user&#39;</span><span class="p">)</span>
+    <span class="n">created</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">auto_now</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">visible</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">tpa</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Tpa</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;TPA&#39;</span><span class="p">))</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Chat friend&quot;</span><span class="p">)</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Chat friends&quot;</span><span class="p">)</span>
+        <span class="n">ordering</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;-id&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+</div>
+<div class="viewcode-block" id="ChatTransactions"><a class="viewcode-back" href="../../model.html#chat.models.ChatTransactions">[docs]</a><span class="k">class</span> <span class="nc">ChatTransactions</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; History of transactions &#39;&#39;&#39;</span>
+    <span class="n">room</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatRoom</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Chat session&#39;</span><span class="p">),</span><span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">null</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">man</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">related_name</span> <span class="o">=</span> <span class="s">&#39;man&#39;</span><span class="p">)</span>
+    <span class="n">woman</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">related_name</span> <span class="o">=</span> <span class="s">&#39;woman&#39;</span><span class="p">)</span>
+    <span class="n">created</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">auto_now</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">tpa</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Tpa</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;TPA&#39;</span><span class="p">))</span>
+    <span class="n">ammount</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span> <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">&#39;Price RUB&#39;</span><span class="p">),</span> <span class="n">max_digits</span><span class="o">=</span> <span class="mi">12</span><span class="p">,</span> <span class="n">decimal_places</span><span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+
+</div>
+<div class="viewcode-block" id="ChatTemplates"><a class="viewcode-back" href="../../model.html#chat.models.ChatTemplates">[docs]</a><span class="k">class</span> <span class="nc">ChatTemplates</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">message_ru</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Message russian&#39;</span><span class="p">))</span>
+    <span class="n">message_en</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Message english&#39;</span><span class="p">))</span>
+
+</div>
+<div class="viewcode-block" id="ChatStopword"><a class="viewcode-back" href="../../model.html#chat.models.ChatStopword">[docs]</a><span class="k">class</span> <span class="nc">ChatStopword</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">word</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Work&#39;</span><span class="p">),</span> <span class="n">db_index</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">replace</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Replace with&#39;</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="s">&quot;***&quot;</span><span class="p">)</span>
+</pre></div></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Dmitry.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

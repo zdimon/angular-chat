@@ -3,3 +3,5 @@ sockjs-tornado==1.0.1
 tornado==4.0.1
 fabric
 sphinx
+Django==1.8
+websocket-client==0.32.0

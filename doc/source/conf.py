@@ -46,6 +46,11 @@ extensions = [
 plantuml = 'plantuml'
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '../../djapp'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '../../ws'))
+os.environ['DJANGO_SETTINGS_MODULE'] = 'djapp.settings'
+from django.conf import settings
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
