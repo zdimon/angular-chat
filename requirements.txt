@@ -5,3 +5,5 @@ fabric
 sphinx
 Django==1.8
 websocket-client==0.32.0
+sphinxcontrib-plantuml
+sphinx-autobuild

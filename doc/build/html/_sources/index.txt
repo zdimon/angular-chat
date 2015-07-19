@@ -17,8 +17,12 @@ Contents:
     db
     api
     model
+    uml
 
+.. math::
 
+   (a + b)^2  &=  (a + b)(a + b) \\
+              &=  a^2 + 2ab + b^2
 
 .. uml::
 
@@ -31,6 +35,6 @@ Contents:
 Usefull links
 =============
 
-* `Plant UML: <http://plantuml.sourceforge.net>`_
+* `Plant UML: <http://plantuml.com/>`_
 * `Sphinx: <http://sphinx-doc.org/contents.html>`_
 

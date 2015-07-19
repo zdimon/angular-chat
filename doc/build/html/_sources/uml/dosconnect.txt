@@ -1,0 +1,15 @@
+Disconect
+=========
+
+
+.. uml::
+
+    @startuml
+
+        activate JS
+        JS --> JS: onClose
+        JS --> WS: disconnect
+        activate WS
+        WS-->WS: onClose
+        WS -->]: << update online users >>
+        

@@ -30,7 +30,6 @@ class ChatUser(models.Model):
 
     gender = models.CharField(max_length = 1, choices = GENDERS, default = 'm', verbose_name = _('Gender'))
     user_id = models.CharField(max_length = 64, verbose_name = _('User ID'), blank = True)
-    signature = models.CharField(max_length = 64, verbose_name = _('User hash'), blank = True, null = True)
     name = models.CharField(max_length = 128, blank = True, verbose_name = _('Public name'))
     age = models.IntegerField(max_length = 2, default = 0, verbose_name = _('Age'))
     email = models.CharField(max_length = 128, blank = True, verbose_name = _('E-Mail'))
@@ -41,7 +40,6 @@ class ChatUser(models.Model):
     culture = models.CharField(max_length = 3, choices = CULTURES, verbose_name = _('Users language code'))
     is_online = models.IntegerField(max_length = 1, default = 0, choices = ONLINE, verbose_name = _('Is user online now'), db_index=True)
     tpa = models.ForeignKey(Tpa, verbose_name = _('TPA')) # client_id
-    account = models.DecimalField(verbose_name=_(u'Account'), max_digits=10, decimal_places=2, default=0)
     is_camera_active = models.BooleanField(verbose_name = _('Is active?'), default = False)
     is_invisible = models.BooleanField(default = False, verbose_name = _('Is user invisible'))
     is_invitation_enabled = models.BooleanField(default = True, verbose_name = _('Is invitations enabled?'))

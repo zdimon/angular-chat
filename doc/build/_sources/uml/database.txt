@@ -1,0 +1,52 @@
+Database diagramm
+=================
+
+
+.. uml::
+
+    @startuml
+
+        skinparam class {
+	        BackgroundColor PaleGreen
+	        ArrowColor SeaGreen
+	        BorderColor SpringGreen
+        }
+        skinparam stereotypeCBackgroundColor YellowGreen
+
+        Tpa --* ChatUser : contains
+        ChatRoom *-- Tpa : contains
+        ChatUser2Room *-- ChatUser : contains
+        ChatUser2Room *-- ChatRoom : contains
+        ChatMessage *-- ChatUser
+        ChatMessage *-- Tpa
+        ChatInvitations *-- Tpa
+        ChatInvitations *-- ChatUser
+        ChatContacts *-- ChatUser
+        ChatContacts *-- Tpa
+
+
+        class ChatInvitations {
+          Object[ChatUser] from_user
+          Object[ChatUser] to_user
+          Object[Tpa] tpa
+        }
+
+        class ChatContacts {
+          Object[ChatUser] owner
+          Object[ChatUser] contact
+          Object[Tpa] tpa
+        }
+
+
+        class ChatRoom {
+            Object[Tpa] tpa
+        }
+
+        class ChatMessage {
+            Object[Tpa] tpa
+            Object[ChatUser] user
+        }
+
+        
+
+    @enduml
