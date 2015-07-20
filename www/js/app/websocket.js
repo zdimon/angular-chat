@@ -6,7 +6,7 @@
     .factory('WS', function($websocket){
 
 
-      var dataStream = $websocket('ws://localhost:8888/ws');
+      var dataStream = $websocket("ws://localhost:8888/ws");
 
       var collection = [];
 

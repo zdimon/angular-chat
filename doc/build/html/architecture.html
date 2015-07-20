@@ -92,6 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="uml/user-case.html">User case diagramm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="uml/database.html">Database diagramm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="uml/tornado.html">Tornado Websocket server application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uml/angular.html">Angular application</a></li>
 </ul>
 </li>
 </ul>
@@ -133,6 +134,14 @@
             
   <div class="section" id="architecture">
 <h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h1>
+<p>Chat page is a Single Page Application (SPA) which is written with AngularJS framework.
+There are three options how the user can go to the chat page.
+1. As anonimous.
+2. As authorized but without the definition about who does he want to speak with.
+3. As authorized with identifier of the opponent.</p>
+<p>The first option makes user to be able to see only users online. The url is like <strong>http://chat.com/chat#/</strong>.</p>
+<p>The second option has the same url <strong>http://chat.com/chat#/</strong> and allow to user to see users online, contact list and user can invite someone to chat.</p>
+<p>The trird option has url like this <strong>http://chat.com/chat#/34</strong> and containe identifier of the opponent.</p>
 </div>
 
 

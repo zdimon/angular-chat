@@ -1,9 +1,11 @@
 redis==2.10.1
 sockjs-tornado==1.0.1
-tornado==4.0.1
+tornado==4.0.2
 fabric
 sphinx
 Django==1.8
 websocket-client==0.32.0
 sphinxcontrib-plantuml
 sphinx-autobuild
+requests
+redgreenunittest

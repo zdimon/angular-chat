@@ -1,2 +1,2 @@
-cd doc
-make html
+cd ws
+python websocket.py

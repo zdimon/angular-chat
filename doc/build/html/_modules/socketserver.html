@@ -72,6 +72,11 @@
           
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../test_loading.html">Loading test data</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../owerview.html">Owerview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../owerview.html#angular-app-initialization">Angular app initialization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../socketserver.html">Socketserver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../db.html">Database structure</a></li>
@@ -94,6 +99,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../uml/angular.html">Angular application</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../security.html">Security</a></li>
 </ul>
 
           
@@ -172,9 +178,10 @@
 <div class="viewcode-block" id="WSHandler.on_close"><a class="viewcode-back" href="../socketserver.html#socketserver.WSHandler.on_close">[docs]</a>    <span class="k">def</span> <span class="nf">on_close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Method whith fires when connection is closed. &#39;&#39;&#39;</span>
         <span class="k">print</span> <span class="s">&#39;connection closed&#39;</span>
- 
-
- </div></div>
+ </div>
+    <span class="k">def</span> <span class="nf">check_origin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">origin</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+ </div>
 <span class="n">application</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
     <span class="p">(</span><span class="s">r&#39;/ws&#39;</span><span class="p">,</span> <span class="n">WSHandler</span><span class="p">),</span>
 <span class="p">])</span>

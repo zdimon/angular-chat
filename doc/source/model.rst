@@ -1,5 +1,5 @@
 Chat Model
-==========
+========== 
 
 .. toctree::
     :maxdepth: 2

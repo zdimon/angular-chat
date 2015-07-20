@@ -39,7 +39,8 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         ''' Method whith fires when connection is closed. '''
         print 'connection closed'
  
-
+    def check_origin(self, origin):
+        return True
  
 application = tornado.web.Application([
     (r'/ws', WSHandler),

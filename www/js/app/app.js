@@ -13,7 +13,7 @@
 
 .run(function ($rootScope, Auth, ChatConfig) {
 
-            //alert(ChatConfig.backend);
+            //console.log(apiconf);
 
           //  Auth.isauth(function(result){
          //       console.log(result);

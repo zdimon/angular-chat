@@ -54,7 +54,7 @@ class ChatUser(models.Model):
 class ChatRoom(models.Model):
     duration = models.IntegerField(blank = True, verbose_name = _('Duration (min)'))
     sign = models.CharField(max_length = 250, blank = True, verbose_name = _('Identifier'), editable = False)
-    created = models.DateTimeField(auto_now_add = True, auto_now = True, blank = True, null = True)
+    created = models.DateTimeField( auto_now = True, blank = True, null = True)
     tpa = models.ForeignKey(Tpa, verbose_name = _('TPA'))
     is_charging = models.BooleanField(verbose_name = _('Allow charging?'), default = True)
     class Meta:
@@ -139,7 +139,7 @@ class ChatMessage(models.Model):
     user = models.ForeignKey(ChatUser, verbose_name = _('User'))
     room = models.ForeignKey(ChatRoom, verbose_name = _('Chat session'))
     message = models.TextField(blank = True, verbose_name = _('Message'))
-    created = models.DateTimeField(auto_now_add = True, auto_now = True, blank = True)
+    created = models.DateTimeField( auto_now = True, blank = True)
     tpa = models.ForeignKey(Tpa, verbose_name = _('TPA'))
     is_old = models.BooleanField(verbose_name = _('Is active?'), default = False)
     class Meta:
@@ -154,7 +154,7 @@ class ChatMessage(models.Model):
 class ChatInvitations(models.Model):
     from_user = models.ForeignKey(ChatUser, related_name = 'from_user')
     to_user = models.ForeignKey(ChatUser, related_name = 'to_user')
-    created = models.DateTimeField(auto_now_add = True, auto_now = True, blank = True)
+    created = models.DateTimeField( auto_now = True, blank = True)
     is_accepted = models.BooleanField(default = False)
     from_token = models.CharField(max_length = 250, blank = True)
     tpa = models.ForeignKey(Tpa, verbose_name = _('TPA'))
@@ -170,7 +170,7 @@ class ChatInvitations(models.Model):
 class ChatContacts(models.Model):
     owner = models.ForeignKey(ChatUser, related_name = 'contact_owner_user')
     contact = models.ForeignKey(ChatUser, related_name = 'contact_user')
-    created = models.DateTimeField(auto_now_add = True, auto_now = True, blank = True)
+    created = models.DateTimeField(auto_now = True, blank = True)
     has_new_message = models.BooleanField(default = False, help_text=_('Has unreaded messages.'))
     successfuly_connected = models.BooleanField(default = False, help_text=_('Opponent accepted invitation.'))
     is_active = models.BooleanField(default = False, help_text=_('User selected this contact the last.'))
@@ -191,7 +191,7 @@ class ChatContacts(models.Model):
 class ChatFriends(models.Model):
     owner = models.ForeignKey(ChatUser, related_name = 'friend_owner_user')
     friend = models.ForeignKey(ChatUser, related_name = 'friend_user')
-    created = models.DateTimeField(auto_now_add = True, auto_now = True, blank = True)
+    created = models.DateTimeField( auto_now = True, blank = True)
     visible = models.BooleanField(default = True)
     tpa = models.ForeignKey(Tpa, verbose_name = _('TPA'))
 
@@ -209,7 +209,7 @@ class ChatTransactions(models.Model):
     room = models.ForeignKey(ChatRoom, verbose_name = _('Chat session'),blank = True, null = True)
     man = models.ForeignKey(ChatUser, related_name = 'man')
     woman = models.ForeignKey(ChatUser, related_name = 'woman')
-    created = models.DateTimeField(auto_now_add = True, auto_now = True, blank = True)
+    created = models.DateTimeField( auto_now = True, blank = True)
     tpa = models.ForeignKey(Tpa, verbose_name = _('TPA'))
     ammount = models.DecimalField( verbose_name=_('Price RUB'), max_digits= 12, decimal_places= 2)
 
