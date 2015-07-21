@@ -16,7 +16,7 @@ def clean_db():
     ChatRoom.objects.all().delete()
     ChatUser.objects.all().delete()
     Tpa.objects.all().delete()
-    User.objects.all().exclude(username='admin').delete()
+    
 
     print bcolors.WARNING+'Done cleaning DB'
 
@@ -34,6 +34,13 @@ def load_db():
     women = ['olga','sveta', 'luba', 'marina', 'natasha', 'vera']
     cmen = []
 
+    u = User()
+    u.username = 'admin'
+    u.set_password('admin')
+    u.is_active=True
+    u.is_superuser = True
+    u.save()
+    
     for m in men:
         print 'process..........%s' % m
         u = ChatUser()
