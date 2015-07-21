@@ -1,1 +1,1 @@
-jsdoc www/js/app/app.js -d=doc/build/js
+jsdoc www/js/app/app.js www/js/app/routers.js -d=doc/build/html/js

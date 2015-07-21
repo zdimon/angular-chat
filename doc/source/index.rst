@@ -23,15 +23,10 @@ Contents:
     security 
 
 
-.. math::
 
-   (a + b)^2  &=  (a + b)(a + b) \\
-              &=  a^2 + 2ab + b^2
 
-.. uml::
+`Javascript documentation <js/index.html>`_
 
-   Alice -> Bob: Hi!
-   Alice <- Bob: How are you?
 
 
 
