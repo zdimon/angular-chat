@@ -31,7 +31,7 @@
 
   
     <link rel="top" title="Angular chat 1 documentation" href="index.html"/>
-        <link rel="next" title="Socketserver" href="socketserver.html"/>
+        <link rel="next" title="Loading test data" href="test_loading.html"/>
         <link rel="prev" title="Angular chat’s documentation." href="index.html"/> 
 
   
@@ -73,6 +73,11 @@
           
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_loading.html">Loading test data</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="owerview.html">Owerview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="owerview.html#angular-app-initialization">Angular app initialization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="socketserver.html">Socketserver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="db.html">Database structure</a></li>
@@ -92,8 +97,10 @@
 <li class="toctree-l2"><a class="reference internal" href="uml/user-case.html">User case diagramm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="uml/database.html">Database diagramm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="uml/tornado.html">Tornado Websocket server application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uml/angular.html">Angular application</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
 </ul>
 
           
@@ -162,12 +169,17 @@ virtualenv chat_ve
 pip install -r requirements.txt
 </pre></div>
 </div>
+<p>Install NodeJs.</p>
+<div class="highlight-bash"><div class="highlight"><pre>sudo apt-get install nodejs
+ln -s /usr/bin/nodejs /usr/bin/node
+</pre></div>
+</div>
 <p>Install npm.</p>
 <div class="highlight-bash"><div class="highlight"><pre>sudo apt-get install npm
 </pre></div>
 </div>
 <p>Install bower.</p>
-<div class="highlight-bash"><div class="highlight"><pre>npm install bower
+<div class="highlight-bash"><div class="highlight"><pre>sudo npm install -g bower
 </pre></div>
 </div>
 <p>Install libraries from bower.json.</p>
@@ -180,7 +192,7 @@ pip install -r requirements.txt
 </div>
 <p>Edit etc/nginx/sites-enabled/default file.</p>
 <div class="highlight-bash"><div class="highlight"><pre>sudo apt-get install nano
-sudo nano etc/nginx/sites-enabled/default
+sudo nano /etc/nginx/sites-enabled/default
 </pre></div>
 </div>
 <p>Edit main server section.</p>
@@ -209,7 +221,7 @@ sudo nano etc/nginx/sites-enabled/default
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="socketserver.html" class="btn btn-neutral float-right" title="Socketserver" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="test_loading.html" class="btn btn-neutral float-right" title="Loading test data" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="Angular chat’s documentation." accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
