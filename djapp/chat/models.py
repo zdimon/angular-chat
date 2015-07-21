@@ -5,6 +5,7 @@ import json
 from django.utils.safestring import mark_safe
 from datetime import datetime
 import time
+
 # Create your models here.
 class Tpa(models.Model):
     ''' Third Part Applications. Table with sites which integrate this chat.
