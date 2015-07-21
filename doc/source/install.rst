@@ -45,6 +45,15 @@ Activate virtual environvent and install all the requirements.
     cd angular-chat
     pip install -r requirements.txt
 
+
+Install NodeJs. 
+
+.. code-block:: bash
+
+    sudo apt-get install nodejs
+    ln -s /usr/bin/nodejs /usr/bin/node
+
+
 Install npm.
 
 .. code-block:: bash
@@ -53,9 +62,14 @@ Install npm.
 
 Install bower.
 
+
 .. code-block:: bash
 
+<<<<<<< HEAD
+    sudo npm install -g bower
+=======
     sudo npm install bower
+>>>>>>> 718dffb3bb373f3c30f063a56482255b8aacae4a
 
 Install libraries from bower.json.
 
@@ -69,12 +83,12 @@ Install nginx server.
 
     sudo apt-get install nginx
 
-Edit etc/nginx/sites-enabled/default file.
+Edit etc/nginx/sites-enabled/default file. 
 
 .. code-block:: bash
 
     sudo apt-get install nano
-    sudo nano etc/nginx/sites-enabled/default
+    sudo nano /etc/nginx/sites-enabled/default
 
 Edit main server section.
 
