@@ -16,6 +16,7 @@ def clean_db():
     ChatRoom.objects.all().delete()
     ChatUser.objects.all().delete()
     Tpa.objects.all().delete()
+    User.objects.all().delete()
     
 
     print bcolors.WARNING+'Done cleaning DB'
@@ -38,6 +39,7 @@ def load_db():
     u.username = 'admin'
     u.set_password('admin')
     u.is_active=True
+    u.is_staff=True
     u.is_superuser = True
     u.save()
     
