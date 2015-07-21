@@ -6,7 +6,7 @@
     .factory('WS', function($websocket){
 
 
-      var dataStream = $websocket("ws://localhost:8888/ws");
+      var dataStream = $websocket("ws://"+apiconf.config.ws_server+"/ws");
 
       var collection = [];
 
@@ -20,10 +20,17 @@
 
 
       var methods = {
+
         collection: collection,
+
         get: function() {
           dataStream.send(JSON.stringify({ action: 'get' }));
+        },
+
+        send: function(mess) {
+          dataStream.send(JSON.stringify(mess));
         }
+
       };
 
       return methods;   

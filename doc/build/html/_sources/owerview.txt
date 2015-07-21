@@ -84,7 +84,7 @@ Owerview
 
             }
 
-            object ChatRoomCtrl {
+            object CurrentRoomCtrl {
 
             }
 
@@ -129,8 +129,8 @@ Owerview
 
             Auth --o .run
             Online --o UserOnlineCtrl
-            Message --o ChatRoomCtrl
-            Room --o ChatRoomCtrl
+            Message --o CurrentRoomCtrl
+            Room --o CurrentRoomCtrl
             ContactListCtrl o-- Contact
             MyVideoCtrl o-- Video
             OpponentVideoCtrl o-- Video

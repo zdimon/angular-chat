@@ -17,10 +17,31 @@ angular.module('app.controllers', [])
     })
 
     
- .controller('ChatUserOnline', function ($scope, WS) {
-      $scope.ws = WS;
-    });
+ .controller('UserOnlineCtrl', function ($scope, WS, Online) {
+        $scope.ws = WS;
+        $scope.update = function(){
+          Online.getOnline(function(rezult){
+                $scope.user_list = rezult.user_list;
+            }) 
+        }
+        $scope.update()
+    })
 
+ .controller('ContactListCtrl', function ($scope, WS) {
+      $scope.ws = WS;
+    })
+
+ .controller('CurrentRoomCtrl', function ($scope, WS) {
+      $scope.ws = WS;
+    })
+
+ .controller('MyVideoCtrl', function ($scope, WS) {
+      $scope.ws = WS;
+    })
+
+ .controller('OpponentVideoCtrl', function ($scope, WS) {
+      $scope.ws = WS;
+    })
 
 
 
