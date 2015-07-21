@@ -3,3 +3,4 @@
 *~
 /www/js/lib
 /doc/build
+/djapp/db.sqlite3

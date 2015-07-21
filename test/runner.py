@@ -3,6 +3,7 @@ import redgreenunittest as unittest
 testmodules = [
     'test_ss',
     'test_auth',
+    'test_login'
     ]
 
 suite = unittest.TestSuite()
@@ -17,4 +18,4 @@ for t in testmodules:
         # else, just load all the test cases from the module.
         suite.addTest(unittest.defaultTestLoader.loadTestsFromName(t))
 
-unittest.TextTestRunner().run(suite)
+unittest.TextTestRunner(verbosity=2).run(suite)

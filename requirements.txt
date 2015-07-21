@@ -9,3 +9,4 @@ sphinxcontrib-plantuml
 sphinx-autobuild
 requests
 redgreenunittest
+MySQL-python

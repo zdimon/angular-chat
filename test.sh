@@ -1,2 +1,2 @@
 cd test
-python runner.py
+python runner.py -v

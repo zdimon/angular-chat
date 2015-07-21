@@ -16,7 +16,7 @@
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 })
 
-.run(function ($rootScope, Auth, ChatConfig) {
+.run(function ($rootScope, Auth) {
 
             //console.log(apiconf);
 
