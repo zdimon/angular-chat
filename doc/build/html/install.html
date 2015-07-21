@@ -142,7 +142,7 @@
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <p>Instalation on Ububnu Server 14.</p>
 <p>Install Redis server.</p>
-<div class="highlight-bash"><div class="highlight"><pre>sudo apt-get install redis
+<div class="highlight-bash"><div class="highlight"><pre>sudo apt-get install redis-server
 </pre></div>
 </div>
 <p>Install python virtual environment packet.</p>
@@ -179,9 +179,13 @@ ln -s /usr/bin/nodejs /usr/bin/node
 </pre></div>
 </div>
 <p>Install bower.</p>
-<div class="highlight-bash"><div class="highlight"><pre>sudo npm install -g bower
+<div class="highlight-bash"><div class="highlight"><pre>
 </pre></div>
 </div>
+<dl class="docutils">
+<dt>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</dt>
+<dd>sudo npm install -g bower</dd>
+</dl>
 <p>Install libraries from bower.json.</p>
 <div class="highlight-bash"><div class="highlight"><pre>bower install
 </pre></div>
@@ -198,10 +202,14 @@ sudo nano /etc/nginx/sites-enabled/default
 <p>Edit main server section.</p>
 <div class="highlight-bash"><div class="highlight"><pre>server <span class="o">{</span>
         listen <span class="m">80</span> default_server<span class="p">;</span>
-    server_name  you-domain-name<span class="p">;</span>
+    server_name  chat.local<span class="p">;</span>
     root    /home/webmaster/path-to-www-dir<span class="p">;</span>
     index   index.html<span class="p">;</span>
 <span class="o">}</span>
+</pre></div>
+</div>
+<p>For local using edit /etc/hosts file.</p>
+<div class="highlight-bash"><div class="highlight"><pre>127.0.0.1   chat.local
 </pre></div>
 </div>
 <p>Restart nginx server.</p>
@@ -213,6 +221,11 @@ sudo nano /etc/nginx/sites-enabled/default
 <div class="highlight-bash"><div class="highlight"><pre>python socketserver.py
 </pre></div>
 </div>
+<p>Run documentation shpinx server.</p>
+<div class="highlight-bash"><div class="highlight"><pre>./buildserver.sh
+</pre></div>
+</div>
+<p>To check go to address <a class="reference external" href="http://127.0.0.1:8000">http://127.0.0.1:8000</a> in your browser.</p>
 </div>
 
 

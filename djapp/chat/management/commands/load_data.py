@@ -9,7 +9,7 @@ import csv
 from django.contrib.auth.models import User
 from chat.models import *
 from utils.colorize import bcolors
-from utils.utils import *
+from utils.util import *
 #logger = logging.getLogger(__name__) 
 
 
@@ -17,8 +17,9 @@ class Command(BaseCommand):
     ''' Test data loading.
         To run this command type ./manage.py load_data in your terminal.
     '''
-        
-
+    def handle(self, *args, **options):
+        clean_db()
+        load_db()
 
         
 

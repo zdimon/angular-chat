@@ -1,3 +1,8 @@
+/**
+ * Represents a book.
+ * @constructor
+ */
+
     var app = angular.module('AngularChatApp', [
         'ui.router',
         'restangular',
