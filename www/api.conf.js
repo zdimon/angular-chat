@@ -2,7 +2,7 @@ apiconf = {
     'config':
     {
         'app_id': 1,
-        'signal_server': 'chat.local',
+        'signal_server': 'chat.localhost',
         'ws_server': 'localhost:8888'
     },
 

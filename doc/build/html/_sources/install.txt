@@ -7,7 +7,7 @@ Install Redis server.
 
 .. code-block:: bash
 
-    sudo apt-get install redis
+    sudo apt-get install redis-server
 
 Install python virtual environment packet.
 
@@ -55,7 +55,7 @@ Install bower.
 
 .. code-block:: bash
 
-    npm install bower
+    sudo npm install bower
 
 Install libraries from bower.json.
 
@@ -83,10 +83,16 @@ Edit main server section.
 
     server {
 	    listen 80 default_server;
-        server_name  you-domain-name;
+        server_name  chat.local;
         root    /home/webmaster/path-to-www-dir;
         index   index.html;
     }    
+
+For local using edit /etc/hosts file.
+
+.. code-block:: bash
+
+    127.0.0.1   chat.local
 
 
 Restart nginx server.
@@ -103,6 +109,13 @@ Run socket server.
 
     python socketserver.py
 
+Run documentation shpinx server.
+
+.. code-block:: bash
+
+    ./buildserver.sh
+ 
+To check go to address http://127.0.0.1:8000 in your browser.
 
 
 

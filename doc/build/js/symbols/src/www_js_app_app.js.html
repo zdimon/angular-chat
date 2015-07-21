@@ -1,0 +1,37 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * Represents a book.
+<span class='line'>  3</span>  * @constructor
+<span class='line'>  4</span>  */</span><span class="WHIT">
+<span class='line'>  5</span> 
+<span class='line'>  6</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">app</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">angular.module</span><span class="PUNC">(</span><span class="STRN">'AngularChatApp'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="WHIT">
+<span class='line'>  7</span> </span><span class="WHIT">        </span><span class="STRN">'ui.router'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>  8</span> </span><span class="WHIT">        </span><span class="STRN">'restangular'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>  9</span> </span><span class="WHIT">        </span><span class="STRN">'app.controllers'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 10</span> </span><span class="WHIT">        </span><span class="STRN">'ngCookies'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 11</span> </span><span class="WHIT">        </span><span class="STRN">'ngWebSocket'</span><span class="WHIT"> 
+<span class='line'> 12</span>     </span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">config</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">$interpolateProvider</span><span class="PUNC">,</span><span class="NAME">$httpProvider</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="WHIT">    </span><span class="NAME">$interpolateProvider.startSymbol</span><span class="PUNC">(</span><span class="STRN">'[['</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="WHIT">    </span><span class="NAME">$interpolateProvider.endSymbol</span><span class="PUNC">(</span><span class="STRN">']]'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 15</span> </span><span class="WHIT">    </span><span class="NAME">$httpProvider.defaults.xsrfCookieName</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'csrftoken'</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 16</span> </span><span class="WHIT">    </span><span class="NAME">$httpProvider.defaults.xsrfHeaderName</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'X-CSRFToken'</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 18</span> 
+<span class='line'> 19</span> </span><span class="PUNC">.</span><span class="NAME">run</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">$rootScope</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">Auth</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ChatConfig</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 20</span> 
+<span class='line'> 21</span> </span><span class="WHIT">            </span><span class="COMM">//console.log(apiconf);</span><span class="WHIT">
+<span class='line'> 22</span> 
+<span class='line'> 23</span> </span><span class="WHIT">          </span><span class="COMM">//  Auth.isauth(function(result){</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">         </span><span class="COMM">//       console.log(result);</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">         </span><span class="COMM">//       if(result.isauth==1) { $rootScope.isAuthenticated = true;  } else { $rootScope.isAuthenticated = false;}</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">         </span><span class="COMM">//   })</span><span class="WHIT">
+<span class='line'> 27</span> 
+<span class='line'> 28</span> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 29</span> 
+<span class='line'> 30</span> </span></pre></body></html>
