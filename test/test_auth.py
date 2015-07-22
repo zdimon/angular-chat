@@ -9,7 +9,7 @@ class TestStringMethods(TestBase):
         
     def test_is_auth(self):
         data = {'user_id': 2 }
-        url =  self.server+'api/is_auth'
+        url =  self.server+'api/is_auth/tpa1com'
         print bcolors.blue('REQUEST TO %s' % url)
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         responce = requests.get(url, data=json.dumps(data), headers=headers)

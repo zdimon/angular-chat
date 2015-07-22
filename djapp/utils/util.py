@@ -35,7 +35,7 @@ def load_db():
     print bcolors.WARNING+'Start loading data in DB'
 
     t = Tpa()
-    t.name = '1-st Tpa'
+    t.name = 'tpa1com'
     t.domain ='tpa1.com'
     t.timeout_chating = 30
     t.save()

@@ -5,7 +5,7 @@ from django.template import loader, RequestContext
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import login as login_user
-from chat.models import Tpa, ChatUser
+from chat.models import Tpa, ChatUser, ChatContacts
 
 def home(request):
     t = loader.get_template('base.html')
@@ -15,9 +15,8 @@ def home(request):
 @csrf_exempt
 def get_online(request,app_id):
     #import pdb; pdb.set_trace()
-
     userlst = []
-    tpa = Tpa.objects.get(id=app_id)
+    tpa = Tpa.objects.get(name=app_id)
     for u in ChatUser.objects.filter(tpa=tpa,is_online=1):
         userlst.append({'user_id':u.id,'gender':u.gender,'name':u.name,'age':u.age,
                         'country':u.country,'city':u.city,'image':u.image,
@@ -25,9 +24,19 @@ def get_online(request,app_id):
                         'is_camera_active':u.is_camera_active, 
                         'is_invisible': u.is_invisible, 
                         'is_invitation_enabled': u.is_invitation_enabled})
-    out = { 'status': 0, 'message': 'ok', 'username': userlst }
+    out = { 'status': 0, 'message': 'ok', 'user_list': userlst }
     return HttpResponse(json.dumps(out), content_type='application/json')  
 
+@csrf_exempt
+def get_contact_list(request,app_id):
+    import pdb; pdb.set_trace()
+    contactlst = []
+    tpa = Tpa.objects.get(name=app_id)
+    for c in ChatContacts.objects.filter(tpa=tpa):
+        contactlst.append({'owner':c.owner.name,'contact':c.contact.name})
+    out = { 'status': 0, 'message': 'ok', 'contact_list': contactlst }
+    return HttpResponse(json.dumps(out), content_type='application/json')  
+        
 
 def has_opponent(request,user_id):
     out = {
