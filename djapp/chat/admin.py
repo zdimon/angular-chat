@@ -3,7 +3,7 @@ from chat.models import *
 
 # Register your models here.
 class TpaAdmin(admin.ModelAdmin):
-    list_display = ("name", "domain", "timeout_chating")
+    list_display = ("id","name", "domain", "timeout_chating")
 admin.site.register(Tpa, TpaAdmin)
 
 class ChatUserAdmin(admin.ModelAdmin):

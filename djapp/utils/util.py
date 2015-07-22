@@ -60,7 +60,7 @@ def load_db():
         ['Texas','Chicago'])
         u.country = country[cr]
         u.city = city[cr][random.randint(0,1)]
-        u.image = m+'_image'
+        u.image = '/static/images/avatar.jpg'
         u.profile_url = m+'_plofile_url'
         u.culture = random.choice(['de','ru','en'])
         u.is_online = random.choice([True,False])
@@ -85,7 +85,7 @@ def load_db():
         ['Texas','Chicago'])
         u.country = country[cr]
         u.city = city[cr][random.randint(0,1)]
-        u.image = m+'_image'
+        u.image = '/static/images/avatar.jpg'
         u.profile_url = m+'_plofile_url'
         u.culture = random.choice(['de','ru','en'])
         u.is_online = random.choice([True,False])

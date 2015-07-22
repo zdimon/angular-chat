@@ -3,7 +3,8 @@ import redgreenunittest as unittest
 testmodules = [
     'test_ss',
     'test_auth',
-    'test_login'
+    'test_login',
+    'test_user_online'
     ]
 
 suite = unittest.TestSuite()
