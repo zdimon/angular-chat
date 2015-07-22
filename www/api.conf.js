@@ -2,6 +2,7 @@ apiconf = {
     'config':
     {
         'app_id': 1,
+        'app_name': 'tpa1com',
         'signal_server': 'chat.localhost',
         'ws_server': 'localhost:8888'
     },
@@ -12,21 +13,21 @@ apiconf = {
             {
                 'type': 'ajax',
                 'name': 'is_auth',
-                'url':  '[server]/api/is_auth'
+                'url':  '[server]/api/is_auth/[app_name]'
             },    
 
         'has_opponent':
             {
                 'type': 'ajax',
                 'name': 'has_opponent',
-                'url':  '[server]/api/has_opponent'
+                'url':  '[server]/api/has_opponent/[app_name]'
             },  
 
         'get_online':
             {
                 'type': 'ajax',
                 'name': 'get_online',
-                'url':  '[server]/api/get_online'
+                'url':  '[server]/api/get_online/[app_name]'
             }  
 
 

@@ -2,6 +2,15 @@ import random
 from chat.models import *
 from django.contrib.auth.models import User
 from utils.colorize import bcolors
+from djapp.settings import BASE_DIR
+
+def read_conf():
+    #path = BASE_DIR+'../www/api.conf.js'
+    ar = BASE_DIR.split('/')
+    path = '/'.join(ar[:len(ar)-1])+'/www/api.conf.js'
+    exec open(path).read()
+    return apiconf
+
 
 def clean_db():
     print bcolors.WARNING+'Start cleaning DB'
