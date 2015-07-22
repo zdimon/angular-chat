@@ -7,12 +7,12 @@ from base import TestBase
 class TestStringMethods(TestBase):
 
         
-    def test_is_auth(self):
-        data = {'user_id': 2 }
-        url =  self.server+'api/is_auth'
+    def test_user_online(self):
+        #import pdb; pdb.set_trace()
+        data = {'tpa_id': '5'}
+        url = self.server+'api/get_online'
         print bcolors.blue('REQUEST TO %s' % url)
-        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-        responce = requests.get(url, data=json.dumps(data), headers=headers)
+        responce = requests.post(url, data=data)
         self.assertEqual(responce.status_code, 200)
         outdata = json.loads(responce.content)
         print bcolors.blue(outdata)

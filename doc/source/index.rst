@@ -6,7 +6,7 @@
 Angular chat's documentation.
 =============================
 
-Contents:
+Contents: 
 
 .. toctree::
     :maxdepth: 2

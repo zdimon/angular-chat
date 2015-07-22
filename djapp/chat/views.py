@@ -4,25 +4,28 @@ from django.http import HttpResponse
 from django.template import loader, RequestContext
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import login as login_user
+from chat.models import Tpa, ChatUser
 
 def home(request):
     t = loader.get_template('base.html')
     c = RequestContext(request,{})
     return HttpResponse(t.render(c))
 
+@csrf_exempt
+def get_online(request):
+    import pdb; pdb.set_trace()
 
-def get_online(request,app_id):
-    context = { }
-    out = {
-        'status': 0,
-        'user_list': [
-            {'username': 'Oleg'},
-            {'username': 'Oleg'},
-            {'username': 'Dima'},
-            {'username': 'Dima'},
-            {'username': 'Vova'}
-        ]
-    }
+    userlst = []
+    tpa = Tpa.objects.get(id=request.POST['tpa_id'])
+    for u in ChatUser.objects.filter(tpa=tpa,is_online=1):
+        userlst.append({'user_id':u.id,'gender':u.gender,'name':u.name,'age':u.age,
+                        'country':u.country,'city':u.city,'image':u.image,
+                        'profile_url':u.profile_url,'culture':u.culture,
+                        'is_camera_active':u.is_camera_active, 
+                        'is_invisible': u.is_invisible, 
+                        'is_invitation_enabled': u.is_invitation_enabled})
+    out = { 'status': 0, 'message': 'ok', 'username': userlst }
     return HttpResponse(json.dumps(out), content_type='application/json')  
 
 
@@ -51,7 +54,7 @@ def is_auth(request,app_id):
 
 @csrf_exempt
 def login(request):
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
     #data = json.loads(request.body)
     username = request.POST['username']
     password = request.POST['password']
@@ -61,7 +64,7 @@ def login(request):
         user = User.objects.get(username=username)
         if user.check_password(password):
             user.backend = 'django.contrib.auth.backends.ModelBackend'
-            login(request,user)
+            login_user(request,user)
             out = { 'status': 0, 'message': 'ok', 'username': user.username, 'user_id': user.id }
         else:
             out = { 'status': 1, 'message': 'Password does not match!' }
