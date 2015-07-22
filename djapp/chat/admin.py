@@ -59,3 +59,7 @@ admin.site.register(ChatTemplates, ChatTemplatesAdmin)
 class ChatStopwordAdmin(admin.ModelAdmin):
     list_display = ("word", "replace")
 admin.site.register(ChatStopword, ChatStopwordAdmin)
+
+class ChatContactsAdmin(admin.ModelAdmin):
+    list_display = ("owner", "contact")
+admin.site.register(ChatContacts, ChatContactsAdmin)

@@ -12,7 +12,7 @@ utils = {
         prepare_url: function prepare_url(str){
             return 'http://'+
                     str.replace('[server]',apiconf.config.signal_server)
-                    +'/'+apiconf.config.app_id;
+                    +'/'+apiconf.config.app_name;
 
         }
 

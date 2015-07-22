@@ -2,6 +2,7 @@ apiconf = {
     'config':
     {
         'app_id': 1,
+        'app_name': 'tpa1com',
         'signal_server': 'chat.localhost',
         'ws_server': 'localhost:8888'
     },
@@ -27,9 +28,14 @@ apiconf = {
                 'type': 'ajax',
                 'name': 'get_online',
                 'url':  '[server]/api/get_online'
-            }  
+            },  
 
-
+        'get_contact_list':
+            {
+                'type': 'ajax',
+                'name': 'get_contact_list',
+                'url':  '[server]/api/get_contact_list'
+            }
 
     }
     

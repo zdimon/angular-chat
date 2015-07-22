@@ -4,7 +4,8 @@ testmodules = [
     'test_ss',
     'test_auth',
     'test_login',
-    'test_user_online'
+    'test_user_online',
+    'test_contact_list'
     ]
 
 suite = unittest.TestSuite()
