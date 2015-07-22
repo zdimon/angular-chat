@@ -9,8 +9,8 @@ class TestStringMethods(TestBase):
         
     def test_user_online(self):
         #import pdb; pdb.set_trace()
-        data = {'tpa_id': '5'}
-        url = self.server+'api/get_online'
+        data = {'tpa_name': 'tpa1com'}
+        url = self.server+'api/get_online/tpa1com'
         print bcolors.blue('REQUEST TO %s' % url)
         responce = requests.post(url, data=data)
         self.assertEqual(responce.status_code, 200)

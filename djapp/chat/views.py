@@ -14,10 +14,9 @@ def home(request):
 
 @csrf_exempt
 def get_online(request,app_id):
-    #import pdb; pdb.set_trace()
-
+    import pdb; pdb.set_trace()
     userlst = []
-    tpa = Tpa.objects.get(id=app_id)
+    tpa = Tpa.objects.get(name=app_id)
     for u in ChatUser.objects.filter(tpa=tpa,is_online=1):
         userlst.append({'user_id':u.id,'gender':u.gender,'name':u.name,'age':u.age,
                         'country':u.country,'city':u.city,'image':u.image,
