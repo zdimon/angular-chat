@@ -10,3 +10,4 @@ sphinx-autobuild
 requests
 redgreenunittest
 MySQL-python
+PySQLPool==0.3.8

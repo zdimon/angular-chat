@@ -16,21 +16,31 @@ def get_online(request,app_id):
     out = {
         'status': 0,
         'user_list': [
-            {'name': 'Oleg'},
-            {'name': 'Oleg'},
-            {'name': 'Dima'},
-            {'name': 'Dima'},
-            {'name': 'Vova'}
+            {'username': 'Oleg'},
+            {'username': 'Oleg'},
+            {'username': 'Dima'},
+            {'username': 'Dima'},
+            {'username': 'Vova'}
         ]
     }
     return HttpResponse(json.dumps(out), content_type='application/json')  
 
 
-def is_auth(request):
+def has_opponent(request,user_id):
+    out = {
+        'status': 1,
+        'contact_id': 5
+    }
+    return HttpResponse(json.dumps(out), content_type='application/json')  
+
+
+
+def is_auth(request,app_id):
     if(request.user.is_authenticated()):
         out = {
             'status': 0,
-            'user_id': request.user.id
+            'user_id': request.user.id,
+            'username': request.user.username
         }
     else:
         out = {

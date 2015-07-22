@@ -1,0 +1,14 @@
+<h1>Registered</h1>
+
+
+
+       <!-- User online list -->
+       <section ng-controller="UserOnlineCtrl">
+                User online
+                <ul>
+                    <li ng-repeat="u in user_list"> [[ u.username ]] </li>
+                </ul>
+                <a  ng-click="update()">Update</a>
+       </section>
+       <!---------------------->
+

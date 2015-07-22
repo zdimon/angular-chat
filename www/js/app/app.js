@@ -16,14 +16,30 @@
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 })
 
-.run(function ($rootScope, Auth) {
+.run(function ($rootScope, Auth, Online, $window) {
 
-            //console.log(apiconf);
+            Auth.isauth(function(result){
+                if(result.status==0) { 
 
-          //  Auth.isauth(function(result){
-         //       console.log(result);
-         //       if(result.isauth==1) { $rootScope.isAuthenticated = true;  } else { $rootScope.isAuthenticated = false;}
-         //   })
+                        $rootScope.isAuthenticated = true;  
+                        $rootScope.currentUserId = result.user_id; 
+                        $rootScope.currentUsername = result.user_name;
+                        
+                        Auth.has_opponent(function(result){
+                            if(result.status==0) {
+                                var url = "http://" + $window.location.host + "#/" + $rootScope.currentUserId+'/'+result.contact_id;
+                            } else {
+                                var url = "http://" + $window.location.host + "#/" + $rootScope.currentUserId;  
+                            }
+                            $window.location.href = url;
+                            
+            
+                        })
+                         
+
+
+                    } else { $rootScope.isAuthenticated = false;}
+            })
 
 })
 

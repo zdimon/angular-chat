@@ -12,7 +12,7 @@ class TestStringMethods(TestBase):
         url = self.server+'api/login'
         print bcolors.blue('REQUEST TO %s' % url)
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-        responce = requests.post(url, data=data, headers=headers)
+        responce = requests.post(url, data={'ssss':'aaaaaa'})
         self.assertEqual(responce.status_code, 200)
         outdata = json.loads(responce.content)
         print bcolors.blue(outdata)

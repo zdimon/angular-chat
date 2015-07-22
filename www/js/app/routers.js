@@ -15,14 +15,26 @@
 
 
         $stateProvider
-            .state('index', {
+            .state('anonimous', {
 
                 url: "/",
-                templateUrl: "/templates/index.html",
+                templateUrl: "/static/templates/anonimous.html",
                 
             })
             
-            
+            .state('registered', {
+
+                url: "/:user",
+                templateUrl: "/static/templates/registered.html",
+                
+            })          
+
+            .state('active', {
+
+                url: "/:user/:opponent",
+                templateUrl: "/static/templates/active.html",
+                
+            })  
 
 
     

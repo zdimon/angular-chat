@@ -15,12 +15,21 @@ apiconf = {
                 'url':  '[server]/api/is_auth'
             },    
 
+        'has_opponent':
+            {
+                'type': 'ajax',
+                'name': 'has_opponent',
+                'url':  '[server]/api/has_opponent'
+            },  
+
         'get_online':
             {
                 'type': 'ajax',
                 'name': 'get_online',
                 'url':  '[server]/api/get_online'
             }  
+
+
 
     }
     

@@ -11,7 +11,8 @@ urlpatterns = [
 
 
     url(r'^api/get_online/(?P<app_id>[^\.]+)$', 'chat.views.get_online'),
-    url(r'^api/is_auth$', 'chat.views.is_auth'),
+    url(r'^api/is_auth/(?P<app_id>[^\.]+)$', 'chat.views.is_auth'),
+    url(r'^api/has_opponent/(?P<user_id>[^\.]+)$', 'chat.views.has_opponent'),
     url(r'^api/login$', 'chat.views.login'),
     url(r'^api/logout$', 'chat.views.login'),
 
