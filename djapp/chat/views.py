@@ -3,6 +3,7 @@ import json
 from django.http import HttpResponse
 from django.template import loader, RequestContext
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
     t = loader.get_template('base.html')
@@ -38,13 +39,14 @@ def is_auth(request):
         }
     return HttpResponse(json.dumps(out), content_type='application/json')  
 
-
+@csrf_exempt
 def login(request):
-    data = json.loads(request.body)
-    username = data['username']
-    password = data['password']
+    import pdb; pdb.set_trace()
+    #data = json.loads(request.body)
+    username = request.POST['username']
+    password = request.POST['password']
     
-    #import pdb; pdb.set_trace()
+    
     try:
         user = User.objects.get(username=username)
         if user.check_password(password):
