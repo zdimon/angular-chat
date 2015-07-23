@@ -51,6 +51,8 @@ def load_db():
     u.is_staff=True
     u.is_superuser = True
     u.save()
+
+
     
     for m in men:
         print 'process..........%s' % m
@@ -110,6 +112,21 @@ def load_db():
         chat_c.owner = cmen[rc]
         chat_c.contact = u
         chat_c.tpa = t
-        chat_c.save()      
+        chat_c.save() 
 
-        print 'Done loading data in DB'
+     
+    for u in range(5):
+        men.append('man'+str(u))
+        women.append('woman'+str(u))
+
+    for m in men:
+        u = User()
+        u.username = m
+        u.set_password('111')
+
+    for m in women:
+        u = User()
+        u.username = m
+        u.set_password('111')
+
+    print 'Done loading data in DB'

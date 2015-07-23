@@ -8,6 +8,8 @@ from django.contrib.auth import login as login_user
 from chat.models import Tpa, ChatUser, ChatContacts
 from djapp.settings import DATABASES
 import PySQLPool
+import requests
+from utils.util import read_conf
 
 def home(request):
     t = loader.get_template('base.html')
@@ -17,16 +19,11 @@ def home(request):
 @csrf_exempt
 def get_online(request,app_id):
     #import pdb; pdb.set_trace()
-    userlst = []
+    userlst_profile = []
     tpa = Tpa.objects.get(name=app_id)
     for u in ChatUser.objects.filter(tpa=tpa,is_online=1):
-        userlst.append({'user_id':u.id,'gender':u.gender,'name':u.name,'age':u.age,
-                        'country':u.country,'city':u.city,'image':u.image,
-                        'profile_url':u.profile_url,'culture':u.culture,
-                        'is_camera_active':u.is_camera_active, 
-                        'is_invisible': u.is_invisible, 
-                        'is_invitation_enabled': u.is_invitation_enabled})
-    out = { 'status': 0, 'message': 'ok', 'user_list': userlst }
+        userlst_profile.append(serialize_user(u))
+    out = { 'status': 0, 'message': 'ok', 'user_list': userlst_profile }
     return HttpResponse(json.dumps(out), content_type='application/json')  
 
 @csrf_exempt
@@ -97,11 +94,56 @@ def logout(request):
 
 
 def get_profile_from_tpa(request,user_id):
-    connection = PySQLPool.getNewConnection(username=DATABASES.USER,
-                 password=DATABASES.PASSWORD, host=DATABASES.HOST, db=DATABASES.NAME)
+    connection = PySQLPool.getNewConnection(username=DATABASES['default']['USER'],
+                 password=DATABASES['default']['PASSWORD'], host=DATABASES['default']['HOST'],
+                 db=DATABASES['default']['NAME'])
     query = PySQLPool.getNewQuery(connection)
-    query.Query('select * from users_info where user_id = %d' % user_id)
+    query.Query('select * from users_info where user_id = %d' % int(user_id))
     for row in query.record:
         print row['name']
-   
+        out = {
+        'status': 0,
+        'message': row['name'],
+        }
+    try:
+        return HttpResponse(json.dumps(out), content_type='application/json') 
+    except:
+        return HttpResponse(json.dumps({
+        'status': 1,
+        'message': 'no user found',
+        }), content_type='application/json')
+
+def get_profile(request,user_id):
+    try:
+        u_name = ChatUser.objects.get(user_id=user_id)
+        out = {
+            'status': 0,
+            'user_profile': serialize_user(u_name)
+        }
+        return HttpResponse(json.dumps(out), content_type='application/json')
+    except:
+        apiconf = read_conf()
+        print apiconf
+        url = 'http://'+apiconf['api']['get_profile_from_tpa']['url']
+        url = url.replace('[server]',apiconf['config']['signal_server'])
+        url = url.replace('[user_id]',user_id)
+        print 'REQUEST TO %s' % url
+        responce = requests.get(url)
+        outdata = json.loads(responce.content)
+        print outdata  
+       
+        out = {
+            'status': 0,
+            'message': 'ok',
+            'outdata': outdata
+        }
+        return HttpResponse(json.dumps(out), content_type='application/json')
+
+def serialize_user(user):
+    return ({'user_id':user.id,'gender':user.gender,'name':user.name,'age':user.age,
+                    'country':user.country,'city':user.city,'image':user.image,
+                    'profile_url':user.profile_url,'culture':user.culture,
+                    'is_camera_active':user.is_camera_active, 
+                    'is_invisible': user.is_invisible, 
+                    'is_invitation_enabled': user.is_invitation_enabled})
 

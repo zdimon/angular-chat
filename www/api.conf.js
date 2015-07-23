@@ -42,7 +42,14 @@ apiconf = {
             {
                 'type': 'ajax',
                 'name': 'get_profile_from_tpa',
-                'url':  '[server]/api/get_profile_from_tpa/[app_name]'
+                'url':  '[server]/api/get_profile_from_tpa/[user_id]'
+            },
+
+        'get_profile':
+            {
+                'type': 'ajax',
+                'name': 'get_profile',
+                'url':  '[server]/api/get_profile/[user_id]'
             }
 
     }
