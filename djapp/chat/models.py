@@ -32,7 +32,7 @@ class ChatUser(models.Model):
     gender = models.CharField(max_length = 1, choices = GENDERS, default = 'm', verbose_name = _('Gender'))
     user_id = models.CharField(max_length = 64, verbose_name = _('User ID from TPA'), blank = True)
     name = models.CharField(max_length = 128, blank = True, verbose_name = _('Public name'))
-    birthday = models.DateField(auto_now=False, auto_now_add=False)
+    birthday = models.DateField(blank = True, null = True)
     email = models.CharField(max_length = 128, blank = True, verbose_name = _('E-Mail'))
     country = models.CharField(max_length = 64, blank = True, verbose_name = _('User\'s country'))
     city = models.CharField(max_length = 64, blank = True, verbose_name = _('User\'s city'))
