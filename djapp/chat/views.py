@@ -11,6 +11,19 @@ import PySQLPool
 import requests
 from utils.util import read_conf, get_url_by_name
 import datetime
+from utils.db import MyDB
+bd = MyDB()
+
+def test(request):
+    t = loader.get_template('test.html')
+    users = bd.select('select * from users_info')
+    cont = {}
+    userslst = []
+    for u in users.record:
+        userslst.append({'name': u['name'],  'user_id': u['user_id']})
+    cont = {'users': userslst}
+    c = RequestContext(request,cont)
+    return HttpResponse(t.render(c))
 
 
 def home(request):
