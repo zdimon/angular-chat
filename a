@@ -1,0 +1,22 @@
+test start!
+[94m REQUEST TO http://chat.localhost/api/tpa1com/is_auth [0m
+None
+[94m {u'status': 1, u'message': u'user is not authorized'} [0m
+None
+[94m REQUEST TO http://localhost:8008/api/login [0m
+None
+[94m {u'status': 0, u'username': u'admin', u'message': u'ok', u'user_id': 9} [0m
+None
+[94m REQUEST TO http://chat.localhost/api/tpa1com/get_online [0m
+None
+[94m REQUEST TO http://chat.localhost/api/tpa1com/get_contact_list [0m
+None
+[94m {u'status': 0, u'message': u'ok', u'contact_list': [{u'owner': u'olga', u'contact': u'alex'}, {u'owner': u'alex', u'contact': u'olga'}, {u'owner': u'sveta', u'contact': u'oleg'}, {u'owner': u'oleg', u'contact': u'sveta'}, {u'owner': u'luba', u'contact': u'serg'}, {u'owner': u'serg', u'contact': u'luba'}, {u'owner': u'marina', u'contact': u'serg'}, {u'owner': u'serg', u'contact': u'marina'}, {u'owner': u'natasha', u'contact': u'serg'}, {u'owner': u'serg', u'contact': u'natasha'}, {u'owner': u'vera', u'contact': u'vova'}, {u'owner': u'vova', u'contact': u'vera'}]} [0m
+None
+[94m REQUEST TO http://chat.localhost/api/get_profile_from_tpa/14 [0m
+None
+{"status": 0, "user_profile": {"culture": "Ukrainian, Russian, English, French", "country": "Ukraine", "birthday": "1991-08-25", "name": "Vitaliy", "city": "Kherson"}}
+[94m REQUEST TO http://chat.localhost/api/get_profile/14 [0m
+None
+[94m {u'status': 0, u'message': u'ok', u'outdata': {u'status': 0, u'user_profile': {u'country': u'Ukraine', u'culture': u'Ukrainian, Russian, English, French', u'birthday': u'1991-08-25', u'name': u'Vitaliy', u'city': u'Kherson'}}} [0m
+None
