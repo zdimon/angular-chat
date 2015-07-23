@@ -21,5 +21,9 @@ class MessageProcessor(object):
         self.client.listen(self.redis_message)
 
 
-    def handle(self,message):
+    def handle(self,message):  
+        message = json.loads(message) 
         print message
+        #if message['action'] == 'connect':
+        #    self.subscribe('%s_%s' % (message["tpa"], message["user_id"]))
+            

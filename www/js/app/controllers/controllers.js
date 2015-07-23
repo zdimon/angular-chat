@@ -28,11 +28,8 @@ angular.module('app.controllers', [])
     })
 
  .controller('ContactListCtrl', function ($scope, Contact) {
-      $scope.ws = WS;
       $scope.update = function(){
-        Online.getContactList(function(rezult){
-              $scope.contact_list = rezult.contact_list;
-          }) 
+       
       }
       $scope.update()
     })

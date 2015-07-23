@@ -16,7 +16,7 @@
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 })
 
-.run(function ($rootScope, Auth, Online, $window) {
+.run(function ($rootScope, Auth, Online, $window, WS) {
 
             Auth.isauth(function(result){
                 if(result.status==0) { 
@@ -25,6 +25,8 @@
                         $rootScope.currentUserId = result.user_id; 
                         $rootScope.currentUsername = result.user_name;
                         
+                        WS.send({ action: 'connect', tpa: apiconf.config.app_name, user_id: $rootScope.currentUserId });
+                       
                         Auth.has_opponent(function(result){
                             if(result.status==0) {
                                 var url = "http://" + $window.location.host + "#/" + $rootScope.currentUserId+'/'+result.contact_id;
@@ -36,7 +38,7 @@
             
                         })
                          
-
+                       
 
                     } else { $rootScope.isAuthenticated = false;}
             })

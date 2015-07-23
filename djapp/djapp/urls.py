@@ -36,5 +36,5 @@ for i in apiconf['api']:
         a = a.replace('[%s]' % par, '(?P<%s>[^\.]+)' % par)
     urlpatterns += patterns(
         '',
-        url(r'^%s$' % a,apiconf['api'][i]['name'])
+        url(r'^%s$' % a,'chat.views.'+apiconf['api'][i]['name'])
         )
