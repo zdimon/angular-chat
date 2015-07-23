@@ -10,6 +10,7 @@ from djapp.settings import DATABASES
 import PySQLPool
 import requests
 from utils.util import read_conf
+import datetime
 
 def home(request):
     t = loader.get_template('base.html')
@@ -100,11 +101,12 @@ def get_profile_from_tpa(request,user_id):
     query = PySQLPool.getNewQuery(connection)
     query.Query('select * from users_info where user_id = %d' % int(user_id))
     for row in query.record:
-        print row['name']
+        print row['name'],row['last_name'],
         out = {
         'status': 0,
-        'message': row['name'],
+        'user_profile': {'name':row['name'],'birthday': datetime.datetime.fromtimestamp(row['birthday']).strftime('%Y-%m-%d'), 'country':row['country'], 'city':row['city'],'culture':row['languages']}
         }
+        save_profile_in_our_db(out['user_profile'])
     try:
         return HttpResponse(json.dumps(out), content_type='application/json') 
     except:
@@ -112,6 +114,15 @@ def get_profile_from_tpa(request,user_id):
         'status': 1,
         'message': 'no user found',
         }), content_type='application/json')
+
+def save_profile_in_our_db(dict_profile_from_tpa):
+    u = ChatUser()
+    u.name = name
+    u.birthday = birthday
+    u.country = country
+    u.city = city
+    u.culture = culture
+    u.save()
 
 def get_profile(request,user_id):
     try:
