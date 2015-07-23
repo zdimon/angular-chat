@@ -8,12 +8,12 @@ from utils.util import get_url_by_name
 class TestStringMethods(TestBase):
 
         
-    def test_contact_list(self):
+    def test_profile_user(self):
         #import pdb; pdb.set_trace()
-        url = get_url_by_name('get_contact_list',{})
+        url = get_url_by_name('get_profile',{})
         print bcolors.blue('REQUEST TO %s' % url)
         responce = requests.post(url)
-        self.assertEqual(responce.status_code, 200)
+        #self.assertEqual(responce.status_code, 200)
         outdata = json.loads(responce.content)
         print bcolors.blue(outdata)
         #import pdb; pdb.set_trace()

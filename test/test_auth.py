@@ -3,13 +3,14 @@ from colorize import bcolors
 import json
 import requests
 from base import TestBase
+from utils.util import get_url_by_name
 
 class TestStringMethods(TestBase):
 
         
     def test_is_auth(self):
         data = {'user_id': 2 }
-        url =  self.server+'api/is_auth/tpa1com'
+        url =  get_url_by_name('is_auth',{})
         print bcolors.blue('REQUEST TO %s' % url)
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         responce = requests.get(url, data=json.dumps(data), headers=headers)

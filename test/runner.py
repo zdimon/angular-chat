@@ -5,7 +5,9 @@ testmodules = [
     'test_auth',
     'test_login',
     'test_user_online',
-    'test_contact_list'
+    'test_contact_list',
+    'test_url_by_name',
+    'test_profile_user'
     ]
 
 suite = unittest.TestSuite()
