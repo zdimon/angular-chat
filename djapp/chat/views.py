@@ -105,7 +105,7 @@ def get_profile_from_tpa(request,user_id):
         print row['name'],row['last_name']
         out = {
         'status': 0,
-        'user_profile': {'name':row['name'],'birthday': datetime.datetime.fromtimestamp(row['birthday']).strftime('%Y-%m-%d'), 'country':row['country'], 'city':row['city'],'culture':row['languages']}
+        'user_profile': {'user_id':row['user_id'],'name':row['name'],'birthday': datetime.datetime.fromtimestamp(row['birthday']).strftime('%Y-%m-%d'), 'country':row['country'], 'city':row['city'],'culture':row['languages']}
         }
         save_profile_in_our_db(out['user_profile'])
     try:
@@ -119,6 +119,7 @@ def get_profile_from_tpa(request,user_id):
 def save_profile_in_our_db(dict_profile_from_tpa):
     apiconf = read_conf()
     u = ChatUser()
+    u.user_id = dict_profile_from_tpa['user_id']
     u.name = dict_profile_from_tpa['name']
     u.birthday = dict_profile_from_tpa['birthday']
     u.country = dict_profile_from_tpa['country']
@@ -151,7 +152,8 @@ def get_profile(request,user_id):
         return HttpResponse(json.dumps(out), content_type='application/json')
 
 def serialize_user(user):
-    return ({'user_id':user.id,'gender':user.gender,'name':user.name,'birthday':str(user.birthday),
+    return ({'id':user.id, 'user_id':user.user_id,'gender':user.gender,'name':user.name,
+                    'birthday':str(user.birthday),
                     'country':user.country,'city':user.city,'image':user.image,
                     'profile_url':user.profile_url,'culture':user.culture,
                     'is_camera_active':user.is_camera_active, 

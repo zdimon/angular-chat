@@ -11,6 +11,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RemoveField(
+            model_name='chatuser',
+            name='age',
+        ),
         migrations.AddField(
             model_name='chatuser',
             name='birthday',

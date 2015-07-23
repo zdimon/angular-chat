@@ -2,6 +2,7 @@ import random
 from utils.colorize import bcolors
 import datetime
 
+
 def read_conf():
     from djapp.settings import BASE_DIR
     #path = BASE_DIR+'../www/api.conf.js'
@@ -146,3 +147,35 @@ def load_db():
         u.set_password('111')
 
     print 'Done loading data in DB'
+
+def load_db_from_tpa():
+    from chat.models import *
+    from django.contrib.auth.models import User
+    import PySQLPool
+    from djapp.settings import DATABASES
+    import requests
+
+    t = Tpa()
+    t.name = 'tpa1com'
+    t.domain ='tpa1.com'
+    t.timeout_chating = 30
+    t.save()
+
+    u = User()
+    u.username = 'admin'
+    u.set_password('admin')
+    u.is_active=True
+    u.is_staff=True
+    u.is_superuser = True
+    u.save()
+
+    print bcolors.WARNING+'Start loading data in DB from TPA'
+    connection = PySQLPool.getNewConnection(username=DATABASES['default']['USER'],
+    password=DATABASES['default']['PASSWORD'], host=DATABASES['default']['HOST'],
+    db=DATABASES['default']['NAME'])
+    query = PySQLPool.getNewQuery(connection)
+    query.Query('select * from users_info')
+    for row in query.record:
+            url = get_url_by_name('get_profile',{'user_id':str(row['user_id'])})
+            responce = requests.get(url)
+    print 'Done loading data in DB from TPA'
