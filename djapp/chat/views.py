@@ -9,7 +9,7 @@ from chat.models import Tpa, ChatUser, ChatContacts
 from djapp.settings import DATABASES
 import PySQLPool
 import requests
-from utils.util import get_url_by_name
+from utils.util import read_conf, get_url_by_name
 import datetime
 
 

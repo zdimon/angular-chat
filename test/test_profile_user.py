@@ -10,14 +10,21 @@ class TestStringMethods(TestBase):
         
     def test_profile_user(self):
         #import pdb; pdb.set_trace()
-        url = get_url_by_name('get_profile',{})
+        url = get_url_by_name('get_profile_from_tpa',{'user_id':'14'})
         print bcolors.blue('REQUEST TO %s' % url)
         responce = requests.get(url)
+
         
         try:
             outdata = json.loads(responce.content)
         except Exception, err:
             self.fail(err)
+
+        url = get_url_by_name('get_profile',{'user_id':'14'})
+        print bcolors.blue('REQUEST TO %s' % url)
+        responce = requests.get(url)
+        #self.assertEqual(responce.status_code, 200)
+        outdata = json.loads(responce.content)
         print bcolors.blue(outdata)
        
 
