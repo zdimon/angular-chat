@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import login as login_user
 from chat.models import Tpa, ChatUser, ChatContacts
+from djapp.settings import DATABASES
+import PySQLPool
 
 def home(request):
     t = loader.get_template('base.html')
@@ -92,5 +94,14 @@ def logout(request):
         'message': 'ok',
     }
     return HttpResponse(json.dumps(out), content_type='application/json')   
+
+
+def get_profile_from_tpa(request,user_id):
+    connection = PySQLPool.getNewConnection(username=DATABASES.USER,
+                 password=DATABASES.PASSWORD, host=DATABASES.HOST, db=DATABASES.NAME)
+    query = PySQLPool.getNewQuery(connection)
+    query.Query('select * from users_info where user_id = %d' % user_id)
+    for row in query.record:
+        print row['name']
    
 
