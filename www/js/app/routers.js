@@ -10,6 +10,7 @@
     .module('AngularChatApp')
     .config(config);
 
+
   function config($urlRouterProvider, $stateProvider) {
         $urlRouterProvider.otherwise("/");
 
@@ -19,6 +20,9 @@
 
                 url: "/",
                 templateUrl: "/static/templates/anonimous.html",
+                controller: function(){
+                        
+                }
                 
             })
             
