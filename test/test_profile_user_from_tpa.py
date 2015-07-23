@@ -4,24 +4,28 @@ import json
 import requests
 from base import TestBase
 from utils.util import get_url_by_name
+import re
+
 
 class TestStringMethods(TestBase):
 
         
-    def test_profile_user(self):
-        #import pdb; pdb.set_trace()
-        url = get_url_by_name('get_profile',{})
+    def test_profile_user_from_tpa(self):
+        url = get_url_by_name('get_profile_from_tpa',{'user_id': '14'})
         print bcolors.blue('REQUEST TO %s' % url)
         responce = requests.get(url)
-        
+
         try:
             outdata = json.loads(responce.content)
         except Exception, err:
+            
+            
+            for par in re.findall('<div id="summary">(.*?)</div>',responce.content):
+                print '#######%s' % par
+            #print responce.content
             self.fail(err)
         print bcolors.blue(outdata)
        
-
-        #import pdb; pdb.set_trace()
         #self.assertEqual(outdata['status'], 0)
 
 
