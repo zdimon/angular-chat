@@ -18,6 +18,8 @@
 
 .run(function ($rootScope, Auth, Online, $window, WS) {
 
+            
+
             Auth.isauth(function(result){
                 if(result.status==0) { 
 

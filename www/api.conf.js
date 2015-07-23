@@ -13,21 +13,21 @@ apiconf = {
             {
                 'type': 'ajax',
                 'name': 'is_auth',
-                'url':  '[server]/api/is_auth/[app_name]'
+                'url':  '[server]/api/[app_name]/is_auth'
             },    
 
         'has_opponent':
             {
                 'type': 'ajax',
                 'name': 'has_opponent',
-                'url':  '[server]/api/has_opponent/[app_name]'
+                'url':  '[server]/api/[user_id]/has_opponent'
             },  
 
         'get_online':
             {
                 'type': 'ajax',
                 'name': 'get_online',
-                'url':  '[server]/api/get_online/[app_name]'
+                'url':  '[server]/api/[app_name]/get_online'
             },  
 
 
@@ -35,7 +35,7 @@ apiconf = {
             {
                 'type': 'ajax',
                 'name': 'get_contact_list',
-                'url':  '[server]/api/get_contact_list/[app_name]'
+                'url':  '[server]/api/[app_name]/get_contact_list'
             },
 
         'get_profile_from_tpa':

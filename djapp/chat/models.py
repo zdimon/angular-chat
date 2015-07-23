@@ -49,6 +49,19 @@ class ChatUser(models.Model):
         return mark_safe(u'<img src="%s" />' % self.image)  
     def __unicode__(self):
         return self.name
+    @property
+    def age(self):
+        today = date.today()
+        if self.birthday:
+            try:
+                birthday = self.birthday.replace(year=today.year)
+            except ValueError: # raised when birth date is February 29 and the current year is not a leap year
+                birthday = self.birthday.replace(year=today.year, day=self.birthday.day-1)
+            if birthday > today:
+                b = today.year - self.birthday.year - 1
+            else:
+                b = today.year - self.birthday.year
+        return '%s %s' % (b ,ungettext(u'y.o.', u'y.o.', b))
 
 
 

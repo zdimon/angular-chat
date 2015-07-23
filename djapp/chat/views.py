@@ -17,20 +17,20 @@ def home(request):
     return HttpResponse(t.render(c))
 
 @csrf_exempt
-def get_online(request,app_id):
+def get_online(request,app_name):
     #import pdb; pdb.set_trace()
     userlst_profile = []
-    tpa = Tpa.objects.get(name=app_id)
+    tpa = Tpa.objects.get(name=app_name)
     for u in ChatUser.objects.filter(tpa=tpa,is_online=1):
         userlst_profile.append(serialize_user(u))
     out = { 'status': 0, 'message': 'ok', 'user_list': userlst_profile }
     return HttpResponse(json.dumps(out), content_type='application/json')  
 
 @csrf_exempt
-def get_contact_list(request,app_id):
+def get_contact_list(request,app_name):
     import pdb; pdb.set_trace()
     contactlst = []
-    tpa = Tpa.objects.get(name=app_id)
+    tpa = Tpa.objects.get(name=app_name)
     for c in ChatContacts.objects.filter(tpa=tpa):
         contactlst.append({'owner':c.owner.name,'contact':c.contact.name})
     out = { 'status': 0, 'message': 'ok', 'contact_list': contactlst }
@@ -46,7 +46,7 @@ def has_opponent(request,user_id):
 
 
 
-def is_auth(request,app_id):
+def is_auth(request,app_name):
     if(request.user.is_authenticated()):
         out = {
             'status': 0,
