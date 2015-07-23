@@ -21,6 +21,7 @@ def get_url_by_name(name,dict_key):
 
 def clean_db():
     from chat.models import *
+    from django.contrib.auth.models import User
     print bcolors.WARNING+'Start cleaning DB'
        
     ChatStopword.objects.all().delete()
