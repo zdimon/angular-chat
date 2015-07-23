@@ -31,7 +31,7 @@ import re
 apiconf = read_conf()
 
 for i in apiconf['api']:
-    a = apiconf['api'][i]['url'].replace('[server]','')
+    a = apiconf['api'][i]['url'].replace('[server]/','')
     for par in re.findall('\[(.*?)\]',a):
         a = a.replace('[%s]' % par, '(?P<%s>[^\.]+)' % par)
     urlpatterns += patterns(

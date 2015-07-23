@@ -23,7 +23,6 @@ class MessageProcessor(object):
 
     def handle(self,message):  
         message = json.loads(message) 
-        print message
-        #if message['action'] == 'connect':
-        #    self.subscribe('%s_%s' % (message["tpa"], message["user_id"]))
+        if message['action'] == 'connect':
+            self.subscribe('%s_%s' % (message["tpa"], message["user_id"]))
             
