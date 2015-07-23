@@ -29,7 +29,7 @@
                 
             <ul class="nav navbar-nav">
                 
-                <li><a href="/test"  ui-sref="register">Test</a></li>        
+                <li><a href="#"  ui-sref="register">Link</a></li>        
                 
             </ul>	
 	
@@ -43,7 +43,9 @@
     <div style="margin-top: 60px;" >
       
                 <div class="well col-md-12">
-                    <div ui-view >Loading...</div>
+                    {% for u in users %}
+                        <li> {{ u.name }}</li>
+                    {% endfor %}
                 </div> 
 
         

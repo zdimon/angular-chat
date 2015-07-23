@@ -11,6 +11,7 @@ admin.autodiscover()
 urlpatterns = [
     # Examples:
     url(r'^$', 'chat.views.home', name='home'),
+    url(r'^test$', 'chat.views.test', name='test'),
 
     url(r'^api/login$', 'chat.views.login'),
     url(r'^api/logout$', 'chat.views.login'),
