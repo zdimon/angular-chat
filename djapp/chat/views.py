@@ -9,8 +9,9 @@ from chat.models import Tpa, ChatUser, ChatContacts
 from djapp.settings import DATABASES
 import PySQLPool
 import requests
-from utils.util import read_conf
+from utils.util import get_url_by_name
 import datetime
+
 
 def home(request):
     t = loader.get_template('base.html')
@@ -29,7 +30,7 @@ def get_online(request,app_name):
 
 @csrf_exempt
 def get_contact_list(request,app_name):
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
     contactlst = []
     tpa = Tpa.objects.get(name=app_name)
     for c in ChatContacts.objects.filter(tpa=tpa):
@@ -136,11 +137,7 @@ def get_profile(request,user_id):
         }
         return HttpResponse(json.dumps(out), content_type='application/json')
     except:
-        apiconf = read_conf()
-        print apiconf
-        url = 'http://'+apiconf['api']['get_profile_from_tpa']['url']
-        url = url.replace('[server]',apiconf['config']['signal_server'])
-        url = url.replace('[user_id]',user_id)
+        url = get_url_by_name('get_profile_from_tpa',{'user_id':user_id})
         print 'REQUEST TO %s' % url
         responce = requests.get(url)
         outdata = json.loads(responce.content)
@@ -154,7 +151,7 @@ def get_profile(request,user_id):
         return HttpResponse(json.dumps(out), content_type='application/json')
 
 def serialize_user(user):
-    return ({'user_id':user.id,'gender':user.gender,'name':user.name,'birthday':user.birthday,
+    return ({'user_id':user.id,'gender':user.gender,'name':user.name,'birthday':str(user.birthday),
                     'country':user.country,'city':user.city,'image':user.image,
                     'profile_url':user.profile_url,'culture':user.culture,
                     'is_camera_active':user.is_camera_active, 

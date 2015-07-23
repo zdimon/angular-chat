@@ -1,19 +1,26 @@
 import random
-from chat.models import *
-from django.contrib.auth.models import User
 from utils.colorize import bcolors
-from djapp.settings import BASE_DIR
 import datetime
 
 def read_conf():
+    from djapp.settings import BASE_DIR
     #path = BASE_DIR+'../www/api.conf.js'
     ar = BASE_DIR.split('/')
     path = '/'.join(ar[:len(ar)-1])+'/www/api.conf.js'
     exec open(path).read()
     return apiconf
 
+def get_url_by_name(name,dict_key):
+    apiconf = read_conf()
+    url = 'http://'+apiconf['api'][name]['url']
+    url = url.replace('[server]',apiconf['config']['signal_server'])
+    url = url.replace('[app_name]',apiconf['config']['app_name'])
+    for key in dict_key:
+        url = url.replace('[%s]' % key, dict_key[key])
+    return url
 
 def clean_db():
+    from chat.models import *
     print bcolors.WARNING+'Start cleaning DB'
        
     ChatStopword.objects.all().delete()
@@ -32,7 +39,8 @@ def clean_db():
     print bcolors.WARNING+'Done cleaning DB'
 
 def load_db():
-
+    from chat.models import *
+    from django.contrib.auth.models import User
     print bcolors.WARNING+'Start loading data in DB'
 
     t = Tpa()
