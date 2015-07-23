@@ -3,6 +3,7 @@ from chat.models import *
 from django.contrib.auth.models import User
 from utils.colorize import bcolors
 from djapp.settings import BASE_DIR
+import datetime
 
 def read_conf():
     #path = BASE_DIR+'../www/api.conf.js'
@@ -59,7 +60,10 @@ def load_db():
         u = ChatUser()
         u.gender = 'm'
         u.name = m
-        u.age = random.randint(18, 65)
+        year = random.choice(range(1950, 2001))
+        month = random.choice(range(1, 13))
+        day = random.choice(range(1, 29))
+        u.birthday = str(year)+'-'+str(month)+'-'+str(day)
         u.email = m+'@gmail.com'
         cr = random.randint(0,5)
         country = (['Ukraine','Russia','Great Britain','Poland','Germany','USA'])
@@ -84,7 +88,10 @@ def load_db():
         u = ChatUser()
         u.gender = 'w'
         u.name = w
-        u.age = random.randint(18, 65)
+        year = random.choice(range(1950, 2001))
+        month = random.choice(range(1, 13))
+        day = random.choice(range(1, 29))
+        u.birthday = str(year)+'-'+str(month)+'-'+str(day)
         u.email = m+'@gmail.com'
         cr = random.randint(0,5)
         country = (['Ukraine','Russia','Great Britain','Poland','Germany','USA'])

@@ -101,7 +101,7 @@ def get_profile_from_tpa(request,user_id):
     query = PySQLPool.getNewQuery(connection)
     query.Query('select * from users_info where user_id = %d' % int(user_id))
     for row in query.record:
-        print row['name'],row['last_name'],
+        print row['name'],row['last_name']
         out = {
         'status': 0,
         'user_profile': {'name':row['name'],'birthday': datetime.datetime.fromtimestamp(row['birthday']).strftime('%Y-%m-%d'), 'country':row['country'], 'city':row['city'],'culture':row['languages']}
@@ -116,12 +116,15 @@ def get_profile_from_tpa(request,user_id):
         }), content_type='application/json')
 
 def save_profile_in_our_db(dict_profile_from_tpa):
+    apiconf = read_conf()
     u = ChatUser()
-    u.name = name
-    u.birthday = birthday
-    u.country = country
-    u.city = city
-    u.culture = culture
+    u.name = dict_profile_from_tpa['name']
+    u.birthday = dict_profile_from_tpa['birthday']
+    u.country = dict_profile_from_tpa['country']
+    u.city = dict_profile_from_tpa['city']
+    u.culture = dict_profile_from_tpa['culture']
+    tpa = Tpa.objects.get(name=apiconf['config']['app_name'])
+    u.tpa = tpa
     u.save()
 
 def get_profile(request,user_id):
@@ -151,7 +154,7 @@ def get_profile(request,user_id):
         return HttpResponse(json.dumps(out), content_type='application/json')
 
 def serialize_user(user):
-    return ({'user_id':user.id,'gender':user.gender,'name':user.name,'age':user.age,
+    return ({'user_id':user.id,'gender':user.gender,'name':user.name,'birthday':user.birthday,
                     'country':user.country,'city':user.city,'image':user.image,
                     'profile_url':user.profile_url,'culture':user.culture,
                     'is_camera_active':user.is_camera_active, 
