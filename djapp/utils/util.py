@@ -1,6 +1,9 @@
 import random
 from utils.colorize import bcolors
 import datetime
+from utils.db import MyDB
+
+bd = MyDB()
 
 
 def read_conf():
@@ -23,8 +26,7 @@ def get_url_by_name(name,dict_key):
 def clean_db():
     from chat.models import *
     from django.contrib.auth.models import User
-    print bcolors.WARNING+'Start cleaning DB'
-       
+    print bcolors.WARNING+'Start cleaning DB'      
     ChatStopword.objects.all().delete()
     ChatTemplates.objects.all().delete()
     ChatTransactions.objects.all().delete()
@@ -35,8 +37,7 @@ def clean_db():
     ChatRoom.objects.all().delete()
     ChatUser.objects.all().delete()
     Tpa.objects.all().delete()
-    User.objects.all().delete()  
-
+    User.objects.exclude(username='admin').delete()
     print bcolors.WARNING+'Done cleaning DB'
 
 def load_db():
@@ -54,16 +55,19 @@ def load_db():
     women = ['olga','sveta', 'luba', 'marina', 'natasha', 'vera']
     cmen = []
 
+    
     u = User()
     u.username = 'admin'
     u.set_password('admin')
     u.is_active=True
     u.is_staff=True
     u.is_superuser = True
-    u.save()
 
+    try:
+        u.save()
+    except:
+        pass
 
-    
     for m in men:
         print 'process..........%s' % m
         u = ChatUser()
@@ -88,6 +92,7 @@ def load_db():
         u.profile_url = m+'_plofile_url'
         u.culture = random.choice(['de','ru','en'])
         u.is_online = random.choice([True,False])
+        u.user_id = str(ChatUser.objects.all().count())
         u.tpa = t
         u.save()
         cmen.append(u)
@@ -116,6 +121,7 @@ def load_db():
         u.profile_url = m+'_plofile_url'
         u.culture = random.choice(['de','ru','en'])
         u.is_online = random.choice([True,False])
+        u.user_id = str(ChatUser.objects.all().count())
         u.tpa = t
         u.save()
         chat_c = ChatContacts()
@@ -166,16 +172,15 @@ def load_db_from_tpa():
     u.is_active=True
     u.is_staff=True
     u.is_superuser = True
-    u.save()
+    try:
+        u.save()
+    except:
+        pass
 
     print bcolors.WARNING+'Start loading data in DB from TPA'
-    connection = PySQLPool.getNewConnection(username=DATABASES['default']['USER'],
-    password=DATABASES['default']['PASSWORD'], host=DATABASES['default']['HOST'],
-    db=DATABASES['default']['NAME'])
-    query = PySQLPool.getNewQuery(connection)
-    query.Query('select * from users_info')
-    for row in query.record:
-            url = get_url_by_name('get_profile',{'user_id':str(row['user_id'])})
+    users = bd.select('select * from users_info')
+    for u in users.record:
+            url = get_url_by_name('get_profile',{'user_id':str(u['user_id'])})
             responce = requests.get(url)
     print 'Done loading data in DB from TPA'
 
