@@ -1,6 +1,7 @@
 import redgreenunittest as unittest
 from colorize import bcolors
 import json
+import re
 import requests
 from base import TestBase
 from utils.util import get_url_by_name
@@ -12,8 +13,12 @@ class TestStringMethods(TestBase):
         #import pdb; pdb.set_trace()
         url = get_url_by_name('add_contact',{'app_name':'tpa1com','owner_id':'14','contact_id':'44'})
         print bcolors.blue('REQUEST TO %s' % url)
-        responce = requests.post(url)
-        self.assertEqual(responce.status_code, 200)
+        responce = requests.get(url)
+
+        if responce.status_code <> 200:
+            for par in re.findall('<pre class="exception_value">(.*?)<\/pre>',responce.content):
+                print bcolors.red('#######%s######' % par)
+
         outdata = json.loads(responce.content)
         print bcolors.blue(outdata)
         #import pdb; pdb.set_trace()

@@ -66,17 +66,22 @@ def has_opponent(request,user_id):
 
 
 def get_profile_from_tpa(request,user_id):
-    connection = PySQLPool.getNewConnection(username=DATABASES['default']['USER'],
-                 password=DATABASES['default']['PASSWORD'], host=DATABASES['default']['HOST'],
-                 db=DATABASES['default']['NAME'])
-    query = PySQLPool.getNewQuery(connection)
-    query.Query('select * from users_info where user_id = %d' % int(user_id))
-    for row in query.record:
-        print row['name'],row['last_name']
+    apiconf = read_conf()
+    users = bd.select('select * from users_info where user_id = %d' % int(user_id))
+    for u in users.record:
+        print u['name'], u['last_name']
         out = {
         'status': 0,
-        'user_profile': {'user_id':row['user_id'],'name':row['name'],'birthday': datetime.datetime.fromtimestamp(row['birthday']).strftime('%Y-%m-%d'), 'country':row['country'], 'city':row['city'],'culture':row['languages']}
+        'user_profile': {'user_id':u['user_id'],'name':u['name'],'birthday': datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d'), 'country':u['country'], 'city':u['city'],'culture':u['languages']}
         }
+    tpa = Tpa.objects.get(name=apiconf['config']['app_name'])
+    try:
+        ChatUser.objects.get(user_id=user_id,tpa=tpa)
+        out = {
+                'status': 1,
+                'message': 'User is exits in Our DB',
+                }
+    except:
         save_profile_in_our_db(out['user_profile'])
     try:
         return HttpResponse(json.dumps(out), content_type='application/json') 
