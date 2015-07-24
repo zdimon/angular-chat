@@ -9,6 +9,22 @@ apiconf = {
 
     'api':
     {
+
+        'login':
+            {
+                'type': 'ajax',
+                'name': 'login',
+                'url':  '[server]/api/[user_id]/login'
+            },
+
+        'logout':
+            {
+                'type': 'ajax',
+                'name': 'logout',
+                'url':  '[server]/api/logout'
+            },
+
+
         'is_auth':
             {
                 'type': 'ajax',

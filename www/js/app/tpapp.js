@@ -13,9 +13,16 @@
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 })
 
+ .controller('AuthCtrl', function ($scope) {
+      $scope.login = function(){
+        alert('ssssaaaaa');
+      }
+     
+    })
+
 .run(function ($rootScope,$window) {
 
-        alert('sss');
+ 
 
 })
 

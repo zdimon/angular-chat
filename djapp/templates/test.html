@@ -42,9 +42,9 @@
 
     <div style="margin-top: 60px;" >
       
-                <div class="well col-md-12">
+                <div class="well col-md-12" ng-controller="AuthCtrl">
                     {% for u in users %}
-                        <li><a href="/autologin/{{ u.user_id }}"> {{ u.name }} </a></li>
+                        <li><a ng-click="login()" href="/autologin/{{ u.user_id }}"> {{ u.name }} </a></li>
                     {% endfor %}
                 </div> 
 

@@ -4,63 +4,59 @@ from jsonview.decorators import json_view
 from django.shortcuts import redirect
 from utils.util import read_conf, get_url_by_name
 from django.views.decorators.csrf import csrf_exempt
+import requests
+from django.contrib.auth.models import User
+from chat.models import ChatUser
+
 
 @json_view
 def is_auth(request,app_name):
-    if(request.user.is_authenticated()):
-        out = {
-            'status': 0,
-            'user_id': request.user.id,
-            'username': request.user.username
-        }
-    else:
-        out = {
-            'status': 1,
-            'message': 'user is not authorized'
-        }
-    return out
+    ''' 
+        Checking if user authenticated or not.
+
+        Example: http://localhost/api/is_auth.
+
+        Return: {'status': 0, 'user_id': request.session['user_id']}
+    '''
+    try:
+        is_auth = request.session['is_auth']
+        return {'status': 0, 'user_id': request.session['user_id']}
+    except:
+        return {'status': 1, 'message': 'user is not authorized'}
+    
 
 @json_view
-@csrf_exempt
-def login(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    try:
-        user = User.objects.get(username=username)
-        if user.check_password(password):
-            user.backend = 'django.contrib.auth.backends.ModelBackend'
-            login_user(request,user)
-            out = { 'status': 0, 'message': 'ok', 'username': user.username, 'user_id': user.id }
-        else:
-            out = { 'status': 1, 'message': 'Password does not match!' }
-    except:
-        out = { 'status': 1, 'message': 'User does not found!' }
-    return out        
+def login(request,user_id):
+    ''' 
+        Login function. Set couple variables
+ 
+             request.session['is_auth']
+
+             request.session['user_id']    
+
+        Example: http://localhost/api/23/login.   
+
+        in session to determitate authentication status 
+    '''
+    request.session['is_auth'] = 'true'
+    request.session['user_id'] = user_id
+    return { 'status': 0 }
+     
  
 
 @json_view
 def logout(request):
-    from django.contrib.auth import logout
-    logout(request)
-    out = {
-        'status': 0,
-        'message': 'ok',
-    }
-    return out
+    ''' 
+        Logout function. 
+
+        Delete variables request.session['is_auth'] and request.session['user_id'] from session 
+    '''
+    del request.session['is_auth']
+    del request.session['user_id']
+    return { 'status': 0 }
 
 
 
-@json_view
-def autologin(request,user_id):
-    try:
-        user = User.objects.get(user_id=user_id)
-    except:
-        url = get_url_by_name('get_profile_from_tpa',{'user_id':user_id})
-        responce = requests.get(url)
-        user = User.objects.get(user_id=user_id)
-    user.backend = 'django.contrib.auth.backends.ModelBackend'
-    login_user(request,user)
-    return redirect('test')
 
 
 
