@@ -13,21 +13,8 @@ class TestStringMethods(TestBase):
         url = get_url_by_name('get_profile_from_tpa',{'user_id':'14'})
         print bcolors.blue('REQUEST TO %s' % url)
         responce = requests.get(url)
-
-        
-        try:
-            outdata = json.loads(responce.content)
-        except Exception, err:
-            self.fail(err)
-
-        url = get_url_by_name('get_profile',{'user_id':'14'})
-        print bcolors.blue('REQUEST TO %s' % url)
-        responce = requests.get(url)
-        #self.assertEqual(responce.status_code, 200)
         outdata = json.loads(responce.content)
         print bcolors.blue(outdata)
-       
-
         #import pdb; pdb.set_trace()
         #self.assertEqual(outdata['status'], 0)
 
