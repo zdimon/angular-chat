@@ -35,7 +35,7 @@ apiconf = {
             {
                 'type': 'ajax',
                 'name': 'get_contact_list',
-                'url':  '[server]/api/[app_name]/get_contact_list'
+                'url':  '[server]/api/[app_name]/[user_id]/get_contact_list'
             },
 
         'get_profile_from_tpa':
@@ -50,8 +50,15 @@ apiconf = {
                 'type': 'ajax',
                 'name': 'get_profile',
                 'url':  '[server]/api/get_profile/[user_id]'
-            }
+            },  
 
+
+        'add_contact':
+            {
+                'type': 'ajax',
+                'name': 'add_contact',
+                'url':  '[server]/api/[app_name]/[owner_id]/[contact_id]/add_contact'
+            },
     }
     
 }

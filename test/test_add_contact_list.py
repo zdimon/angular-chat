@@ -8,9 +8,9 @@ from utils.util import get_url_by_name
 class TestStringMethods(TestBase):
 
         
-    def test_contact_list(self):
+    def test_add_contact_list(self):
         #import pdb; pdb.set_trace()
-        url = get_url_by_name('get_contact_list',{'user_id':'14'})
+        url = get_url_by_name('add_contact',{'app_name':'tpa1com','owner_id':'14','contact_id':'44'})
         print bcolors.blue('REQUEST TO %s' % url)
         responce = requests.post(url)
         self.assertEqual(responce.status_code, 200)

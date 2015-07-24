@@ -35,8 +35,7 @@ def clean_db():
     ChatRoom.objects.all().delete()
     ChatUser.objects.all().delete()
     Tpa.objects.all().delete()
-    User.objects.all().delete()
-    
+    User.objects.all().delete()  
 
     print bcolors.WARNING+'Done cleaning DB'
 
@@ -179,3 +178,5 @@ def load_db_from_tpa():
             url = get_url_by_name('get_profile',{'user_id':str(row['user_id'])})
             responce = requests.get(url)
     print 'Done loading data in DB from TPA'
+
+

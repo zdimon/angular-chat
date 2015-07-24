@@ -12,6 +12,8 @@ import requests
 from utils.util import read_conf, get_url_by_name
 import datetime
 from utils.db import MyDB
+from chat.views_api.contact import *
+
 bd = MyDB()
 
 def test(request):
@@ -42,11 +44,12 @@ def get_online(request,app_name):
     return HttpResponse(json.dumps(out), content_type='application/json')  
 
 @csrf_exempt
-def get_contact_list(request,app_name):
+def get_contact_list(request,app_name,user_id):
     #import pdb; pdb.set_trace()
     contactlst = []
     tpa = Tpa.objects.get(name=app_name)
-    for c in ChatContacts.objects.filter(tpa=tpa):
+    owner = ChatUser.objects.filter(tpa=tpa,user_id=user_id)
+    for c in ChatContacts.objects.filter(owner=owner):
         contactlst.append({'owner':c.owner.name,'contact':c.contact.name})
     out = { 'status': 0, 'message': 'ok', 'contact_list': contactlst }
     return HttpResponse(json.dumps(out), content_type='application/json')  

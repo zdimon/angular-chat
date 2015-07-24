@@ -44,6 +44,8 @@ class ChatUser(models.Model):
     is_camera_active = models.BooleanField(verbose_name = _('Is active?'), default = False)
     is_invisible = models.BooleanField(default = False, verbose_name = _('Is user invisible'))
     is_invitation_enabled = models.BooleanField(default = True, verbose_name = _('Is invitations enabled?'))
+    class Meta:
+        unique_together = ('user_id','tpa',)
     @property  
     def avatar(self):
         return mark_safe(u'<img src="%s" />' % self.image)  

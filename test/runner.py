@@ -1,5 +1,15 @@
 import redgreenunittest as unittest
+from glob import glob
 
+
+testmodules = []
+for f in glob('test_*.py'):
+    testmodules.append(f.replace('.py',''))
+
+#print testmodules
+
+
+'''
 testmodules = [
     'test_ss',
     'test_auth',
@@ -9,6 +19,7 @@ testmodules = [
     'test_url_by_name',
     'test_profile_user'
     ]
+'''
 
 suite = unittest.TestSuite()
 
