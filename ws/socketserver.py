@@ -45,7 +45,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         if message['action'] == 'connect':
             self.subscribe('%s_%s' % (message["tpa"], message["user_id"]))
             self.current_user_id = message["user_id"]    
-            set_user_online(message["user_id"])    
+            #set_user_online(message["user_id"])    
         self.processor.handle(message)
 
  

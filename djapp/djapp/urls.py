@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^test$', 'chat.views.test', name='test'),
 
     url(r'^api/login$', 'chat.views.login'),
+    url(r'^api/autologin/(?P<user_id>[^\.]+)$', 'chat.views.autologin', name='autologin'),
     url(r'^api/logout$', 'chat.views.login'),
 
     url(r'^admin/', include(admin.site.urls)),

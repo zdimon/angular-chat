@@ -15,7 +15,7 @@
 
 </head>
 
-<body ng-app="TpaChatApp"> 
+<body ng-app="TpaApp"> 
 	
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
          
@@ -44,7 +44,7 @@
       
                 <div class="well col-md-12">
                     {% for u in users %}
-                        <li> {{ u.name }}</li>
+                        <li><a href="/autologin/{{ u.user_id }}"> {{ u.name }} </a></li>
                     {% endfor %}
                 </div> 
 
@@ -53,6 +53,9 @@
     </div>
    
     <script src="/static/js/app/tpapp.js"></script>
+
+
+
 
 
 

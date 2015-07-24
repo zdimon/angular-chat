@@ -13,6 +13,7 @@ from utils.util import read_conf, get_url_by_name
 import datetime
 from utils.db import MyDB
 from chat.views_api.contact import *
+from chat.views_api.auth import * 
 
 bd = MyDB()
 
@@ -61,54 +62,7 @@ def has_opponent(request,user_id):
         'contact_id': 5
     }
     return HttpResponse(json.dumps(out), content_type='application/json')  
-
-
-
-def is_auth(request,app_name):
-    if(request.user.is_authenticated()):
-        out = {
-            'status': 0,
-            'user_id': request.user.id,
-            'username': request.user.username
-        }
-    else:
-        out = {
-            'status': 1,
-            'message': 'user is not authorized'
-        }
-    return HttpResponse(json.dumps(out), content_type='application/json')  
-
-@csrf_exempt
-def login(request):
-    #import pdb; pdb.set_trace()
-    #data = json.loads(request.body)
-    username = request.POST['username']
-    password = request.POST['password']
-    
-    
-    try:
-        user = User.objects.get(username=username)
-        if user.check_password(password):
-            user.backend = 'django.contrib.auth.backends.ModelBackend'
-            login_user(request,user)
-            out = { 'status': 0, 'message': 'ok', 'username': user.username, 'user_id': user.id }
-        else:
-            out = { 'status': 1, 'message': 'Password does not match!' }
-    except:
-        out = { 'status': 1, 'message': 'User does not found!' }
-        
-    context = { }
-   
-    return HttpResponse(json.dumps(out), content_type='application/json')  
-
-def logout(request):
-    from django.contrib.auth import logout
-    logout(request)
-    out = {
-        'status': 0,
-        'message': 'ok',
-    }
-    return HttpResponse(json.dumps(out), content_type='application/json')   
+ 
 
 
 def get_profile_from_tpa(request,user_id):
