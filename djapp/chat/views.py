@@ -14,6 +14,7 @@ import datetime
 from utils.db import MyDB
 from chat.views_api.contact import *
 from chat.views_api.auth import * 
+from jsonview.decorators import json_view
 
 bd = MyDB()
 
@@ -34,26 +35,37 @@ def home(request):
     c = RequestContext(request,{})
     return HttpResponse(t.render(c))
 
-@csrf_exempt
+@json_view
 def get_online(request,app_name):
-    #import pdb; pdb.set_trace()
+    '''
+    Function return list users is on line
+
+    [server]/api/[app_name]/get_online
+
+    Example: http://chat.localhost/api/tpa1com/get_online
+    '''
     userlst_profile = []
     tpa = Tpa.objects.get(name=app_name)
     for u in ChatUser.objects.filter(tpa=tpa,is_online=1):
         userlst_profile.append(serialize_user(u))
-    out = { 'status': 0, 'message': 'ok', 'user_list': userlst_profile }
-    return HttpResponse(json.dumps(out), content_type='application/json')  
+    return { 'status': 0, 'message': 'ok', 'user_list': userlst_profile }
 
-@csrf_exempt
+@json_view
 def get_contact_list(request,app_name,user_id):
-    #import pdb; pdb.set_trace()
+    '''
+    Function return contact list for current user 
+
+    [server]/api/[app_name]/[user_id]/get_contact_list
+
+    Example: http://chat.localhost/api/tpa1com/14/get_contact_list
+    '''
     contactlst = []
     tpa = Tpa.objects.get(name=app_name)
     owner = ChatUser.objects.filter(tpa=tpa,user_id=user_id)
     for c in ChatContacts.objects.filter(owner=owner):
         contactlst.append({'owner':c.owner.name,'contact':c.contact.name})
-    out = { 'status': 0, 'message': 'ok', 'contact_list': contactlst }
-    return HttpResponse(json.dumps(out), content_type='application/json')  
+    return { 'status': 0, 'message': 'ok', 'contact_list': contactlst }
+ 
         
 
 def has_opponent(request,user_id):
@@ -64,16 +76,17 @@ def has_opponent(request,user_id):
     return HttpResponse(json.dumps(out), content_type='application/json')  
  
 
-
+@json_view
 def get_profile_from_tpa(request,user_id):
+    '''
+    Function get profile user from outer DB (Tpa) and 
+    if user not exist in our DB save into our DB.
+
+    [server]/api/get_profile_from_tpa/[user_id]
+
+    Example: http://chat.locahost/api/get_profile_from_tpa/14
+    '''
     apiconf = read_conf()
-    users = bd.select('select * from users_info where user_id = %d' % int(user_id))
-    for u in users.record:
-        print u['name'], u['last_name']
-        out = {
-        'status': 0,
-        'user_profile': {'user_id':u['user_id'],'name':u['name'],'birthday': datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d'), 'country':u['country'], 'city':u['city'],'culture':u['languages']}
-        }
     tpa = Tpa.objects.get(name=apiconf['config']['app_name'])
     try:
         ChatUser.objects.get(user_id=user_id,tpa=tpa)
@@ -82,14 +95,14 @@ def get_profile_from_tpa(request,user_id):
                 'message': 'User is exits in Our DB',
                 }
     except:
+        users = bd.select('select * from users_info where user_id = %d' % int(user_id))
+        for u in users.record:
+            print u['name'], u['last_name']
+            out = { 'status': 0, 'user_profile': {'user_id':u['user_id'],'name':u['name'],'birthday': datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d'),'country':u['country'],'city':u['city'],'culture':u['languages']}
+                  }
         save_profile_in_our_db(out['user_profile'])
-    try:
-        return HttpResponse(json.dumps(out), content_type='application/json') 
-    except:
-        return HttpResponse(json.dumps({
-        'status': 1,
-        'message': 'no user found',
-        }), content_type='application/json')
+    return out 
+
 
 def save_profile_in_our_db(dict_profile_from_tpa):
     apiconf = read_conf()

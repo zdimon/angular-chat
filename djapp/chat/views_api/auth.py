@@ -14,7 +14,9 @@ def is_auth(request,app_name):
     ''' 
         Checking if user authenticated or not.
 
-        Example: http://localhost/api/is_auth.
+        [server]/api/[app_name]/is_auth 
+
+        Example: http://chat.localhost/api/tpa1com/is_auth
 
         Return: {'status': 0, 'user_id': request.session['user_id']}
     '''
@@ -32,9 +34,11 @@ def login(request,user_id):
  
              request.session['is_auth']
 
-             request.session['user_id']    
+             request.session['user_id']  
 
-        Example: http://localhost/api/23/login.   
+            [server]/api/[user_id]/login  
+
+         Example: http://chat.localhost/api/23/login   
 
         in session to determitate authentication status 
     '''
@@ -48,12 +52,30 @@ def login(request,user_id):
 def logout(request):
     ''' 
         Logout function. 
+        
+        [server]/api/logout
 
         Delete variables request.session['is_auth'] and request.session['user_id'] from session 
+        Example: http://chat.localhost/api/logout
     '''
     del request.session['is_auth']
     del request.session['user_id']
     return { 'status': 0 }
+
+@json_view
+def has_opponent(request,user_id):
+    '''
+    [server]/api/[user_id]/has_opponent
+    '''
+    pass
+
+@json_view
+def get_online(request,app_name):
+    '''
+    [server]/api/[app_name]/get_online
+    '''
+    
+    
 
 
 

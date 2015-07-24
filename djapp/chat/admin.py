@@ -7,7 +7,7 @@ class TpaAdmin(admin.ModelAdmin):
 admin.site.register(Tpa, TpaAdmin)
 
 class ChatUserAdmin(admin.ModelAdmin):
-    list_display = ("name", "avatar", "gender", "birthday", "country", "city", "culture", "is_online", "image", "profile_url", "is_camera_active", "is_invisible", "tpa")
+    list_display = ("user_id","name", "avatar", "gender", "birthday", "country", "city", "culture", "is_online", "image", "profile_url", "is_camera_active", "is_invisible", "tpa")
     search_fields = ("name", "country", "city")
     list_filter = ("tpa", "is_online", "gender")
     def avatar(self, instance):

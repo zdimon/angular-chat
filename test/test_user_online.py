@@ -12,7 +12,7 @@ class TestStringMethods(TestBase):
         #import pdb; pdb.set_trace()
         url = get_url_by_name('get_online',{})
         print bcolors.blue('REQUEST TO %s' % url)
-        responce = requests.post(url)
+        responce = requests.get(url)
         try:
             outdata = json.loads(responce.content)
         except Exception:
