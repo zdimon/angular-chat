@@ -52,13 +52,19 @@ apiconf = {
                 'url':  '[server]/api/get_profile/[user_id]'
             },  
 
-
         'add_contact':
             {
                 'type': 'ajax',
                 'name': 'add_contact',
                 'url':  '[server]/api/[app_name]/[owner_id]/[contact_id]/add_contact'
-            },
+            },  
+
+        'del_contact':
+            {
+                'type': 'ajax',
+                'name': 'del_contact',
+                'url':  '[server]/api/[app_name]/[owner_id]/[contact_id]/del_contact'
+            }
     }
     
 }
