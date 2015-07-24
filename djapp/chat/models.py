@@ -30,7 +30,7 @@ class ChatUser(models.Model):
     ONLINE = ( (0, _('No')), (1, _('Yes')) )
 
     gender = models.CharField(max_length = 1, choices = GENDERS, default = 'm', verbose_name = _('Gender'))
-    user_id = models.CharField(max_length = 64, verbose_name = _('User ID from TPA'), blank = True)
+    user_id = models.IntegerField(db_index=True, verbose_name = _('User ID from TPA'))
     name = models.CharField(max_length = 128, blank = True, verbose_name = _('Public name'))
     birthday = models.DateField(blank = True, null = True, verbose_name = _('birthday'))
     email = models.CharField(max_length = 128, blank = True, verbose_name = _('E-Mail'))
