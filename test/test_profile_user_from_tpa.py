@@ -14,14 +14,14 @@ class TestStringMethods(TestBase):
         url = get_url_by_name('get_profile_from_tpa',{'user_id': '14'})
         print bcolors.blue('REQUEST TO %s' % url)
         responce = requests.get(url)
-
+        #print responce.content
         try:
             outdata = json.loads(responce.content)
         except Exception, err:
             
             
-            for par in re.findall('<div id="summary">(.*?)</div>',responce.content):
-                print '#######%s' % par
+            for par in re.findall('<pre class="exception_value">(.*?)<\/pre>',responce.content):
+                print bcolors.red('#######%s######' % par)
             #print responce.content
             self.fail(err)
         print bcolors.blue(outdata)
