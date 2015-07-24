@@ -44,7 +44,7 @@
       
                 <div class="well col-md-12" ng-controller="AuthCtrl">
                     {% for u in users %}
-                        <li><a ng-click="login()" href="/autologin/{{ u.user_id }}"> {{ u.name }} </a></li>
+                        <li><a ng-click="login({{ u.user_id }})" href="#"> {{ u.name }} </a> {{ u.user_id }}</li>
                     {% endfor %}
                 </div> 
 
@@ -53,8 +53,8 @@
     </div>
    
     <script src="/static/js/app/tpapp.js"></script>
-
-
+    <script src="/static/api.conf.js"></script>
+    <script src="/static/js/app/utils.js"></script>
 
 
 

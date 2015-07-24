@@ -38,9 +38,16 @@ def login(request,user_id):
 
         in session to determitate authentication status 
     '''
+    try:
+        cuser = ChatUser.objects.get(user_id=user_id)
+    except:
+        url = get_url_by_name('get_profile_from_tpa',{'user_id':user_id})
+        print 'REQUEST_____%s' % url
+        responce = requests.get(url)
+        cuser = ChatUser.objects.get(user_id=user_id)
     request.session['is_auth'] = 'true'
     request.session['user_id'] = user_id
-    return { 'status': 0 }
+    return { 'status': 0, 'user_id': user_id, 'username': cuser.name }
      
  
 
