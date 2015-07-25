@@ -13,6 +13,12 @@ c.connect()
 logger = logging.getLogger(__name__)
 logger.setLevel('DEBUG')
 
+import sys, os
+sys.path.append(os.path.join(os.path.dirname(__file__), '../djapp'))
+
+from utils.db import MyDB
+bd = MyDB()
+
  
 class WSHandler(tornado.websocket.WebSocketHandler):
     '''
@@ -27,9 +33,14 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         self.client = brukva.Client()
         self.client.connect()
         self.current_user_id = None
+        self.current_user_name = None
+        self.tpa_id = None
+        self.tpa_name = None
 
     def open(self):
         print 'new connection'
+        bd.update('SET SQL_SAFE_UPDATES=0')
+        bd.update('update chat_chatuser set is_online=0')
 
     def subscribe(self, room):
         '''Subscribing user to the channel in the REDIS server'''
@@ -42,27 +53,41 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         'Accepting message from javasctipt client'
         print 'message received:  %s' % message
         message = json.loads(message) 
+
         if message['action'] == 'connect':
-            self.subscribe('%s_%s' % (message["tpa"], message["user_id"]))
-            self.current_user_id = message["user_id"]    
-            #set_user_online(message["user_id"])    
+            try:
+                chanel = '%s_%s' % (message["tpa"], message["user_id"])
+                self.subscribe(chanel)
+                tpa = bd.get('select id, name from chat_tpa where name="%s" ' % message["tpa"])
+                user = bd.get('select name from chat_chatuser where user_id="%s" ' % message["user_id"])
+                self.current_user_id = message["user_id"]
+                self.current_user_name = user['name']
+                
+                self.tpa_id = tpa['id']
+                self.tpa_name = tpa['name']
+                logger.debug('current tpa information %s %s' % (self.tpa_id, self.tpa_name ))
+                self.write_message(json.dumps({'status': 0, 'user_id':  self.current_user_id, 'user_name':  self.current_user_name, 'message': 'you have been connected to %s' % chanel })) 
+                self.set_user_online()
+            except Exception, e:
+                self.write_message(json.dumps({'status': 1, 'message': str(e)})) 
+            
+    
         self.processor.handle(message)
+        
 
  
     def on_close(self):
         ''' Method whith fires when connection is closed. '''
         print 'connection closed'
-        set_user_offline(self.current_user_id)
+        self.set_user_offline()
 
 
-    def set_user_online(self,user_id):
-        '''TODO'''
-        pass
+    def set_user_online(self):
+        bd.update('update chat_chatuser set is_online=1 where user_id=%s and tpa_id=%s' % (self.current_user_id, self.tpa_id))
 
 
-    def set_user_offline(self,user_id):
-        '''TODO'''
-        pass
+    def set_user_offline(self):
+        bd.update('update chat_chatuser set is_online=0 where user_id=%s and tpa_id=%s' % (self.current_user_id, self.tpa_id))
 
     def redis_message(self, result):
         ''' recieving  message from redis server, 

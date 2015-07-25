@@ -18,8 +18,7 @@
     };
     
     return Auth;
-    
-    
+
 
     function login(username, password) {
       return $http.post('/api/login/', {
@@ -35,7 +34,7 @@
     }
 
     function isauth(callback) {
-      var url = utils.prepare_url(apiconf.api.is_auth.url)
+      var url = utils.prepare_url(apiconf.api.is_auth.url,{})
       return $http.get(url).success(callback); 
     }
 
@@ -49,7 +48,7 @@
 
 
     function has_opponent(callback) {
-      var url = utils.prepare_url(apiconf.api.has_opponent.url)
+      var url = utils.prepare_url(apiconf.api.has_opponent.url,{})
       return $http.get(url).success(callback); 
     }
 

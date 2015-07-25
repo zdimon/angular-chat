@@ -69,19 +69,7 @@ def logout(request):
     del request.session['user_id']
     return { 'status': 0 }
 
-@json_view
-def has_opponent(request,user_id):
-    '''
-    [server]/api/[user_id]/has_opponent
-    '''
-    pass
 
-@json_view
-def get_online(request,app_name):
-    '''
-    [server]/api/[app_name]/get_online
-    '''
-    
     
 
 

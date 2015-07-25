@@ -14,5 +14,22 @@ class MyDB(object):
         query.Query(sql)
         return query
 
+    def count(self,sql):
+        query = PySQLPool.getNewQuery(self.con)
+        query.Query(sql)
+        return query.rowcount
+
+    def update(self,sql):
+        query = PySQLPool.getNewQuery(self.con)
+        query.Query(sql)
+        return query
+
+    def get(self,sql):
+        query = PySQLPool.getNewQuery(self.con)
+        query.Query(sql)
+        for r in query.record:
+            return r
+
+
 
 

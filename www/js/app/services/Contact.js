@@ -9,7 +9,7 @@
                     }
 
             function getContactList(callback) {
-                var url = utils.prepare_url(apiconf.api.get_contact_list.url);
+                var url = utils.prepare_url(apiconf.api.get_contact_list.url,{});
                 return $http.get(url).success(callback); 
 
             };

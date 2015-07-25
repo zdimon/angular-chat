@@ -19,7 +19,7 @@
 
             function getOnline(callback) {
                 WS.send({ action: 'set_online' });
-                var url = utils.prepare_url(apiconf.api.get_online.url);
+                var url = utils.prepare_url(apiconf.api.get_online.url,{});
                 return $http.get(url).success(callback); 
 
             };

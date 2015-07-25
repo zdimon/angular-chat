@@ -185,3 +185,16 @@ def load_db_from_tpa():
     print 'Done loading data in DB from TPA'
 
 
+
+def serialize_user(user):
+    return ({'id':user.id, 'user_id':user.user_id,'gender':user.gender,'name':user.name,
+                    'birthday':str(user.birthday),
+                    'country':user.country,'city':user.city,'image':user.image,
+                    'profile_url':user.profile_url,'culture':user.culture,
+                    'is_camera_active':user.is_camera_active, 
+                    'is_invisible': user.is_invisible, 
+                    'is_invitation_enabled': user.is_invitation_enabled})
+
+
+
+

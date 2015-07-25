@@ -5,8 +5,6 @@ from websocket import create_connection
 class TestStringMethods(unittest.TestCase):
 
 
-
-
     def setUp(self):
         #self.ws = create_connection("ws://localhost:8888/ws")
         #self.ws.send("Hello, World")

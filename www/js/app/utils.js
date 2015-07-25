@@ -9,8 +9,10 @@ utils = {
 
         },
 
-        prepare_url: function prepare_url(str){
-
+        prepare_url: function prepare_url(str,lst){
+            for (var key in lst) {
+                str = str.replace(key,lst[key])
+            }
             str = str.replace('[server]',apiconf.config.signal_server)
             str = str.replace('[app_name]',apiconf.config.app_name)
             url = 'http://'+str

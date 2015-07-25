@@ -9,11 +9,12 @@ from chat.models import Tpa, ChatUser, ChatContacts
 from djapp.settings import DATABASES
 import PySQLPool
 import requests
-from utils.util import read_conf, get_url_by_name
+from utils.util import read_conf, get_url_by_name, serialize_user
 import datetime
 from utils.db import MyDB
 from chat.views_api.contact import *
 from chat.views_api.auth import * 
+from chat.views_api.online import *
 from jsonview.decorators import json_view
 
 bd = MyDB()
@@ -21,6 +22,10 @@ bd = MyDB()
 def test(request):
     t = loader.get_template('test.html')
     users = bd.select('select * from users_info')
+
+    bd.update('SET SQL_SAFE_UPDATES=0')
+    bd.update('update chat_chatuser set is_online=1')
+
     cont = {}
     userslst = []
     for u in users.record:
@@ -35,36 +40,6 @@ def home(request):
     c = RequestContext(request,{})
     return HttpResponse(t.render(c))
 
-@json_view
-def get_online(request,app_name):
-    '''
-    Function return list users is on line
-
-    [server]/api/[app_name]/get_online
-
-    Example: http://chat.localhost/api/tpa1com/get_online
-    '''
-    userlst_profile = []
-    tpa = Tpa.objects.get(name=app_name)
-    for u in ChatUser.objects.filter(tpa=tpa,is_online=1):
-        userlst_profile.append(serialize_user(u))
-    return { 'status': 0, 'message': 'ok', 'user_list': userlst_profile }
-
-@json_view
-def get_contact_list(request,app_name,user_id):
-    '''
-    Function return contact list for current user 
-
-    [server]/api/[app_name]/[user_id]/get_contact_list
-
-    Example: http://chat.localhost/api/tpa1com/14/get_contact_list
-    '''
-    contactlst = []
-    tpa = Tpa.objects.get(name=app_name)
-    owner = ChatUser.objects.filter(tpa=tpa,user_id=user_id)
-    for c in ChatContacts.objects.filter(owner=owner):
-        contactlst.append({'owner':c.owner.name,'contact':c.contact.name})
-    return { 'status': 0, 'message': 'ok', 'contact_list': contactlst }
  
         
 
@@ -139,12 +114,5 @@ def get_profile(request,user_id):
         }
         return HttpResponse(json.dumps(out), content_type='application/json')
 
-def serialize_user(user):
-    return ({'id':user.id, 'user_id':user.user_id,'gender':user.gender,'name':user.name,
-                    'birthday':str(user.birthday),
-                    'country':user.country,'city':user.city,'image':user.image,
-                    'profile_url':user.profile_url,'culture':user.culture,
-                    'is_camera_active':user.is_camera_active, 
-                    'is_invisible': user.is_invisible, 
-                    'is_invitation_enabled': user.is_invitation_enabled})
+
 

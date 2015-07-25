@@ -5,6 +5,8 @@ Signalserver API
     :maxdepth: 2
 
     api/authentication
+    api/contact
+    api/online
 
 
 **Convention**
