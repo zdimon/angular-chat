@@ -3,7 +3,7 @@
 
   angular
     .module('AngularChatApp')
-    .factory('Contact', ['$http','WS', function($http, WS){
+    .factory('Contact', ['$http', function($http){
             return {
                         getContactList: getContactList        
                     }

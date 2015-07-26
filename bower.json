@@ -13,7 +13,9 @@
     "angular-resource": "1.4.0",
     "angular-cookies": "1.4.0",
     "angular-websocket": "1.0.9",
-    "jasmine": "2.3.4"
+    "jasmine": "2.3.4",
+    "sockjs": "0.3",
+    "angular-sockjs": "0.1"
   }
 
 }

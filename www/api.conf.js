@@ -4,7 +4,7 @@ apiconf = {
         'app_id': 1,
         'app_name': 'tpa1com',
         'signal_server': 'chat.localhost',
-        'ws_server': 'localhost:8888'
+        'ws_server': 'chat.localhost:8888'
     },
 
     'api':

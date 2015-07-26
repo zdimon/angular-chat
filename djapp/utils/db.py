@@ -8,6 +8,7 @@ class MyDB(object):
                      password=DATABASES['default']['PASSWORD'], host=DATABASES['default']['HOST'],
                      db=DATABASES['default']['NAME'])
         self.query = PySQLPool.getNewQuery(self.con)
+        self.query.Query('SET SQL_SAFE_UPDATES=0')
 
     def select(self,sql):
         query = PySQLPool.getNewQuery(self.con)

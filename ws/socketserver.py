@@ -5,7 +5,7 @@ import tornado.ioloop
 import tornado.web
 import socket
 import json
-from processor import MessageProcessor
+from processor import handle
 import logging
 import brukva
 c = brukva.Client()
@@ -18,35 +18,45 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../djapp'))
 
 from utils.db import MyDB
 bd = MyDB()
-
+import sockjs.tornado
  
 class WSHandler(tornado.websocket.WebSocketHandler):
     '''
     Websocket server that uses the Tornado websocket handler.
     Please run `pip install tornado` with python of version 2.7.9 or greater to install tornado.
     ''' 
-   
+    participants = set() # List of users online
+
+    def broadcast(self, msg):
+        for p in self.participants:
+            try:
+                p.write_message(json.dumps(msg))
+            except:
+                pass
+
     def __init__(self,*args):
         '''Initialization'''
         super(WSHandler, self).__init__(*args)  
-        self.processor = MessageProcessor() 
         self.client = brukva.Client()
         self.client.connect()
         self.current_user_id = None
         self.current_user_name = None
         self.tpa_id = None
         self.tpa_name = None
+        self.processor = None
 
     def open(self):
         print 'new connection'
-        bd.update('SET SQL_SAFE_UPDATES=0')
-        bd.update('update chat_chatuser set is_online=0')
+        self.participants.add(self)
 
     def subscribe(self, room):
         '''Subscribing user to the channel in the REDIS server'''
         self.client.subscribe(room) # Redis subscribe
         logger.debug('subscribing to room %s' % (room, )) # Debug
         self.client.listen(self.redis_message)
+
+    def pass_message(self, message):
+        self.write_message(json.dumps(message)) 
 
       
     def on_message(self, message):
@@ -68,11 +78,20 @@ class WSHandler(tornado.websocket.WebSocketHandler):
                 logger.debug('current tpa information %s %s' % (self.tpa_id, self.tpa_name ))
                 self.write_message(json.dumps({'status': 0, 'user_id':  self.current_user_id, 'user_name':  self.current_user_name, 'message': 'you have been connected to %s' % chanel })) 
                 self.set_user_online()
+                mes = {'action': 'update_users_online'}
+                self.broadcast(mes)     
             except Exception, e:
+                print e
                 self.write_message(json.dumps({'status': 1, 'message': str(e)})) 
-            
-    
-        self.processor.handle(message)
+        if message['action'] == 'invite':
+            mes = {'action': 'invite'}
+            ch = '%s_%s' % ( message['tpa'], message['opponent'] )
+            c.publish(ch, json.dumps(mes)) 
+        if message['action'] == 'update_users_online':           
+            mes = json.dumps({'action': 'update_users_online'})
+            self.broadcast(mes)           
+        handle(message)
+        
         
 
  
@@ -80,7 +99,8 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         ''' Method whith fires when connection is closed. '''
         print 'connection closed'
         self.set_user_offline()
-
+        mes = {'action': 'update_users_online'}
+        self.broadcast(mes) 
 
     def set_user_online(self):
         bd.update('update chat_chatuser set is_online=1 where user_id=%s and tpa_id=%s' % (self.current_user_id, self.tpa_id))
@@ -94,8 +114,11 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             convertin it in json format 
             and sending it to the current chanel
         '''
+        
         message = json.loads(result.body)
-        self.send(json.dumps(message))
+        print message
+        #self.write_message(json.dumps({'status': 1}))
+        self.write_message(json.dumps(message))
 
  
     def check_origin(self, origin):

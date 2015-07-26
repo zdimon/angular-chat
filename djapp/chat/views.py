@@ -22,9 +22,9 @@ bd = MyDB()
 def test(request):
     t = loader.get_template('test.html')
     users = bd.select('select * from users_info')
-
-    bd.update('SET SQL_SAFE_UPDATES=0')
-    bd.update('update chat_chatuser set is_online=1')
+    #bd.update('update chat_chatuser set is_online=0')
+    
+    
 
     cont = {}
     userslst = []

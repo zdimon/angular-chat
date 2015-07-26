@@ -16,9 +16,14 @@
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 })
 
+
 .run(function ($rootScope, Auth, Online, $window, WS) {
 
-            
+                //mess = {"action" : "connect"};
+                //conn.send(JSON.stringify({"action" : "connect"}));
+              
+               
+
 
             Auth.isauth(function(result){
                 if(result.status==0) { 

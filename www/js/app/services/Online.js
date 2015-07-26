@@ -3,7 +3,7 @@
 
   angular
     .module('AngularChatApp')
-    .factory('Online', ['$http','WS', function($http, WS){
+    .factory('Online', ['$http', function($http){
             return {
                         setOnline: setOnline,
                         setOffline: setOffline,
@@ -18,7 +18,7 @@
             } ;
 
             function getOnline(callback) {
-                WS.send({ action: 'set_online' });
+             
                 var url = utils.prepare_url(apiconf.api.get_online.url,{});
                 return $http.get(url).success(callback); 
 

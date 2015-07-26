@@ -27,27 +27,23 @@ class WebSocketTest(AsyncHTTPTestCase):
         app = Application([('/', EchoWebSocketHandler)])
         return app
 
+  
+
     @gen_test
-    def test_connection(self):
-        #bd.update('update chat_chatuser set is_online=0')
+    def test_invite(self):
         ws = yield websocket_connect(
             'ws://localhost:8888/ws',
             io_loop=self.io_loop)
-        ws.write_message(json.dumps({'action': 'connect'}))
-        response = yield ws.read_message()
-        response = json.loads(response)
-        self.assertEqual("'tpa'", response['message'])
-        bd.update('update chat_chatuser set is_online=0')
         ws.write_message(json.dumps({'action': 'connect', 'user_id': 14, 'tpa': 'tpa1com'}))
         response = yield ws.read_message()
+
+
+        ws.write_message(json.dumps({'action': 'invite', 'tpa': 'tpa1com', 'opponent': 14}))
+        response = yield ws.read_message()
         response = json.loads(response)
-        self.assertEqual(0, response['status'])
+        print response
+        self.assertEqual('invite', response['action'])
 
-        #print response
-        
-        cnt = bd.count('select * from chat_chatuser where is_online=1 and user_id=%s' % response['user_id'])
-        
-        self.assertEqual(1, cnt)
-        print '###%s' % cnt
 
-   
+    
+
