@@ -1,0 +1,18 @@
+{
+    "tags": {
+        "dictionaries": ["jsdoc","closure"]
+    },
+    "source": {
+        "include": [ "www/js/app/app.js" ],
+        "exclude": [ ],
+        "includePattern": ".+\\.js(doc)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "plugins": [],
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false
+    }
+}
+
+

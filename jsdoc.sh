@@ -1,1 +1,1 @@
-jsdoc -c doc/conf.json -d=doc/build/html/js
+jsdoc -r www/js/app/app.js www/js/app/controllers/controllers.js  -d=doc/build/html/js --verbose

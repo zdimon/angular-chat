@@ -1,10 +1,9 @@
 {
     "tags": {
-        "allowUnknownTags": true,
         "dictionaries": ["jsdoc","closure"]
     },
     "source": {
-        "include": [ 'www/js/app' ],
+        "include": [ "www/js/app" ],
         "exclude": [ ],
         "includePattern": ".+\\.js(doc)?$",
         "excludePattern": "(^|\\/|\\\\)_"
