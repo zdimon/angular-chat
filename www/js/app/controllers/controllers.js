@@ -34,10 +34,7 @@ angular.module('app.controllers', [])
          **/
         function ($scope, Online , WS) {
      
-         /**
-         * Function which update user_list parameter in the scope
-         * @name update
-         */
+         
    
         $scope.update = function(){
           Online.getOnline(function(rezult){
