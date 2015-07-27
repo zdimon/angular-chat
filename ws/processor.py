@@ -21,7 +21,7 @@ def handle(message,connection):
         c.publish('%s_%s' % (  message['tpa_name'], message['user_id'] ), json.dumps(mes))
 
     if message['action'] == 'invite':
-        mes = {'action': 'invite', 'user_id': self.current_user_id}
+        mes = {'action': 'invite', 'user_id': connection.current_user_id}
         c.publish('%s_%s' % ( message['tpa'], message['opponent'] ), json.dumps(mes))
 
     if message['action'] == 'update_users_online':           

@@ -86,7 +86,7 @@ apiconf = {
             {
                 'type': 'ajax',
                 'name': 'get_room_or_create',
-                'url':  '[server]/api/[caler_id]/[opponent_id]/get_room_or_create'
+                'url':  '[server]/api/[app_name]/[caler_id]/[opponent_id]/get_room_or_create'
             }
 
 
