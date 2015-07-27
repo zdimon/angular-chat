@@ -31,11 +31,12 @@
                        
                         Auth.has_opponent(function(result){
                             if(result.status==0) {
-                                var url = "http://" + $window.location.host + "#/" + $rootScope.currentUserId+'/'+result.contact_id;
+                                var url = "http://" + apiconf.config.chat_url + "#/" + $rootScope.currentUserId+'/'+result.contact_id;
                             } else {
-                                var url = "http://" + $window.location.host + "#/" + $rootScope.currentUserId;  
+                                var url = "http://" + apiconf.config.chat_url  + "#/" + $rootScope.currentUserId;  
                             }
                             $window.location.href = url;
+                            
                             
             
                         })

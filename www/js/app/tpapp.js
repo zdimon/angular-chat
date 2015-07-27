@@ -34,6 +34,20 @@
                 console.log(res.data);
             });
       }
+    
+       /**
+        *   
+       **/
+        
+
+       $scope.tpalogin = function(user_id){
+        var url = utils.prepare_url(apiconf.api.tpa_login.url,{'[user_id]': user_id});
+        $http.get(url).then(function(res){
+                var url = "http://brides.localhost/";  
+                $window.location.href = url;
+                console.log(res.data);
+            });
+       }
      
     })
 
