@@ -8,7 +8,5 @@ websocket-client==0.32.0
 sphinxcontrib-plantuml
 sphinx-autobuild
 requests
-redgreenunittest
-MySQL-python
 PySQLPool==0.3.8
 django-jsonview==0.4.3
