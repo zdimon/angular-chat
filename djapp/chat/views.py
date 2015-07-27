@@ -15,6 +15,7 @@ from utils.db import MyDB
 from chat.views_api.contact import *
 from chat.views_api.auth import * 
 from chat.views_api.online import *
+from chat.views_api.room import *
 from jsonview.decorators import json_view
 
 bd = MyDB()

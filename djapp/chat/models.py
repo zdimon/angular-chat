@@ -68,18 +68,19 @@ class ChatUser(models.Model):
 
 
 class ChatRoom(models.Model):
-    duration = models.IntegerField(blank = True, verbose_name = _('Duration (min)'))
+    duration = models.IntegerField(blank = True, verbose_name = _('Duration (min)'), default = 0)
     sign = models.CharField(max_length = 250, blank = True, verbose_name = _('Identifier'), editable = False)
     created = models.DateTimeField( auto_now = True, blank = True, null = True)
     tpa = models.ForeignKey(Tpa, verbose_name = _('TPA'))
     is_charging = models.BooleanField(verbose_name = _('Allow charging?'), default = True)
+    is_closed = models.BooleanField(verbose_name = _('Chat Closed'), default = False)
     class Meta:
         verbose_name = _("Chat session")
         verbose_name_plural = _("Chat sessions")
         ordering = ['-id']
 
     def __unicode__(self):
-        return _(u'Chat session №') + u' ' + str(self.pk)
+        return _(u'Chat session #') + u' ' + str(self.pk)
 
         
     def add_user(self,user):

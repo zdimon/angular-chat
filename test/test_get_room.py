@@ -3,7 +3,7 @@ from colorize import bcolors
 import json
 import requests
 from base import TestBase
-from utils.util import get_url_by_name
+from utils.util import get_url_by_name, read_conf
 
 class TestStringMethods(TestBase):
 
@@ -18,9 +18,9 @@ class TestStringMethods(TestBase):
 
             @app_name: Name of the application (TPA)      
 
-            Router: [server]/api/[app_name]/[caler_id]/[opponent_id]/get_room_or_create 
+            Router: [server]/api/[caler_id]/[opponent_id]/get_room_or_create 
             
-            Exemple: http://chat.localhost/api/tpa1com/14/40/get_room_or_create 
+            Example: http://chat.localhost/api/14/40/get_room_or_create 
 
             Response:
             
@@ -28,8 +28,9 @@ class TestStringMethods(TestBase):
 
 
         '''
-        data = {'user_id': 2 }
-        url =  get_url_by_name('get_room_or_create',{'app_name': 'tpa1com', 'caler_id': '14', 'opponent_id': '40'})
+        apiconf = read_conf()
+        data = {'appname': apiconf['config']['app_name'],'caler_id': '14', 'opponent_id': '40'}
+        url =  get_url_by_name('get_room_or_create',{'appname': apiconf['config']['app_name'],'caler_id': '14', 'opponent_id': '40'})
         print bcolors.blue('REQUEST TO %s' % url)
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         responce = requests.get(url, data=json.dumps(data), headers=headers)
