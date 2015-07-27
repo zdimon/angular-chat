@@ -50,13 +50,27 @@ def get_room_or_create(request,app_name,caler_id,opponent_id):
         participans = { str(caler.user_id) : serialize_user(caler), str(opponent.user_id) : serialize_user(opponent) }
         return { 'status': 0, 'message': 'Room was created', 'room_id': str(room.id), 'participans': participans }
 
+@json_view
+def save_message(request):
+    '''
+    Function save message owner in DB 
 
+    parameters by POST: app_name,owner_id,room_id,message
 
-    
+    [server]/api/save_message
 
-
-
-
-
+    Example: http://chat.localhost/api/save_message
+    '''
+    tpa = Tpa.objects.get(name=request.POST['app_name'])
+    owner = ChatUser.objects.get(tpa=tpa,id=request.POST['owner_id'])
+    room = ChatRoom.objects.get(tpa=tpa,id=request.POST['room_id'])
+    cm = ChatMessage()
+    cm.tpa = tpa
+    cm.user = owner
+    cm.room = room
+    cm.message = request.POST['message']
+    gender = owner.gender
+    cm.save()
+    return  { 'status': 0, 'message': request.POST['message'], 'room_id': str(room.id), 'owner_id': str(owner.id) }
 
 
