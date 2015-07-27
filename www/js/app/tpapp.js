@@ -3,7 +3,7 @@
  * @constructor
  */
 
-    var app = angular.module('TpaApp', [
+    var app = angular.module('AngularChatApp', [
         'ngCookies',
         'ngWebSocket' 
     ]).config(function($interpolateProvider,$httpProvider) {
@@ -37,9 +37,27 @@
      
     })
 
-.run(function ($rootScope,$window) {
 
- 
+.controller('OnlineCtrl', function ($window, $rootScope, $scope, $http, WS) {
+      
+        $scope.one = function(){
+            
+            $scope.user_online_1 = true;
+        }
+
+        $scope.$on('update_users_online',function(event, data){
+           
+            $scope["user_online_"+1] = true;
+            $scope["user_online_"+1+'_url'] = 'dddddd';
+               
+        })
+     
+    })
+
+
+.run(function ($rootScope,$window,WS) {
+
+    WS.send({ action: 'get_users_online'});
 
 })
 

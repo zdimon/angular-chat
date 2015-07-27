@@ -3,7 +3,7 @@
 
   angular
     .module('AngularChatApp')
-    .factory('WS', function($websocket, $rootScope, Online){
+    .factory('WS', function($websocket, $rootScope){
 
       var dataStream = $websocket("ws://"+apiconf.config.ws_server+"/ws");
 
@@ -24,6 +24,17 @@
             $rootScope.$broadcast('send_message', {'message':  message.message});
                    
         }
+        
+        /**
+        * Request after sending invitation or accepting invitation
+        *
+        */
+        if(message.action=='put_user_to_room'){
+
+            $rootScope.$broadcast('put_user_to_room', {'message':  message.message});
+                   
+        }
+
 
       });
 

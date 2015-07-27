@@ -1,6 +1,5 @@
 
 
-
 angular.module('app.controllers', [])
         
     .controller('RegistrationController', function($scope,Auth) {
@@ -63,8 +62,17 @@ angular.module('app.controllers', [])
       $scope.update()
     })
 
+
+ .controller('InvitationCtrl', function ($scope, WS, $rootScope) {
+        $scope.ws = WS;
+        $scope.show_intitation = true;
+        $scope.close = function(){
+            $scope.show_intitation = false;
+        }
+    })
+
  .controller('RoomCtrl', function ($scope, WS, $rootScope) {
-      $scope.ws = WS;
+        $scope.ws = WS;
 
         $scope.send = function(){
           WS.send({ action: 'send_message', tpa_name: apiconf.config.app_name, user_id: $rootScope.currentUserId, message: $scope.message }); 

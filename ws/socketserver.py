@@ -83,14 +83,8 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             except Exception, e:
                 print e
                 self.write_message(json.dumps({'status': 1, 'message': str(e)})) 
-        if message['action'] == 'invite':
-            mes = {'action': 'invite'}
-            ch = '%s_%s' % ( message['tpa'], message['opponent'] )
-            c.publish(ch, json.dumps(mes)) 
-        if message['action'] == 'update_users_online':           
-            mes = json.dumps({'action': 'update_users_online'})
-            self.broadcast(mes)           
-        handle(message)
+          
+        handle(message,self)
         
         
 
@@ -101,6 +95,8 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         self.set_user_offline()
         mes = {'action': 'update_users_online'}
         self.broadcast(mes) 
+        self.participants.remove(self)
+
 
     def set_user_online(self):
         bd.update('update chat_chatuser set is_online=1 where user_id=%s and tpa_id=%s' % (self.current_user_id, self.tpa_id))
@@ -118,7 +114,10 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         message = json.loads(result.body)
         print message
         #self.write_message(json.dumps({'status': 1}))
-        self.write_message(json.dumps(message))
+        try:
+            self.write_message(json.dumps(message))
+        except:
+            print "Can not send %s to %s_%s" % (message,self.tpa_name, self.current_user_id)
 
  
     def check_origin(self, origin):

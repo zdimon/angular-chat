@@ -39,7 +39,7 @@ class ChatUser(models.Model):
     image = models.CharField(max_length = 128, blank = True, null = True, verbose_name = _('Image'))
     profile_url = models.CharField(max_length = 250, blank = True, verbose_name = _('Url on profile page in the client site'))
     culture = models.CharField(max_length = 3, choices = CULTURES, blank = True, null = True, verbose_name = _('Users language code'))
-    is_online = models.IntegerField(max_length = 1, default = 0, choices = ONLINE, verbose_name = _('Is user online now'), db_index=True)
+    is_online = models.IntegerField(default = 0, choices = ONLINE, verbose_name = _('Is user online now'), db_index=True)
     tpa = models.ForeignKey(Tpa, verbose_name = _('TPA')) # client_id
     is_camera_active = models.BooleanField(verbose_name = _('Is active?'), default = False)
     is_invisible = models.BooleanField(default = False, verbose_name = _('Is user invisible'))
