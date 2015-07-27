@@ -5,6 +5,10 @@ c = brukva.Client()
 c.connect()
 logger = logging.getLogger(__name__)
 logger.setLevel('DEBUG')
+
+import sys
+sys.path.insert(0, '/home/zarik/angular_ve/angular-chat/djapp/')
+
 from utils.db import MyDB
 bd = MyDB()
 
