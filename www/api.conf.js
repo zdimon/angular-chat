@@ -80,13 +80,13 @@ apiconf = {
                 'type': 'ajax',
                 'name': 'del_contact',
                 'url':  '[server]/api/[app_name]/[owner_id]/[contact_id]/del_contact'
-            }
+            },
 
         'get_room_or_create':
             {
                 'type': 'ajax',
                 'name': 'get_room_or_create',
-                'url':  '[server]/api/[caler_id]/[caler_id]/get_room_or_create'
+                'url':  '[server]/api/[caler_id]/[opponent_id]/get_room_or_create'
             }
 
 

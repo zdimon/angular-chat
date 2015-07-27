@@ -17,12 +17,7 @@
 })
 
 
-.run(function ($rootScope, Auth, Online, $window, WS) {
-
-                //mess = {"action" : "connect"};
-                //conn.send(JSON.stringify({"action" : "connect"}));
-              
-               
+.run(function ($rootScope, Auth, $window, WS) {
 
 
             Auth.isauth(function(result){

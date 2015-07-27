@@ -6,8 +6,9 @@ c.connect()
 logger = logging.getLogger(__name__)
 logger.setLevel('DEBUG')
 
-import sys
-sys.path.insert(0, '/home/zarik/angular_ve/angular-chat/djapp/')
+
+import sys, os
+sys.path.append(os.path.join(os.path.dirname(__file__), '../djapp'))
 
 from utils.db import MyDB
 bd = MyDB()
