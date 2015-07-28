@@ -188,6 +188,27 @@ def load_db_from_tpa():
     for u in users.record:
             url = get_url_by_name('get_profile',{'user_id':str(u['login'])})
             responce = requests.get(url)
+
+    owner = ChatUser.objects.get(user_id=150043)
+    contact = ChatUser.objects.get(user_id=150014)
+    tpa = Tpa.objects.get(name='tpa1com')
+
+    cr = ChatRoom()
+    cr.tpa = tpa
+    cr.duration = 30
+    cr.save()
+
+
+    room = ChatRoom.objects.get(tpa=tpa)
+
+    cc = ChatContacts()
+    cc.owner = owner
+    cc.contact = contact
+    cc.is_active = 1
+    cc.tpa = tpa
+    cc.room = room
+    cc.save()
+
     print 'Done loading data in DB from TPA'
 
 

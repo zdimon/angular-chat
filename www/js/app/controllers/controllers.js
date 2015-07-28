@@ -57,9 +57,15 @@ angular.module('app.controllers', [])
 
  .controller('ContactListCtrl', function ($scope, Contact) {
       $scope.update = function(){
-       
+        Contact.getContactList(function(rezult){
+                $scope.contact_list = rezult.contact_list;
+            })       
       }
-      $scope.update()
+      $scope.$on('rootScope_ready',function(event, data){
+
+            $scope.update();
+
+      })
     })
 
 

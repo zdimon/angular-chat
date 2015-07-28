@@ -26,7 +26,9 @@
                         $rootScope.isAuthenticated = true;  
                         $rootScope.currentUserId = result.user_id; 
                         $rootScope.currentUsername = result.user_name;
-                        
+
+                        $rootScope.$broadcast('rootScope_ready');
+
                         WS.send({ action: 'connect', tpa: apiconf.config.app_name, user_id: $rootScope.currentUserId });
                        
                         Auth.has_opponent(function(result){
