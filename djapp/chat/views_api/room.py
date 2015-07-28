@@ -7,7 +7,7 @@ from utils.util import read_conf, get_url_by_name
 from django.views.decorators.csrf import csrf_exempt
 import requests
 from django.contrib.auth.models import User
-from chat.models import ChatUser,ChatRoom
+from chat.models import ChatUser,ChatRoom,ChatMessage
 from chat.models import Tpa
 from utils.util import read_conf, serialize_user
 from utils.db import MyDB
@@ -50,6 +50,7 @@ def get_room_or_create(request,app_name,caler_id,opponent_id):
         participans = { str(caler.user_id) : serialize_user(caler), str(opponent.user_id) : serialize_user(opponent) }
         return { 'status': 0, 'message': 'Room was created', 'room_id': str(room.id), 'participans': participans }
 
+@csrf_exempt
 @json_view
 def save_message(request):
     '''
@@ -62,8 +63,8 @@ def save_message(request):
     Example: http://chat.localhost/api/save_message
     '''
     tpa = Tpa.objects.get(name=request.POST['app_name'])
-    owner = ChatUser.objects.get(tpa=tpa,id=request.POST['owner_id'])
-    room = ChatRoom.objects.get(tpa=tpa,id=request.POST['room_id'])
+    owner = ChatUser.objects.get(tpa=tpa,user_id=int(request.POST['owner_id']))
+    room = ChatRoom.objects.get(tpa=tpa,id=int(request.POST['room_id']))
     cm = ChatMessage()
     cm.tpa = tpa
     cm.user = owner

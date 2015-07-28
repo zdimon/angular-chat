@@ -30,7 +30,7 @@ class TestStringMethods(TestBase):
         '''
         apiconf = read_conf()
         data = {'appname': apiconf['config']['app_name'],'caler_id': '14', 'opponent_id': '40'}
-        url =  get_url_by_name('get_room_or_create',{'appname': apiconf['config']['app_name'],'caler_id': '14', 'opponent_id': '40'})
+        url =  get_url_by_name('get_room_or_create',{'app_name': apiconf['config']['app_name'],'caler_id': '14', 'opponent_id': '40'})
         print bcolors.blue('REQUEST TO %s' % url)
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         responce = requests.get(url, data=json.dumps(data), headers=headers)

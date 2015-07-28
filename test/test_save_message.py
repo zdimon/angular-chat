@@ -20,11 +20,12 @@ class TestStringMethods(TestBase):
         '''
         apiconf = read_conf()
         data = {'app_name': apiconf['config']['app_name'],'owner_id': '14', 'room_id': '23', 'message': 'Hello peoples'}
-        import pdb; pdb.set_trace()
-        url =  get_url_by_name('save_message',{'app_name': apiconf['config']['app_name'],'owner_id': '14', 'room_id': '23','message': 'Hello peoples'})
+        #import pdb; pdb.set_trace()
+        url = get_url_by_name('save_message',{'app_name': apiconf['config']['app_name'],})
         print bcolors.blue('REQUEST TO %s' % url)
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-        responce = requests.post(url, data=json.dumps(data), headers=headers)
+        responce = requests.post(url, data=data)
+        print responce.content
         self.assertEqual(responce.status_code, 200)
         outdata = json.loads(responce.content)
         print bcolors.blue(outdata)

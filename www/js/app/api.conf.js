@@ -88,6 +88,14 @@ apiconf = {
                 'type': 'ajax',
                 'name': 'get_room_or_create',
                 'url':  '[server]/api/[app_name]/[caler_id]/[opponent_id]/get_room_or_create'
+            },
+
+        'save_message':
+            {
+                'type': 'ajax[POST]',
+                'name': 'save_message',
+                'url':  '[server]/api/save_message',
+                'params': 'app_name,owner_id,room_id,message'
             }
 
 
