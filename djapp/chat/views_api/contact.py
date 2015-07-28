@@ -59,6 +59,30 @@ def del_contact(request,app_name,owner_id,contact_id):
 
     return out
 
+@json_view
+def del_all_contacts(request,app_name,owner_id):
+    ''' 
+        Del all contacts in owner 
+
+        [server]/api/[app_name]/[owner_id]/del_all_contacts
+        
+        Example: http://chat.localhost/api/tpa1com/150043/del_all_contacts
+
+        Responce 1: { 'status': 0, 'message': 'All Contacts have been deleted.' }
+
+        Responce 2: { 'status': 1, 'message': 'List Contacts is empty.' }
+
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    owner = ChatUser.objects.get(tpa=tpa,user_id=owner_id)
+    try:
+        ChatContacts.objects.filter(owner=owner).delete()     
+        out = { 'status': 0, 'message': 'All Contacts have been deleted.' }   
+    except:       
+        out = { 'status': 1, 'message': 'List Contacts is empty.' }
+
+    return out    
+
 
 @json_view
 def get_contact_list(request,app_name,user_id):

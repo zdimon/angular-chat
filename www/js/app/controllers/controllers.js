@@ -66,6 +66,18 @@ angular.module('app.controllers', [])
             $scope.update();
 
       })
+      $scope.delete = function(contact_id){
+          Contact.delContact(contact_id,function(rezult){
+            $scope.update()
+            })
+        }
+
+      $scope.deleteAll = function(){
+            alert("Trudsfdfsdfsdfsd----------");
+          Contact.delContact(function(rezult){
+            $scope.update()
+            })
+        }
     })
 
 

@@ -82,6 +82,14 @@ apiconf = {
                 'name': 'del_contact',
                 'url':  '[server]/api/[app_name]/[owner_id]/[contact_id]/del_contact'
             },
+  
+
+        'del_all_contacts':
+            {
+                'type': 'ajax',
+                'name': 'del_all_contacts',
+                'url':  '[server]/api/[app_name]/[owner_id]/del_all_contacts'
+            },
 
         'get_room_or_create':
             {
