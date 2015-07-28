@@ -6,7 +6,8 @@
     .factory('Contact', ['$http','$rootScope', function($http,$rootScope){
             return {
                         getContactList: getContactList,
-                        delContact: delContact
+                        delContact: delContact,
+                        deleteAll: deleteAll
                     }
 
             function getContactList(callback) {

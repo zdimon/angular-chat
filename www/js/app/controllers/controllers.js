@@ -74,7 +74,7 @@ angular.module('app.controllers', [])
 
       $scope.deleteAll = function(){
             alert("Trudsfdfsdfsdfsd----------");
-          Contact.delContact(function(rezult){
+          Contact.deleteAll(function(rezult){
             $scope.update()
             })
         }
