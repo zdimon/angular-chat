@@ -23,6 +23,12 @@ def get_url_by_name(name,dict_key):
         url = url.replace('[%s]' % key, dict_key[key])
     return url
 
+def set_on_line():
+    from chat.models import *
+    print bcolors.WARNING+'Start set_on_line'
+    ChatUser.objects.all().update(is_online=True)
+    print bcolors.WARNING+'Done set_on_line'
+
 def clean_db():
     from chat.models import *
     from django.contrib.auth.models import User
@@ -178,9 +184,9 @@ def load_db_from_tpa():
         pass
 
     print bcolors.WARNING+'Start loading data in DB from TPA'
-    users = bd.select('select * from users_info')
+    users = bd.select('select * from users')
     for u in users.record:
-            url = get_url_by_name('get_profile',{'user_id':str(u['user_id'])})
+            url = get_url_by_name('get_profile',{'user_id':str(u['login'])})
             responce = requests.get(url)
     print 'Done loading data in DB from TPA'
 
@@ -193,7 +199,9 @@ def serialize_user(user):
                     'profile_url':user.profile_url,'culture':user.culture,
                     'is_camera_active':user.is_camera_active, 
                     'is_invisible': user.is_invisible, 
-                    'is_invitation_enabled': user.is_invitation_enabled})
+                    'is_invitation_enabled': user.is_invitation_enabled,
+                    'age': user.age
+            })
 
 
 

@@ -40,12 +40,12 @@ class WebSocketTest(AsyncHTTPTestCase):
             io_loop=self.io_loop)
 
         '''Subscribing user to the channel in the REDIS server'''
-        self.client.subscribe('tpa1com_14') # Redis subscribe
-        print 'subscribe to tpa1com_14'
+        self.client.subscribe('tpa1com_150031') # Redis subscribe
+        print 'subscribe to tpa1com_150031'
         self.client.listen(self.redis_message)
-        ws.write_message(json.dumps({'action': 'connect', 'user_id': 14, 'tpa': 'tpa1com'}))
+        ws.write_message(json.dumps({'action': 'connect', 'user_id': 150031, 'tpa': 'tpa1com'}))
         response = yield ws.read_message()
-        ws.write_message(json.dumps({'action': 'invite', 'opponent': 14, 'tpa': 'tpa1com'}))
+        ws.write_message(json.dumps({'action': 'invite', 'opponent': 150031, 'tpa': 'tpa1com'}))
         response = yield ws.read_message()
         #self.assertEqual('update_users_online', response['action'])
     def redis_message(self, result):

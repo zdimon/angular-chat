@@ -9,7 +9,7 @@ class TestStringMethods(TestBase):
 
         
     def test_login(self):
-        url = get_url_by_name('login',{'user_id':'14'})
+        url = get_url_by_name('login',{'user_id':'150031'})
         print bcolors.blue('REQUEST TO %s' % url)
         responce = requests.get(url)
         outdata = json.loads(responce.content)

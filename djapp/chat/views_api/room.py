@@ -23,7 +23,7 @@ def get_room_or_create(request,app_name,caler_id,opponent_id):
 
     [server]/api/[app_name]/[caler_id]/[opponent_id]/get_online
 
-    Example: http://chat.localhost/api/tpa1com/14/40/get_online
+    Example: http://chat.localhost/api/tpa1com/150031/150014/get_online
     '''
     tpa = Tpa.objects.get(name=app_name)
     opponent = ChatUser.objects.get(tpa=tpa,user_id=opponent_id)
@@ -73,5 +73,22 @@ def save_message(request):
     gender = owner.gender
     cm.save()
     return  { 'status': 0, 'message': request.POST['message'], 'room_id': str(room.id), 'owner_id': str(owner.id) }
+
+@json_view
+def get_message(request,room_id):
+    '''
+    Function get message in DB for room and app_name
+
+    [server]/api/[room_id]/get_message
+
+    Example: http://chat.localhost/api/23/get_message
+    '''
+    #import pdb; pdb.set_trace()
+    lst_chat_message = []
+    room = ChatRoom.objects.get(id=int(room_id))
+    message = ChatMessage.objects.filter(room=room)
+    for m in message:
+        lst_chat_message.append({'id':m.user.id, 'user_id':m.user.user_id, 'gender':m.gender,'message':m.message,'created':m.created })
+    return  { 'status': 0, 'message': lst_chat_message }
 
 

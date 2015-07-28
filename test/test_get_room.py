@@ -20,17 +20,17 @@ class TestStringMethods(TestBase):
 
             Router: [server]/api/[caler_id]/[opponent_id]/get_room_or_create 
             
-            Example: http://chat.localhost/api/14/40/get_room_or_create 
+            Example: http://chat.localhost/api/150031/150014/get_room_or_create 
 
             Response:
             
-            {'status': 0, 'room_id': 234, participans: {'23': {'username': .....}} }
+            {'status': 0, 'room_id': 234, participans: {'25': {'username': .....}} }
 
 
         '''
         apiconf = read_conf()
-        data = {'appname': apiconf['config']['app_name'],'caler_id': '14', 'opponent_id': '40'}
-        url =  get_url_by_name('get_room_or_create',{'app_name': apiconf['config']['app_name'],'caler_id': '14', 'opponent_id': '40'})
+        data = {'appname': apiconf['config']['app_name'],'caler_id': '150031', 'opponent_id': '150014'}
+        url =  get_url_by_name('get_room_or_create',{'app_name': apiconf['config']['app_name'],'caler_id': '150031', 'opponent_id': '150014'})
         print bcolors.blue('REQUEST TO %s' % url)
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         responce = requests.get(url, data=json.dumps(data), headers=headers)

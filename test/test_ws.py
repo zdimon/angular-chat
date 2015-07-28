@@ -38,7 +38,7 @@ class WebSocketTest(AsyncHTTPTestCase):
         response = json.loads(response)
         self.assertEqual("'tpa'", response['message'])
         bd.update('update chat_chatuser set is_online=0')
-        ws.write_message(json.dumps({'action': 'connect', 'user_id': 14, 'tpa': 'tpa1com'}))
+        ws.write_message(json.dumps({'action': 'connect', 'user_id': 150031, 'tpa': 'tpa1com'}))
         response = yield ws.read_message()
         response = json.loads(response)
         self.assertEqual(0, response['status'])

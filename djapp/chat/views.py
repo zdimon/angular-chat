@@ -71,10 +71,11 @@ def get_profile_from_tpa(request,user_id):
                 'message': 'User is exits in Our DB',
                 }
     except:
-        users = bd.select('select * from users_info where user_id = %d' % int(user_id))
-        for u in users.record:
-            print u['name'], u['last_name']
-            out = { 'status': 0, 'user_profile': {'user_id':u['user_id'],'name':u['name'],'birthday': datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d'),'country':u['country'],'city':u['city'],'culture':u['languages']}
+        u_login = bd.get('select id,login from users where login= %s' % int(user_id))
+        u = bd.get('select * from users_info where user_id = %d' % int(u_login['id']))
+        u_photo = bd.get('select image from users_photos where user_id = %d and main = 1' % int(u_login['id']))
+        print u['name'], u['last_name']
+        out = { 'status': 0, 'user_profile': {'user_id':u_login['login'],'name':u['name'],'birthday': datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d'),'country':u['country'],'city':u['city'],'culture':u['languages'],'image':u_photo['image']}
                   }
         save_profile_in_our_db(out['user_profile'])
     return out 
@@ -89,6 +90,7 @@ def save_profile_in_our_db(dict_profile_from_tpa):
     u.country = dict_profile_from_tpa['country']
     u.city = dict_profile_from_tpa['city']
     u.culture = dict_profile_from_tpa['culture']
+    u.image = dict_profile_from_tpa['image']
     tpa = Tpa.objects.get(name=apiconf['config']['app_name'])
     u.tpa = tpa
     u.save()

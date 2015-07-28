@@ -11,7 +11,7 @@ class TestStringMethods(TestBase):
 
         
     def test_profile_user_from_tpa(self):
-        url = get_url_by_name('get_profile_from_tpa',{'user_id': '14'})
+        url = get_url_by_name('get_profile_from_tpa',{'user_id': '150031'})
         print bcolors.blue('REQUEST TO %s' % url)
         responce = requests.get(url)
         #print responce.content

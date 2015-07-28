@@ -34,7 +34,7 @@ class WebSocketTest(AsyncHTTPTestCase):
         ws = yield websocket_connect(
             'ws://localhost:8888/ws',
             io_loop=self.io_loop)
-        ws.write_message(json.dumps({'action': 'connect', 'user_id': 14, 'tpa': 'tpa1com'}))
+        ws.write_message(json.dumps({'action': 'connect', 'user_id': 150031, 'tpa': 'tpa1com'}))
         response = yield ws.read_message()
         response = json.loads(response)
         print response
@@ -43,7 +43,7 @@ class WebSocketTest(AsyncHTTPTestCase):
         response = json.loads(response)
         print response
         self.assertEqual('update_users_online', response['action'])
-        ws.write_message(json.dumps({'action': 'invite', 'tpa': 'tpa1com', 'opponent': 14}))
+        ws.write_message(json.dumps({'action': 'invite', 'tpa': 'tpa1com', 'opponent': 150031}))
         response = yield ws.read_message()
         response = json.loads(response)
         print response

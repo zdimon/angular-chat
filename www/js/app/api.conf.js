@@ -96,6 +96,13 @@ apiconf = {
                 'name': 'save_message',
                 'url':  '[server]/api/save_message',
                 'params': 'app_name,owner_id,room_id,message'
+            },
+
+        'get_message':
+            {
+                'type': 'ajax',
+                'name': 'get_message',
+                'url':  '[server]/api/[room_id]/get_message'
             }
 
 
