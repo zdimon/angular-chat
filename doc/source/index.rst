@@ -15,6 +15,7 @@ Contents:
     test_loading
     owerview
     angularapp
+    djangoapp
     file_structure
     socketserver
     architecture

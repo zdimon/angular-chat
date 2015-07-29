@@ -1,0 +1,39 @@
+
+
+
+
+        <h1>Registered</h1>
+
+
+
+       <!-- User online list -->
+       <section ng-controller="UserOnlineCtrl">
+                User online
+                <ul>                   
+                    <li ng-repeat="u in user_list"> Name [[ u.name ]]
+                        <img src="[[u.image]]"width="50" height="50">
+                        [[u.age]] age. Country: [[u.country]]. City: [[u.city]]
+                        Profile_url: <a href="[[u.profile_url]]">[[u.profile_url]]</a>
+                    </li>
+                </ul>
+                <a  ng-click="update()">Update</a>
+
+       </section>
+       <!---------------------->
+
+
+      <!-- Room -->
+       <section ng-show="show_intitation" ng-controller="InvitationCtrl">
+                Invitation
+                <a  ng-click="close()">Send</a>
+       </section>
+       <!---------------------->
+
+
+      <!-- Room -->
+       <section ng-controller="RoomCtrl">
+                room
+                <textarea ng-model="message"></textarea>
+                <a  ng-click="send()">Send</a>
+       </section>
+       <!---------------------->

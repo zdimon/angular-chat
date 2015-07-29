@@ -32,7 +32,8 @@ The function :func:`someService` does a some function.
                         $rootScope.$broadcast('rootScope_ready');
 
                         WS.send({ action: 'connect', tpa: apiconf.config.app_name, user_id: $rootScope.currentUserId });
-                       /*
+                   
+                        /*
                         Auth.has_opponent(function(result){
                             if(result.status==0) {
                                 var url = "http://" + apiconf.config.chat_url + "#/" + $rootScope.currentUserId+'/'+result.contact_id;
@@ -43,7 +44,8 @@ The function :func:`someService` does a some function.
                             
                             
             
-                        }) */
+                        }) 
+                        */
                          
                        
 

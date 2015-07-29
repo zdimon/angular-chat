@@ -21,7 +21,7 @@
                 url: "/",
                 templateUrl: "/static/templates/anonimous.html",
                 controller: function(){
-                        alert('kk');
+  
                 }
                 
             })
@@ -30,6 +30,9 @@
 
                 url: "/:user",
                 templateUrl: "/static/templates/registered.html",
+                controller: function(){
+   
+                }
                 
             })          
 
@@ -38,11 +41,10 @@
                 url: "/:user/:opponent",
                 templateUrl: "/static/templates/active.html",
 
-                controller: function(){
-
-                    alert($stateParams);
-                    Room.invite(contact_id,function(rezult){
-                    
+                controller: function($stateParams, Room){
+              
+                    Room.invite($stateParams.opponent,function(rezult){
+                      
                     })
                 }
                 
