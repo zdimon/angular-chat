@@ -11,7 +11,7 @@ class TestStringMethods(TestBase):
         
     def test_add_contact_list(self):
         #import pdb; pdb.set_trace()
-        url = get_url_by_name('add_contact',{'app_name':'tpa1com','owner_id':'14','contact_id':'44'})
+        url = get_url_by_name('add_contact',{'app_name':'tpa1com','owner_id':'150031','contact_id':'150014'})
         print bcolors.blue('REQUEST TO %s' % url)
         responce = requests.get(url)
 

@@ -67,7 +67,14 @@ apiconf = {
                 'type': 'ajax',
                 'name': 'get_profile',
                 'url':  '[server]/api/get_profile/[user_id]'
-            },  
+            },   
+
+        'invite':
+            {
+                'type': 'ajax',
+                'name': 'invite',
+                'url':  '[server]/api/[app_name]/[owner_id]/[contact_id]/invite'
+            },
 
         'add_contact':
             {
@@ -82,12 +89,35 @@ apiconf = {
                 'name': 'del_contact',
                 'url':  '[server]/api/[app_name]/[owner_id]/[contact_id]/del_contact'
             },
+  
+
+        'del_all_contacts':
+            {
+                'type': 'ajax',
+                'name': 'del_all_contacts',
+                'url':  '[server]/api/[app_name]/[owner_id]/del_all_contacts'
+            },
 
         'get_room_or_create':
             {
                 'type': 'ajax',
                 'name': 'get_room_or_create',
                 'url':  '[server]/api/[app_name]/[caler_id]/[opponent_id]/get_room_or_create'
+            },
+
+        'save_message':
+            {
+                'type': 'ajax[POST]',
+                'name': 'save_message',
+                'url':  '[server]/api/save_message',
+                'params': 'app_name,owner_id,room_id,message'
+            },
+
+        'get_message':
+            {
+                'type': 'ajax',
+                'name': 'get_message',
+                'url':  '[server]/api/[room_id]/get_message'
             }
 
 

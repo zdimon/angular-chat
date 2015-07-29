@@ -4,6 +4,30 @@ from chat.models import Tpa, ChatUser, ChatContacts
 from jsonview.decorators import json_view
 from utils.util import serialize_user
 
+
+def _add_contact(app_name,owner_id,contact_id):
+    ''' 
+        Add new contact to owner 
+
+        [server]/api/[app_name]/[owner_id]/[contact_id]/add_contact
+
+        Example: http://chat.localhost/api/tpa1com/14/15/add_contact
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    owner = ChatUser.objects.get(tpa=tpa,user_id=owner_id)
+    contact = ChatUser.objects.get(tpa=tpa,user_id=contact_id)
+    try:
+        ChatContacts.objects.get(owner=owner,contact=contact) 
+        out = { 'status': 1, 'message': 'Contact is already exists' }   
+    except:
+        new_contact = ChatContacts()
+        new_contact.owner = owner
+        new_contact.contact = contact
+        new_contact.tpa = tpa
+        new_contact.save()        
+        out = { 'status': 0, 'message': 'Contact has been added' }
+    return out 
+
 @json_view
 def add_contact(request,app_name,owner_id,contact_id):
     ''' 
@@ -58,6 +82,30 @@ def del_contact(request,app_name,owner_id,contact_id):
         out = { 'status': 1, 'message': 'Contact does not exist.' }
 
     return out
+
+@json_view
+def del_all_contacts(request,app_name,owner_id):
+    ''' 
+        Del all contacts in owner 
+
+        [server]/api/[app_name]/[owner_id]/del_all_contacts
+        
+        Example: http://chat.localhost/api/tpa1com/150043/del_all_contacts
+
+        Responce 1: { 'status': 0, 'message': 'All Contacts have been deleted.' }
+
+        Responce 2: { 'status': 1, 'message': 'List Contacts is empty.' }
+
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    owner = ChatUser.objects.get(tpa=tpa,user_id=owner_id)
+    try:
+        ChatContacts.objects.filter(owner=owner).delete()     
+        out = { 'status': 0, 'message': 'All Contacts have been deleted.' }   
+    except:       
+        out = { 'status': 1, 'message': 'List Contacts is empty.' }
+
+    return out    
 
 
 @json_view

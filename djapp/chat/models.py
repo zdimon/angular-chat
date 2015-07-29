@@ -3,8 +3,9 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 import json
 from django.utils.safestring import mark_safe
-from datetime import datetime
+from datetime import datetime, date
 import time
+
 
 # Create your models here.
 class Tpa(models.Model):
@@ -63,7 +64,7 @@ class ChatUser(models.Model):
                 b = today.year - self.birthday.year - 1
             else:
                 b = today.year - self.birthday.year
-        return '%s %s' % (b ,ungettext(u'y.o.', u'y.o.', b))
+        return '%d' % b
 
 
 

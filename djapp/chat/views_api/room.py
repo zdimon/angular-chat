@@ -3,27 +3,23 @@ import json
 from django.http import HttpResponse
 from jsonview.decorators import json_view
 from django.shortcuts import redirect
-from utils.util import read_conf, get_url_by_name
+from utils.util import read_conf
 from django.views.decorators.csrf import csrf_exempt
 import requests
 from django.contrib.auth.models import User
-from chat.models import ChatUser,ChatRoom
+from chat.models import ChatUser,ChatRoom,ChatMessage
 from chat.models import Tpa
 from utils.util import read_conf, serialize_user
 from utils.db import MyDB
+from contact import _add_contact
 
 bd = MyDB()
 
-
-@json_view
-def get_room_or_create(request,app_name,caler_id,opponent_id):
+def _get_room_or_create(app_name,caler_id,opponent_id):
     '''
     Function return existed room identifier or create new room.
+
     Also it create two records in ChatUser2Room model.
-
-    [server]/api/[app_name]/[caler_id]/[opponent_id]/get_online
-
-    Example: http://chat.localhost/api/tpa1com/14/40/get_online
     '''
     tpa = Tpa.objects.get(name=app_name)
     opponent = ChatUser.objects.get(tpa=tpa,user_id=opponent_id)
@@ -51,12 +47,67 @@ def get_room_or_create(request,app_name,caler_id,opponent_id):
         return { 'status': 0, 'message': 'Room was created', 'room_id': str(room.id), 'participans': participans }
 
 
+@json_view
+def get_room_or_create(request,app_name,caler_id,opponent_id):
+    '''
+    Function return existed room identifier or create new room.
+    Also it create two records in ChatUser2Room model.
 
-    
+    [server]/api/[app_name]/[caler_id]/[opponent_id]/get_online
+
+    Example: http://chat.localhost/api/tpa1com/150031/150014/get_online
+    '''
+    return _get_room_or_create(app_name,caler_id,opponent_id)
 
 
 
+@csrf_exempt
+@json_view
+def save_message(request):
+    '''
+    Function save message owner in DB 
+
+    parameters by POST: app_name,owner_id,room_id,message
+
+    [server]/api/save_message
+
+    Example: http://chat.localhost/api/save_message
+    '''
+    tpa = Tpa.objects.get(name=request.POST['app_name'])
+    owner = ChatUser.objects.get(tpa=tpa,user_id=int(request.POST['owner_id']))
+    room = ChatRoom.objects.get(tpa=tpa,id=int(request.POST['room_id']))
+    cm = ChatMessage()
+    cm.tpa = tpa
+    cm.user = owner
+    cm.room = room
+    cm.message = request.POST['message']
+    gender = owner.gender
+    cm.save()
+    return  { 'status': 0, 'message': request.POST['message'], 'room_id': str(room.id), 'owner_id': str(owner.id) }
+
+@json_view
+def get_message(request,room_id):
+    '''
+    Function get message in DB for room and app_name
+
+    [server]/api/[room_id]/get_message
+
+    Example: http://chat.localhost/api/23/get_message
+    '''
+    #import pdb; pdb.set_trace()
+    lst_chat_message = []
+    room = ChatRoom.objects.get(id=int(room_id))
+    message = ChatMessage.objects.filter(room=room)
+    for m in message:
+        lst_chat_message.append({'id':m.user.id, 'user_id':m.user.user_id, 'gender':m.gender,'message':m.message,'created':m.created })
+    return  { 'status': 0, 'message': lst_chat_message }
 
 
-
-
+def invite(owner_id,contact_id):
+    '''
+    Function send owner invite in opponent 
+    '''
+    apiconf = read_conf()
+    app_name = apiconf['config']['app_name']
+    _add_contact(app_name,owner_id,contact_id)
+    return _get_room_or_create(app_name,owner_id,contact_id)

@@ -38,7 +38,11 @@ def login(request,user_id):
 
             [server]/api/[user_id]/login  
 
-         Example: http://chat.localhost/api/23/login   
+         Example: http://chat.localhost/api/150014/login   
+
+            http://chat.localhost/api/150043/login
+    
+            http://chat.localhost/api/150031/login
 
         in session to determitate authentication status 
     '''
@@ -51,7 +55,8 @@ def login(request,user_id):
         cuser = ChatUser.objects.get(user_id=user_id)
     request.session['is_auth'] = 'true'
     request.session['user_id'] = user_id
-    return { 'status': 0, 'user_id': user_id, 'username': cuser.name }
+    #return { 'status': 0, 'user_id': user_id, 'username': cuser.name }
+    return redirect('http://chat.localhost/video-chat')
      
  
 

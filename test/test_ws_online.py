@@ -28,11 +28,11 @@ class WebSocketTest(AsyncHTTPTestCase):
         ws = yield websocket_connect(
             'ws://localhost:8888/ws',
             io_loop=self.io_loop)
-        ws.write_message(json.dumps({'action': 'connect', 'user_id': 14, 'tpa': 'tpa1com'}))
+        ws.write_message(json.dumps({'action': 'connect', 'user_id': 150031, 'tpa': 'tpa1com'}))
         response = yield ws.read_message()
         response = json.loads(response)
         print response
-        self.assertEqual('you have been connected to tpa1com_14', response['message'])
+        self.assertEqual('you have been connected to tpa1com_150031', response['message'])
         response = yield ws.read_message()
         response = json.loads(response)
         print response
