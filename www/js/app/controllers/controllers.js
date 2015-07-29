@@ -26,28 +26,44 @@ angular.module('app.controllers', [])
  * @WS - websocket service
  * @name dddd
  */
+
+/*"""
+UserOnlineCtrl
+``````````````
+*/
     
- .controller('UserOnlineCtrl', 
-        /** Constructor
-        *@name updatescope         
-         **/
+ .controller('UserOnlineCtrl',
+        
         function ($scope, Online , WS, Contact, Room, $rootScope) {
      
          
    
         $scope.update = function(){
+        /*"""
+        .. function:: $scope.update()
+
+            Make request throw Online service.
+    
+            :pattern: [server]/api/[app_name]/get_online
+
+            :example: http://chat.localhost/api/tpa1com/get_online
+            
+            :result: Update  $scope.user_list parameter.
+        */
           Online.getOnline(function(rezult){
                 $scope.user_list = rezult.user_list;
             }) 
         };
         $scope.update();
 
-         /**
-         * Subscribing on event update_users_online that comes from websocket service.
-         * @name ffff
-         */
+
 
         $scope.$on('update_users_online', function (event, data) {
+        /*"""
+        .. js:attribute:: $scope.$on
+            
+            :result: Subscribing on event update_users_online that comes from websocket service.
+        */        
            $scope.update()
         });
         

@@ -37,4 +37,8 @@ Usefull links
 
 * `Plant UML: <http://plantuml.com/>`_
 * `Sphinx: <http://sphinx-doc.org/contents.html>`_
+* `Sphinx Javascript: <http://sphinx-doc.org/domains.html#the-javascript-domain>`_
+
+
+
 
