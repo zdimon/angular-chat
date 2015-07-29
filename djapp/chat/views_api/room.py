@@ -38,7 +38,7 @@ def _get_room_or_create(app_name,caler_id,opponent_id):
     #import pdb; pdb.set_trace()
     if r.rowcount > 0 :
         room_id = ChatRoom.objects.get(pk = r.record[0]['id'])
-        return { 'status': 0, 'message': 'Room is exist', 'room_id': str(room_id) }
+        return { 'status': 0, 'message': 'Room is exist', 'room_id': str(room_id.id) }
 
     if r.rowcount == 0 :       
         room = ChatRoom()
@@ -109,13 +109,20 @@ def get_message(request,room_id):
 @json_view
 def invite(request,app_name,owner_id,contact_id):
     '''
-    Function send owner invite in opponent 
+    Function send invite to opponent. 
+
+    Add the opponent to the contact list.
+
+    Create the room. Put the user into the room.
+     
     '''
-    print 'jjjjjjjjj'
     #apiconf = read_conf()
     #app_name = apiconf['config']['app_name']
     _add_contact(app_name,owner_id,contact_id)
     mes = { 'action': 'update_contact' }
     r = '%s_%s' % (app_name, owner_id)
+    bclient.publish(r, json.dumps(mes))
+    rm = _get_room_or_create(app_name,owner_id,contact_id)
+    mes = { 'action': 'put_me_in_room', 'room_id': rm['room_id'] }
     bclient.publish(r, json.dumps(mes))
     return _get_room_or_create(app_name,owner_id,contact_id)

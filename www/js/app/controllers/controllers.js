@@ -34,7 +34,7 @@ UserOnlineCtrl
     
  .controller('UserOnlineCtrl',
         
-        function ($scope, Online , WS, Contact, Room, $rootScope) {
+        function ($scope, Online , WS, Contact, Room, $rootScope, $window) {
      
          
    
@@ -76,9 +76,11 @@ UserOnlineCtrl
         };
 
         $scope.invite = function(contact_id){
-            Room.invite(contact_id,function(rezult){
-            $scope.update()
-            })
+
+            var url = "http://" + apiconf.config.chat_url + "#/" + $rootScope.currentUserId+'/'+contact_id;
+            $window.location.href = url;
+
+           
         }
 
     })
@@ -133,6 +135,10 @@ UserOnlineCtrl
 
         $scope.$on('send_message', function (event, data) {
            alert(data.message);
+        });
+
+        $scope.$on('put_me_in_room', function (event, data) {
+           $scope.hasActiveRoom=true
         });
 
     })

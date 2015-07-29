@@ -18,6 +18,12 @@
                    
         }
 
+        if(message.action=='put_me_in_room'){
+            
+            $rootScope.$broadcast('put_me_in_room', {'room_id': message.room_id});
+                   
+        }
+
         if(message.action=='update_users_online'){
             
             $rootScope.$broadcast('update_users_online');

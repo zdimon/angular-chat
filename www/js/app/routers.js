@@ -21,7 +21,7 @@
                 url: "/",
                 templateUrl: "/static/templates/anonimous.html",
                 controller: function(){
-                        
+                        alert('kk');
                 }
                 
             })
@@ -37,6 +37,14 @@
 
                 url: "/:user/:opponent",
                 templateUrl: "/static/templates/active.html",
+
+                controller: function(){
+
+                    alert($stateParams);
+                    Room.invite(contact_id,function(rezult){
+                    
+                    })
+                }
                 
             })  
 
