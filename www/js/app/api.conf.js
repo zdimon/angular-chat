@@ -67,7 +67,14 @@ apiconf = {
                 'type': 'ajax',
                 'name': 'get_profile',
                 'url':  '[server]/api/get_profile/[user_id]'
-            },  
+            },   
+
+        'invite':
+            {
+                'type': 'ajax',
+                'name': 'invite',
+                'url':  '[server]/api/[app_name]/[owner_id]/[contact_id]/invite'
+            },
 
         'add_contact':
             {

@@ -31,7 +31,7 @@ angular.module('app.controllers', [])
         /** Constructor
         *@name updatescope         
          **/
-        function ($scope, Online , WS) {
+        function ($scope, Online , WS, Contact, Room, $rootScope) {
      
          
    
@@ -39,8 +39,8 @@ angular.module('app.controllers', [])
           Online.getOnline(function(rezult){
                 $scope.user_list = rezult.user_list;
             }) 
-        }
-        $scope.update()
+        };
+        $scope.update();
 
          /**
          * Subscribing on event update_users_online that comes from websocket service.
@@ -50,12 +50,24 @@ angular.module('app.controllers', [])
         $scope.$on('update_users_online', function (event, data) {
            $scope.update()
         });
+        
+        
 
+      $scope.addContact = function(contact_id){
+          Contact.addContact(contact_id,function(rezult){
+            $rootScope.$emit('update_contact');
+            })
+        };
 
+        $scope.invite = function(contact_id){
+            Room.invite(contact_id,function(rezult){
+            $scope.update()
+            })
+        }
 
     })
 
- .controller('ContactListCtrl', function ($scope, Contact) {
+ .controller('ContactListCtrl', function ($scope, Contact, $rootScope) {
       $scope.update = function(){
         Contact.getContactList(function(rezult){
                 $scope.contact_list = rezult.contact_list;
@@ -66,6 +78,11 @@ angular.module('app.controllers', [])
             $scope.update();
 
       })
+      $rootScope.$on('update_contact',function(event, data){
+            $scope.update();
+
+      })
+
       $scope.delete = function(contact_id){
           Contact.delContact(contact_id,function(rezult){
             $scope.update()
@@ -73,11 +90,12 @@ angular.module('app.controllers', [])
         }
 
       $scope.deleteAll = function(){
-            alert("Trudsfdfsdfsdfsd----------");
           Contact.deleteAll(function(rezult){
             $scope.update()
             })
         }
+
+    
     })
 
 
@@ -89,7 +107,7 @@ angular.module('app.controllers', [])
         }
     })
 
- .controller('RoomCtrl', function ($scope, WS, $rootScope) {
+ .controller('RoomCtrl', function ($scope, WS, Room, $rootScope) {
         $scope.ws = WS;
 
         $scope.send = function(){

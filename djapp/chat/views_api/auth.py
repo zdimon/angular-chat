@@ -38,7 +38,11 @@ def login(request,user_id):
 
             [server]/api/[user_id]/login  
 
-         Example: http://chat.localhost/api/23/login   
+         Example: http://chat.localhost/api/150014/login   
+
+            http://chat.localhost/api/150043/login
+    
+            http://chat.localhost/api/150031/login
 
         in session to determitate authentication status 
     '''

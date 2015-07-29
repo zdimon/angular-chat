@@ -14,11 +14,11 @@ class TestStringMethods(TestBase):
 
         [server]/api/[room_id]/get_message
 
-        Example: http://chat.localhost/api/25/get_message
+        Example: http://chat.localhost/api/51/get_message
         '''
-        data = {'room_id': '25'}
+        data = {'room_id': '51'}
         #import pdb; pdb.set_trace()
-        url = get_url_by_name('get_message',{'room_id': '25'})
+        url = get_url_by_name('get_message',{'room_id': '51'})
         print bcolors.blue('REQUEST TO %s' % url)
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         responce = requests.get(url, data=data)

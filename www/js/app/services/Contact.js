@@ -7,7 +7,8 @@
             return {
                         getContactList: getContactList,
                         delContact: delContact,
-                        deleteAll: deleteAll
+                        deleteAll: deleteAll,
+                        addContact: addContact
                     }
 
             function getContactList(callback) {
@@ -25,6 +26,10 @@
                  var url = utils.prepare_url(apiconf.api.del_all_contacts.url,{'[owner_id]':$rootScope.currentUserId});
                  return $http.get(url).success(callback);
             };
+            function addContact(contact_id,callback) {
+                             var url = utils.prepare_url(apiconf.api.add_contact.url,{'[owner_id]':$rootScope.currentUserId,'[contact_id]':contact_id});
+                             return $http.get(url).success(callback);
+                        };
     }]);
 
 

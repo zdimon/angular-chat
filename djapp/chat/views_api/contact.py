@@ -4,6 +4,30 @@ from chat.models import Tpa, ChatUser, ChatContacts
 from jsonview.decorators import json_view
 from utils.util import serialize_user
 
+
+def _add_contact(app_name,owner_id,contact_id):
+    ''' 
+        Add new contact to owner 
+
+        [server]/api/[app_name]/[owner_id]/[contact_id]/add_contact
+
+        Example: http://chat.localhost/api/tpa1com/14/15/add_contact
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    owner = ChatUser.objects.get(tpa=tpa,user_id=owner_id)
+    contact = ChatUser.objects.get(tpa=tpa,user_id=contact_id)
+    try:
+        ChatContacts.objects.get(owner=owner,contact=contact) 
+        out = { 'status': 1, 'message': 'Contact is already exists' }   
+    except:
+        new_contact = ChatContacts()
+        new_contact.owner = owner
+        new_contact.contact = contact
+        new_contact.tpa = tpa
+        new_contact.save()        
+        out = { 'status': 0, 'message': 'Contact has been added' }
+    return out 
+
 @json_view
 def add_contact(request,app_name,owner_id,contact_id):
     ''' 

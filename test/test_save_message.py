@@ -19,7 +19,7 @@ class TestStringMethods(TestBase):
         Example: http://chat.localhost/api/save_message
         '''
         apiconf = read_conf()
-        data = {'app_name': apiconf['config']['app_name'],'owner_id': '150031', 'room_id': '25', 'message': 'Hello peoples'}
+        data = {'app_name': apiconf['config']['app_name'],'owner_id': '150031', 'room_id': '51', 'message': 'Hello peoples'}
         #import pdb; pdb.set_trace()
         url = get_url_by_name('save_message',{'app_name': apiconf['config']['app_name'],})
         print bcolors.blue('REQUEST TO %s' % url)
