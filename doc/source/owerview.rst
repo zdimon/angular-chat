@@ -76,17 +76,22 @@ Owerview
 
         package "Controller" {
 
-            object UserOnlineCtrl {
+            object OnlineCtrl {
 
             }
 
-            object ContactListCtrl {
+            object ContactCtrl {
 
             }
 
-            object CurrentRoomCtrl {
+            object RoomCtrl {
 
             }
+
+            object AccountCtrl {
+
+            }
+
 
             object MyVideoCtrl {
 

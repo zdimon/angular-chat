@@ -19,6 +19,13 @@
     
     return Auth;
 
+    /*"""
+    .. function:: login(username, password)
+
+        :param string username: Login
+        :param string password: Password
+        :returns: Promice.
+    */    
 
     function login(username, password) {
       return $http.post('/api/login/', {

@@ -12,3 +12,8 @@ The first option makes user to be able to see only users online. The url is like
 The second option has the same url **http://chat.com/chat#/** and allow to user to see users online, contact list and user can invite someone to chat.
 
 The trird option has url like this **http://chat.com/chat#/34** and containe identifier of the opponent. 
+
+
+
+
+`Chat room <room.html>`_

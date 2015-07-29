@@ -41,7 +41,8 @@ extensions = [
     'sphinx.ext.pngmath',
     'sphinx.ext.viewcode',
     'sphinxcontrib.plantuml',
-    'sphinx.ext.pngmath'
+    'sphinx.ext.pngmath',
+    'sphinxcontrib.autoanysrc'
 ]
 
 plantuml = 'plantuml'

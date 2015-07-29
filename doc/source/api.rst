@@ -16,3 +16,8 @@ Signalserver API
 **_prefix_** - Prefix ('api' by default) for prevent any conflicts between urls that already exist.
 
 **_server.name_**  - name of domain or subdomain which using as signalserver.
+
+
+
+
+

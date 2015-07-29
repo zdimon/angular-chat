@@ -14,6 +14,8 @@ Contents:
     install
     test_loading
     owerview
+    angularapp
+    file_structure
     socketserver
     architecture
     db
@@ -26,7 +28,6 @@ Contents:
 
 
 `Javascript documentation <js/index.html>`_
-
 
 
 

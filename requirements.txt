@@ -10,3 +10,4 @@ sphinx-autobuild
 requests
 PySQLPool==0.3.8
 django-jsonview==0.4.3
+sphinxcontrib-autoanysrc
