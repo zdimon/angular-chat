@@ -12,6 +12,10 @@ from chat.models import Tpa
 from utils.util import read_conf, serialize_user
 from utils.db import MyDB
 from contact import _add_contact
+import brukva
+
+bclient = brukva.Client()
+bclient.connect()
 
 bd = MyDB()
 
@@ -102,12 +106,16 @@ def get_message(request,room_id):
         lst_chat_message.append({'id':m.user.id, 'user_id':m.user.user_id, 'gender':m.gender,'message':m.message,'created':m.created })
     return  { 'status': 0, 'message': lst_chat_message }
 
-
-def invite(owner_id,contact_id):
+@json_view
+def invite(request,app_name,owner_id,contact_id):
     '''
     Function send owner invite in opponent 
     '''
-    apiconf = read_conf()
-    app_name = apiconf['config']['app_name']
+    print 'jjjjjjjjj'
+    #apiconf = read_conf()
+    #app_name = apiconf['config']['app_name']
     _add_contact(app_name,owner_id,contact_id)
+    mes = { 'action': 'update_contact' }
+    r = '%s_%s' % (app_name, owner_id)
+    bclient.publish(r, json.dumps(mes))
     return _get_room_or_create(app_name,owner_id,contact_id)
