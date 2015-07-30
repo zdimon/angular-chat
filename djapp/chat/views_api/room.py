@@ -105,7 +105,7 @@ def get_messages(request,room_id):
 
     for m in message:
         user_info = ChatUser.objects.get(user_id=m.user.user_id)
-        lst_chat_message.append({'id':m.user.id, 'user_id':m.user.user_id, 'gender':m.gender,'message':m.message,'created':m.created, 'image': user_info.image, 'name': user_info.name })
+        lst_chat_message.append({'id':m.user.id, 'user_id':m.user.user_id, 'gender':m.gender,'message':m.message,'created':m.created.time(), 'image': user_info.image, 'name': user_info.name })
     return  { 'status': 0, 'message': lst_chat_message }
 
 @json_view
