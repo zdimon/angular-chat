@@ -9,10 +9,18 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, $log) {
           $scope.message = ''
         };
 
-        $scope.$on('send_message', function (event, data) {
+        $scope.$on('show_message', function (event, data) {
+           alert(data.message);
+        });
+
+        $scope.$on('save_message', function (event, data) {
            alert(data.message);
         });
         
+        $scope.$on('show_inv_win', function (event, data) {
+            
+        });
+
         $scope.$on('put_me_in_room', function (event, data) {
            $scope.room_participants = [apiconf.config.app_name+'_'+data.owner_id, apiconf.config.app_name+'_'+data.contact_id];
            $scope.hasActiveRoom=true;

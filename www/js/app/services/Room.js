@@ -7,7 +7,8 @@
             return {
                         invite: invite,
                         getUserInfo: getUserInfo,
-                        getMessages: getMessages
+                        getMessages: getMessages,
+                        sendMessage: sendMessage
                     }
 
             function invite(contact_id,callback) {
@@ -20,6 +21,10 @@
                         };
             function getMessages(room_id,callback) {
                             var url = utils.prepare_url(apiconf.api.get_messages.url,{'[room_id]':room_id});
+                             return $http.get(url).success(callback);
+                        };
+            function sendMessage(room_id,callback) {
+                            var url = utils.prepare_url(apiconf.api.save_message.url,{'[room_id]':room_id});
                              return $http.get(url).success(callback);
                         };
 

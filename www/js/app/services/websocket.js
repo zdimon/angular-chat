@@ -32,15 +32,22 @@
                    
         }
 
+        if(message.action=='show_inv_win'){
+            
+            $rootScope.$broadcast('show_inv_win',{'message':message}); 
+            alert("fgdfgdfg")                   
+        }
+
+
         if(message.action=='update_users_online'){
             
             $rootScope.$broadcast('update_users_online');
                    
         }
 
-        if(message.action=='send_message'){
+        if(message.action=='show_message'){
 
-            $rootScope.$broadcast('send_message', {'message':  message.message});
+            $rootScope.$broadcast('show_message', {'message':  message.message});
                    
         }
         
