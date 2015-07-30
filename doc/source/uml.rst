@@ -11,3 +11,4 @@ UML diagrams
     uml/database
     uml/tornado
     uml/angular
+    uml/state 

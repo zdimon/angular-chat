@@ -29,7 +29,7 @@
             .state('registered', {
 
                 url: "/:user",
-                templateUrl: "/static/templates/registered.html",
+                templateUrl: "/static/templates/active.html",
                 controller: function(){
    
                 }

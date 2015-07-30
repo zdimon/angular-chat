@@ -1,0 +1,372 @@
+ <!-- .wHeader -->
+    <div class="wConteiner">
+        <div class="wSize clearFix">
+            <div class="hide_block_mans">
+                <a href="#" class="hide_block show">Click here to hide mens online</a>
+                <a href="#" class="show_block">Click here to show mens online</a>
+            </div>
+            <div class="hide_block_video">
+                <a href="#" class="hide_block show">Click here to hide video chat window</a>
+                <a href="#" class="show_block">Click here to show video chat window</a>
+            </div>
+            <div class="fll mans">
+                <a href="#delivery_pop" class="wButton wButtonA padd_max delivery_pop"><span>Multiple Invitations</span></a>
+                <div class="title"><span>MEN</span> Online</div>
+                <div class="pagination">
+                    <a href="#">&lt;</a>
+                    <a href="#" class="cur">1</a>
+                    <a href="#">2</a>
+                    <p>...</p>
+                    <a href="#">10</a>
+                    <a href="#">&gt;</a>
+                </div>
+                <ul class="mans_online">
+
+                       <!-- User online list -->
+                            <section ng-controller="UserOnlineCtrl">
+                            <ul>
+                                <li class="clearFix" ng-repeat="u in user_list">
+                                <div class="fll">
+                                    <a ng-click="invite([[u.user_id]])" onclick="return false" class="img_man"><img src="Media/images/users/small/[[u.image]]" alt=""></a>
+                                </div>
+                                <div class="flc">
+                                    <a href="#" class="name_age_id">[[u.name]], [[u.age]] (ID [[u.user_id]])</a>
+                                    <div class="city_country">[[u.city]], [[u.country]]</div>
+                                    <div class="servise">
+                                        <ul>
+                                            <li><a href="#invite_to_chat" class="web_chat invite_to_chat"></a></li>
+                                            <li><a href="#invite_to_chat" class="chat invite_to_chat"></a></li>
+                                            <li><a href="#" class="message"></a></li>
+                                            <li><a href="#" class="favorite"></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            </ul>
+                            </section>
+                        <!---------------------->
+
+                </ul>
+            </div>
+            <div class="flr">
+                <div class="video_block clearFix">
+                    <div class="fll">
+                        <div class="video_video">
+                            <video class="video1" width="100%" poster="video/video01.jpg">
+                                <source src='video/video01.mp4' type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+                                <source src='video/video01.webm' type='video/webm; codecs="vp8.0, vorbis"'/>
+                                <source src='video/video01.ogv' type='video/ogg; codecs="theora, vorbis"'/>
+                            </video>
+                            <div class="prevue_v" href="#message_buy1"><img src="pic/video_prevue.jpg" alt=""></div>
+                        </div>
+                    </div>
+                    <div class="flr">
+                        <a href="#" class="video_play"><span></span></a>
+                        <!-- <a href="#" class="video_mute"><span></span></a> -->
+                    </div>
+                </div>
+                <div class="contact_list">
+                    <div class="title"><span>My</span> Contact List</div>
+                       <!-- My contact list -->
+                       <section ng-controller="ContactListCtrl">
+                                <ul>
+                                    <li class="clearFix" ng-repeat="u in contact_list">
+                                    <div class="fll">
+                                        <div class="icon_block">
+                                            <div class="man_online"></div>
+                                            <div class="man_online_ignore opacity_anim"></div>
+                                            <div class="man_watch opacity_anim"></div>
+                                            <div class="man_write opacity_anim"></div>
+                                            <div class="man_chat_video"></div>
+                                            <div class="man_chat_no_video"></div>
+                                            <div class="man_chat_no_video_m"></div>
+                                            <div class="man_chat_no_video_g"></div>
+                                        </div>
+                                        <a href="#" class="photo_block">
+                                            <img src="Media/images/users/small/[[u.image]]" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="flr">
+                                        <a href="#invite_to_chat" class="invite invite_to_chat"><span></span></a>
+                                        <a ng-click="delete([[u.user_id]])" href="#delete_pop" class="delete"><span></span></a>
+                                    </div>
+                                    <div class="flc">
+                                        <a href="#" class="name_age_id">[[u.name]], [[u.age]] (ID [[u.user_id]])</a>
+                                        <div class="city_country">[[u.city]], [[u.country]]</div>
+                                    </div>
+                                    </li>
+                                </ul>
+                        <div style="display: none">
+                        <div  id="delete_pop2" class="enterRegPopup zoomAnim chat_pop">
+                            <div class="logo_pop"><img src="pic/logo_pop.png" alt=""></div>
+                            <div class="delivery_block">
+                                <h1>Are you sure?</h1>
+                                <a ng-click="deleteAll()" href="#" class="wButton delete_men"><span>yes</span></a>
+                                <a href="#" class="wButton wButtonA"><span>no</span></a>
+                            </div>
+                        </div>
+                        </div>
+                       <!---------------------->
+
+                    <a href="#delete_pop2" class="clear_cont_list delete2">Clear list</a>
+                    </section>
+                </div>
+            </div>
+            <section ng-controller="RoomCtrl">
+            <div class="flc">
+            
+                <h2 ng-show="!hasActiveRoom">There is no active room</h2>
+                <div ng-show="hasActiveRoom" class="live_chat_block">
+                    <div class="video_online_block">
+                        <div class="video_online">
+                            <video class="video2" width="100%" muted poster="video/video01.jpg">
+                                <source src='video/video01.mp4' type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+                                <source src='video/video01.webm' type='video/webm; codecs="vp8.0, vorbis"'/>
+                                <source src='video/video01.ogv' type='video/ogg; codecs="theora, vorbis"'/>
+                            </video>
+                            <div class="start_online">start chat</div>
+                            <!-- <div class="stop_online">stop chat</div> -->
+                            <div class="full_size_but"></div>
+                            <div class="open_controls"><span></span></div>
+                            <div class="controls clearFix">
+                                <div class="fll">
+                                    <div class="hid_online cur"><div class="podsk"><p>show/hide list</p></div></div>
+                                    <div class="play_online"><div class="podsk"><p>on/off video</p></div></div>
+                                    <div class="mute_online"><div class="podsk"><p>on/off sound</p></div></div>
+                                </div>
+                                <div class="flr">
+                                    <div class="valume_online">
+                                        <form class="vcb vcb_volume">
+                                            <input type="radio" value="volume1" name="volume">
+                                            <ins class="v5"></ins>
+                                            <input type="radio" value="volume2" name="volume">
+                                            <ins class="v4"></ins>
+                                            <input type="radio" value="volume3" name="volume" checked="">
+                                            <ins class="v3"></ins>
+                                            <input type="radio" value="volume4" name="volume">
+                                            <ins class="v2"></ins>
+                                            <input type="radio" value="volume5" name="volume">
+                                            <ins class="v1"></ins>
+                                        </form>
+                                    </div>
+                                    <div class="chat_online cur"><div class="podsk"><p>on/off chat</p></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat_main">
+                            <div class="flr">
+                                <div class="but_invite_block">
+                                    <p class="show">Translator</p>
+                                    <a href="#" class="but_invite"><span></span></a>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="ms_bar">
+                                <ul class="live_write">
+                                    <li class="clearFix girl_live main" ng-repeat="m in messages">
+                                        <div class="fll">
+                                            <div class="img_live"><img src="Media/images/users/small/[[m.image]]" alt=""></div>
+                                            <div class="name">[[m.name]]</div>
+                                        </div>
+                                        <div class="flr">
+                                            <time datetime="[[m.created]]">[[m.created]]</time>
+                                        </div>
+                                        <div class="flc">
+                                            <div class="message_main">
+                                                <div class="message_in">[[m.message]]</div>
+                                                <div class="translator">
+                                                    <div class="message_trans">[[m.translated_message]]</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="message_block clearFix">
+                        <form>
+                            <div class="fll">
+                                <div class="textarea_block">
+                                    <div class="text_block_massege">
+                                        <textarea></textarea>
+                                        <div class="cTextDiv" id="cTextDiv" contenteditable="true"></div>
+                                        <!-- <div class="smile_block">
+                                            <ul>
+                                                <li><img src="smile_min/smile1.png" alt=""></li>
+                                                <li><img src="smile_min/smile2.png" alt=""></li>
+                                                <li><img src="smile_min/smile3.png" alt=""></li>
+                                                <li><img src="smile_min/smile4.png" alt=""></li>
+                                                <li><img src="smile_min/smile5.png" alt=""></li>
+                                                <li><img src="smile_min/smile6.png" alt=""></li>
+                                                <li><img src="smile_min/smile7.png" alt=""></li>
+                                                <li><img src="smile_min/smile8.png" alt=""></li>
+                                                <li><img src="smile_min/smile9.png" alt=""></li>
+                                                <li><img src="smile_min/smile10.png" alt=""></li>
+                                                <li><img src="smile_min/smile11.png" alt=""></li>
+                                                <li><img src="smile_min/smile12.png" alt=""></li>
+                                                <li><img src="smile_min/smile13.png" alt=""></li>
+                                                <li><img src="smile_min/smile14.png" alt=""></li>
+                                                <li><img src="smile_min/smile15.png" alt=""></li>
+                                                <li><img src="smile_min/smile16.png" alt=""></li>
+                                                <li><img src="smile_min/smile17.png" alt=""></li>
+                                                <li><img src="smile_min/smile18.png" alt=""></li>
+                                                <li><img src="smile_min/smile19.png" alt=""></li>
+                                            </ul>
+                                        </div>
+                                        <div class="smile_but"></div> -->
+                                    </div>
+                                </div>
+                                <div class="translate_mess">Привет!</div>
+                            </div>
+                            <div class="flr">
+                                <div opponent-info></div>
+                                <div class="but_for_send">
+                                    <button type="submit" class="wButton wButtonA send"><span>send</span></button>
+                                    <button type="submit" class="wButton wButtonB"><span>translate</span></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </section>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!-- .wConteiner -->
+</div>
+<!-- .wWrapper -->
+<div style="display: none;">
+    <div id="invite_to_chat" class="enterRegPopup zoomAnim chat_pop">
+        <div class="logo_pop"><img src="pic/logo_pop.png" alt=""></div>
+        <div class="delivery_block">
+            <form>
+                <div class="info_people">
+                    <div class="girl_who_write clearFix">
+                        <div class="fll">
+                            <a href="#" class="img_man_w">
+                                <img src="pic/girl2.jpg" alt="">
+                                <!-- <div class="on_line"><span></span></div> -->
+                                <div class="off_line"><span></span></div>
+                            </a>
+                        </div>
+                        <div class="flr">
+                            <a href="#" class="name_age_id">Lisi, 42 (ID 456345)</a>
+                            <div class="city_country">Toronto, Canada</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="textarea_block">
+                    <div class="text_block_massege">
+                        <textarea></textarea>
+                        <div class="cTextDiv" contenteditable="true"></div>
+                        <!-- <div class="smile_block">
+                            <ul>
+                                <li><img src="smile_min/smile1.png" alt=""></li>
+                                <li><img src="smile_min/smile2.png" alt=""></li>
+                                <li><img src="smile_min/smile3.png" alt=""></li>
+                                <li><img src="smile_min/smile4.png" alt=""></li>
+                                <li><img src="smile_min/smile5.png" alt=""></li>
+                                <li><img src="smile_min/smile6.png" alt=""></li>
+                                <li><img src="smile_min/smile7.png" alt=""></li>
+                                <li><img src="smile_min/smile8.png" alt=""></li>
+                                <li><img src="smile_min/smile9.png" alt=""></li>
+                                <li><img src="smile_min/smile10.png" alt=""></li>
+                                <li><img src="smile_min/smile11.png" alt=""></li>
+                                <li><img src="smile_min/smile12.png" alt=""></li>
+                                <li><img src="smile_min/smile13.png" alt=""></li>
+                                <li><img src="smile_min/smile14.png" alt=""></li>
+                                <li><img src="smile_min/smile15.png" alt=""></li>
+                                <li><img src="smile_min/smile16.png" alt=""></li>
+                                <li><img src="smile_min/smile17.png" alt=""></li>
+                                <li><img src="smile_min/smile18.png" alt=""></li>
+                                <li><img src="smile_min/smile19.png" alt=""></li>
+                            </ul>
+                        </div>
+                        <div class="smile_but"></div> -->
+                    </div>
+                </div>
+                <div class="filt_for_send">
+                    <button class="wSubmit wButton wButtonA"><span>Send</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="delivery_pop" class="enterRegPopup zoomAnim chat_pop">
+        <div class="logo_pop"><img src="pic/logo_pop.png" alt=""></div>
+        <div class="delivery_block">
+            <form>
+                <div class="delivery_title">
+                    <div class="title">
+                        <span>mens</span> Online (235)
+                        <a href="#" class="restart"></a>
+                    </div>
+                    <a href="#" class="reference">Reference</a>
+                </div>
+                <div class="textarea_block">
+                    <div class="text_block_massege">
+                        <textarea></textarea>
+                        <div class="cTextDiv" contenteditable="true"></div>
+                        <!-- <div class="smile_block">
+                            <ul>
+                                <li><img src="smile_min/smile1.png" alt=""></li>
+                                <li><img src="smile_min/smile2.png" alt=""></li>
+                                <li><img src="smile_min/smile3.png" alt=""></li>
+                                <li><img src="smile_min/smile4.png" alt=""></li>
+                                <li><img src="smile_min/smile5.png" alt=""></li>
+                                <li><img src="smile_min/smile6.png" alt=""></li>
+                                <li><img src="smile_min/smile7.png" alt=""></li>
+                                <li><img src="smile_min/smile8.png" alt=""></li>
+                                <li><img src="smile_min/smile9.png" alt=""></li>
+                                <li><img src="smile_min/smile10.png" alt=""></li>
+                                <li><img src="smile_min/smile11.png" alt=""></li>
+                                <li><img src="smile_min/smile12.png" alt=""></li>
+                                <li><img src="smile_min/smile13.png" alt=""></li>
+                                <li><img src="smile_min/smile14.png" alt=""></li>
+                                <li><img src="smile_min/smile15.png" alt=""></li>
+                                <li><img src="smile_min/smile16.png" alt=""></li>
+                                <li><img src="smile_min/smile17.png" alt=""></li>
+                                <li><img src="smile_min/smile18.png" alt=""></li>
+                                <li><img src="smile_min/smile19.png" alt=""></li>
+                            </ul>
+                        </div>
+                        <div class="smile_but"></div> -->
+                    </div>
+                </div>
+                <div class="filt_for_send">
+                    <p>Send to</p>
+                    <select>
+                        <option value="1">Online</option>
+                        <option value="2">Offline</option>
+                        <option value="3">All</option>
+                    </select>
+                    <label><input type="checkbox"> Only with photo</label>
+                    <button class="wSubmit wButton wButtonA"><span>Send</span></button>
+
+                    <!-- Блок выводиться при отправке рассылки -->
+                    <div class="progres_block">
+                        <p>Sending...</p>
+                        <div class="send_koll"><span class="now_prog">35</span> of <span class="all_prog">235</span></div>
+                        <div class="progres_bar">
+                            <div class="progres_line"></div>
+                        </div>
+                    </div>
+                    <button class="wSubmit wButton delete_men"><span>Stop</span></button>
+
+                    <!--  -->
+
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="delete_pop" class="enterRegPopup zoomAnim chat_pop">
+        <div class="logo_pop"><img src="pic/logo_pop.png" alt=""></div>
+        <div class="delivery_block">
+            <h1>Are you sure?</h1>
+            <a href="#" class="wButton delete_men"><span>yes</span></a>
+            <a href="#" class="wButton wButtonA"><span>no</span></a>
+        </div>
+    </div>
+</div>
+
