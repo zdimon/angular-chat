@@ -189,8 +189,8 @@
                             <div class="fll">
                                 <div class="textarea_block">
                                     <div class="text_block_massege">
-                                        <textarea></textarea>
-                                        <div class="cTextDiv" id="cTextDiv" contenteditable="true"></div>
+                                        <textarea ></textarea>
+                                        <div class="cTextDiv" ng-model="message" id="cTextDiv" contenteditable="true"></div>
                                         <!-- <div class="smile_block">
                                             <ul>
                                                 <li><img src="smile_min/smile1.png" alt=""></li>
@@ -222,7 +222,7 @@
                             <div class="flr">
                                 <div opponent-info></div>
                                 <div class="but_for_send">
-                                    <button type="submit" class="wButton wButtonA send"><span>send</span></button>
+                                    <button ng-click="sendMessage()" type="submit" class="wButton wButtonA send"><span>send</span></button>
                                     <button type="submit" class="wButton wButtonB"><span>translate</span></button>
                                 </div>
                             </div>
