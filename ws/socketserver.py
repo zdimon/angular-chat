@@ -76,7 +76,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
                 self.tpa_id = tpa['id']
                 self.tpa_name = tpa['name']
                 logger.debug('current tpa information %s %s' % (self.tpa_id, self.tpa_name ))
-                self.write_message(json.dumps({'status': 0, 'user_id':  self.current_user_id, 'user_name':  self.current_user_name, 'message': 'you have been connected to %s' % chanel })) 
+                self.write_message(json.dumps({'action': 'connected', 'status': 0, 'user_id':  self.current_user_id, 'user_name':  self.current_user_name, 'message': 'you have been connected to %s' % chanel })) 
                 self.set_user_online()
                 mes = {'action': 'update_users_online'}
                 self.broadcast(mes)     

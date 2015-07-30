@@ -13,5 +13,5 @@ Put user into the room.
 6. Get opponent information and put this information to the scope.
 7. Get opponent's camera status.
 8. Populate link "Show camera" if camera is enabled.
-
+ 
 

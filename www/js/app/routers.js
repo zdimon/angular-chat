@@ -41,11 +41,12 @@
                 url: "/:user/:opponent",
                 templateUrl: "/static/templates/active.html",
 
-                controller: function($stateParams, Room){
-              
-                    Room.invite($stateParams.opponent,function(rezult){
-                      
-                    })
+                controller: function($stateParams, Room, $rootScope){
+                
+                        $rootScope.$on('connected', function (event, data) {
+                            Room.invite($stateParams.opponent,function(rezult){})
+                        });
+
                 }
                 
             })  

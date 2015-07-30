@@ -19,3 +19,29 @@
 
 
 */
+
+/*"""
+.. function:: OpponentInfo
+
+   :template: templates/directives/OpponentInfo.html
+
+
+*/
+
+
+/*
+
+angular.module('AngularChatApp', [])
+
+.directive('opponentInfo', function() {
+
+  return {
+    scope: {
+      customerInfo: '=info'
+    },
+    templateUrl: 'static/templates/directives/OpponentInfo.html'
+  };
+});
+*/
+
+

@@ -12,6 +12,14 @@
         message = JSON.parse(message.data)
         console.log(message);
 
+        if(message.action=='connected'){
+            
+            $rootScope.$broadcast('connected');
+                   
+        }
+
+
+
         if(message.action=='update_contact'){
             
             $rootScope.$broadcast('update_contact');
