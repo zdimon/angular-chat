@@ -41,12 +41,16 @@
                 url: "/:user/:opponent",
                 templateUrl: "/static/templates/active.html",
 
-                controller: function($stateParams, Room, $rootScope){
+                controller: function($stateParams, Room, $rootScope, $log){
                 
                         $rootScope.$on('connected', function (event, data) {
                             Room.invite($stateParams.opponent,function(rezult){})
                         });
                         
+                      $rootScope.$on("$locationChangeStart", function(event, next, current) { 
+                        $log.info("location changing to:" + next); 
+                        event.preventDefault();
+                      });
 
                 }
                 
