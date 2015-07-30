@@ -79,8 +79,7 @@ UserOnlineCtrl
 
             var url = "http://" + apiconf.config.chat_url + "#/" + $rootScope.currentUserId+'/'+contact_id;
             $window.location.href = url;
-            Room.invite(contact_id,function(rezult){})
-           
+            Room.invite(contact_id,function(rezult){}); 
         }
 
     })

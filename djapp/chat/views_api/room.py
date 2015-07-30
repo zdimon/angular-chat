@@ -90,7 +90,7 @@ def save_message(request):
     return  { 'status': 0, 'message': request.POST['message'], 'room_id': str(room.id), 'owner_id': str(owner.id) }
 
 @json_view
-def get_message(request,room_id):
+def get_messages(request,room_id):
     '''
     Function get message in DB for room and app_name
 
@@ -102,8 +102,10 @@ def get_message(request,room_id):
     lst_chat_message = []
     room = ChatRoom.objects.get(id=int(room_id))
     message = ChatMessage.objects.filter(room=room)
+
     for m in message:
-        lst_chat_message.append({'id':m.user.id, 'user_id':m.user.user_id, 'gender':m.gender,'message':m.message,'created':m.created })
+        user_info = ChatUser.objects.get(user_id=m.user.user_id)
+        lst_chat_message.append({'id':m.user.id, 'user_id':m.user.user_id, 'gender':m.gender,'message':m.message,'created':m.created, 'image': user_info.image, 'name': user_info.name })
     return  { 'status': 0, 'message': lst_chat_message }
 
 @json_view

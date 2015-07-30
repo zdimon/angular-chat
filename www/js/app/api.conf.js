@@ -113,11 +113,11 @@ apiconf = {
                 'params': 'app_name,owner_id,room_id,message'
             },
 
-        'get_message':
+        'get_messages':
             {
                 'type': 'ajax',
-                'name': 'get_message',
-                'url':  '[server]/api/[room_id]/get_message'
+                'name': 'get_messages',
+                'url':  '[server]/api/[room_id]/get_messages'
             }
 
 

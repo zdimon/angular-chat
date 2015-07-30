@@ -29,6 +29,24 @@ def set_on_line():
     ChatUser.objects.all().update(is_online=True)
     print bcolors.WARNING+'Done set_on_line'
 
+
+def load_message_room():
+    from chat.models import *
+    print bcolors.WARNING+'Start load_message_room'
+    cr = ChatRoom.objects.all()
+    cu = ChatUser.objects.all()
+    tpa = Tpa.objects.all()[0]
+    for u in cu:
+        for r in cr:
+            cm = ChatMessage()
+            cm.tpa = tpa
+            cm.room = r
+            cm.user = u
+            cm.gender = u.gender
+            cm.message = "Hi %s ! How are you ?" % u.name
+            cm.save()
+    print bcolors.WARNING+'Done load_message_room'
+
 def clean_db():
     from chat.models import *
     from django.contrib.auth.models import User

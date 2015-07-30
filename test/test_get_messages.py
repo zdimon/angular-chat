@@ -8,17 +8,17 @@ from utils.util import get_url_by_name, read_conf
 class TestStringMethods(TestBase):
 
         
-    def test_get_message(self):
+    def test_get_messages(self):
         '''
         Function get message in DB for room and app_name
 
-        [server]/api/[room_id]/get_message
+        [server]/api/[room_id]/get_messages
 
-        Example: http://chat.localhost/api/51/get_message
+        Example: http://chat.localhost/api/56/get_messages
         '''
         #import pdb; pdb.set_trace()
         data = { 'room_id': '56' }
-        url = get_url_by_name('get_message',{'room_id': '56'})
+        url = get_url_by_name('get_messages',{'room_id': '56'})
         print bcolors.blue('REQUEST TO %s' % url)
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         responce = requests.get(url, data=data)
