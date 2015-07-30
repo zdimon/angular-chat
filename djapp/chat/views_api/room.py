@@ -123,6 +123,6 @@ def invite(request,app_name,owner_id,contact_id):
     r = '%s_%s' % (app_name, owner_id)
     bclient.publish(r, json.dumps(mes))
     rm = _get_room_or_create(app_name,owner_id,contact_id)
-    mes = { 'action': 'put_me_in_room', 'room_id': rm['room_id'] }
+    mes = { 'action': 'put_me_in_room', 'room_id': rm['room_id'], 'owner_id': owner_id,'contact_id':contact_id }
     bclient.publish(r, json.dumps(mes))
     return _get_room_or_create(app_name,owner_id,contact_id)

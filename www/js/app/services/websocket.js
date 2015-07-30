@@ -28,7 +28,7 @@
 
         if(message.action=='put_me_in_room'){
             
-            $rootScope.$broadcast('put_me_in_room', {'room_id': message.room_id});
+            $rootScope.$broadcast('put_me_in_room', {'room_id': message.room_id, 'owner_id': message.owner_id, 'contact_id': message.contact_ids});
                    
         }
 

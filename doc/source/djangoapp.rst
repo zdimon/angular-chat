@@ -1,4 +1,4 @@
-Django application
+Django  application
 ==================
 
 Authentication views
@@ -15,7 +15,7 @@ Contact views
     :members:
 
 
-Online views
+Online  views
 ============
 
 .. automodule:: chat.views_api.online

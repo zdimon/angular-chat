@@ -46,6 +46,7 @@ def clean_db():
     User.objects.exclude(username='admin').delete()
     print bcolors.WARNING+'Done cleaning DB'
 
+
 def load_db():
     from chat.models import *
     from django.contrib.auth.models import User

@@ -10,9 +10,9 @@ class TestStringMethods(TestBase):
         
     def test_url_by_name(self):
         #import pdb; pdb.set_trace()
-        dict_u = {'user_id':'1'}
+        dict_u = {'app_name':'tpa1com', 'user_id':'150031'}
         result = get_url_by_name('get_profile_from_tpa',dict_u)
-        self.assertEqual('http://chat.localhost/api/get_profile_from_tpa/1', result)
+        self.assertEqual('http://chat.localhost/api/tpa1com/get_profile_from_tpa/150031', result)
 
 
 

@@ -53,7 +53,7 @@ def has_opponent(request,user_id):
  
 
 @json_view
-def get_profile_from_tpa(request,user_id):
+def get_profile_from_tpa(request,user_id,app_name):
     '''
     Function get profile user from outer DB (Tpa) and 
     if user not exist in our DB save into our DB.
@@ -62,8 +62,7 @@ def get_profile_from_tpa(request,user_id):
 
     Example: http://chat.locahost/api/get_profile_from_tpa/14
     '''
-    apiconf = read_conf()
-    tpa = Tpa.objects.get(name=apiconf['config']['app_name'])
+    tpa = Tpa.objects.get(name=app_name)
     try:
         ChatUser.objects.get(user_id=user_id,tpa=tpa)
         out = {
@@ -75,7 +74,7 @@ def get_profile_from_tpa(request,user_id):
         u = bd.get('select * from users_info where user_id = %d' % int(u_login['id']))
         u_photo = bd.get('select image from users_photos where user_id = %d and main = 1' % int(u_login['id']))
         print u['name'], u['last_name']
-        out = { 'status': 0, 'user_profile': {'user_id':u_login['login'],'name':u['name'],'birthday': datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d'),'country':u['country'],'city':u['city'],'culture':u['languages'],'image':u_photo['image']}
+        out = { 'status': 0, 'user_profile': {'user_id':u_login['login'],'name':u['name'],'birthday': datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d'),'country':u['country'],'city':u['city'],'culture':u['languages'],'image':u_photo['image'], 'tpa': u['tpa']}
                   }
         save_profile_in_our_db(out['user_profile'])
     return out 
@@ -91,20 +90,20 @@ def save_profile_in_our_db(dict_profile_from_tpa):
     u.city = dict_profile_from_tpa['city']
     u.culture = dict_profile_from_tpa['culture']
     u.image = dict_profile_from_tpa['image']
-    tpa = Tpa.objects.get(name=apiconf['config']['app_name'])
-    u.tpa = tpa
+    u.tpa = dict_profile_from_tpa['tpa']
     u.save()
 
-def get_profile(request,user_id):
+def get_profile(request,user_id,app_name):
     try:
-        u_name = ChatUser.objects.get(user_id=user_id)
+        tpa = Tpa.objects.get(name=app_name)
+        u_name = ChatUser.objects.get(user_id=user_id,tpa=tpa)
         out = {
             'status': 0,
             'user_profile': serialize_user(u_name)
         }
         return HttpResponse(json.dumps(out), content_type='application/json')
     except:
-        url = get_url_by_name('get_profile_from_tpa',{'user_id':user_id})
+        url = get_url_by_name('get_profile_from_tpa',{'user_id':user_id,'app_name':app_name})
         print 'REQUEST TO %s' % url
         responce = requests.get(url)
         outdata = json.loads(responce.content)

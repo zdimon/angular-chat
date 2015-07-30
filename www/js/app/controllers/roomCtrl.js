@@ -7,15 +7,17 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope) {
         $scope.send = function(){
           WS.send({ action: 'send_message', tpa_name: apiconf.config.app_name, user_id: $rootScope.currentUserId, message: $scope.message }); 
           $scope.message = ''
-        }
+        };
 
         $scope.$on('send_message', function (event, data) {
            alert(data.message);
         });
 
         $scope.$on('put_me_in_room', function (event, data) {
-           $scope.hasActiveRoom=true
+           $scope.hasActiveRoom=true;
+           Room.getUserInfo(data.contact_id,function(result){ console.log(result); });
         });
+
 
     })
 
