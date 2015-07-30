@@ -43,7 +43,7 @@ def load_message_room():
             cm.room = r
             cm.user = u
             cm.gender = u.gender
-            cm.message = "Hi %s ! How are you ?" % u.name
+            cm.message = "Room %s. Hi %s ! How are you ?" % (r.id, u.name)
             cm.save()
     print bcolors.WARNING+'Done load_message_room'
 

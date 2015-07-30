@@ -108,6 +108,7 @@ def get_messages(request,room_id):
         lst_chat_message.append({'id':m.user.id, 'user_id':m.user.user_id, 'gender':m.gender,'message':m.message,'created':m.created.time(), 'image': user_info.image, 'name': user_info.name })
     return  { 'status': 0, 'message': lst_chat_message }
 
+
 @json_view
 def invite(request,app_name,owner_id,contact_id):
     '''
@@ -122,9 +123,14 @@ def invite(request,app_name,owner_id,contact_id):
     #app_name = apiconf['config']['app_name']
     _add_contact(app_name,owner_id,contact_id)
     mes = { 'action': 'update_contact' }
-    r = '%s_%s' % (app_name, owner_id)
-    bclient.publish(r, json.dumps(mes))
+    owner_chanel = '%s_%s' % (app_name, owner_id)
+    contact_chanel = '%s_%s' % (app_name, contact_id)
+    bclient.publish(owner_chanel, json.dumps(mes))
     rm = _get_room_or_create(app_name,owner_id,contact_id)
+    tpa = Tpa.objects.get(name=app_name)
+    owner = ChatUser.objects.get(user_id=owner_id,tpa=tpa)
     mes = { 'action': 'put_me_in_room', 'room_id': rm['room_id'], 'owner_id': owner_id,'contact_id':contact_id }
-    bclient.publish(r, json.dumps(mes))
+    bclient.publish(owner_chanel, json.dumps(mes))
+    mes = { 'action': 'show_inv_win', 'room_id': rm['room_id'], 'user_profile': serialize_user(owner)}
+    bclient.publish(contact_chanel, json.dumps(mes))
     return _get_room_or_create(app_name,owner_id,contact_id)
