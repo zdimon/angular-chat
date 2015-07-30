@@ -46,6 +46,7 @@
                         $rootScope.$on('connected', function (event, data) {
                             Room.invite($stateParams.opponent,function(rezult){})
                         });
+                        
 
                 }
                 
