@@ -35,7 +35,7 @@
         if(message.action=='show_inv_win'){
             
             $rootScope.$broadcast('show_inv_win',{'message':message}); 
-            alert("fgdfgdfg")                   
+                  
         }
 
 

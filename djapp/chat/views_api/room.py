@@ -77,17 +77,19 @@ def save_message(request):
 
     Example: http://chat.localhost/api/save_message
     '''
-    tpa = Tpa.objects.get(name=request.POST['app_name'])
-    owner = ChatUser.objects.get(tpa=tpa,user_id=int(request.POST['owner_id']))
-    room = ChatRoom.objects.get(tpa=tpa,id=int(request.POST['room_id']))
+    import pdb; pdb.set_trace()
+    b = json.loads(request.body)
+    tpa = Tpa.objects.get(name=b['app_name'])
+    owner = ChatUser.objects.get(tpa=tpa,user_id=int(b['owner_id']))
+    room = ChatRoom.objects.get(tpa=tpa,id=int(b['room_id']))
     cm = ChatMessage()
     cm.tpa = tpa
     cm.user = owner
     cm.room = room
-    cm.message = request.POST['message']
+    cm.message = b['message']
     gender = owner.gender
     cm.save()
-    return  { 'status': 0, 'message': request.POST['message'], 'room_id': str(room.id), 'owner_id': str(owner.id) }
+    return  { 'status': 0, 'message': b['message'], 'room_id': str(room.id), 'owner_id': str(owner.id) }
 
 @json_view
 def get_messages(request,room_id):

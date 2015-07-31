@@ -23,9 +23,9 @@
                             var url = utils.prepare_url(apiconf.api.get_messages.url,{'[room_id]':room_id});
                              return $http.get(url).success(callback);
                         };
-            function sendMessage(room_id,callback) {
-                            var url = utils.prepare_url(apiconf.api.save_message.url,{'[room_id]':room_id});
-                             return $http.get(url).success(callback);
+            function sendMessage(room_id,message,owner_id,participants,callback) {
+                            var url = utils.prepare_url(apiconf.api.save_message.url);
+                             return $http.post(url,{'app_name':apiconf.config.app_name,'owner_id':owner_id,'room_id':room_id,'message':message, 'participants':participants}).success(callback);
                         };
 
     }]);
