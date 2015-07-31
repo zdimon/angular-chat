@@ -4,18 +4,19 @@
 app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, $log) {
         $scope.ws = WS;
 
-        $scope.send = function(){
-          WS.send({ action: 'send_message', tpa_name: apiconf.config.app_name, user_id: $rootScope.currentUserId, message: $scope.message }); 
-          $scope.message = ''
+        $scope.sendMessage = function(){
+            alert($('#chat_content').find('#cTextDiv').html());
+           Room.sendMessage(data.room_id, function(result) {
+              $log.info(result);
+              $scope.messages = result.message;
+            });
+           $scope.message = '';
         };
 
         $scope.$on('show_message', function (event, data) {
            alert(data.message);
         });
 
-        $scope.$on('save_message', function (event, data) {
-           alert(data.message);
-        });
         
         $scope.$on('show_inv_win', function (event, data) {
             
