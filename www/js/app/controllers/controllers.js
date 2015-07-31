@@ -79,7 +79,9 @@ UserOnlineCtrl
             
             var url = "http://" + apiconf.config.chat_url + "#/" + $rootScope.currentUserId+'/'+contact_id;
             $window.location.href = url;
-            Room.invite(contact_id,function(rezult){}); 
+            Room.invite(contact_id,function(rezult){
+$rootScope.$broadcast('update_users_online');
+            }); 
         }
 
     })
@@ -103,12 +105,14 @@ UserOnlineCtrl
       $scope.delete = function(contact_id){
           Contact.delContact(contact_id,function(rezult){
             $scope.update()
+            $rootScope.$broadcast('update_users_online');
             })
         }
 
       $scope.deleteAll = function(){
           Contact.deleteAll(function(rezult){
-            $scope.update()
+            $scope.update();
+            $rootScope.$broadcast('update_users_online');
             })
         }
 
