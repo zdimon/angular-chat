@@ -85,7 +85,7 @@
                                             <div class="man_chat_no_video_m"></div>
                                             <div class="man_chat_no_video_g"></div>
                                         </div>
-                                        <a href="#" class="photo_block">
+                                        <a ng-click="invite([[u.user_id]])" href="#" class="photo_block">
                                             <img src="Media/images/users/small/[[u.image]]" alt="">
                                         </a>
                                     </div>
@@ -111,7 +111,7 @@
                         </div>
                        <!---------------------->
 
-                    <a href="#delete_pop2" class="clear_cont_list delete2">Clear list</a>
+                    <a href="" class="clear_cont_list delete2" ng-really-message="Are you sure?" ng-really-click="deleteAll()" >Clear list</a>
                     </section>
                 </div>
             </div>

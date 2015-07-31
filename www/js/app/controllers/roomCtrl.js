@@ -6,7 +6,6 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, $log) {
 
         $scope.sendMessage = function(){
             var message = $('#chat_content').find('#cTextDiv').html()
-            
            Room.sendMessage($scope.room_id, message, $rootScope.currentUserId, $scope.room_participants, function(result) {
               Room.getMessages($scope.room_id, function(result) {
               $scope.messages = result.message;
@@ -56,6 +55,18 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, $log) {
   };
 })
 
-
+.directive('ngReallyClick', [function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.bind('click', function() {
+                var message = attrs.ngReallyMessage;
+                if (message && confirm(message)) {
+                    scope.$apply(attrs.ngReallyClick);
+                }
+            });
+        }
+    }
+}])
 
 

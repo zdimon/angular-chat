@@ -84,7 +84,7 @@ UserOnlineCtrl
 
     })
 
- .controller('ContactListCtrl', function ($scope, Contact, $rootScope) {
+ .controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window, Room) {
       $scope.update = function(){
         Contact.getContactList(function(rezult){
                 $scope.contact_list = rezult.contact_list;
@@ -112,7 +112,13 @@ UserOnlineCtrl
             })
         }
 
-    
+        $scope.invite = function(contact_id){
+            
+            var url = "http://" + apiconf.config.chat_url + "#/" + $rootScope.currentUserId+'/'+contact_id;
+            $window.location.href = url;
+            Room.invite(contact_id,function(rezult){}); 
+        }
+
     })
 
 
