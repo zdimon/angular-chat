@@ -52,6 +52,8 @@
                         event.preventDefault();
                       });
 
+                      init_wisiwig();
+
                 }
                 
             })  
