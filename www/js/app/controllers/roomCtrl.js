@@ -19,7 +19,9 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, $log) {
             //if ($scope.room_id==data.room_id) {
            Room.getMessages($scope.room_id, function(result) {
               $scope.messages = result.message;
+              scroolldown();
               }); 
+            
             //}
         });
 
