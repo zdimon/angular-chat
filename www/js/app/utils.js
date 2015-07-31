@@ -23,3 +23,21 @@ utils = {
 
  
 }
+
+function scroolldown(){
+
+    var scrH = 0;
+
+    $('#chat_content').find('.live_write').each(function(index, el) {
+        scrH = scrH + $(this).outerHeight(true);
+    });
+
+    $('#chat_content').find('.ms_bar').stop().animate({
+        scrollTop: scrH
+    }, 3);
+
+    $('#chat_content').find('.ms_bar').mCustomScrollbar("scrollTo", 'bottom');
+        
+
+    
+}
