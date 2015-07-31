@@ -47,7 +47,8 @@
 
         if(message.action=='show_message'){
 
-            $rootScope.$broadcast('show_message', {'message':  message.message});
+
+            $rootScope.$broadcast('show_message', {'message':  message});
                    
         }
         

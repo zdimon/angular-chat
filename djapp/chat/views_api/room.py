@@ -77,7 +77,7 @@ def save_message(request):
 
     Example: http://chat.localhost/api/save_message
     '''
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
     b = json.loads(request.body)
     tpa = Tpa.objects.get(name=b['app_name'])
     owner = ChatUser.objects.get(tpa=tpa,user_id=int(b['owner_id']))
@@ -89,6 +89,9 @@ def save_message(request):
     cm.message = b['message']
     gender = owner.gender
     cm.save()
+    for p in b['participants']:
+        mes = { 'action': 'show_message', 'room_id': b['room_id']}
+        bclient.publish(p, json.dumps(mes))   
     return  { 'status': 0, 'message': b['message'], 'room_id': str(room.id), 'owner_id': str(owner.id) }
 
 @json_view

@@ -5,23 +5,21 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, $log) {
         $scope.ws = WS;
 
         $scope.sendMessage = function(){
-            alert($scope.room_participants);
             var message = $('#chat_content').find('#cTextDiv').html()
            Room.sendMessage($scope.room_id, message, $rootScope.currentUserId, $scope.room_participants, function(result) {
-              $log.info(result);
-              //$scope.messages = result.message;
               Room.getMessages($scope.room_id, function(result) {
-              $log.info(result);
               $scope.messages = result.message;
               });  
               $('#chat_content').find('#cTextDiv').html("")    
             });
-           
-           $scope.message = '';
         };
 
         $scope.$on('show_message', function (event, data) {
-           //alert(data.message);
+            //if ($scope.room_id==data.room_id) {
+           Room.getMessages($scope.room_id, function(result) {
+              $scope.messages = result.message;
+              }); 
+            //}
         });
 
         
