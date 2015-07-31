@@ -77,7 +77,7 @@ def save_message(request):
 
     Example: http://chat.localhost/api/save_message
     '''
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
     b = json.loads(request.body)
     tpa = Tpa.objects.get(name=b['app_name'])
     owner = ChatUser.objects.get(tpa=tpa,user_id=int(b['owner_id']))
