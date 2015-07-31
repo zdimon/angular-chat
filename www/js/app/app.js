@@ -10,6 +10,7 @@ The function :func:`someService` does a some function.
         'restangular',
         'app.controllers',
         'ngCookies',
+        'ngSanitize',
         'ngWebSocket' 
     ]).config(function($interpolateProvider,$httpProvider) {
     $interpolateProvider.startSymbol('[[');
