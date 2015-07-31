@@ -5,8 +5,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, $log) {
         $scope.ws = WS;
 
         $scope.sendMessage = function(){
-            alert($('#message_room').val());
-            alert($scope.mess+' -----------------');
+            alert($('#chat_content').find('#cTextDiv').html());
            Room.sendMessage(data.room_id, function(result) {
               $log.info(result);
               $scope.messages = result.message;

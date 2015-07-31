@@ -1,5 +1,5 @@
-Chat invitation
-===============
+Chat invitation from man
+========================
 
 .. uml::
 
@@ -39,37 +39,33 @@ Chat invitation
         
         activate M
         WS-->M: put_me_in_room
+        deactivate SS
         note left: RoomCtrl.scope.put_me_in_room(room_id)
         deactivate M
         deactivate WS
         
 
-        SS --> WS: show_inv_win
-        note left: RoomCtrl.scope.show_invitation_win()
-        activate WS
-        WS --> W: show_inv_win
-        deactivate SS
-        deactivate WS
-        deactivate M
-        activate W
-        W-->W: show pop up window
-        W-->SS: accept invitation
-        note right: djapp.views.room.accept_intitation()
+        
+        M-->SS: save_message
         activate SS
-        deactivate W
-        
-
-        activate WS
-        SS-->WS: put_me_in_room(room_id)
-        note left: RoomCtrl.scope.put_me_in_room(room_id)
-        activate W
-        WS-->W: put_me_in_room(room_id)
-        deactivate WS
-        W-->SS: add_to_contact
-        SS-->W: update_contact
-        deactivate WS
-        deactivate W
+        note left: RoomCtrl.scope.send_message()
+        SS-->WS: show_message
         deactivate SS
+        activate WS
+        activate M
+        WS-->M: show_message
+        note left: RoomCtrl.scope.show_message()
+        deactivate M
+        activate W
+        WS-->W: show_message
+        note left: RoomCtrl.scope.show_message()
+        deactivate W
+        SS-->WS: update_contact
+        note left: ContactCtrl.scope.update()
+        activate W
+        WS-->W: update_contact
+        deactivate W
+        deactivate WS
         
         
         
