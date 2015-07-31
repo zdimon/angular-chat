@@ -74,7 +74,7 @@ def get_profile_from_tpa(request,user_id,app_name):
         u = bd.get('select * from users_info where user_id = %d' % int(u_login['id']))
         u_photo = bd.get('select image from users_photos where user_id = %d and main = 1' % int(u_login['id']))
         print u['name'], u['last_name']
-        out = { 'status': 0, 'user_profile': {'user_id':u_login['login'],'name':u['name'],'birthday': datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d'),'country':u['country'],'city':u['city'],'culture':u['languages'],'image':u_photo['image'], 'tpa': u['tpa']}
+        out = { 'status': 0, 'user_profile': {'user_id':u_login['login'],'name':u['name'],'birthday': datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d'),'country':u['country'],'city':u['city'],'culture':u['languages'],'image':u_photo['image'], 'tpa': tpa.name}
                   }
         save_profile_in_our_db(out['user_profile'])
     return out 
@@ -82,6 +82,7 @@ def get_profile_from_tpa(request,user_id,app_name):
 
 def save_profile_in_our_db(dict_profile_from_tpa):
     apiconf = read_conf()
+    tpa = Tpa.objects.get(name=dict_profile_from_tpa['tpa'])
     u = ChatUser()
     u.user_id = dict_profile_from_tpa['user_id']
     u.name = dict_profile_from_tpa['name']
@@ -90,7 +91,7 @@ def save_profile_in_our_db(dict_profile_from_tpa):
     u.city = dict_profile_from_tpa['city']
     u.culture = dict_profile_from_tpa['culture']
     u.image = dict_profile_from_tpa['image']
-    u.tpa = dict_profile_from_tpa['tpa']
+    u.tpa = tpa
     u.save()
 
 def get_profile(request,user_id,app_name):
