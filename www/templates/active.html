@@ -158,10 +158,7 @@
                         </div>
                         <div class="chat_main">
                             <div class="flr">
-                                <div class="but_invite_block">
-                                    <p class="show">Translator</p>
-                                    <a href="#" class="but_invite"><span></span></a>
-                                </div>
+                                <chat-translate> </chat-translate>
                             </div>
                             <div class="clear"></div>
                             <div class="ms_bar">
@@ -194,30 +191,7 @@
                                     <div class="text_block_massege">
                                         <textarea id="chat_message"></textarea>
                                         <div class="cTextDiv" id="cTextDiv" contenteditable="true"></div>
-                                        <!-- <div class="smile_block">
-                                            <ul>
-                                                <li><img src="smile_min/smile1.png" alt=""></li>
-                                                <li><img src="smile_min/smile2.png" alt=""></li>
-                                                <li><img src="smile_min/smile3.png" alt=""></li>
-                                                <li><img src="smile_min/smile4.png" alt=""></li>
-                                                <li><img src="smile_min/smile5.png" alt=""></li>
-                                                <li><img src="smile_min/smile6.png" alt=""></li>
-                                                <li><img src="smile_min/smile7.png" alt=""></li>
-                                                <li><img src="smile_min/smile8.png" alt=""></li>
-                                                <li><img src="smile_min/smile9.png" alt=""></li>
-                                                <li><img src="smile_min/smile10.png" alt=""></li>
-                                                <li><img src="smile_min/smile11.png" alt=""></li>
-                                                <li><img src="smile_min/smile12.png" alt=""></li>
-                                                <li><img src="smile_min/smile13.png" alt=""></li>
-                                                <li><img src="smile_min/smile14.png" alt=""></li>
-                                                <li><img src="smile_min/smile15.png" alt=""></li>
-                                                <li><img src="smile_min/smile16.png" alt=""></li>
-                                                <li><img src="smile_min/smile17.png" alt=""></li>
-                                                <li><img src="smile_min/smile18.png" alt=""></li>
-                                                <li><img src="smile_min/smile19.png" alt=""></li>
-                                            </ul>
-                                        </div>
-                                        <div class="smile_but"></div> -->
+                                       
                                     </div>
                                 </div>
                                 <div class="translate_mess">Привет!</div>
@@ -225,8 +199,9 @@
                             <div class="flr">
                                 <div opponent-info></div>
                                 <div class="but_for_send">
-                                    <button ng-click="sendMessage()" type="submit" class="wButton wButtonA send"><span>send</span></button>
-                                    <button type="submit" class="wButton wButtonB"><span>translate</span></button>
+                                    <button ng-click="sendMessage()" type="submit" class="wButton wButtonA send"><span>send</span></button>           
+                                    <chat-translate-button></chat-translate-button>      
+                                    
                                 </div>
                             </div>
                         </form>
