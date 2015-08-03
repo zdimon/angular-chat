@@ -80,6 +80,8 @@ class WSHandler(tornado.websocket.WebSocketHandler):
                 self.set_user_online()
                 mes = {'action': 'update_users_online'}
                 self.broadcast(mes)     
+                mes = {'action': 'set_me_online', 'uid': self.current_user_id}
+                self.broadcast(mes)  
             except Exception, e:
                 print e
                 self.write_message(json.dumps({'status': 1, 'message': str(e)})) 
@@ -94,6 +96,8 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         print 'connection closed'
         self.set_user_offline()
         mes = {'action': 'update_users_online'}
+        self.broadcast(mes) 
+        mes = {'action': 'set_me_offline', 'uid': self.current_user_id}
         self.broadcast(mes) 
         self.participants.remove(self)
 

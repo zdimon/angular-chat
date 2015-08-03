@@ -94,9 +94,17 @@
 
 .run(function ($rootScope,$window,WS) {
 
+    $rootScope.online = {}
     WS.send({ action: 'get_users_online'});
 
-    $rootScope.$on('');
+    $rootScope.$on('set_me_online',function(event,data){
+        $rootScope.online['user_'+data.message.uid] = true;
+    });
+
+    $rootScope.$on('set_me_offline',function(event,data){
+        $rootScope.online['user_'+data.message.uid] = false;
+    });
+
 
     $rootScope.on = function(){ $rootScope.online = {'user_150044' : true}; }
     $rootScope.off = function(){ $rootScope.online = {'user_150044' : false}; }

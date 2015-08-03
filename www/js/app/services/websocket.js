@@ -47,13 +47,13 @@
 
         if(message.action=='set_me_online'){
 
-            $rootScope.$broadcast('set_me_online');
+            $rootScope.$broadcast('set_me_online',{'message':message});
 
         }
 
         if(message.action=='set_me_offline'){
 
-            $rootScope.$broadcast('set_me_offline');
+            $rootScope.$broadcast('set_me_offline',{'message':message});
 
         }
 
