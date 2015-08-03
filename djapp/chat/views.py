@@ -74,7 +74,7 @@ def get_profile_from_tpa(request,user_id,app_name):
         u = bd.get('select * from users_info where user_id = %d' % int(u_login['id']))
         
         try:
-            u
+            u['name']
         except:
             return {'status': 1, message: 'Profile does not exist!'}
 
