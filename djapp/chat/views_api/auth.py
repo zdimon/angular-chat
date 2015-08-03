@@ -56,7 +56,8 @@ def login(request,user_id):
     request.session['is_auth'] = 'true'
     request.session['user_id'] = user_id
     #return { 'status': 0, 'user_id': user_id, 'username': cuser.name }
-    return redirect('http://chat.localhost/video-chat')
+    from djapp.settings import TPA_SERVER
+    return redirect('http://%s/video-chat' % TPA_SERVER)
      
  
 
