@@ -209,7 +209,7 @@ def load_db_from_tpa():
     print bcolors.WARNING+'Start loading data in DB from TPA'
     users = bd.select('select * from users')
     for u in users.record:
-        url = get_url_by_name('get_profile',{'user_id':str(u['login'], 'signal_server': SS_SERVER)})
+        url = get_url_by_name('get_profile',{'user_id':str(u['login']), 'signal_server': SS_SERVER})
         #url = 'http://%s/api/tpa1com/get_profile/%s' % (SS_SERVER,u['login'])
         print url
         responce = requests.get(url)
