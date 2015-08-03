@@ -52,7 +52,7 @@ def has_opponent(request,user_id):
     return HttpResponse(json.dumps(out), content_type='application/json')  
  
 
-#@json_view
+@json_view
 def get_profile_from_tpa(request,user_id,app_name):
     '''
     Function get profile user from outer DB (Tpa) and 
@@ -72,9 +72,17 @@ def get_profile_from_tpa(request,user_id,app_name):
     except:
         u_login = bd.get('select id,login from users where login= %s' % int(user_id))
         u = bd.get('select * from users_info where user_id = %d' % int(u_login['id']))
-        print 'select * from users_info where user_id = %d' % int(u_login['id'])
+        
+        try:
+            u
+        except:
+            return {'status': 1, message: 'Profile does not exist!'}
+
         u_photo = bd.get('select image from users_photos where user_id = %d and main = 1' % int(u_login['id']))
-        print u['name'], u['last_name']
+        try:
+            photo = u_photo
+        except:
+            photo = ''
         out = { 'status': 0, 'user_profile': {'user_id':u_login['login'],'name':u['name'],'birthday': datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d'),'country':u['country'],'city':u['city'],'culture':u['languages'],'image':u_photo['image'], 'tpa': tpa.name}
                   }
         save_profile_in_our_db(out['user_profile'])
