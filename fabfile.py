@@ -30,8 +30,7 @@ def deploy():
         #run('cd ')
         run('bower install')
         #run('./manage.py collectstatic --noinput') # Собираем статику
-        run('cd djapp')
-        run('./manage.py migrate')
+        run('djapp/manage.py migrate')
         #run('find . -name "*.mo" -print -delete')  # Чистим старые скомпиленные файлы gettext'а
         #run('./manage.py compilemessages')  # Собираем новые файлы gettext'а
 
