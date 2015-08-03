@@ -95,6 +95,7 @@ def save_profile_in_our_db(dict_profile_from_tpa):
     u.save()
 
 def get_profile(request,user_id,app_name):
+    from djapp.settings import TPA_SERVER
     try:
         tpa = Tpa.objects.get(name=app_name)
         u_name = ChatUser.objects.get(user_id=user_id,tpa=tpa)
@@ -104,7 +105,7 @@ def get_profile(request,user_id,app_name):
         }
         return HttpResponse(json.dumps(out), content_type='application/json')
     except:
-        url = get_url_by_name('get_profile_from_tpa',{'user_id':user_id,'app_name':app_name})
+        url = get_url_by_name('get_profile_from_tpa',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
         print 'REQUEST TO %s' % url
         responce = requests.get(url)
         outdata = json.loads(responce.content)

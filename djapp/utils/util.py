@@ -17,7 +17,10 @@ def read_conf():
 def get_url_by_name(name,dict_key):
     apiconf = read_conf()
     url = 'http://'+apiconf['api'][name]['url']
-    url = url.replace('[server]',apiconf['config']['signal_server'])
+    try:
+        url = url.replace('[server]',dict_key['signal_server'])
+    except:
+        url = url.replace('[server]',apiconf['config']['signal_server'])
     url = url.replace('[app_name]',apiconf['config']['app_name'])
     for key in dict_key:
         url = url.replace('[%s]' % key, dict_key[key])
@@ -206,8 +209,8 @@ def load_db_from_tpa():
     print bcolors.WARNING+'Start loading data in DB from TPA'
     users = bd.select('select * from users')
     for u in users.record:
-        url = get_url_by_name('get_profile',{'user_id':str(u['login'])})
-        url = 'http://%s/api/tpa1com/get_profile/%s' % (SS_SERVER,u['login'])
+        url = get_url_by_name('get_profile',{'user_id':str(u['login'], 'signal_server': SS_SERVER)})
+        #url = 'http://%s/api/tpa1com/get_profile/%s' % (SS_SERVER,u['login'])
         print url
         responce = requests.get(url)
 
