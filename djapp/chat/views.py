@@ -76,7 +76,7 @@ def get_profile_from_tpa(request,user_id,app_name):
         try:
             u['name']
         except:
-            return {'status': 1, message: 'Profile does not exist!'}
+            return {'status': 1, 'message': 'Profile does not exist!'}
 
         u_photo = bd.get('select image from users_photos where user_id = %d and main = 1' % int(u_login['id']))
         try:
