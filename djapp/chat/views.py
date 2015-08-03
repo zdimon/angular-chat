@@ -52,7 +52,7 @@ def has_opponent(request,user_id):
     return HttpResponse(json.dumps(out), content_type='application/json')  
  
 
-#@json_view
+@json_view
 def get_profile_from_tpa(request,user_id,app_name):
     '''
     Function get profile user from outer DB (Tpa) and 
