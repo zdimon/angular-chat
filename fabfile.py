@@ -31,6 +31,8 @@ def deploy():
         run('bower install')
         #run('./manage.py collectstatic --noinput') # Собираем статику
         run('djapp/manage.py migrate')
+        with cd('/home/webmaster/marriage-brides.com'):
+            run('git pull')
         #run('find . -name "*.mo" -print -delete')  # Чистим старые скомпиленные файлы gettext'а
         #run('./manage.py compilemessages')  # Собираем новые файлы gettext'а
 
