@@ -184,6 +184,7 @@ def load_db_from_tpa():
     import PySQLPool
     from djapp.settings import DATABASES
     import requests
+    from djapp.settings import SS_SERVER
 
     t = Tpa()
     t.name = 'tpa1com'
@@ -205,8 +206,10 @@ def load_db_from_tpa():
     print bcolors.WARNING+'Start loading data in DB from TPA'
     users = bd.select('select * from users')
     for u in users.record:
-            url = get_url_by_name('get_profile',{'user_id':str(u['login'])})
-            responce = requests.get(url)
+        url = get_url_by_name('get_profile',{'user_id':str(u['login'])})
+        url = 'http://%s/api/tpa1com/get_profile/%s' % (SS_SERVER,u['login'])
+        print url
+        responce = requests.get(url)
 
     owner = ChatUser.objects.get(user_id=150043)
     contact = ChatUser.objects.get(user_id=150014)

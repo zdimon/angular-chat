@@ -4,3 +4,4 @@
 /www/js/lib
 /doc/build
 /djapp/db.sqlite3
+/djapp/djapp/local.py

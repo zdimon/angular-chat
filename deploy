@@ -1,0 +1,5 @@
+source ../bin/activate
+git add --all
+git commit -m 'auto'
+git push
+fab deploy
