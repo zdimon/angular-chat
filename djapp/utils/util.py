@@ -7,7 +7,7 @@ bd = MyDB()
 
 
 def read_conf():
-    from djapp.settings import BASE_DIR
+    from djapp.settings import BASE_DIR, SS_SERVER
     #path = BASE_DIR+'../www/api.conf.js'
     ar = BASE_DIR.split('/')
     path = '/'.join(ar[:len(ar)-1])+'/www/js/app/config.js'
@@ -20,8 +20,8 @@ def get_url_by_name(name,dict_key):
     try:
         url = url.replace('[server]',dict_key['signal_server'])
     except:
-        url = url.replace('[server]',apiconf['config']['signal_server'])
-    url = url.replace('[app_name]',apiconf['config']['app_name'])
+        url = url.replace('[server]',SS_SERVER)
+    url = url.replace('[app_name]',dict_key['app_name'])
     for key in dict_key:
         url = url.replace('[%s]' % key, dict_key[key])
     return url
@@ -209,7 +209,7 @@ def load_db_from_tpa():
     print bcolors.WARNING+'Start loading data in DB from TPA'
     users = bd.select('select * from users')
     for u in users.record:
-        url = get_url_by_name('get_profile',{'user_id':str(u['login']), 'signal_server': SS_SERVER})
+        url = get_url_by_name('get_profile',{'user_id':str(u['login']), 'signal_server': SS_SERVER, 'app_name': 'tpa1com'})
         #url = 'http://%s/api/tpa1com/get_profile/%s' % (SS_SERVER,u['login'])
         print url
         responce = requests.get(url)

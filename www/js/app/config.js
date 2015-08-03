@@ -6,7 +6,7 @@ apiconf = {
             {
                 'type': 'ajax',
                 'name': 'login',
-                'url':  '[server]/api/[user_id]/login'
+                'url':  '[server]/api/[user_id]/[app_name]/login'
             },
 
         'logout':

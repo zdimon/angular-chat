@@ -28,7 +28,7 @@ def is_auth(request,app_name):
     
 
 @json_view
-def login(request,user_id):
+def login(request,user_id, app_name):
     ''' 
         Login function. Set couple variables
  
@@ -36,20 +36,20 @@ def login(request,user_id):
 
              request.session['user_id']  
 
-            [server]/api/[user_id]/login  
+            [server]/api/[user_id]/[app_name]login  
 
-         Example: http://chat.localhost/api/150014/login   
+         Example: http://chat.localhost/api/150014/tpa1com/login   
 
-            http://chat.localhost/api/150043/login
+            http://chat.localhost/api/150043/tpa1com/login
     
-            http://chat.localhost/api/150031/login
+            http://chat.localhost/api/150031/tpa1com/login
 
         in session to determitate authentication status 
     '''
     try:
         cuser = ChatUser.objects.get(user_id=user_id)
     except:
-        url = get_url_by_name('get_profile_from_tpa',{'user_id':user_id})
+        url = get_url_by_name('get_profile_from_tpa',{'user_id':user_id, 'app_name': app_name})
         print 'REQUEST_____%s' % url
         responce = requests.get(url)
         cuser = ChatUser.objects.get(user_id=user_id)
