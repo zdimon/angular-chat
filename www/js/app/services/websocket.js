@@ -45,6 +45,20 @@
                    
         }
 
+        if(message.action=='set_me_online'){
+
+            $rootScope.$broadcast('set_me_online');
+
+        }
+
+        if(message.action=='set_me_offline'){
+
+            $rootScope.$broadcast('set_me_offline');
+
+        }
+
+
+
         if(message.action=='show_message'){
 
 

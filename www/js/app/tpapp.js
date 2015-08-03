@@ -53,10 +53,12 @@
 
 
 .controller('OnlineCtrl', function ($window, $rootScope, $scope, $http, WS) {
-      
+
+
+        $scope.online = {'user_44': true};
         $scope.one = function(){
             
-            $scope.user_online_1 = true;
+
         }
 
         $scope.$on('update_users_online',function(event, data){
@@ -68,10 +70,36 @@
      
     })
 
+    .directive('userOnline', function() {
+    return {
+        restrict: 'E',
+        scope: {
+            uid: '='
+        },
+        template: '<p class="online">Online now</p>',
+        link: function(scope, element, attrs) {
+            scope.$watch('uid', function(newValue, oldValue) {
+                if (newValue==true){
+                    element.find('p').text('Online').addClass('online').removeClass('offline');
+                } else {
+                    element.find('p').text('Offline').addClass('offline').removeClass('online');
+                }
+                //if (newValue)
+                    console.log("I see a data change! on"+newValue+' from '+oldValue);
+            });
+        }
+    }
+})
+
 
 .run(function ($rootScope,$window,WS) {
 
     WS.send({ action: 'get_users_online'});
+
+    $rootScope.$on('');
+
+    $rootScope.on = function(){ $rootScope.online = {'user_150044' : true}; }
+    $rootScope.off = function(){ $rootScope.online = {'user_150044' : false}; }
 
 })
 
