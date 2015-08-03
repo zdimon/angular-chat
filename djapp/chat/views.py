@@ -83,7 +83,7 @@ def get_profile_from_tpa(request,user_id,app_name):
             photo = u_photo
         except:
             photo = ''
-        out = { 'status': 0, 'user_profile': {'user_id':u_login['login'],'name':u['name'],'birthday': datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d'),'country':u['country'],'city':u['city'],'culture':u['languages'],'image':u_photo['image'], 'tpa': tpa.name}
+        out = { 'status': 0, 'user_profile': {'user_id':u_login['login'],'name':u['name'],'birthday': datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d'),'country':u['country'],'city':u['city'],'culture':u['languages'],'image': photo, 'tpa': tpa.name}
                   }
         save_profile_in_our_db(out['user_profile'])
     return out 
