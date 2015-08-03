@@ -10,7 +10,7 @@ def read_conf():
     from djapp.settings import BASE_DIR
     #path = BASE_DIR+'../www/api.conf.js'
     ar = BASE_DIR.split('/')
-    path = '/'.join(ar[:len(ar)-1])+'/www/js/app/api.conf.js'
+    path = '/'.join(ar[:len(ar)-1])+'/www/js/app/config.js'
     exec open(path).read()
     return apiconf
 

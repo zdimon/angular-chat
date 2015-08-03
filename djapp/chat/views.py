@@ -80,7 +80,7 @@ def get_profile_from_tpa(request,user_id,app_name):
 
         u_photo = bd.get('select image from users_photos where user_id = %d and main = 1' % int(u_login['id']))
         try:
-            photo = u_photo
+            photo = u_photo['image']
         except:
             photo = ''
         out = { 'status': 0, 'user_profile': {'user_id':u_login['login'],'name':u['name'],'birthday': datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d'),'country':u['country'],'city':u['city'],'culture':u['languages'],'image': photo, 'tpa': tpa.name}
