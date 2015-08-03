@@ -16,7 +16,7 @@
                              return $http.get(url).success(callback);
                         };
             function getUserInfo(contact_id,callback) {
-                             var url = utils.prepare_url(apiconf.api.get_profile.url,{'[user_id]':contact_id, '[app_name]':apiconf.config.app_name});
+                             var url = utils.prepare_url(apiconf.api.get_profile.url,{'[user_id]':contact_id, '[app_name]':local_config.app_name});
                              return $http.get(url).success(callback);
                         };
             function getMessages(room_id,callback) {
@@ -25,7 +25,7 @@
                         };
             function sendMessage(room_id,message,owner_id,participants,callback) {
                             var url = utils.prepare_url(apiconf.api.save_message.url);
-                             return $http.post(url,{'app_name':apiconf.config.app_name,'owner_id':owner_id,'room_id':room_id,'message':message, 'participants':participants}).success(callback);
+                             return $http.post(url,{'app_name':local_config.app_name,'owner_id':owner_id,'room_id':room_id,'message':message, 'participants':participants}).success(callback);
                         };
 
     }]);

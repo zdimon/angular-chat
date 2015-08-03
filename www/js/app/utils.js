@@ -13,8 +13,8 @@ utils = {
             for (var key in lst) {
                 str = str.replace(key,lst[key])
             }
-            str = str.replace('[server]',apiconf.config.signal_server)
-            str = str.replace('[app_name]',apiconf.config.app_name)
+            str = str.replace('[server]',local_config.signal_server)
+            str = str.replace('[app_name]',local_config.app_name)
             url = 'http://'+str
             return url
 

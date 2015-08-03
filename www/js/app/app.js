@@ -32,14 +32,14 @@ The function :func:`someService` does a some function.
 
                         $rootScope.$broadcast('rootScope_ready');
 
-                        WS.send({ action: 'connect', tpa: apiconf.config.app_name, user_id: $rootScope.currentUserId });
+                        WS.send({ action: 'connect', user_id: $rootScope.currentUserId });
                    
                         /*
                         Auth.has_opponent(function(result){
                             if(result.status==0) {
-                                var url = "http://" + apiconf.config.chat_url + "#/" + $rootScope.currentUserId+'/'+result.contact_id;
+                                var url = "http://" + local_config.chat_url + "#/" + $rootScope.currentUserId+'/'+result.contact_id;
                             } else {
-                                var url = "http://" + apiconf.config.chat_url  + "#/" + $rootScope.currentUserId;  
+                                var url = "http://" + local_config.chat_url  + "#/" + $rootScope.currentUserId;  
                             }
                             $window.location.href = url;
                             

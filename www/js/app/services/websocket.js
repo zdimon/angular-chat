@@ -5,7 +5,7 @@
     .module('AngularChatApp')
     .factory('WS', function($websocket, $rootScope){
 
-      var dataStream = $websocket("ws://"+apiconf.config.ws_server+"/ws");
+      var dataStream = $websocket("ws://"+local_config.ws_server+"/ws");
 
 
       dataStream.onMessage(function(message) {
@@ -87,6 +87,8 @@
       var methods = {
 
         send: function(mess) {
+          // add tpa_name to each message
+          mess['tpa'] = local_config.app_name
           dataStream.send(JSON.stringify(mess));
         }
 

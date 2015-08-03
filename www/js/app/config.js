@@ -1,16 +1,7 @@
+
 apiconf = {
-    'config':
-    {
-        'app_id': 1,
-        'app_name': 'tpa1com',
-        'signal_server': 'chat.localhost',
-        'chat_url': 'chat.localhost/video-chat',
-        'ws_server': 'chat.localhost:8888'
-    },
-
-    'api':
-    {
-
+        'api': 
+        {
         'login':
             {
                 'type': 'ajax',
@@ -118,9 +109,7 @@ apiconf = {
                 'type': 'ajax',
                 'name': 'get_messages',
                 'url':  '[server]/api/[room_id]/get_messages'
-            }
-
-
-    }
+            } 
+        }
     
 }

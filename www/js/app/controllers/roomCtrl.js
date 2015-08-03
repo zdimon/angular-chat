@@ -34,7 +34,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, $log) {
         });
 
         $scope.$on('put_me_in_room', function (event, data) {
-           $scope.room_participants = [apiconf.config.app_name+'_'+data.owner_id, apiconf.config.app_name+'_'+data.contact_id];
+           $scope.room_participants = [local_config.app_name+'_'+data.owner_id, local_config.app_name+'_'+data.contact_id];
            $scope.room_id = data.room_id;
            $scope.hasActiveRoom=true;
            Room.getUserInfo(data.contact_id,function(result){ 
