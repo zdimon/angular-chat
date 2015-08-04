@@ -68,10 +68,50 @@
                         <!-- <a href="#" class="video_mute"><span></span></a> -->
                     </div>
                 </div>
+                
                 <div class="contact_list">
                     <div class="title"><span>My</span> Contact List</div>
                        <!-- My contact list -->
                        <section ng-controller="ContactListCtrl">
+
+                                <!-- Popup invitation window  -->
+                                <div style="display: none">
+                                    <div id="invite_window" class="enterRegPopup zoomAnim chat_pop">
+                                        <div class="logo_pop"><img src="Media/pic/logo_pop.png" alt=""></div>
+                                        <div class="delivery_block">
+                                            <form>
+                                                <div class="info_people">
+                                                    <div class="girl_who_write clearFix">
+                                                        <div class="fll">
+                                                            <a href="#" class="img_man_w">
+                                                                <img src="Media/images/users/small/[[invited_user.image]]" alt="">
+                                                                
+                                                                <div ng-show="invited_user.is_online == 1" class="on_line"><span></span></div>
+                                                                <div ng-show="invited_user.is_online == 0" class="off_line"><span></span></div>
+
+                                                            </a>
+                                                        </div>
+                                                        <div class="flr">
+                                                            <a href="#" class="name_age_id">[[ invited_user.name ]], [[ invited_user.age ]] (ID [[invited_user.user_id]])</a>
+                                                            <div class="city_country">Toronto, Canada</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="textarea_block">
+                                                    <div class="text_block_massege">
+                                                        <textarea></textarea>
+                                                        <div id="inv_text" class="cTextDiv" contenteditable="true"></div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="filt_for_send">
+                                                    <button ng-click="submit_invitation()" class="wSubmit wButton wButtonA"><span>Send</span></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end popup -->
                                 <ul>
                                     <li class="clearFix" ng-repeat="u in contact_list">
                                     <div class="fll">
@@ -85,12 +125,12 @@
                                             <div class="man_chat_no_video_m"></div>
                                             <div class="man_chat_no_video_g"></div>
                                         </div>
-                                        <a ng-click="invite([[u.user_id]])" href="#" class="photo_block">
+                                        <a ng-click="select([[u.user_id]])" href="#" class="photo_block">
                                             <img src="Media/images/users/small/[[u.image]]" alt="">
                                         </a>
                                     </div>
                                     <div class="flr">
-                                        <a href="#invite_to_chat" class="invite invite_to_chat"><span></span></a>
+                                        <a ng-click="invite_window([[u.user_id]])" class="invite invite_to_chat"><span></span></a>
                                         <a ng-click="delete([[u.user_id]])" href="#delete_pop" class="delete"><span></span></a>
                                     </div>
                                     <div class="flc">
@@ -189,8 +229,8 @@
                             <div class="fll">
                                 <div class="textarea_block">
                                     <div class="text_block_massege">
-                                        <textarea id="chat_message"></textarea>
-                                        <div class="cTextDiv" id="cTextDiv" contenteditable="true"></div>
+                                        <textarea></textarea>
+                                        <div class="cTextDiv" id="chat_message" contenteditable="true"></div>
                                        
                                     </div>
                                 </div>
@@ -200,7 +240,8 @@
                                 <div opponent-info></div>
                                 <div class="but_for_send">
                                     <button ng-click="sendMessage()" type="submit" class="wButton wButtonA send"><span>send</span></button>           
-                                    <chat-translate-button></chat-translate-button>      
+ 
+                                    <button class="wButton wButtonB" ng-click="translate()" type="submit"> Translate </button>   
                                     
                                 </div>
                             </div>
@@ -216,61 +257,7 @@
 </div>
 <!-- .wWrapper -->
 <div style="display: none;">
-    <div id="invite_to_chat" class="enterRegPopup zoomAnim chat_pop">
-        <div class="logo_pop"><img src="Media/pic/logo_pop.png" alt=""></div>
-        <div class="delivery_block">
-            <form>
-                <div class="info_people">
-                    <div class="girl_who_write clearFix">
-                        <div class="fll">
-                            <a href="#" class="img_man_w">
-                                <img src="Media/pic/girl2.jpg" alt="">
-                                <!-- <div class="on_line"><span></span></div> -->
-                                <div class="off_line"><span></span></div>
-                            </a>
-                        </div>
-                        <div class="flr">
-                            <a href="#" class="name_age_id">Lisi, 42 (ID 456345)</a>
-                            <div class="city_country">Toronto, Canada</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="textarea_block">
-                    <div class="text_block_massege">
-                        <textarea></textarea>
-                        <div class="cTextDiv" contenteditable="true"></div>
-                        <!-- <div class="smile_block">
-                            <ul>
-                                <li><img src="smile_min/smile1.png" alt=""></li>
-                                <li><img src="smile_min/smile2.png" alt=""></li>
-                                <li><img src="smile_min/smile3.png" alt=""></li>
-                                <li><img src="smile_min/smile4.png" alt=""></li>
-                                <li><img src="smile_min/smile5.png" alt=""></li>
-                                <li><img src="smile_min/smile6.png" alt=""></li>
-                                <li><img src="smile_min/smile7.png" alt=""></li>
-                                <li><img src="smile_min/smile8.png" alt=""></li>
-                                <li><img src="smile_min/smile9.png" alt=""></li>
-                                <li><img src="smile_min/smile10.png" alt=""></li>
-                                <li><img src="smile_min/smile11.png" alt=""></li>
-                                <li><img src="smile_min/smile12.png" alt=""></li>
-                                <li><img src="smile_min/smile13.png" alt=""></li>
-                                <li><img src="smile_min/smile14.png" alt=""></li>
-                                <li><img src="smile_min/smile15.png" alt=""></li>
-                                <li><img src="smile_min/smile16.png" alt=""></li>
-                                <li><img src="smile_min/smile17.png" alt=""></li>
-                                <li><img src="smile_min/smile18.png" alt=""></li>
-                                <li><img src="smile_min/smile19.png" alt=""></li>
-                            </ul>
-                        </div>
-                        <div class="smile_but"></div> -->
-                    </div>
-                </div>
-                <div class="filt_for_send">
-                    <button class="wSubmit wButton wButtonA"><span>Send</span></button>
-                </div>
-            </form>
-        </div>
-    </div>
+
     <div id="delivery_pop" class="enterRegPopup zoomAnim chat_pop">
         <div class="logo_pop"><img src="Media/pic/logo_pop.png" alt=""></div>
         <div class="delivery_block">

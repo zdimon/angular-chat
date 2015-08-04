@@ -1,11 +1,28 @@
  
 
 
-app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, $log) {
+app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTranslate, $log) {
         $scope.ws = WS;
 
+
+        /*"""
+        .. function:: $scope.translate()
+
+            Function use GoogleTranslator service and translate mrssage from russuan to english in the textarea.
+    
+           
+        */
+
+        $scope.translate = function(){
+            var message = $(document).find('#chat_message').html();
+            $log.debug(message);
+            mes = GoogleTranslate.translate('en','ru',message);
+            $(document).find('#chat_message').html(mes);
+            
+        };
+
         $scope.sendMessage = function(){
-            var message = $('#chat_content').find('#cTextDiv').html()
+            var message = $(document).find('#chat_message').html()
            Room.sendMessage($scope.room_id, message, $rootScope.currentUserId, $scope.room_participants, function(result) {
               Room.getMessages($scope.room_id, function(result) {
               $scope.messages = result.message;

@@ -23,28 +23,3 @@ app.directive('chatTranslate', function() {
 
     return directive;
 });
-
-
-app.directive('chatTranslateButton', function() {
-    var directive = {};
-
-    directive.restrict = 'E'; /* restrict this directive to elements */
-
-    directive.template = '<button class="wButton wButtonB" type="submit"><span>translate</span></button>'
-
-    directive.link = function($scope, element, attrs) {
-
-
-                element.click(function() {
-                    $('#chat_content').find('#cTextDiv').html('translate');
-                    $('#chat_content').find('#cTextDiv').focus();
-                    alert('Translate');
-                })
-
-            }
-
-
-
-    return directive;
-});
-

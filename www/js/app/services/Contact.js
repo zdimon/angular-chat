@@ -8,7 +8,8 @@
                         getContactList: getContactList,
                         delContact: delContact,
                         deleteAll: deleteAll,
-                        addContact: addContact
+                        addContact: addContact,
+                        sendInvitation: sendInvitation
                     }
 
             function getContactList(callback) {
@@ -29,7 +30,23 @@
             function addContact(contact_id,callback) {
                              var url = utils.prepare_url(apiconf.api.add_contact.url,{'[owner_id]':$rootScope.currentUserId,'[contact_id]':contact_id});
                              return $http.get(url).success(callback);
-                        };
+            };
+
+
+            /*"""
+            .. function:: sendInvitation()
+
+            Send invitation message to men by http request to server.
+               
+            */
+
+            function sendInvitation(owner_id,contact_id,message,callback) {
+                             var url = utils.prepare_url(apiconf.api.send_invitation.url,{});
+                             var data = {'app_name':local_config.app_name, 'owner_id':$rootScope.currentUserId,'contact_id':contact_id,  'message': message}
+                             return $http.post(url,data).success(callback);
+            };
+
+
     }]);
 
 

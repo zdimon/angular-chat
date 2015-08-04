@@ -105,6 +105,14 @@ apiconf = {
                 'params': 'app_name,owner_id,room_id,message'
             },
 
+        'send_invitation':
+            {
+                'type': 'ajax[POST]',
+                'name': 'send_invitation',
+                'url':  '[server]/api/send_invitation',
+                'params': 'app_name,owner_id,opponent_id,message'
+            },
+
         'get_messages':
             {
                 'type': 'ajax',

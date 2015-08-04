@@ -2,8 +2,10 @@
             <div class="fll">
                 <a href="#" class="img_man_w">
                     <img src="Media/images/users/small/[[opponent.image]]" alt="">
-                    <div class="on_line"><span></span></div>
-                    <!-- <div class="off_line"><span></span></div> -->
+
+                    <div ng-show="opponent.is_online == 1" class="on_line"><span></span></div>
+                    <div ng-show="opponent.is_online == 0" class="off_line"><span></span></div>
+                 
                 </a>
             </div>
             <div class="flr">

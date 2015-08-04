@@ -127,3 +127,35 @@ def get_contact_list(request,app_name,user_id):
         contactlst.append(serialize_user(c.contact))
     return { 'status': 0, 'message': 'ok', 'contact_list': contactlst }
 
+@json_view
+def send_invitation(request):
+    '''
+    Function saves invitation from woman.
+
+    parameters by POST: app_name,owner_id,contact_id,message
+
+    [server]/api/send_invitation
+
+    Example: http://chat.localhost/api/send_invitation
+    '''
+    #import pdb; pdb.set_trace() 
+    b = json.loads(request.body)
+    tpa = Tpa.objects.get(name=b['app_name'])
+    owner = ChatUser.objects.get(tpa=tpa,user_id=int(b['owner_id']))
+    #room = ChatRoom.objects.get(tpa=tpa,id=int(b['room_id']))
+    #cm = ChatMessage()
+    #cm.tpa = tpa
+    #cm.user = owner
+    #m.room = room
+    #cm.message = b['message']
+    #gender = owner.gender
+    #cm.save()
+    #try:
+    #    for p in b['participants']:
+    #        mes = { 'action': 'show_message', 'room_id': b['room_id']}
+    #        bclient.publish(p, json.dumps(mes))   
+    #except Exception, e:
+    #    print e
+    return  { 'status': 0 }
+
+
