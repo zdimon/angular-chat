@@ -9,3 +9,4 @@ Angular application
     ng/controllers
     ng/services
     ng/directives
+    ng/tpapp

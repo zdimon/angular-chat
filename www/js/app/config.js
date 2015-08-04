@@ -35,7 +35,8 @@ apiconf = {
             {
                 'type': 'ajax',
                 'name': 'get_online',
-                'url':  '[server]/api/[app_name]/[user_id]/get_online'
+                'url':  '[server]/api/[app_name]/[user_id]/get_online',
+                'responce': '{"status": 0, "message": "ok", "user_list": [{...}]'
             },  
 
 

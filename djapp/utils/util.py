@@ -2,7 +2,8 @@ import random
 from utils.colorize import bcolors
 import datetime
 from utils.db import MyDB
-
+from chat.models import *
+from django.contrib.auth.models import User
 bd = MyDB()
 
 
@@ -27,14 +28,13 @@ def get_url_by_name(name,dict_key):
     return url
 
 def set_on_line():
-    from chat.models import *
     print bcolors.WARNING+'Start set_on_line'
     ChatUser.objects.all().update(is_online=True)
     print bcolors.WARNING+'Done set_on_line'
 
 
 def load_message_room():
-    from chat.models import *
+    
     print bcolors.WARNING+'Start load_message_room'
     cr = ChatRoom.objects.all()
     cu = ChatUser.objects.all()
@@ -51,8 +51,7 @@ def load_message_room():
     print bcolors.WARNING+'Done load_message_room'
 
 def clean_db():
-    from chat.models import *
-    from django.contrib.auth.models import User
+    
     print bcolors.WARNING+'Start cleaning DB'      
     ChatStopword.objects.all().delete()
     ChatTemplates.objects.all().delete()
@@ -69,8 +68,6 @@ def clean_db():
 
 
 def load_db():
-    from chat.models import *
-    from django.contrib.auth.models import User
     print bcolors.WARNING+'Start loading data in DB'
 
     t = Tpa()
@@ -182,8 +179,6 @@ def load_db():
     print 'Done loading data in DB'
 
 def load_db_from_tpa():
-    from chat.models import *
-    from django.contrib.auth.models import User
     import PySQLPool
     from djapp.settings import DATABASES
     import requests
@@ -246,7 +241,8 @@ def serialize_user(user):
                     'is_camera_active':user.is_camera_active, 
                     'is_invisible': user.is_invisible, 
                     'is_invitation_enabled': user.is_invitation_enabled,
-                    'age': user.age
+                    'age': user.age,
+                    'user_id': user.user_id
             })
 
 

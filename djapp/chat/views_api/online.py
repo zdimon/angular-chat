@@ -21,11 +21,14 @@ def get_online(request,app_name,user_id):
     '''
     userlst_profile = []
     tpa = Tpa.objects.get(name=app_name)
-    users_online = ChatUser.objects.filter(tpa=tpa,is_online=1)
-    owner = ChatUser.objects.get(tpa=tpa,user_id=user_id)
-    cc = ChatContacts.objects.filter(tpa=tpa,owner=owner)
-    for c in cc:
-        users_online = users_online.exclude(id=c.contact.id)
+    if user_id == 'undefined':
+        users_online = ChatUser.objects.filter(tpa=tpa,is_online=1)
+    else:
+        users_online = ChatUser.objects.filter(tpa=tpa,is_online=1)
+        owner = ChatUser.objects.get(tpa=tpa,user_id=user_id)
+        cc = ChatContacts.objects.filter(tpa=tpa,owner=owner)
+        for c in cc:
+            users_online = users_online.exclude(id=c.contact.id)
     for u in users_online:        
         userlst_profile.append(serialize_user(u))
     return { 'status': 0, 'message': 'ok', 'user_list': userlst_profile }

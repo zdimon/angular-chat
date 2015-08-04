@@ -12,6 +12,7 @@ Contents:
     :maxdepth: 2
 
     install
+    integration
     test_loading
     owerview
     angularapp
