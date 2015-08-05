@@ -42,7 +42,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
               Room.getMessages($scope.room_id, function(result) {
               $scope.messages = result.message;
               });  
-              $('#chat_content').find('#cTextDiv').html("")    
+              $(document).find('#cTextDiv').html("")    
             });
         };
 
