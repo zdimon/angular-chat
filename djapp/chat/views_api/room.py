@@ -124,12 +124,15 @@ def invite(request,app_name,owner_id,contact_id):
 
     Add the opponent to the contact list.
 
+    Mark contact as active
+
     Create the room. Put the user into the room.
      
     '''
     #apiconf = read_conf()
     #app_name = apiconf['config']['app_name']
-    _add_contact(app_name,owner_id,contact_id)
+    contact = _add_contact(app_name,owner_id,contact_id)
+    contact.set_active()
     mes = { 'action': 'update_contact' }
     owner_chanel = '%s_%s' % (app_name, owner_id)
     contact_chanel = '%s_%s' % (app_name, contact_id)
@@ -142,3 +145,6 @@ def invite(request,app_name,owner_id,contact_id):
     mes = { 'action': 'show_inv_win', 'room_id': rm['room_id'], 'user_profile': serialize_user(owner)}
     bclient.publish(contact_chanel, json.dumps(mes))
     return _get_room_or_create(app_name,owner_id,contact_id)
+
+
+

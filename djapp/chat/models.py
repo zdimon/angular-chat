@@ -197,7 +197,10 @@ class ChatContacts(models.Model):
     is_man_camera_active = models.BooleanField(default = False, help_text=_('Is man camera active.'))
     is_woman_camera_active = models.BooleanField(default = False, help_text=_('Is woman camera active.'))
     is_ununswerd = models.BooleanField(default = False, help_text=_('Is ununswerd.'))
-
+    def set_active(self):
+        ChatContacts.objects.filter(owner=self.owner).update(is_active=False)
+        self.is_active = True
+        self.save()
     class Meta:
         verbose_name = "Contact"
         verbose_name_plural = "Contacts"

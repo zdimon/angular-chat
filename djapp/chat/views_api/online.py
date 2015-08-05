@@ -24,8 +24,8 @@ def get_online(request,app_name,user_id):
     if user_id == 'undefined':
         users_online = ChatUser.objects.filter(tpa=tpa,is_online=1)
     else:
-        users_online = ChatUser.objects.filter(tpa=tpa,is_online=1)
         owner = ChatUser.objects.get(tpa=tpa,user_id=user_id)
+        users_online = ChatUser.objects.filter(tpa=tpa,is_online=1).exclude(gender=owner.gender)
         cc = ChatContacts.objects.filter(tpa=tpa,owner=owner)
         for c in cc:
             users_online = users_online.exclude(id=c.contact.id)

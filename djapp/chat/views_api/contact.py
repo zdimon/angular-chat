@@ -15,18 +15,16 @@ def _add_contact(app_name,owner_id,contact_id):
     '''
     tpa = Tpa.objects.get(name=app_name)
     owner = ChatUser.objects.get(tpa=tpa,user_id=owner_id)
-    contact = ChatUser.objects.get(tpa=tpa,user_id=contact_id)
+    contactuser = ChatUser.objects.get(tpa=tpa,user_id=contact_id)
     try:
-        ChatContacts.objects.get(owner=owner,contact=contact) 
-        out = { 'status': 1, 'message': 'Contact is already exists' }   
+        contact = ChatContacts.objects.get(owner=owner,contact=contact) 
     except:
-        new_contact = ChatContacts()
-        new_contact.owner = owner
-        new_contact.contact = contact
-        new_contact.tpa = tpa
-        new_contact.save()        
-        out = { 'status': 0, 'message': 'Contact has been added' }
-    return out 
+        contact = ChatContacts()
+        contact.owner = owner
+        contact.contact = contactuser
+        contact.tpa = tpa
+        contact.save()        
+    return contact 
 
 @json_view
 def add_contact(request,app_name,owner_id,contact_id):

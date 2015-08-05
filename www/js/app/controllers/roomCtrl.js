@@ -18,7 +18,8 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
             var message = $(document).find('#chat_message').html();
             $log.debug(message);
             GoogleTranslate.translate('ru','en',message).then(function(resulf){
-              $(document).find('#chat_message').html(resulf);
+              $(document).find('#chat_message').html(resulf).focus();
+                
             });
             
             
@@ -33,7 +34,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
            
             And makes request via Room service Room.sendMessage()
 
-            Then clears textarea $('#chat_content').find('#cTextDiv').html("")
+            Then clears textarea $(document).find('#chat_message').html("")
         */
 
         $scope.sendMessage = function(){
@@ -42,7 +43,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
               Room.getMessages($scope.room_id, function(result) {
               $scope.messages = result.message;
               });  
-              $(document).find('#cTextDiv').html("")    
+              $(document).find('#chat_message').html("")    
             });
         };
 
