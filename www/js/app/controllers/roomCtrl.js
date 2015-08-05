@@ -10,6 +10,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
             Function use GoogleTranslator service and translate mrssage from russuan to english in the textarea.
     
+            Replace content of editable div $(document).find('#chat_message').html(resulf);
            
         */
 
@@ -22,6 +23,18 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
             
             
         };
+
+        /*"""
+        .. function:: $scope.sendMessage()
+
+            Function sends message from user to opponent.
+    
+            It takes content of div by id $(document).find('#chat_message').html() 
+           
+            And makes request via Room service Room.sendMessage()
+
+            Then clears textarea $('#chat_content').find('#cTextDiv').html("")
+        */
 
         $scope.sendMessage = function(){
             var message = $(document).find('#chat_message').html()
