@@ -16,8 +16,10 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         $scope.translate = function(){
             var message = $(document).find('#chat_message').html();
             $log.debug(message);
-            mes = GoogleTranslate.translate('en','ru',message);
-            $(document).find('#chat_message').html(mes);
+            GoogleTranslate.translate('ru','en',message).then(function(resulf){
+              $(document).find('#chat_message').html(resulf);
+            });
+            
             
         };
 

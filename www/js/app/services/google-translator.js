@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
- app.factory('GoogleTranslate', ['$http','$rootScope','$log', function($http,$rootScope,$log){
+ app.factory('GoogleTranslate', ['$http','$rootScope','$log','$q', function($http,$rootScope,$log, $q){
 
 
             return {
@@ -11,48 +11,19 @@
 
 
         function translate(langSource, langTarget, text) {
-                    
+                    var deferredObject = $q.defer();
                     
                     if (text.length > 0) {
                     
                         makeRequest(langSource,langTarget,text).then(function(result){
-                               return result.data.data.translations[0].translatedText
-                        },function(){
-                              alert('Error from google translator! Request is not finished!');
+                               deferredObject.resolve(result.data.data.translations[0].translatedText);
+                       
+                        },function(errorMsg){
+                              deferredObject.reject('Error from google translator! Request is not finished!');
                         });
-                        
-                        /*
-                        $.ajax({
-                            url: apiurl + encodeURIComponent(text),
-                            dataType: 'jsonp',
-                            async: false,
-                            success: function (data) {
-                                if (langSource === langTarget) {
-                                    alert(text);
-                                } else if (langSource != "") {
-                                   //try {
-                                        console.log(data.data.translations[0].translatedText);
-                                        $('#'+id+'translated').html(data.data.translations[0].translatedText);  
-                                        return String(data.data.translations[0].translatedText);
-                                        
-                                   // }
-                                   // catch (e) {
-                                        alert('Error occurred while translating the text');
-                                   // }
-                                }
-                            },
-                            error: function (x, e) {
-                                alert('Error occurred while translating the text');
-                                $.unblockUI();
-                            }
-                        });
-                        */
-
-
-                        
-
 
                     }
+                    return deferredObject.promise;
         }
 
 
