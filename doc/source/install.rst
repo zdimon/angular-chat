@@ -65,11 +65,9 @@ Install bower.
 
 .. code-block:: bash
 
-<<<<<<< HEAD
+
     sudo npm install -g bower
-=======
-    sudo npm install bower
->>>>>>> 718dffb3bb373f3c30f063a56482255b8aacae4a
+
 
 Install libraries from bower.json.
 

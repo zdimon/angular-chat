@@ -17,7 +17,7 @@ def _add_contact(app_name,owner_id,contact_id):
     owner = ChatUser.objects.get(tpa=tpa,user_id=owner_id)
     contactuser = ChatUser.objects.get(tpa=tpa,user_id=contact_id)
     try:
-        contact = ChatContacts.objects.get(owner=owner,contact=contact) 
+        contact = ChatContacts.objects.get(owner=owner,contact=contactuser) 
     except:
         contact = ChatContacts()
         contact.owner = owner

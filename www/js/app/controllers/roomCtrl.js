@@ -3,7 +3,7 @@
 
 app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTranslate, $log) {
         $scope.ws = WS;
-
+        scroolldown();
 
         /*"""
         .. function:: $scope.translate()
@@ -40,21 +40,46 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         $scope.sendMessage = function(){
             var message = $(document).find('#chat_message').html()
            Room.sendMessage($scope.room_id, message, $rootScope.currentUserId, $scope.room_participants, function(result) {
-              Room.getMessages($scope.room_id, function(result) {
-              $scope.messages = result.message;
-              });  
+             // Room.getMessages($scope.room_id, function(result) {
+             // $scope.messages = result.message;
+             // });  
               $(document).find('#chat_message').html("")    
             });
         };
 
-        $scope.$on('show_message', function (event, data) {
-            //if ($scope.room_id==data.room_id) {
-           Room.getMessages($scope.room_id, function(result) {
-              $scope.messages = result.message;
-              scroolldown();
-              }); 
+
+        /*"""
+        .. function:: $scope.$on('show_message'
+
+            Function updates message list.
+    
+            If transtation option $scope.chat_translate is enabled it translate the message.
             
-            //}
+        */
+
+        $scope.$on('show_message', function (event, data) { 
+            
+
+
+              if($scope.chat_translate==true){
+   
+                     GoogleTranslate.translate('en','ru',data.message.message.message).then(function(resulf){
+                        
+                     data.message.message.translated_message = resulf;
+                     $scope.messages.push(data.message.message);
+                    });
+
+
+               } else {
+
+                $scope.messages.push(data.message.message);
+
+               }
+
+               scroolldown();      
+                
+
+            
         });
 
         
@@ -62,9 +87,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
             
         });
 
-         $scope.$on('hello', function (event, data) {
-            alert('hello');
-        });
+        
 
         $scope.$on('put_me_in_room', function (event, data) {
            $scope.room_participants = [local_config.app_name+'_'+data.owner_id, local_config.app_name+'_'+data.contact_id];
@@ -75,8 +98,9 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
          });
             $log.info(data.room_id);
            Room.getMessages(data.room_id, function(result) {
-              $log.info(result);
+              
               $scope.messages = result.message;
+              scroolldown();
          });
 
         });

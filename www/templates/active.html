@@ -116,7 +116,13 @@
                                     <li class="clearFix" ng-repeat="u in contact_list">
                                     <div class="fll">
                                         <div class="icon_block">
-                                            <div class="man_online"></div>
+
+                                            <!-- contact icons -->
+
+                                             <div ng-show="u.is_online == 1" class="on_line_girl"><span></span></div>
+                                             <div ng-show="u.is_online == 0" class="off_line_girl"><span></span></div>
+
+                                            <!--
                                             <div class="man_online_ignore opacity_anim"></div>
                                             <div class="man_watch opacity_anim"></div>
                                             <div class="man_write opacity_anim"></div>
@@ -124,6 +130,7 @@
                                             <div class="man_chat_no_video"></div>
                                             <div class="man_chat_no_video_m"></div>
                                             <div class="man_chat_no_video_g"></div>
+                                            -->
                                         </div>
                                         <a ng-click="select([[u.user_id]])" href="#" class="photo_block">
                                             <img src="Media/images/users/small/[[u.image]]" alt="">
@@ -205,8 +212,8 @@
                                 <ul class="live_write">
                                     <li class="clearFix girl_live main" ng-repeat="m in messages">
                                         <div class="fll">
-                                            <div class="img_live"><img src="Media/images/users/small/[[m.image]]" alt=""></div>
-                                            <div class="name">[[m.name]]</div>
+                                            <div class="img_live"><img src="Media/images/users/small/[[m.owner.image]]" alt=""></div>
+                                            <div class="name">[[m.owner.name]]</div>
                                         </div>
                                         <div class="flr">
                                             <time datetime="[[m.created]]">[[m.created]]</time>
@@ -215,7 +222,7 @@
                                             <div class="message_main">
                                                 <div class="message_in" ng-bind-html="m.message"></div>
                                                 <div class="translator">
-                                                    <div class="message_trans">[[m.translated_message]]</div>
+                                                    <div class="message_trans" ng-bind-html="m.translated_message"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -273,30 +280,7 @@
                     <div class="text_block_massege">
                         <textarea></textarea>
                         <div class="cTextDiv" contenteditable="true"></div>
-                        <!-- <div class="smile_block">
-                            <ul>
-                                <li><img src="smile_min/smile1.png" alt=""></li>
-                                <li><img src="smile_min/smile2.png" alt=""></li>
-                                <li><img src="smile_min/smile3.png" alt=""></li>
-                                <li><img src="smile_min/smile4.png" alt=""></li>
-                                <li><img src="smile_min/smile5.png" alt=""></li>
-                                <li><img src="smile_min/smile6.png" alt=""></li>
-                                <li><img src="smile_min/smile7.png" alt=""></li>
-                                <li><img src="smile_min/smile8.png" alt=""></li>
-                                <li><img src="smile_min/smile9.png" alt=""></li>
-                                <li><img src="smile_min/smile10.png" alt=""></li>
-                                <li><img src="smile_min/smile11.png" alt=""></li>
-                                <li><img src="smile_min/smile12.png" alt=""></li>
-                                <li><img src="smile_min/smile13.png" alt=""></li>
-                                <li><img src="smile_min/smile14.png" alt=""></li>
-                                <li><img src="smile_min/smile15.png" alt=""></li>
-                                <li><img src="smile_min/smile16.png" alt=""></li>
-                                <li><img src="smile_min/smile17.png" alt=""></li>
-                                <li><img src="smile_min/smile18.png" alt=""></li>
-                                <li><img src="smile_min/smile19.png" alt=""></li>
-                            </ul>
-                        </div>
-                        <div class="smile_but"></div> -->
+                        
                     </div>
                 </div>
                 <div class="filt_for_send">

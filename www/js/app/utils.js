@@ -1,3 +1,4 @@
+var scrH = 0;
 utils = {
  
         parse_str: function parse_str(pars,str){
@@ -26,17 +27,16 @@ utils = {
 
 function scroolldown(){
 
-    var scrH = 0;
-
-    $('#chat_content').find('.live_write').each(function(index, el) {
-        scrH = scrH + $(this).outerHeight(true);
-    });
-
-    $('#chat_content').find('.ms_bar').stop().animate({
-        scrollTop: scrH
-    }, 3);
-
-    $('#chat_content').find('.ms_bar').mCustomScrollbar("scrollTo", 'bottom');
+     scrH = 0;
+                setTimeout(function(){
+                    $(document).find('.live_write').each(function(index, el) {
+                        scrH = scrH + $(this).outerHeight(true);
+                    });
+                    $('#chat_content').find('.ms_bar').mCustomScrollbar("scrollTo", 'bottom');
+                    //$('#chat_content').find('.ms_bar').stop().animate({
+                    //    scrollTop: scrH
+                    //}, 100);
+                },400);
         
 
     

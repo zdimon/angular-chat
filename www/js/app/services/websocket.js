@@ -10,7 +10,7 @@
 
       dataStream.onMessage(function(message) {
         message = JSON.parse(message.data)
-        console.log(message);
+        
 
         if(message.action=='connected'){
             

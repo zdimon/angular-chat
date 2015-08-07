@@ -19,7 +19,7 @@
             .state('anonimous', {
 
                 url: "/",
-                templateUrl: "/static/templates/anonimous.html",
+                templateUrl: "/static/templates/active.html",
                 controller: function(){
   
                 }

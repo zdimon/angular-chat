@@ -91,7 +91,14 @@ def save_message(request):
     cm.save()
     try:
         for p in b['participants']:
-            mes = { 'action': 'show_message', 'room_id': b['room_id']}
+            mes = { 'action': 'show_message', 'room_id': b['room_id'], 
+                    'message': {'id': cm.id, 
+                                'time': str(cm.created.time()),
+                                'message':cm.message,
+                                'owner': serialize_user(owner)            
+                                }
+                  }
+           
             bclient.publish(p, json.dumps(mes))   
     except Exception, e:
         print e
@@ -113,7 +120,7 @@ def get_messages(request,room_id):
 
     for m in message:
         user_info = ChatUser.objects.get(user_id=m.user.user_id)
-        lst_chat_message.append({'id':m.user.id, 'user_id':m.user.user_id, 'gender':m.gender,'message':m.message,'created':m.created.time(), 'image': user_info.image, 'name': user_info.name })
+        lst_chat_message.append({'id':m.id, 'created': str(m.created.time()), 'owner': serialize_user(m.user), 'message':m.message })
     return  { 'status': 0, 'message': lst_chat_message }
 
 

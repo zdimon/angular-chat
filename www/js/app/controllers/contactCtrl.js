@@ -37,6 +37,44 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
 
         /*"""
+        .. function:: $scope.$on('set_me_online'...
+
+           Check if this user is in this contact list we will update this contact list.
+
+        */ 
+
+      $rootScope.$on('set_me_online',function(event, data){
+           
+           for(key in $scope.contact_list){
+                if ($scope.contact_list[key].user_id == data.message.uid) {
+                    $scope.update();
+                }
+              
+            }
+           
+      })
+
+
+        /*"""
+        .. function:: $scope.$on('set_me_offline'...
+
+           Check if this user is in this contact list we will update this contact list.
+
+        */ 
+
+      $rootScope.$on('set_me_offline',function(event, data){
+           
+           for(key in $scope.contact_list){
+                if ($scope.contact_list[key].user_id == data.message.uid) {
+                    $scope.update();
+                }
+              
+            }
+           
+      })
+
+
+        /*"""
         .. function:: $scope.delete()
 
            
@@ -60,6 +98,8 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
                 $scope.contact_list = rezult.contact_list;
             })       
       }
+
+      $scope.update();
 
       $scope.deleteAll = function(){
           Contact.deleteAll(function(rezult){
@@ -144,6 +184,8 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
             $window.location.href = url;
             Room.invite(contact_id,function(rezult){}); 
         }
+
+     
 
     })
 
