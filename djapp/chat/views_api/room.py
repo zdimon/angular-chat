@@ -7,7 +7,7 @@ from utils.util import read_conf
 from django.views.decorators.csrf import csrf_exempt
 import requests
 from django.contrib.auth.models import User
-from chat.models import ChatUser,ChatRoom,ChatMessage
+from chat.models import ChatUser,ChatRoom,ChatMessage, ChatContacts
 from chat.models import Tpa
 from utils.util import read_conf, serialize_user
 from utils.db import MyDB
@@ -95,14 +95,51 @@ def save_message(request):
                     'message': {'id': cm.id, 
                                 'time': str(cm.created.time()),
                                 'message':cm.message,
+                                'room_id':cm.room_id,
                                 'owner': serialize_user(owner)            
                                 }
                   }
            
-            bclient.publish(p, json.dumps(mes))   
+            bclient.publish(p, json.dumps(mes))
+            opponent = ChatUser.objects.get(user_id=p.split('_')[1])
+            if owner != opponent:
+                add_me_to_contact_if_not_exist(tpa,owner,opponent,p)
     except Exception, e:
         print e
+    mark_new_message(room, owner)
+
     return  { 'status': 0, 'message': b['message'], 'room_id': str(room.id), 'owner_id': str(owner.id) }
+
+
+def mark_new_message(room, owner):
+    '''
+    Get contact object and set has_new_message is Tru if this contact is not active.
+
+    :param owner:
+    :param room:
+    :return: contact
+    '''
+    for o in room.get_participants_except_user(owner):
+        try:
+            contact = ChatContacts.objects.get(room=room,owner=o)
+            if contact.is_active == False:
+                contact.has_new_message = True
+                contact.save()
+        except:
+            pass
+
+def add_me_to_contact_if_not_exist(tpa,owner,opponent,chanel):
+    '''
+
+    :param owner:
+    :param opponent:
+    :return:
+    '''
+    try:
+        cont = ChatContacts.objects.get(tpa=tpa,owner=opponent,contact=owner)
+    except:
+        mes = { 'action': 'add_me_in_contact_list', 'user_id': owner.user_id }
+        bclient.publish(chanel, json.dumps(mes))
 
 @json_view
 def get_messages(request,room_id):
@@ -139,12 +176,12 @@ def invite(request,app_name,owner_id,contact_id):
     #apiconf = read_conf()
     #app_name = apiconf['config']['app_name']
     contact = _add_contact(app_name,owner_id,contact_id)
-    contact.set_active()
     mes = { 'action': 'update_contact' }
     owner_chanel = '%s_%s' % (app_name, owner_id)
     contact_chanel = '%s_%s' % (app_name, contact_id)
     bclient.publish(owner_chanel, json.dumps(mes))
     rm = _get_room_or_create(app_name,owner_id,contact_id)
+    contact.set_active(rm['room_id'])
     tpa = Tpa.objects.get(name=app_name)
     owner = ChatUser.objects.get(user_id=owner_id,tpa=tpa)
     mes = { 'action': 'put_me_in_room', 'room_id': rm['room_id'], 'owner_id': owner_id,'contact_id':contact_id }

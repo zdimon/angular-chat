@@ -112,13 +112,14 @@
                                     </div>
                                 </div>
                                 <!-- end popup -->
+
                                 <ul>
                                     <li class="clearFix" ng-repeat="u in contact_list">
                                     <div class="fll">
                                         <div class="icon_block">
 
                                             <!-- contact icons -->
-
+                                             <div ng-show="new_messages['user_'+u.user_id]" class="man_write opacity_anim"></div>
                                              <div ng-show="u.is_online == 1" class="on_line_girl"><span></span></div>
                                              <div ng-show="u.is_online == 0" class="off_line_girl"><span></span></div>
 

@@ -51,30 +51,38 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         /*"""
         .. function:: $scope.$on('show_message'
 
-            Function updates message list.
+            Function updates message list if message gose to the current active room.
+
+            Else it set $scope.new_messages.user_<user_id> var to show indicator.
     
             If transtation option $scope.chat_translate is enabled it translate the message.
             
         */
 
         $scope.$on('show_message', function (event, data) { 
-            
+              $rootScope.new_messages = {'ddd':'dddd'}
+              console.log(data);
+              if(data.message.message.room_id != $scope.room_id){
+
+                    $rootScope.new_messages['user_'+data.message.message.owner.user_id] = true;
+                    console.log($scope.new_messages['user_'+data.message.message]);
+
+              } else {
+
+                      if($scope.chat_translate==true){
+
+                             GoogleTranslate.translate('en','ru',data.message.message.message).then(function(resulf){
+                             data.message.message.translated_message = resulf;
+                             $scope.messages.push(data.message.message);
+                            });
 
 
-              if($scope.chat_translate==true){
-   
-                     GoogleTranslate.translate('en','ru',data.message.message.message).then(function(resulf){
-                        
-                     data.message.message.translated_message = resulf;
-                     $scope.messages.push(data.message.message);
-                    });
+                       } else {
 
+                        $scope.messages.push(data.message.message);
 
-               } else {
-
-                $scope.messages.push(data.message.message);
-
-               }
+                       }
+              }
 
                scroolldown();      
                 
@@ -100,7 +108,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
            Room.getMessages(data.room_id, function(result) {
               
               $scope.messages = result.message;
-              scroolldown();
+              setTimeout(function(){scroolldown(),1000});
          });
 
         });

@@ -56,6 +56,25 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
 
         /*"""
+        .. function:: $scope.$on('add_me_to_contact_list'...
+
+           Check if this user is in this contact list we will update this contact list.
+
+        */
+
+      $rootScope.$on('add_me_in_contact_list',function(event, data){
+
+
+           Contact.addContact(data.message.user_id,function(){
+
+               $scope.update();
+
+           })
+
+      })
+
+
+        /*"""
         .. function:: $scope.$on('set_me_offline'...
 
            Check if this user is in this contact list we will update this contact list.

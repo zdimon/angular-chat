@@ -33,9 +33,9 @@ function scroolldown(){
                         scrH = scrH + $(this).outerHeight(true);
                     });
                     $('#chat_content').find('.ms_bar').mCustomScrollbar("scrollTo", 'bottom');
-                    //$('#chat_content').find('.ms_bar').stop().animate({
-                    //    scrollTop: scrH
-                    //}, 100);
+                    $('#chat_content').find('.ms_bar').stop().animate({
+                        scrollTop: scrH
+                    }, 100);
                 },400);
         
 
