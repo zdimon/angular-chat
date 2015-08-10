@@ -69,7 +69,11 @@ def get_room_or_create(request,app_name,caler_id,opponent_id):
 @json_view
 def save_message(request):
     '''
-    Function save message owner in DB 
+    Function save message owner in DB,
+
+    Add owner to opponent's contact list.
+
+    If the message is first send notification to tpa side.
 
     parameters by POST: app_name,owner_id,room_id,message
 
@@ -104,6 +108,11 @@ def save_message(request):
             opponent = ChatUser.objects.get(user_id=p.split('_')[1])
             if owner != opponent:
                 add_me_to_contact_if_not_exist(tpa,owner,opponent,p)
+                if room.get_count_messages()<2999:
+                    data = {'message': cm.message, 'id': cm.id, 'opponent': serialize_user(opponent)}
+                    mes = { 'action': 'show_new_message_notification', 'data': data }
+                    print mes
+                    bclient.publish('%s_%s' % (tpa.name, opponent.user_id), json.dumps(mes))
     except Exception, e:
         print e
     mark_new_message(room, owner)

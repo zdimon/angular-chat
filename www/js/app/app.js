@@ -24,12 +24,11 @@ The function :func:`someService` does a some function.
 
 
             Auth.isauth(function(result){
-                if(result.status==0) { 
+                if(result.id>0) {
 
                         $rootScope.isAuthenticated = true;  
-                        $rootScope.currentUserId = result.user_id; 
-                        $rootScope.currentUsername = result.user_name;
-
+                        $rootScope.currentUserId = result.id;
+                        $rootScope.currentUsername = result.id;
                         $rootScope.$broadcast('rootScope_ready');
 
                         WS.send({ action: 'connect', user_id: $rootScope.currentUserId });

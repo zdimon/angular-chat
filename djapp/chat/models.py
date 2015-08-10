@@ -132,6 +132,10 @@ class ChatRoom(models.Model):
         for i in items:
             out.append(i.user)
         return out
+
+    def get_count_messages(self):
+        return ChatMessage.objects.filter(room=self).count()
+
     def close_me(self,user):
         import brukva
         bclient = brukva.Client()

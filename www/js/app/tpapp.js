@@ -27,6 +27,47 @@ tpapp.js
            
     }])
 
+
+    .controller('TestCtrl', function ($window, $rootScope, $scope, API, $http) {
+
+      $scope.test_login = function(user_id){
+
+        var url = utils.prepare_url(apiconf.api.login.url,{'[user_id]': user_id});
+        $http.get(url).then(function(res){
+                console.log(res.data);
+                var url = "http://" + $window.location.host + "/video-chat#/" + res.data.id;
+                $window.location.href = url;
+
+            });
+      }
+
+
+
+    })
+
+
+        .controller('NotifyCtrl', function ($window, $rootScope, $scope, API, $http) {
+
+            $rootScope.notifies = {};
+            $rootScope.$on('show_new_message_notification',function(event,data){
+                console.log(data);
+                $rootScope.notifies[data.id] = data;
+            });
+
+            $scope.goToRoom = function(user_id){
+
+                alert(user_id);
+            }
+
+            $scope.remove = function(id){
+                delete $rootScope.notifies[id];
+            }
+
+
+         })
+
+
+
  .controller('AuthCtrl', function ($window, $rootScope, $scope, API, $http) {
       $scope.login = function(user_id){
         var url = utils.prepare_url(apiconf.api.login.url,{'[user_id]': user_id});
@@ -62,6 +103,8 @@ tpapp.js
             
 
         }
+
+
 
         $scope.$on('update_users_online',function(event, data){
            
@@ -144,7 +187,18 @@ tpapp.js
 
 
 
-.run(function ($rootScope,$window,Online,$log, WS) {
+.run(function ($rootScope,$window,Online,$log, WS, Auth) {
+
+
+            Auth.isauth(function(result){
+                if(result.id>0) {
+                        $rootScope.isAuthenticated = true;
+                        $rootScope.currentUserId = result.id;
+                        WS.send({ action: 'connect', user_id: $rootScope.currentUserId });
+
+                    } else { $rootScope.isAuthenticated = false;}
+            })
+
 
     $rootScope.online = {}
 
@@ -161,13 +215,14 @@ tpapp.js
         $rootScope.online['user_'+data.message.uid] = true;
     });
 
+
+
+
     $rootScope.$on('set_me_offline',function(event,data){
         $rootScope.online['user_'+data.message.uid] = false;
     });
 
 
-    $rootScope.on = function(){ $rootScope.online = {'user_150044' : true}; }
-    $rootScope.off = function(){ $rootScope.online = {'user_150044' : false}; }
 
 })
 

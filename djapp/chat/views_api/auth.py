@@ -22,9 +22,9 @@ def is_auth(request,app_name):
     '''
     try:
         is_auth = request.session['is_auth']
-        return {'status': 0, 'user_id': request.session['user_id']}
+        return {'status': 0, 'id': request.session['user_id']}
     except:
-        return {'status': 1, 'message': 'user is not authorized'}
+        return {'status': 1, 'id': 0}
     
 
 @json_view
@@ -59,7 +59,8 @@ def login(request,user_id, app_name):
     from djapp.settings import TPA_SERVER
     return redirect('http://%s/video-chat' % TPA_SERVER)
      
- 
+
+
 
 @json_view
 def logout(request):

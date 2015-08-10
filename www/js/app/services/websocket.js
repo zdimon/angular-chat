@@ -19,6 +19,11 @@
         }
 
 
+        if(message.action=='show_new_message_notification'){
+            $rootScope.$broadcast('show_new_message_notification', message.data);
+
+        }
+
 
         if(message.action=='update_contact'){
             

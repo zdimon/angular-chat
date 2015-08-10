@@ -6,7 +6,7 @@ apiconf = {
             {
                 'type': 'ajax',
                 'name': 'login',
-                'url':  '[server]/api/[user_id]/[app_name]/login'
+                'url':  '[server]/chat-request/login?id=[user_id]'
             },
 
         'logout':
@@ -21,7 +21,7 @@ apiconf = {
             {
                 'type': 'ajax',
                 'name': 'is_auth',
-                'url':  '[server]/api/[app_name]/is_auth'
+                'url':  '[server]/chat-request/isLogin'
             },    
 
         'has_opponent':
