@@ -7,6 +7,7 @@ tpapp.js
 
     var app = angular.module('AngularChatApp', [
         'ngCookies',
+        'ngSanitize',
         'ngWebSocket' 
     ]).config(function($interpolateProvider,$httpProvider) {
     $interpolateProvider.startSymbol('[[');
@@ -56,7 +57,9 @@ tpapp.js
 
             $scope.goToRoom = function(user_id){
 
-                alert(user_id);
+                var url = "http://" + $window.location.host + "/video-chat#/"+$rootScope.currentUserId+'/'+ user_id;
+                $window.location.href = url;
+         
             }
 
             $scope.remove = function(id){
@@ -115,6 +118,17 @@ tpapp.js
      
     })
 
+    .controller('ActionCtrl', function ($window, $rootScope, $scope, $http) {
+        
+        $scope.invite = function(user_id){
+                var url = "http://" + $window.location.host + "/video-chat#/"+ $rootScope.currentUserId + '/' +user_id;  
+                $window.location.href = url;            
+            
+        }
+     
+    })
+
+
     .directive('onlineIndicator', function() {
 
     /*"""
@@ -151,7 +165,7 @@ tpapp.js
 
 
 
-    .directive('invitationLink', function() {
+    .directive('invitationLink', function($rootScope) {
 
     /*"""
     .. function:: invitationLink
@@ -166,20 +180,14 @@ tpapp.js
     */     
 
     return {
-        restrict: 'E',
+        restrict: 'A',
         scope: {
-            uid: '='
+            uid: '=opponent'
         },
-        template: '<p class="online">Online now</p>',
+        //template: '<p class="online">Online now</p>',
         link: function(scope, element, attrs) {
-            scope.$watch('uid', function(newValue, oldValue) {
-                if (newValue==true){
-                    element.find('p').text('Online').addClass('online').removeClass('offline');
-                } else {
-                    element.find('p').text('Offline').addClass('offline').removeClass('online');
-                }
-
-            });
+           var curhref = attrs['href'];
+           attrs.$set('href',curhref+'/#/'+attrs.chatOpponent);
         }
     }
 })
@@ -215,6 +223,15 @@ tpapp.js
         $rootScope.online['user_'+data.message.uid] = true;
     });
 
+
+    $rootScope.$on('update_cam_indicators',function(event,data){
+        
+        $rootScope.activecam = {}
+        for (var i = 0; i < data.data.length; i++) {
+            $rootScope.activecam['user_'+data.data[i]] = true;
+        }
+       
+    });
 
 
 

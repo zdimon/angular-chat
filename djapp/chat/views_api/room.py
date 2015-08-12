@@ -13,7 +13,6 @@ from utils.util import read_conf, serialize_user
 from utils.db import MyDB
 from contact import _add_contact
 import brukva
-
 bclient = brukva.Client()
 bclient.connect()
 
@@ -109,9 +108,8 @@ def save_message(request):
             if owner != opponent:
                 add_me_to_contact_if_not_exist(tpa,owner,opponent,p)
                 if room.get_count_messages()<2999:
-                    data = {'message': cm.message, 'id': cm.id, 'opponent': serialize_user(opponent)}
+                    data = {'message': cm.message, 'id': cm.id, 'opponent': serialize_user(owner)}
                     mes = { 'action': 'show_new_message_notification', 'data': data }
-                    print mes
                     bclient.publish('%s_%s' % (tpa.name, opponent.user_id), json.dumps(mes))
     except Exception, e:
         print e
@@ -193,7 +191,8 @@ def invite(request,app_name,owner_id,contact_id):
     contact.set_active(rm['room_id'])
     tpa = Tpa.objects.get(name=app_name)
     owner = ChatUser.objects.get(user_id=owner_id,tpa=tpa)
-    mes = { 'action': 'put_me_in_room', 'room_id': rm['room_id'], 'owner_id': owner_id,'contact_id':contact_id }
+    contact_user = ChatUser.objects.get(user_id=contact_id,tpa=tpa)
+    mes = { 'action': 'put_me_in_room', 'room_id': rm['room_id'], 'owner_id': owner_id,'contact_id':contact_id, 'contact': serialize_user(contact_user) }
     bclient.publish(owner_chanel, json.dumps(mes))
     mes = { 'action': 'show_inv_win', 'room_id': rm['room_id'], 'user_profile': serialize_user(owner)}
     bclient.publish(contact_chanel, json.dumps(mes))

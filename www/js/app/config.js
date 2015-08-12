@@ -118,7 +118,41 @@ apiconf = {
                 'type': 'ajax',
                 'name': 'get_messages',
                 'url':  '[server]/api/[room_id]/get_messages'
+            } ,
+
+
+        'show_my_cam':
+            {
+                'type': 'ajax',
+                'name': 'show_my_cam',
+                'url':  '[server]/api/[user_id]/[app_name]/show_my_cam'
+            } ,
+
+
+        'hide_my_cam':
+            {
+                'type': 'ajax',
+                'name': 'hide_my_cam',
+                'url':  '[server]/api/[user_id]/[app_name]/hide_my_cam'
+            } ,
+
+        'show_opponent_cam':
+            {
+                'type': 'ajax',
+                'name': 'show_opponent_cam',
+                'url':  '[server]/api/[user_id]/[app_name]/[room_id]/show_opponent_cam'
+            } ,
+
+        'hide_opponent_cam':
+            {
+                'type': 'ajax',
+                'name': 'hide_opponent_cam',
+                'url':  '[server]/api/[user_id]/[app_name]/[room_id]/hide_opponent_cam'
             } 
+
+
+
+
         }
     
 }

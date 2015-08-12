@@ -17,6 +17,8 @@ The function :func:`someService` does a some function.
     $interpolateProvider.endSymbol(']]');
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
 })
 
 

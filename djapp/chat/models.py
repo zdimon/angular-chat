@@ -151,6 +151,7 @@ class ChatUser2Room(models.Model):
     user = models.ForeignKey(ChatUser, verbose_name = _('User'))
     room = models.ForeignKey(ChatRoom, verbose_name = _('Room'))
     tpa = models.ForeignKey(Tpa, verbose_name = _('TPA'))
+    is_video_watching = models.BooleanField(verbose_name = _('Is video watching?'), default = False)
     def __unicode__(self):
         return _(u'Chat user 2 room relation')
 

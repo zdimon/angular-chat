@@ -120,10 +120,13 @@ def get_contact_list(request,app_name,user_id):
     '''
     contactlst = []
     tpa = Tpa.objects.get(name=app_name)
-    owner = ChatUser.objects.filter(tpa=tpa,user_id=user_id)
-    for c in ChatContacts.objects.filter(owner=owner):
-        contactlst.append(serialize_user(c.contact))
-    return { 'status': 0, 'message': 'ok', 'contact_list': contactlst }
+    try:
+        owner = ChatUser.objects.filter(tpa=tpa,user_id=user_id)
+        for c in ChatContacts.objects.filter(owner=owner):
+            contactlst.append(serialize_user(c.contact))
+        return { 'status': 0, 'message': 'ok', 'contact_list': contactlst }
+    except Exception, e:
+        return { 'status': 1, 'message': e }
 
 @json_view
 def send_invitation(request):

@@ -39,7 +39,7 @@
 
         if(message.action=='put_me_in_room'){
             
-            $rootScope.$broadcast('put_me_in_room', {'room_id': message.room_id, 'owner_id': message.owner_id, 'contact_id': message.contact_id});
+            $rootScope.$broadcast('put_me_in_room', message);
                    
         }
 
@@ -61,6 +61,14 @@
             $rootScope.$broadcast('set_me_online',{'message':message});
 
         }
+
+
+        if(message.action=='update_cam_indicators'){
+            
+            $rootScope.$broadcast('update_cam_indicators',message);
+
+        }
+
 
         if(message.action=='set_me_offline'){
 

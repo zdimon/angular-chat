@@ -52,19 +52,16 @@
                 </ul>
             </div>
             <div class="flr">
-                <div class="video_block clearFix">
+                <div class="video_block clearFix" ng-controller="VideoCtrl">
                     <div class="fll">
-                        <div class="video_video">
-                            <video class="video1" width="100%" poster="Media/video/video01.jpg">
-                                <source src='Media/video/video01.mp4' type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
-                                <source src='Media/video/video01.webm' type='video/webm; codecs="vp8.0, vorbis"'/>
-                                <source src='Media/video/video01.ogv' type='video/ogg; codecs="theora, vorbis"'/>
-                            </video>
-                            <div class="prevue_v" href="#message_buy1"><img src="Media/pic/video_prevue.jpg" alt=""></div>
+                        <div class="video_video" id="myVideoContainer">
+                            <div id="myVideo"> </div>
+                            
                         </div>
                     </div>
                     <div class="flr">
-                        <a href="#" class="video_play"><span></span></a>
+                        <a ng-show="!isMyVideoActive" ng-click="showMyVideo()" class="video_play"><span></span></a>
+                        <a ng-show="isMyVideoActive"  ng-click="hideMyVideo()" class="video_play"><span></span></a>
                         <!-- <a href="#" class="video_mute"><span></span></a> -->
                     </div>
                 </div>
@@ -163,6 +160,33 @@
                     </section>
                 </div>
             </div>
+
+            <section ng-controller="VideoCtrl">
+
+                <div id="oponent_video_container">
+                                
+                    <div id="opponentVideo"> </div>
+
+                    <div ng-show="isOpponentVideoActive">
+
+                        <span ng-show="!isOpponentCamEnabled"> Enable opponent's video </span>
+                        <a ng-show="!isOpponentCamEnabled"  ng-click="showOpponentVideo(opponent_id)" class="video_play">
+                            <span></span>
+                        </a>
+     
+                        <span ng-show="isOpponentCamEnabled"> Disable opponent's video </span>
+                        <a ng-show="isOpponentCamEnabled"  ng-click="hideOpponentVideo(opponent_id)" class="video_play">
+                                <span></span>
+                        </a>
+                    </div>
+     
+
+                </div> 
+                            
+                          
+            
+            </section>            
+
             <section ng-controller="RoomCtrl">
             <div class="flc">
             
@@ -170,39 +194,7 @@
                 <div ng-show="hasActiveRoom" class="live_chat_block">
                     <div class="video_online_block">
                         <div class="video_online">
-                            <video class="video2" width="100%" muted poster="Media/video/video01.jpg">
-                                <source src='Media/video/video01.mp4' type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
-                                <source src='Media/video/video01.webm' type='video/webm; codecs="vp8.0, vorbis"'/>
-                                <source src='Media/video/video01.ogv' type='video/ogg; codecs="theora, vorbis"'/>
-                            </video>
-                            <div class="start_online">start chat</div>
-                            <!-- <div class="stop_online">stop chat</div> -->
-                            <div class="full_size_but"></div>
-                            <div class="open_controls"><span></span></div>
-                            <div class="controls clearFix">
-                                <div class="fll">
-                                    <div class="hid_online cur"><div class="podsk"><p>show/hide list</p></div></div>
-                                    <div class="play_online"><div class="podsk"><p>on/off video</p></div></div>
-                                    <div class="mute_online"><div class="podsk"><p>on/off sound</p></div></div>
-                                </div>
-                                <div class="flr">
-                                    <div class="valume_online">
-                                        <form class="vcb vcb_volume">
-                                            <input type="radio" value="volume1" name="volume">
-                                            <ins class="v5"></ins>
-                                            <input type="radio" value="volume2" name="volume">
-                                            <ins class="v4"></ins>
-                                            <input type="radio" value="volume3" name="volume" checked="">
-                                            <ins class="v3"></ins>
-                                            <input type="radio" value="volume4" name="volume">
-                                            <ins class="v2"></ins>
-                                            <input type="radio" value="volume5" name="volume">
-                                            <ins class="v1"></ins>
-                                        </form>
-                                    </div>
-                                    <div class="chat_online cur"><div class="podsk"><p>on/off chat</p></div></div>
-                                </div>
-                            </div>
+                            
                         </div>
                         <div class="chat_main">
                             <div class="flr">
