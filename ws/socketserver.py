@@ -132,9 +132,31 @@ application = tornado.web.Application([
 ])
  
  
+def charge():
+    ''' 
+        Charging function. Send json information to site about charging.
+
+        Request:
+
+        {
+            '<room_id>': {
+                            'time':  <seconds>,
+                            'with_video': 'yes/no',
+                            'payer': <user_id>,
+                            'opponent': <user_id>,
+                            'price': <price>
+                         }
+        }
+
+
+    '''
+    print 'goooo'
+
 if __name__ == "__main__":
     http_server = tornado.httpserver.HTTPServer(application)
     http_server.listen(8889)
     myIP = socket.gethostbyname(socket.gethostname())
     print '*** Websocket Server Started at %s***' % myIP
+    tornado.ioloop.PeriodicCallback(charge, 3000).start()
     tornado.ioloop.IOLoop.instance().start()
+    

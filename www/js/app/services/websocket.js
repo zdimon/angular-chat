@@ -70,6 +70,13 @@
         }
 
 
+        if(message.action=='show_multi_invite_notification'){
+            log(message);
+            $rootScope.$broadcast('show_multi_invite_notification',message);
+
+        }
+
+
         if(message.action=='set_me_offline'){
 
             $rootScope.$broadcast('set_me_offline',{'message':message});

@@ -27,7 +27,7 @@ onlineCtrl.js
             
             :result: Update  $scope.user_list parameter.
         */
-          Online.getOnline(function(rezult){
+          Online.getOnlineExceptContact(function(rezult){
                 $scope.user_list = rezult.user_list;
             }) 
         };

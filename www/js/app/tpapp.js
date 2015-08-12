@@ -51,7 +51,7 @@ tpapp.js
 
             $rootScope.notifies = {};
             $rootScope.$on('show_new_message_notification',function(event,data){
-                console.log(data);
+
                 $rootScope.notifies[data.id] = data;
             });
 

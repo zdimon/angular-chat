@@ -199,4 +199,25 @@ def invite(request,app_name,owner_id,contact_id):
     return _get_room_or_create(app_name,owner_id,contact_id)
 
 
+@csrf_exempt
+@json_view
+def multi_invitation(request):
+    '''
+    Function send invite to multiply opponent. 
+     
+    '''
+    b = json.loads(request.body)
+    #print b
+    #import pdb; pdb.set_trace()
+    tpa = Tpa.objects.get(name=b['app_name'])
+    owner = ChatUser.objects.get(tpa=tpa,user_id=int(b['owner_id']))
+    id = str(b['owner_id'])
+    data = {'message': b['message'], 'opponent': serialize_user(owner), 'id': id }
+    mes = { 'action': 'show_multi_invite_notification', 'data': data }
+    bclient.publish('%s_%s' % (b['app_name'], str(b['opponent_id'])), json.dumps(mes)) 
+    print 'sent to %s_%s ' %   (b['app_name'], str(b['opponent_id']))
+    return  { 'status': 0, 'message': 'ok' }
+
+
+
 

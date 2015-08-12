@@ -13,8 +13,87 @@
                 <a href="#" class="show_block">Click here to show video chat window</a>
             </div>
             <div class="fll mans">
-                <a href="#delivery_pop" class="wButton wButtonA padd_max delivery_pop"><span>Multiple Invitations</span></a>
+                <section ng-controller="multiInviteCtrl">
+                <a  ng-click="multiInviteWindow()" class="wButton wButtonA padd_max delivery_pop"><span>Multiple Invitations</span></a>
+
+
+                 <div class="message_up_block">
+
+                        <div class="message_girl" ng-repeat="(key, n) in notifies">
+                            <div class="title_hid">Start chatting right NOW!</div>
+                            <div class="hid_but" ng-click="collapse()">-</div>
+                            <div class="hid_text_block">
+                                <div class="fll">
+                                    <div class="img_hid_girl">
+                                        <img src="Media/images/users/small/[[n.opponent.image]]" alt="">
+                                    </div>
+                                    <a ng-click="remove(n.id)">Close</a>
+                                    <a href="#" class="ignore_hid">Block</a>
+                                </div>
+                                <div class="flr">
+                                    <a href="#" class="name">[[n.opponent.name]], [[n.opponent.age]]</a>
+                                    <div class="id_girl">ID: <span>[[n.opponent.user_id]]</span></div>
+                                    <!-- <div class="age">Age: <span>25</span></div> -->
+                                    <div class="city"><span>[[n.opponent.country]], [[n.opponent.city]]</span></div>
+                                    <div class="message_for_man" ><p ng-bind-html="n.message"></p></div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="clear"></div>
+                                <a ng-click="goToRoom(n.opponent.user_id,n.id)" class="start_chat">start chat now</a>
+                            </div>
+                            <div class="cost_chat">Chat - 1 Credit per minute, video - 2 Credits</div>
+                        </div>
+
+                </div>
+
+
+
+                   <!-- Multiply invitation popup window  -->
+                    <div style="display: none">
+                        <div id="multi_invite_window" class="enterRegPopup zoomAnim chat_pop">
+                            <div class="logo_pop"><img src="Media/pic/logo_pop.png" alt=""></div>
+                            <div class="delivery_block">
+                                <form>
+                                    <div class="delivery_title">
+                                        <div class="title">
+                                            <span>mens</span> Online ([[countOnline]])
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="textarea_block">
+                                        <div class="text_block_massege">
+                                            <textarea></textarea>
+                                            <div class="cTextDiv" id="multi_invite_text" contenteditable="true"></div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="filt_for_send">
+
+                                        <button ng-click="startSending()" class="wSubmit wButton wButtonA"><span>Send</span></button>
+                                         <br />
+                                        <!-- Блок выводиться при отправке рассылки -->
+                                        <div class="progres_block" ng-show="isSending">
+                                            <p>Sending...</p>
+                                            <div class="send_koll"><span class="now_prog">[[currentCursor]]</span> of <span class="all_prog">[[countOnline]]</span></div>
+                                            <div class="progres_bar" style="width: 100%">
+                                                <div class="progres_line" style="width: [[ (currentCursor/countOnline)*100 ]]%"></div>
+                                            </div>
+                                            <br />
+                                            <button ng-click="stopSending()" class="wSubmit wButton delete_men"><span>Stop</span></button>
+                                            
+                                        </div>
+                                        
+                                        <!--  -->
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
                 <div class="title"><span>MEN</span> Online</div>
+                <!--
                 <div class="pagination">
                     <a href="#">&lt;</a>
                     <a href="#" class="cur">1</a>
@@ -23,6 +102,7 @@
                     <a href="#">10</a>
                     <a href="#">&gt;</a>
                 </div>
+                -->
                 <ul class="mans_online">
 
                        <!-- User online list -->
@@ -256,52 +336,14 @@
     <!-- .wConteiner -->
 </div>
 <!-- .wWrapper -->
+
+
+
+
+
 <div style="display: none;">
 
-    <div id="delivery_pop" class="enterRegPopup zoomAnim chat_pop">
-        <div class="logo_pop"><img src="Media/pic/logo_pop.png" alt=""></div>
-        <div class="delivery_block">
-            <form>
-                <div class="delivery_title">
-                    <div class="title">
-                        <span>mens</span> Online (235)
-                        <a href="#" class="restart"></a>
-                    </div>
-                    <a href="#" class="reference">Reference</a>
-                </div>
-                <div class="textarea_block">
-                    <div class="text_block_massege">
-                        <textarea></textarea>
-                        <div class="cTextDiv" contenteditable="true"></div>
-                        
-                    </div>
-                </div>
-                <div class="filt_for_send">
-                    <p>Send to</p>
-                    <select>
-                        <option value="1">Online</option>
-                        <option value="2">Offline</option>
-                        <option value="3">All</option>
-                    </select>
-                    <label><input type="checkbox"> Only with photo</label>
-                    <button class="wSubmit wButton wButtonA"><span>Send</span></button>
-
-                    <!-- Блок выводиться при отправке рассылки -->
-                    <div class="progres_block">
-                        <p>Sending...</p>
-                        <div class="send_koll"><span class="now_prog">35</span> of <span class="all_prog">235</span></div>
-                        <div class="progres_bar">
-                            <div class="progres_line"></div>
-                        </div>
-                    </div>
-                    <button class="wSubmit wButton delete_men"><span>Stop</span></button>
-
-                    <!--  -->
-
-                </div>
-            </form>
-        </div>
-    </div>
+   
     <div id="delete_pop" class="enterRegPopup zoomAnim chat_pop">
         <div class="logo_pop"><img src="Media/pic/logo_pop.png" alt=""></div>
         <div class="delivery_block">

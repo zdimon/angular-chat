@@ -39,6 +39,15 @@ apiconf = {
                 'responce': '{"status": 0, "message": "ok", "user_list": [{...}]'
             },  
 
+        'get_online_except_contact':
+            {
+                'type': 'ajax',
+                'name': 'get_online_except_contact',
+                'url':  '[server]/api/[app_name]/[user_id]/get_online_except_contact',
+                'responce': '{"status": 0, "message": "ok", "user_list": [{...}]'
+            },  
+
+
 
         'get_contact_list':
             {
@@ -112,6 +121,15 @@ apiconf = {
                 'url':  '[server]/api/send_invitation',
                 'params': 'app_name,owner_id,opponent_id,message'
             },
+
+        'multi_invitation':
+            {
+                'type': 'ajax[POST]',
+                'name': 'multi_invitation',
+                'url':  '[server]/api/multi_invitation',
+                'params': 'app_name,owner_id,opponent_id,message'
+            },
+
 
         'get_messages':
             {
