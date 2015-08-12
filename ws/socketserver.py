@@ -12,6 +12,7 @@ c = brukva.Client()
 c.connect()
 logger = logging.getLogger(__name__)
 logger.setLevel('DEBUG')
+import requests
 
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '../djapp'))
@@ -150,7 +151,19 @@ def charge():
 
 
     '''
-    print 'goooo'
+    data = {
+            '2': {
+                            'time':  60,
+                            'with_video': 'no',
+                            'payer': 510014,
+                            'opponent': 510040,
+                            'price': 2
+                         }
+             }
+    url = 'http://chat.localhost/api/tpa1com/charge'
+    print 'Adding room. Request to %s' % url
+    responce = requests.post(url, data=json.dumps(data))
+    print 'request'
 
 if __name__ == "__main__":
     http_server = tornado.httpserver.HTTPServer(application)
