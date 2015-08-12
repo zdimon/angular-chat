@@ -38,6 +38,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         */
 
         $scope.sendMessage = function(){
+            
             var message = $(document).find('#chat_message').html()
            Room.sendMessage($scope.room_id, message, $rootScope.currentUserId, $scope.room_participants, function(result) {
              // Room.getMessages($scope.room_id, function(result) {
@@ -60,10 +61,16 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         */
 
         $scope.$on('show_message', function (event, data) { 
-              $rootScope.new_messages = {'ddd':'dddd'}
-              console.log(data);
-              if(data.message.message.room_id != $scope.room_id){
 
+              
+              console.log(data);
+
+              if(data.message.message.owner.user_id!=$rootScope.currentUserId){
+                    document.getElementById('audio_alert').play();
+                }
+
+              if(data.message.message.room_id != $scope.room_id){
+                    
                     $rootScope.new_messages['user_'+data.message.message.owner.user_id] = true;
                     console.log($scope.new_messages['user_'+data.message.message]);
 
