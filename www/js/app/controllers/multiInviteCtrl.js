@@ -20,7 +20,7 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
 
 
             Online.getOnline(function(result){
-                log(result);
+
                  $scope.countOnline = result.user_list.length;
                  $scope.listOnline = result.user_list;
                  $.magnificPopup.open({

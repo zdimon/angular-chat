@@ -57,7 +57,7 @@ onlineCtrl.js
             var url = "http://" + local_config.chat_url + "#/" + $rootScope.currentUserId+'/'+contact_id;
             $window.location.href = url;
             Room.invite(contact_id,function(rezult){
-$rootScope.$broadcast('update_users_online');
+                $rootScope.$broadcast('update_users_online');
             }); 
         }
 

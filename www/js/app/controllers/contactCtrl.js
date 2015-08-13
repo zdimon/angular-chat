@@ -198,10 +198,13 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
 
         $scope.select = function(contact_id){
-            
+         
             var url = "http://" + local_config.chat_url + "#/" + $rootScope.currentUserId+'/'+contact_id;
             $window.location.href = url;
-            Room.invite(contact_id,function(rezult){}); 
+            Room.invite(contact_id,function(rezult){
+
+
+            }); 
         }
 
      

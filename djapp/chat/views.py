@@ -21,20 +21,34 @@ from jsonview.decorators import json_view
 
 bd = MyDB()
 
-def test(request):
-    t = loader.get_template('test.html')
-    users = bd.select('select * from users_info')
+    #users = bd.select('select * from users_info')
     #bd.update('update chat_chatuser set is_online=0')
-    
-    
+    #for u in users.record:
+    #    userslst.append({'name': u['name'],  'user_id': u['user_id']}) 
 
-    cont = {}
-    userslst = []
-    for u in users.record:
-        userslst.append({'name': u['name'],  'user_id': u['user_id']})
-    cont = {'users': userslst}
-    c = RequestContext(request,cont)
-    return HttpResponse(t.render(c))
+@csrf_exempt
+@json_view
+def charge(request):
+    '''
+        Input data
+        { 'action': 'video_charge', 
+          'user_id': 150040, 
+          'opponent_id': 150042, 
+          'room_id': 23 
+        }        
+    '''
+    json_data = json.loads(request.body)
+    sql = 'select id,coins from users where login="%s"' % json_data['user_id']
+    user = bd.get(sql)
+    if json_data['price']<user['coins']:
+        new_coins = user['coins'] - json_data['price']
+        sql = 'update users set coins=%s where id=%d' % (new_coins,user['id'])
+        print sql
+        bd.update(sql)
+        status = 0
+    else:
+        status = 1
+    return {'user_id': json_data['user_id'], 'account': user['coins'], 'status': status}
 
 
 def home(request):

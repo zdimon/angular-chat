@@ -62,6 +62,8 @@
 
         }
 
+ 
+
 
         if(message.action=='update_cam_indicators'){
             

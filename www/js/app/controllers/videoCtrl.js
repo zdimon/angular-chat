@@ -9,7 +9,7 @@ Manipulate with video blocks.
 
 */
 
-app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video) {
+app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$interval, WS) {
 
 
 
@@ -56,7 +56,18 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video) 
 
              $rootScope.isOpponentCamEnabled = true;
 
-             Video.showOpponentCam(function(){
+             Video.showOpponentCam(function(result){
+                // Initiate periodic calling to charge money
+                $scope.invite_promise = $interval(function(){
+
+                    WS.send({ 'action': 'video_charge', 
+                              'user_id': $rootScope.currentUserId, 
+                              'opponent_id': result.user_id, 
+                              'room_id': $rootScope.room_id 
+                            });
+
+                }, 10000);
+
                 
             })
 
@@ -71,7 +82,10 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video) 
             $(document).find('#oponent_video_container').append('<div id="opponentVideo"> </div>');
             $rootScope.isOpponentCamEnabled = false;
              Video.hideOpponentCam(function(){
-                
+                if (angular.isDefined($scope.invite_promise)) {
+                    $interval.cancel($scope.invite_promise);
+                    $scope.invite_promise = undefined;
+                }                
             })          
 
         }
@@ -85,7 +99,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video) 
             for (var i = 0; i < $rootScope.room_participants.length; i++) {
                 var val = $rootScope.room_participants[i];
                 var arr = val.split('_');
-                
+                log(arr);
                 if(arr[1]==data.owner && data.owner!= $rootScope.currentUserId){
                     log(data);
                     if(data.cam_status=='on') { 

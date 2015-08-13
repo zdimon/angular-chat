@@ -11,7 +11,7 @@ admin.autodiscover()
 urlpatterns = [
     # Examples:
     url(r'^$', 'chat.views.home', name='home'),
-    url(r'^test$', 'chat.views.test', name='test'),
+    url(r'^api/charge$', 'chat.views.charge', name='charge'), # simulate tpa request handler
     url(r'^admin/', include(admin.site.urls)),
 ]
 

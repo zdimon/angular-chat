@@ -166,9 +166,14 @@ apiconf = {
                 'type': 'ajax',
                 'name': 'hide_opponent_cam',
                 'url':  '[server]/api/[user_id]/[app_name]/[room_id]/hide_opponent_cam'
+            }, 
+
+        'charge':
+            {
+                'type': 'ajax',
+                'name': 'charge',
+                'url':  '[server]/api/[user_id]/[app_name]/charge'
             } 
-
-
 
 
         }

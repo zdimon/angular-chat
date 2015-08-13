@@ -17,6 +17,7 @@ class Tpa(models.Model):
     name = models.CharField(max_length = 250, blank = True, default='', verbose_name = _('Name'), db_index = True)
     domain = models.CharField(max_length = 250, blank = True, verbose_name = _('Domain'))
     secret = models.CharField(max_length = 250, blank = True, verbose_name = _('Secret key'))
+    charge_url = models.CharField(max_length = 250, blank = True, verbose_name = _('Url for charging'))
     timeout_chating = models.IntegerField(verbose_name = _('Chat timeout'), default = 180)
     def __unicode__(self):
         return self.domain

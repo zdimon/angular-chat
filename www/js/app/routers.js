@@ -47,10 +47,7 @@
                             Room.invite($stateParams.opponent,function(rezult){})
                         });
                         
-                      $rootScope.$on("$locationChangeStart", function(event, next, current) { 
-                        $log.info("location changing to:" + next); 
-                        event.preventDefault();
-                      });
+                      
 
                       init_wisiwig();
 

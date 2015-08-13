@@ -1,7 +1,7 @@
  
 
 
-app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTranslate, $log) {
+app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTranslate, $log, $http) {
         $scope.ws = WS;
         scroolldown();
 
@@ -98,8 +98,19 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         });
 
         
-        $scope.$on('show_inv_win', function (event, data) {
+        $rootScope.$on('make_charge_request', function (event, data) {
             
+            log(data);
+          
+                    var url = utils.prepare_url(apiconf.api.charge.url,{
+                                                                         '[user_id]':$rootScope.currentUserId, 
+                                                                         '[app_name]': local_config.app_name
+                                                                        });
+                    return $http.get(url).success(function(result){
+                        log(result);
+                    });
+                        
+           
         });
 
         

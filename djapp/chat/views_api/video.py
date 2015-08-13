@@ -95,7 +95,7 @@ def show_opponent_cam(request,user_id,app_name,room_id):
     u2r = ChatUser2Room.objects.get(user=owner,room=room)
     u2r.is_video_watching = True
     u2r.save()
-    return {'status': 1, 'message': 'ok'}
+    return {'status': 0, 'message': 'ok', 'user_id': user_id}
 
 
 
@@ -117,7 +117,7 @@ def hide_opponent_cam(request,user_id,app_name,room_id):
     u2r = ChatUser2Room.objects.get(user=owner,room=room)
     u2r.is_video_watching = False
     u2r.save()
-    return {'status': 1, 'message': 'ok'}
+    return {'status': 0, 'message': 'ok', 'user_id': user_id}
 
 
 

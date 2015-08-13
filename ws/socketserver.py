@@ -132,44 +132,18 @@ application = tornado.web.Application([
     (r'/ws', WSHandler),
 ])
  
+
+
+    
+        
  
-def charge():
-    ''' 
-        Charging function. Send json information to site about charging.
 
-        Request:
-
-        {
-            '<room_id>': {
-                            'time':  <seconds>,
-                            'with_video': 'yes/no',
-                            'payer': <user_id>,
-                            'opponent': <user_id>,
-                            'price': <price>
-                         }
-        }
-
-
-    '''
-    data = {
-            '2': {
-                            'time':  60,
-                            'with_video': 'no',
-                            'payer': 510014,
-                            'opponent': 510040,
-                            'price': 2
-                         }
-             }
-    url = 'http://chat.localhost/api/tpa1com/charge'
-    print 'Adding room. Request to %s' % url
-    responce = requests.post(url, data=json.dumps(data))
-    print 'request'
 
 if __name__ == "__main__":
     http_server = tornado.httpserver.HTTPServer(application)
     http_server.listen(8889)
     myIP = socket.gethostbyname(socket.gethostname())
     print '*** Websocket Server Started at %s***' % myIP
-    tornado.ioloop.PeriodicCallback(charge, 3000).start()
+    #tornado.ioloop.PeriodicCallback(send_charge_request, 10000).start()
     tornado.ioloop.IOLoop.instance().start()
     

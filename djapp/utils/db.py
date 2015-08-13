@@ -22,7 +22,9 @@ class MyDB(object):
 
     def update(self,sql):
         query = PySQLPool.getNewQuery(self.con)
+        query.Query('START TRANSACTION')
         query.Query(sql)
+        query.Query('COMMIT')
         return query
 
     def get(self,sql):
