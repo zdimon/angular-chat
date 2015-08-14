@@ -52,7 +52,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
       $scope.showOpponentVideo = function(user_id){
   
              var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+user_id+"&url=rtmp://chat.mirbu.com/myapp&micOn=false&type=in" };
-             swfobject.embedSWF("Media/chat.swf", "opponentVideo", "640", "480", "9.0.0", "expressInstall.swf", par);
+             swfobject.embedSWF("Media/chat.swf", "opponentVideo", "320", "240", "9.0.0", "expressInstall.swf", par);
 
              $rootScope.isOpponentCamEnabled = true;
 

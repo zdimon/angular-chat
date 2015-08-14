@@ -25,7 +25,7 @@
                             <div class="hid_text_block">
                                 <div class="fll">
                                     <div class="img_hid_girl">
-                                        <img src="Media/images/users/small/[[n.opponent.image]]" alt="">
+                                        <img ng-src="Media/images/users/small/[[n.opponent.image]]" alt="">
                                     </div>
                                     <a ng-click="remove(n.id)">Close</a>
                                     <a href="#" class="ignore_hid">Block</a>
@@ -110,7 +110,7 @@
                             <ul>
                                 <li class="clearFix" ng-repeat="u in user_list">
                                 <div class="fll">
-                                    <a ng-click="invite([[u.user_id]])" onclick="return false" class="img_man"><img src="Media/images/users/small/[[u.image]]" alt=""></a>
+                                    <a ng-click="invite([[u.user_id]])" onclick="return false" class="img_man"><img ng-src="Media/images/users/small/[[u.image]]"  alt=""></a>
                                 </div>
                                 <div class="flc">
                                     <a href="#" class="name_age_id">[[u.name]], [[u.age]] (ID [[u.user_id]])</a>
@@ -161,7 +161,7 @@
                                                     <div class="girl_who_write clearFix">
                                                         <div class="fll">
                                                             <a href="#" class="img_man_w">
-                                                                <img src="Media/images/users/small/[[invited_user.image]]" alt="">
+                                                                <img ng-src="Media/images/users/small/[[invited_user.image]]" alt="">
                                                                 
                                                                 <div ng-show="invited_user.is_online == 1" class="on_line"><span></span></div>
                                                                 <div ng-show="invited_user.is_online == 0" class="off_line"><span></span></div>
@@ -211,7 +211,7 @@
                                             -->
                                         </div>
                                         <a ng-click="select([[u.user_id]])"  class="photo_block">
-                                            <img src="Media/images/users/small/[[u.image]]" alt="">
+                                            <img ng-src="Media/images/users/small/[[u.image]]" alt="">
                                         </a>
                                     </div>
                                     <div class="flr">
@@ -285,7 +285,7 @@
                                 <ul class="live_write">
                                     <li class="clearFix girl_live main" ng-repeat="m in messages">
                                         <div class="fll">
-                                            <div class="img_live"><img src="Media/images/users/small/[[m.owner.image]]" alt=""></div>
+                                            <div class="img_live"><img ng-src="Media/images/users/small/[[m.owner.image]]" alt=""></div>
                                             <div class="name">[[m.owner.name]]</div>
                                         </div>
                                         <div class="flr">
