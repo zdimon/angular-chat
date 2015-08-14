@@ -26,6 +26,14 @@ bd = MyDB()
     #for u in users.record:
     #    userslst.append({'name': u['name'],  'user_id': u['user_id']}) 
 
+
+def config(request,app_name):
+    tpa = Tpa.objects.get(name=app_name)
+    t = loader.get_template('config.js.tpl')
+    c = RequestContext(request,{'tpa':tpa})
+    return HttpResponse(t.render(c))    
+
+
 @csrf_exempt
 @json_view
 def charge(request):

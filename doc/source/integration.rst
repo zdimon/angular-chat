@@ -68,7 +68,32 @@ Inviting link.
 API
 ===
 
-1. Request of charging money from user's account.
+1. Request to get information about current user.
+
+Request: http://localhost/chat-request/isLogin
+
+Responce:
+
+if logined
+
+.. code-block:: python
+
+    {"id":"150046","gender":"m","balance":"1000.00","success":true}
+
+if not 
+
+.. code-block:: python
+
+    {"id":"0" ,"success":false}
+
+2. Request to get user's balance.
+
+    Request: [server]/api/[user_id]/[app_name]/get_balance
+
+    Example: 
+
+
+3. Request of charging money from user's account.
 
 Input data
 

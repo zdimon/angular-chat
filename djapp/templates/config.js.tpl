@@ -173,8 +173,15 @@ apiconf = {
             {
                 'type': 'ajax',
                 'name': 'get_balance',
-                'url':  '[server]/api/[user_id]/[app_name]/get_balance'
-            } 
+                'url':  '{{ tpa.get_balance_url }}'
+            },
+
+        'billing_page':
+            {
+                'type': 'link',
+                'name': 'billing_page',
+                'url':  '{{ tpa.billing_page }}'
+            }  
 
 
 

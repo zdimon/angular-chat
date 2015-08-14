@@ -12,6 +12,7 @@ urlpatterns = [
     # Examples:
     url(r'^$', 'chat.views.home', name='home'),
     url(r'^api/charge$', 'chat.views.charge', name='charge'), # simulate tpa request handler
+    url(r'^api/(?P<app_name>[^\.]+)/config.js$', 'chat.views.config', name='config'), # simulate tpa request handler
     url(r'^admin/', include(admin.site.urls)),
 ]
 

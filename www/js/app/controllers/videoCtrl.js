@@ -9,7 +9,7 @@ Manipulate with video blocks.
 
 */
 
-app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$interval, WS) {
+app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$interval, WS, Room) {
 
 
 
@@ -51,33 +51,44 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
       $scope.showOpponentVideo = function(user_id){
   
-             var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+user_id+"&url=rtmp://chat.mirbu.com/myapp&micOn=false&type=in" };
-             swfobject.embedSWF("Media/chat.swf", "opponentVideo", "320", "240", "9.0.0", "expressInstall.swf", par);
+                Room.getBalance().then( function(result){
 
-             $rootScope.isOpponentCamEnabled = true;
+                if(result.data.status==1){
 
-             Video.showOpponentCam(function(result){
-                // Initiate periodic calling to charge money
-                $scope.invite_promise = $interval(function(){
+                    $rootScope.emptyAccountAlert();
+                    
 
-                    WS.send({ 'action': 'video_charge', 
-                              'user_id': $rootScope.currentUserId, 
-                              'opponent_id': result.user_id, 
-                              'room_id': $rootScope.room_id 
-                            });
+                } else {
+                     var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+user_id+"&url=rtmp://chat.mirbu.com/myapp&micOn=false&type=in" };
+                     swfobject.embedSWF("Media/chat.swf", "opponentVideo", "320", "240", "9.0.0", "expressInstall.swf", par);
+                     $rootScope.isOpponentCamEnabled = true;
+                     Video.showOpponentCam(function(result){
+                        // Initiate periodic calling to charge money
+                        $scope.invite_promise = $interval(function(){
 
-                }, 10000);
+                            WS.send({ 'action': 'video_charge', 
+                                      'user_id': $rootScope.currentUserId, 
+                                      'app_name': local_config.app_name, 
+                                      'opponent_id': result.user_id, 
+                                      'room_id': $rootScope.room_id 
+                                    });
 
-                
+                        }, 10000);
+
+                        
+                    })
+            
+                }        
             })
+
+           
 
             
         }
 
 
       $scope.hideOpponentVideo = function(){
-
-            
+       
             swfobject.removeSWF("opponentVideo");
             $(document).find('#oponent_video_container').append('<div id="opponentVideo"> </div>');
             $rootScope.isOpponentCamEnabled = false;
@@ -90,7 +101,10 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
         }
 
-
+    $rootScope.$on('close_video',function(event,data){
+        $scope.hideOpponentVideo();
+        $rootScope.emptyAccountAlert();
+    })
 
 
     $rootScope.$on('update_cam_indicators',function(event,data){

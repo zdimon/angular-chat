@@ -8,6 +8,35 @@ import requests
 from django.contrib.auth.models import User
 from chat.models import ChatUser
 
+from utils.db import MyDB
+bd = MyDB()
+
+
+@json_view
+def get_balance(request,user_id,app_name):
+    ''' 
+        Get user's balance
+
+        [server]/api/[app_name]/[user_id]/get_balance
+
+        Example: http://chat.localhost/api/tpa1com/150040/get_balance
+
+        Return: {'status': 0, 'user_id': 150040, 'balance': 35}
+    '''
+    
+    #try:
+    sql = 'select coins from users where login="%s"' % user_id
+    user = bd.get(sql)
+    #print(user)
+    #print '---'+str(user['coins'])
+    if user['coins']<3:
+        status = 1
+    else:
+        status = 0
+    return {'status': status, 'user_id': user_id, 'balance': user['coins']}
+    #except:
+    #    return {'status': 1, 'id': 0}
+
 
 @json_view
 def is_auth(request,app_name):

@@ -87,6 +87,14 @@
 
 
 
+        if(message.action=='close_video'){
+
+            $rootScope.$broadcast('close_video', message);
+                   
+        }
+
+
+
         if(message.action=='show_message'){
 
 

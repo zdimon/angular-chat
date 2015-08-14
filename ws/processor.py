@@ -16,9 +16,6 @@ bd = MyDB()
 
 def handle(message,connection): 
 
-    if message['action'] == 'send_message':
-        mes = { "action" : "send_message", "message": message['message']}
-        c.publish('%s_%s' % (  message['tpa_name'], message['user_id'] ), json.dumps(mes))
 
     if message['action'] == 'invite':
         mes = {'action': 'invite', 'user_id': connection.current_user_id}
@@ -36,6 +33,18 @@ def handle(message,connection):
         #print bcolors.blue('REQUEST TO %s' % url)
         #headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         responce = requests.post(url, data=json.dumps(data))
+        responce = json.loads(responce.content)
+        # send command to close video
+        if(responce['status']==1): 
+            mes = {'action': 'close_video'}
+            c.publish('%s_%s' % ( message['app_name'], message['user_id'] ), json.dumps(mes))            
+        
+        #if(respo)
+
+
+
+
+
 
 
 

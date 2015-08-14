@@ -24,14 +24,28 @@ The function :func:`someService` does a some function.
 
 .run(function ($rootScope, Auth, $window, WS) {
 
-
+            // Initialization
             Auth.isauth(function(result){
                 if(result.id>0) {
 
                         $rootScope.isAuthenticated = true;  
                         $rootScope.currentUserId = result.id;
                         $rootScope.currentUsername = result.id;
+                        $rootScope.balance = result.balance;
+                        $rootScope.gender = result.gender;
+                        $rootScope.billing_page = apiconf.api.billing_page.url;
                         $rootScope.$broadcast('rootScope_ready');
+
+                        // show popup alert to force user to top account
+                        $rootScope.emptyAccountAlert = function(){
+                                     $.magnificPopup.open({
+                                      items: {
+                                        src: '#empty_account_alert'
+                                      },
+                                      type: 'inline'
+                                    }, 0);           
+                            }
+
 
                         WS.send({ action: 'connect', user_id: $rootScope.currentUserId });
                    

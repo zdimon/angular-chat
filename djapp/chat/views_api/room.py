@@ -18,6 +18,14 @@ bclient.connect()
 
 bd = MyDB()
 
+
+def get_user_balance(tpa,user):
+    url = tpa.get_balance_url
+    url = url.replace('[user_id]',str(user.user_id))
+    result = json.loads(requests.get(url).content)
+    return result['balance']
+
+
 def _get_room_or_create(app_name,caler_id,opponent_id):
     '''
     Function return existed room identifier or create new room.
@@ -84,6 +92,12 @@ def save_message(request):
     b = json.loads(request.body)
     tpa = Tpa.objects.get(name=b['app_name'])
     owner = ChatUser.objects.get(tpa=tpa,user_id=int(b['owner_id']))
+    
+    if (owner.gender=='m'):
+        balance = get_user_balance(tpa,owner)
+        print balance
+        if balance < 3:
+            return  { 'status': 1, 'message': 'Your account is emply. Please replanish your account.' }
     room = ChatRoom.objects.get(tpa=tpa,id=int(b['room_id']))
     cm = ChatMessage()
     cm.tpa = tpa
@@ -92,6 +106,7 @@ def save_message(request):
     cm.message = b['message']
     gender = owner.gender
     cm.save()
+    charge_for_chat(cm,room,tpa) #charging
     try:
         for p in b['participants']:
             mes = { 'action': 'show_message', 'room_id': b['room_id'], 
@@ -217,6 +232,55 @@ def multi_invitation(request):
     bclient.publish('%s_%s' % (b['app_name'], str(b['opponent_id'])), json.dumps(mes)) 
     print 'sent to %s_%s ' %   (b['app_name'], str(b['opponent_id']))
     return  { 'status': 0, 'message': 'ok' }
+
+
+
+def charge_for_chat(lm,room,tpa):
+    from datetime import datetime, timedelta
+    from django.utils.dateformat import format
+    import time
+    print('Charging for chat room %s price %s timeout %s' % (room, tpa.price_text_chat, tpa.timeout_chating))
+    #import pdb; pdb.set_trace()
+
+    #try:
+
+    curt = int(format(lm.created, 'U'))
+    if(room.is_charging==True):
+        paytime = int(time.time() - curt)
+        if (paytime < tpa.timeout_chating):
+            #room.is_charging = False
+            #room.save()
+            print 'DEDUCT FOR %s SEC' % paytime
+        else:
+            print 'TOO LONG %s SEC' % paytime
+    #except:
+    #    room.is_charging = False
+    #    room.save()
+    try:
+        lme = room.get_last_message_enother_user(lm)        
+        en = int(format(lme.created, 'U'))   
+        fork = curt - en
+        if (fork<tpa.timeout_chating):
+            print '...DEDUCT FOR %s SEC' % fork
+            ChatMessage.objects.filter(room=room,id__lte=lm.id).update(is_old=True)
+        else:
+            ChatMessage.objects.filter(room=room,id__lte=lm.id).update(is_old=True)
+            print '...TOO LONG %s SEC' % fork
+    except:
+        pass
+    #print 'fork - %s ' % fork
+    #maxt = datetime.now() - timedelta(seconds=60)
+
+    #print 'lesssssssss %s --- %s' % (curt , maxt)
+    
+    #if (fork>tpa.timeout_chating):
+    #    room.is_charging = False
+    #    room.save()
+    #except:
+    #    room.is_charging = False
+    #    room.save()
+
+
 
 
 

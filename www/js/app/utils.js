@@ -16,7 +16,11 @@ utils = {
             }
             str = str.replace('[server]',local_config.signal_server)
             str = str.replace('[app_name]',local_config.app_name)
-            url = 'http://'+str
+            if(str.indexOf("http://") == -1) {
+                url = 'http://'+str
+            } else {
+                url = str
+            }
             return url
 
 

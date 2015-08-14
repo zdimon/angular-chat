@@ -13,7 +13,7 @@
                 <a href="#" class="show_block">Click here to show video chat window</a>
             </div>
             <div class="fll mans">
-                <section ng-controller="multiInviteCtrl">
+                <section ng-show="gender=='w'" ng-controller="multiInviteCtrl">
                 <a  ng-click="multiInviteWindow()" class="wButton wButtonA padd_max delivery_pop"><span>Multiple Invitations</span></a>
 
 
@@ -92,7 +92,10 @@
                         </div>
                     </div>
                 </section>
-                <div class="title"><span>MEN</span> Online</div>
+                <div class="title">
+                    <span ng-show="gender=='w'" >MEN</span> 
+                    <span ng-show="gender=='m'" >WOMEN</span> 
+                    Online</div>
                 <!--
                 <div class="pagination">
                     <a href="#">&lt;</a>
@@ -117,8 +120,8 @@
                                     <div class="city_country">[[u.city]], [[u.country]]</div>
                                     <div class="servise">
                                         <ul>
-                                            <li><a href="#invite_to_chat" class="web_chat invite_to_chat"></a></li>
-                                            <li><a href="#invite_to_chat" class="chat invite_to_chat"></a></li>
+                                            <li ng-show="u.is_camera_active"><a class="web_chat invite_to_chat"></a></li>
+                                            <li><a ng-click="invite([[u.user_id]])" class="chat invite_to_chat"></a></li>
                                             <li><a href="#" class="message"></a></li>
                                             <li><a href="#" class="favorite"></a></li>
                                         </ul>
@@ -343,6 +346,17 @@
 
 <div style="display: none;">
 
+
+    <div id="empty_account_alert" class="enterRegPopup zoomAnim chat_pop">
+        <div class="logo_pop"><img src="Media/pic/logo_pop.png" alt=""></div>
+        <div class="delivery_block">
+            <h1>Your account is empty. Please replanish your account</h1>
+
+            <a href="[[billing_page]]" class="wButton delete_men"><span>Replanish</span></a>
+            
+        </div>
+    </div>
+
    
     <div id="delete_pop" class="enterRegPopup zoomAnim chat_pop">
         <div class="logo_pop"><img src="Media/pic/logo_pop.png" alt=""></div>
@@ -352,5 +366,7 @@
             <a href="#" class="wButton wButtonA"><span>no</span></a>
         </div>
     </div>
+
+
 </div>
 

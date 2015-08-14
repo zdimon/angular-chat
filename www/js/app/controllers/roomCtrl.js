@@ -40,13 +40,20 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         $scope.sendMessage = function(){
             
             var message = $(document).find('#chat_message').html()
-           Room.sendMessage($scope.room_id, message, $rootScope.currentUserId, $scope.room_participants, function(result) {
-             // Room.getMessages($scope.room_id, function(result) {
-             // $scope.messages = result.message;
-             // });  
-              $(document).find('#chat_message').html("")    
+           Room.sendMessage($scope.room_id, message, $rootScope.currentUserId, $scope.room_participants, $rootScope.gender, function(result) {
+              log(result);
+              if(result.status==1) {
+                    $rootScope.emptyAccountAlert(); // when user has not money
+                } else { 
+                    $(document).find('#chat_message').html("");
+                } 
+              
             });
         };
+
+
+
+
 
 
         /*"""
@@ -98,20 +105,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         });
 
         
-        $rootScope.$on('make_charge_request', function (event, data) {
-            
-            log(data);
-          
-                    var url = utils.prepare_url(apiconf.api.charge.url,{
-                                                                         '[user_id]':$rootScope.currentUserId, 
-                                                                         '[app_name]': local_config.app_name
-                                                                        });
-                    return $http.get(url).success(function(result){
-                        log(result);
-                    });
-                        
-           
-        });
+        
 
         
 
