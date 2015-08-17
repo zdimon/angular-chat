@@ -57,7 +57,7 @@ Active cam indicator.
 
 .. code-block:: html
 
-    <li ng-show="activecam.user_<?php echo $girl->login ?>"></li>
+    <li ng-show="activecam.user_<?php echo $girl->id ?>"></li>
 
 
 Inviting link.
@@ -67,7 +67,7 @@ This link will send user to the chat page and put him in the room with opponent 
 
 .. code-block:: html
 
-    <a ng-click="invite(<?php echo $girl->login ?>)" class="web_chat ">Chat with me</a>
+    <a ng-click="invite(<?php echo $girl->id ?>)" class="web_chat ">Chat with me</a>
 
 
 
@@ -79,7 +79,42 @@ This link will send user to the chat page and put him in the room with opponent 
 API
 ===
 
-1. Request to get information about current user.
+1. Request to get information about user.
+=========================================
+
+**URI** http:/[server]/chat-request/profile?user_id=150042
+
+RESPONSE
+--------
+
+.. code-block:: json
+
+    { 'status': 0, 
+      'user_profile': {
+                        'user_id': 150042,
+                        'name': 'Oleg',
+                        'birthday': '1976-02-03',
+                        'country': 'USA', 
+                        'city': 'New York',
+                        'culture': 'en', 
+                        'gender': 'm', 
+                        'image': 'http://site.com/oleg.jpg', 
+                        'tpa': 'site_com'
+                      }
+    }
+
+Where
+
+**tpa** - unique name of the site which was defined after site registration in chat's system.
+
+In case of error.
+
+.. code-block:: json
+
+    { status:1, message: 'User not found'}
+
+
+2. Request to get know is user authorized or not.
 =================================================
 
 **URI** http:/[server]/chat-request/isLogin
@@ -89,7 +124,7 @@ RESPONSE:
 
 if logined
 
-.. code-block:: python
+.. code-block:: json
 
     {"id":"150046","gender":"m","balance":"1000.00","success":true}
 
@@ -99,8 +134,8 @@ if not
 
     {"id":"0" ,"success":false}
 
-2. Request to get user's balance.
-=================================
+3 Request to get user's balance.
+================================
 
 **URI** http:/[server]/chat-request/getBalance?user_id=150040
 
@@ -117,7 +152,7 @@ If **status** is 1 user will see pop up window with link directed to the billing
  
 
 
-3. Request of charging money from user's account for text chating.
+4. Request of charging money from user's account for text chating.
 ==================================================================
 
 REQUEST
@@ -166,7 +201,7 @@ RESPONSE
     ]
 
 
-4. Request to add/remove user to/from the contact list.
+5. Request to add/remove user to/from the contact list.
 =======================================================
 
 **URI** http://[server]/chat-request/contact
@@ -200,7 +235,7 @@ RESPONSE
 
 
 
-5. Request to add user to favorites.
+6. Request to add user to favorites.
 ====================================
 
 **URI** http://[server]/chat-request/add_fav
@@ -232,7 +267,7 @@ RESPONSE
     { status:1, message: 'Favorite is aleady exists'}
 
 
-6. Request to block/unblock user.
+7. Request to block/unblock user.
 =================================
 
 **URI** http://[server]/chat-request/block
