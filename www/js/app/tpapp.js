@@ -31,12 +31,12 @@ tpapp.js
 
     .controller('TestCtrl', function ($window, $rootScope, $scope, API, $http) {
 
-      $scope.test_login = function(user_id){
+      $scope.test_login = function(user_id,opponent_id){
 
         var url = utils.prepare_url(apiconf.api.login.url,{'[user_id]': user_id});
         $http.get(url).then(function(res){
                 console.log(res.data);
-                var url = "http://" + $window.location.host + "/video-chat#/" + res.data.id;
+                var url = "http://" + $window.location.host + "/video-chat#/" + res.data.id + "/"+ opponent_id;
                 $window.location.href = url;
 
             });
