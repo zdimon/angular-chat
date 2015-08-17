@@ -1,0 +1,394 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>chat.views_api.contact &mdash; Angular chat 1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Angular chat 1 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../../index.html" class="icon icon-home"> Angular chat
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integration.html">Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integration.html#api">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../test_loading.html">Loading test data</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../owerview.html">Owerview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../owerview.html#angular-app-initialization">Angular app initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../angularapp.html">Angular application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../ng/application.html">Application</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../ng/application.html#services">Services</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../ng/controllers.html">Controllers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../ng/controllers.html#contactctrl-js">contactCtrl.js</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../ng/services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../ng/directives.html">Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../ng/tpapp.html">Client side application.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../ng/tpapp.html#tpapp-js">tpapp.js</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../djangoapp.html">Django  application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../djangoapp.html#module-chat.views_api.auth">Authentication views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../djangoapp.html#module-chat.views_api.contact">Contact views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../djangoapp.html#online-views">Online  views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../djangoapp.html#module-chat.views_api.room">Room views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../file_structure.html">File structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../socketserver.html">Socketserver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../db.html">Database structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Signalserver API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/authentication.html">Authentication</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/contact.html">Contact</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/online.html">Online</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../model.html">Chat Model</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../uml.html">UML diagrams</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../uml/inicialization.html">Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../uml/disconnect.html">Disconect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../uml/invite.html">Chat invitation from man</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../uml/user-case.html">User case diagramm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../uml/database.html">Database diagramm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../uml/tornado.html">Tornado Websocket server application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../uml/angular.html">Angular application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../uml/state.html">State diagramms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../uml/state.html#invitation">Invitation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../security.html">Security</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">Angular chat</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>chat.views_api.contact</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for chat.views_api.contact</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">chat.models</span> <span class="kn">import</span> <span class="n">Tpa</span><span class="p">,</span> <span class="n">ChatUser</span><span class="p">,</span> <span class="n">ChatContacts</span>
+<span class="kn">from</span> <span class="nn">jsonview.decorators</span> <span class="kn">import</span> <span class="n">json_view</span>
+<span class="kn">from</span> <span class="nn">utils.util</span> <span class="kn">import</span> <span class="n">serialize_user</span>
+
+
+<span class="k">def</span> <span class="nf">_add_contact</span><span class="p">(</span><span class="n">app_name</span><span class="p">,</span><span class="n">owner_id</span><span class="p">,</span><span class="n">contact_id</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">        Add new contact to owner </span>
+
+<span class="sd">        [server]/api/[app_name]/[owner_id]/[contact_id]/add_contact</span>
+
+<span class="sd">        Example: http://chat.localhost/api/tpa1com/14/15/add_contact</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">tpa</span> <span class="o">=</span> <span class="n">Tpa</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">app_name</span><span class="p">)</span>
+    <span class="n">owner</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="n">owner_id</span><span class="p">)</span>
+    <span class="n">contactuser</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="n">contact_id</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">contact</span> <span class="o">=</span> <span class="n">ChatContacts</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">owner</span><span class="o">=</span><span class="n">owner</span><span class="p">,</span><span class="n">contact</span><span class="o">=</span><span class="n">contactuser</span><span class="p">)</span> 
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">contact</span> <span class="o">=</span> <span class="n">ChatContacts</span><span class="p">()</span>
+        <span class="n">contact</span><span class="o">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">owner</span>
+        <span class="n">contact</span><span class="o">.</span><span class="n">contact</span> <span class="o">=</span> <span class="n">contactuser</span>
+        <span class="n">contact</span><span class="o">.</span><span class="n">tpa</span> <span class="o">=</span> <span class="n">tpa</span>
+        <span class="n">contact</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>        
+    <span class="k">return</span> <span class="n">contact</span> 
+
+<span class="nd">@json_view</span>
+<div class="viewcode-block" id="add_contact"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.contact.add_contact">[docs]</a><span class="k">def</span> <span class="nf">add_contact</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">app_name</span><span class="p">,</span><span class="n">owner_id</span><span class="p">,</span><span class="n">contact_id</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">        Add new contact to owner </span>
+
+<span class="sd">        [server]/api/[app_name]/[owner_id]/[contact_id]/add_contact</span>
+
+<span class="sd">        Example: http://chat.localhost/api/tpa1com/14/15/add_contact</span>
+
+<span class="sd">        Responce 1: { &#39;status&#39;: 0, &#39;message&#39;: &#39;Contact has been added&#39; }</span>
+
+<span class="sd">        Responce 2: { &#39;status&#39;: 1, &#39;message&#39;: &#39;Contact is already exists&#39; }  </span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">tpa</span> <span class="o">=</span> <span class="n">Tpa</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">app_name</span><span class="p">)</span>
+    <span class="n">owner</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="n">owner_id</span><span class="p">)</span>
+    <span class="n">contact</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="n">contact_id</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">ChatContacts</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">owner</span><span class="o">=</span><span class="n">owner</span><span class="p">,</span><span class="n">contact</span><span class="o">=</span><span class="n">contact</span><span class="p">)</span> 
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;Contact is already exists&#39;</span> <span class="p">}</span>   
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">new_contact</span> <span class="o">=</span> <span class="n">ChatContacts</span><span class="p">()</span>
+        <span class="n">new_contact</span><span class="o">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">owner</span>
+        <span class="n">new_contact</span><span class="o">.</span><span class="n">contact</span> <span class="o">=</span> <span class="n">contact</span>
+        <span class="n">new_contact</span><span class="o">.</span><span class="n">tpa</span> <span class="o">=</span> <span class="n">tpa</span>
+        <span class="n">new_contact</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>        
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;Contact has been added&#39;</span> <span class="p">}</span>
+    <span class="k">return</span> <span class="n">out</span> 
+</div>
+<span class="nd">@json_view</span>
+<div class="viewcode-block" id="del_contact"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.contact.del_contact">[docs]</a><span class="k">def</span> <span class="nf">del_contact</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">app_name</span><span class="p">,</span><span class="n">owner_id</span><span class="p">,</span><span class="n">contact_id</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">        Del contact in owner </span>
+
+<span class="sd">        [server]/api/[app_name]/[owner_id]/[contact_id]/del_contact</span>
+<span class="sd">        </span>
+<span class="sd">        Example: http://chat.localhost/api/tpa1com/14/15/del_contact</span>
+
+<span class="sd">        Responce 1: { &#39;status&#39;: 0, &#39;message&#39;: &#39;Contact has been deleted&#39; }</span>
+
+<span class="sd">        Responce 2: { &#39;status&#39;: 1, &#39;message&#39;: &#39;Contact does not exist.&#39; }</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">tpa</span> <span class="o">=</span> <span class="n">Tpa</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">app_name</span><span class="p">)</span>
+    <span class="n">owner</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="n">owner_id</span><span class="p">)</span>
+    <span class="n">contact</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="n">contact_id</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">delcont</span> <span class="o">=</span> <span class="n">ChatContacts</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">owner</span><span class="o">=</span><span class="n">owner</span><span class="p">,</span><span class="n">contact</span><span class="o">=</span><span class="n">contact</span><span class="p">)</span>
+        <span class="n">delcont</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>       
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;Contact has been deleted&#39;</span> <span class="p">}</span>   
+    <span class="k">except</span><span class="p">:</span>       
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;Contact does not exist.&#39;</span> <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">out</span>
+</div>
+<span class="nd">@json_view</span>
+<div class="viewcode-block" id="del_all_contacts"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.contact.del_all_contacts">[docs]</a><span class="k">def</span> <span class="nf">del_all_contacts</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">app_name</span><span class="p">,</span><span class="n">owner_id</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">        Del all contacts in owner </span>
+
+<span class="sd">        [server]/api/[app_name]/[owner_id]/del_all_contacts</span>
+<span class="sd">        </span>
+<span class="sd">        Example: http://chat.localhost/api/tpa1com/150043/del_all_contacts</span>
+
+<span class="sd">        Responce 1: { &#39;status&#39;: 0, &#39;message&#39;: &#39;All Contacts have been deleted.&#39; }</span>
+
+<span class="sd">        Responce 2: { &#39;status&#39;: 1, &#39;message&#39;: &#39;List Contacts is empty.&#39; }</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">tpa</span> <span class="o">=</span> <span class="n">Tpa</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">app_name</span><span class="p">)</span>
+    <span class="n">owner</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="n">owner_id</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">ChatContacts</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">owner</span><span class="o">=</span><span class="n">owner</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>     
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;All Contacts have been deleted.&#39;</span> <span class="p">}</span>   
+    <span class="k">except</span><span class="p">:</span>       
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;List Contacts is empty.&#39;</span> <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">out</span>    
+
+</div>
+<span class="nd">@json_view</span>
+<div class="viewcode-block" id="get_contact_list"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.contact.get_contact_list">[docs]</a><span class="k">def</span> <span class="nf">get_contact_list</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">app_name</span><span class="p">,</span><span class="n">user_id</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Function returns user&#39;s contact list</span>
+
+<span class="sd">    [server]/api/[app_name]/[user_id]/get_contact_list</span>
+
+<span class="sd">    Example: http://chat.localhost/api/tpa1com/1/get_contact_list</span>
+
+<span class="sd">    Responce:  {&quot;status&quot;: 0, &quot;message&quot;: &quot;ok&quot;, &quot;contact_list&quot;: [{&quot;image&quot;: &quot;/static/images/avatar.jpg&quot;, &quot;is_invisible&quot;: false, &quot;is_invitation_enabled&quot;: true, &quot;culture&quot;: &quot;ru&quot;, &quot;birthday&quot;: &quot;1996-12-08&quot;, &quot;id&quot;: 44, &quot;city&quot;: &quot;Washava&quot;, &quot;user_id&quot;: 3, &quot;name&quot;: &quot;serg&quot;, &quot;country&quot;: &quot;Poland&quot;, &quot;gender&quot;: &quot;m&quot;, &quot;profile_url&quot;: &quot;serg_plofile_url&quot;, &quot;is_camera_active&quot;: false}]}</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">contactlst</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tpa</span> <span class="o">=</span> <span class="n">Tpa</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">app_name</span><span class="p">)</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">user_id</span><span class="o">==</span><span class="s">&#39;undefined&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;undefined user&#39;</span> <span class="p">}</span>
+
+    <span class="n">owner</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ChatContacts</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">owner</span><span class="o">=</span><span class="n">owner</span><span class="p">):</span>
+        <span class="n">contactlst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">serialize_user</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">contact</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span> <span class="s">&#39;contact_list&#39;</span><span class="p">:</span> <span class="n">contactlst</span> <span class="p">}</span>
+
+        
+</div>
+<span class="nd">@json_view</span>
+<div class="viewcode-block" id="send_invitation"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.contact.send_invitation">[docs]</a><span class="k">def</span> <span class="nf">send_invitation</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Function saves invitation from woman.</span>
+
+<span class="sd">    parameters by POST: app_name,owner_id,contact_id,message</span>
+
+<span class="sd">    [server]/api/send_invitation</span>
+
+<span class="sd">    Example: http://chat.localhost/api/send_invitation</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c">#import pdb; pdb.set_trace() </span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+    <span class="n">tpa</span> <span class="o">=</span> <span class="n">Tpa</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;app_name&#39;</span><span class="p">])</span>
+    <span class="n">owner</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;owner_id&#39;</span><span class="p">]))</span>
+    <span class="c">#room = ChatRoom.objects.get(tpa=tpa,id=int(b[&#39;room_id&#39;]))</span>
+    <span class="c">#cm = ChatMessage()</span>
+    <span class="c">#cm.tpa = tpa</span>
+    <span class="c">#cm.user = owner</span>
+    <span class="c">#m.room = room</span>
+    <span class="c">#cm.message = b[&#39;message&#39;]</span>
+    <span class="c">#gender = owner.gender</span>
+    <span class="c">#cm.save()</span>
+    <span class="c">#try:</span>
+    <span class="c">#    for p in b[&#39;participants&#39;]:</span>
+    <span class="c">#        mes = { &#39;action&#39;: &#39;show_message&#39;, &#39;room_id&#39;: b[&#39;room_id&#39;]}</span>
+    <span class="c">#        bclient.publish(p, json.dumps(mes))   </span>
+    <span class="c">#except Exception, e:</span>
+    <span class="c">#    print e</span>
+    <span class="k">return</span>  <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span> <span class="p">}</span>
+</pre></div></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Dmitry.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

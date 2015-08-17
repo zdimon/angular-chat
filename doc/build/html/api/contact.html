@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Contact &mdash; Angular chat 1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Angular chat 1 documentation" href="../index.html"/>
+        <link rel="up" title="Signalserver API" href="../api.html"/>
+        <link rel="next" title="Online" href="online.html"/>
+        <link rel="prev" title="Authentication" href="authentication.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../index.html" class="icon icon-home"> Angular chat
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html">Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html#api">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../test_loading.html">Loading test data</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../owerview.html">Owerview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../owerview.html#angular-app-initialization">Angular app initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../angularapp.html">Angular application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ng/application.html">Application</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ng/application.html#services">Services</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ng/controllers.html">Controllers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ng/controllers.html#contactctrl-js">contactCtrl.js</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ng/services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ng/directives.html">Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ng/tpapp.html">Client side application.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ng/tpapp.html#tpapp-js">tpapp.js</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../djangoapp.html">Django  application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../djangoapp.html#module-chat.views_api.auth">Authentication views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../djangoapp.html#module-chat.views_api.contact">Contact views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../djangoapp.html#online-views">Online  views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../djangoapp.html#module-chat.views_api.room">Room views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_structure.html">File structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../socketserver.html">Socketserver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../db.html">Database structure</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">Signalserver API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="authentication.html">Authentication</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Contact</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="online.html">Online</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../model.html">Chat Model</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../uml.html">UML diagrams</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../uml/inicialization.html">Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/disconnect.html">Disconect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/invite.html">Chat invitation from man</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/user-case.html">User case diagramm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/database.html">Database diagramm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/tornado.html">Tornado Websocket server application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/angular.html">Angular application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/state.html">State diagramms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/state.html#invitation">Invitation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security.html">Security</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Angular chat</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../api.html">Signalserver API</a> &raquo;</li>
+      
+    <li>Contact</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/contact.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="contact">
+<h1>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul class="simple">
+</ul>
+</div>
+<span class="target" id="module-chat.views_api.contact"></span><dl class="function">
+<dt id="chat.views_api.contact.add_contact">
+<code class="descclassname">chat.views_api.contact.</code><code class="descname">add_contact</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/chat/views_api/contact.html#add_contact"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.contact.add_contact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new contact to owner</p>
+<p>[server]/api/[app_name]/[owner_id]/[contact_id]/add_contact</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/14/15/add_contact">http://chat.localhost/api/tpa1com/14/15/add_contact</a></p>
+<p>Responce 1: { &#8216;status&#8217;: 0, &#8216;message&#8217;: &#8216;Contact has been added&#8217; }</p>
+<p>Responce 2: { &#8216;status&#8217;: 1, &#8216;message&#8217;: &#8216;Contact is already exists&#8217; }</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.contact.del_all_contacts">
+<code class="descclassname">chat.views_api.contact.</code><code class="descname">del_all_contacts</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/chat/views_api/contact.html#del_all_contacts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.contact.del_all_contacts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Del all contacts in owner</p>
+<p>[server]/api/[app_name]/[owner_id]/del_all_contacts</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/150043/del_all_contacts">http://chat.localhost/api/tpa1com/150043/del_all_contacts</a></p>
+<p>Responce 1: { &#8216;status&#8217;: 0, &#8216;message&#8217;: &#8216;All Contacts have been deleted.&#8217; }</p>
+<p>Responce 2: { &#8216;status&#8217;: 1, &#8216;message&#8217;: &#8216;List Contacts is empty.&#8217; }</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.contact.del_contact">
+<code class="descclassname">chat.views_api.contact.</code><code class="descname">del_contact</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/chat/views_api/contact.html#del_contact"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.contact.del_contact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Del contact in owner</p>
+<p>[server]/api/[app_name]/[owner_id]/[contact_id]/del_contact</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/14/15/del_contact">http://chat.localhost/api/tpa1com/14/15/del_contact</a></p>
+<p>Responce 1: { &#8216;status&#8217;: 0, &#8216;message&#8217;: &#8216;Contact has been deleted&#8217; }</p>
+<p>Responce 2: { &#8216;status&#8217;: 1, &#8216;message&#8217;: &#8216;Contact does not exist.&#8217; }</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.contact.get_contact_list">
+<code class="descclassname">chat.views_api.contact.</code><code class="descname">get_contact_list</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/chat/views_api/contact.html#get_contact_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.contact.get_contact_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function returns user&#8217;s contact list</p>
+<p>[server]/api/[app_name]/[user_id]/get_contact_list</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/1/get_contact_list">http://chat.localhost/api/tpa1com/1/get_contact_list</a></p>
+<p>Responce:  {&#8220;status&#8221;: 0, &#8220;message&#8221;: &#8220;ok&#8221;, &#8220;contact_list&#8221;: [{&#8220;image&#8221;: &#8220;/static/images/avatar.jpg&#8221;, &#8220;is_invisible&#8221;: false, &#8220;is_invitation_enabled&#8221;: true, &#8220;culture&#8221;: &#8220;ru&#8221;, &#8220;birthday&#8221;: &#8220;1996-12-08&#8221;, &#8220;id&#8221;: 44, &#8220;city&#8221;: &#8220;Washava&#8221;, &#8220;user_id&#8221;: 3, &#8220;name&#8221;: &#8220;serg&#8221;, &#8220;country&#8221;: &#8220;Poland&#8221;, &#8220;gender&#8221;: &#8220;m&#8221;, &#8220;profile_url&#8221;: &#8220;serg_plofile_url&#8221;, &#8220;is_camera_active&#8221;: false}]}</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.contact.send_invitation">
+<code class="descclassname">chat.views_api.contact.</code><code class="descname">send_invitation</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/chat/views_api/contact.html#send_invitation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.contact.send_invitation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function saves invitation from woman.</p>
+<p>parameters by POST: app_name,owner_id,contact_id,message</p>
+<p>[server]/api/send_invitation</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/send_invitation">http://chat.localhost/api/send_invitation</a></p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="online.html" class="btn btn-neutral float-right" title="Online" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="authentication.html" class="btn btn-neutral" title="Authentication" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Dmitry.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

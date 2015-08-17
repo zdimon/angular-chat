@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>chat.views_api.auth &mdash; Angular chat 1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Angular chat 1 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../../index.html" class="icon icon-home"> Angular chat
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integration.html">Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integration.html#api">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../test_loading.html">Loading test data</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../owerview.html">Owerview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../owerview.html#angular-app-initialization">Angular app initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../angularapp.html">Angular application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../ng/application.html">Application</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../ng/application.html#services">Services</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../ng/controllers.html">Controllers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../ng/controllers.html#contactctrl-js">contactCtrl.js</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../ng/services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../ng/directives.html">Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../ng/tpapp.html">Client side application.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../ng/tpapp.html#tpapp-js">tpapp.js</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../djangoapp.html">Django  application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../djangoapp.html#module-chat.views_api.auth">Authentication views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../djangoapp.html#module-chat.views_api.contact">Contact views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../djangoapp.html#online-views">Online  views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../djangoapp.html#module-chat.views_api.room">Room views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../file_structure.html">File structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../socketserver.html">Socketserver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../db.html">Database structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Signalserver API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/authentication.html">Authentication</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/contact.html">Contact</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/online.html">Online</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../model.html">Chat Model</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../uml.html">UML diagrams</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../uml/inicialization.html">Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../uml/disconnect.html">Disconect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../uml/invite.html">Chat invitation from man</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../uml/user-case.html">User case diagramm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../uml/database.html">Database diagramm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../uml/tornado.html">Tornado Websocket server application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../uml/angular.html">Angular application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../uml/state.html">State diagramms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../uml/state.html#invitation">Invitation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../security.html">Security</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">Angular chat</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>chat.views_api.auth</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for chat.views_api.auth</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">jsonview.decorators</span> <span class="kn">import</span> <span class="n">json_view</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">utils.util</span> <span class="kn">import</span> <span class="n">read_conf</span><span class="p">,</span> <span class="n">get_url_by_name</span>
+<span class="kn">from</span> <span class="nn">django.views.decorators.csrf</span> <span class="kn">import</span> <span class="n">csrf_exempt</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">chat.models</span> <span class="kn">import</span> <span class="n">ChatUser</span>
+
+<span class="kn">from</span> <span class="nn">utils.db</span> <span class="kn">import</span> <span class="n">MyDB</span>
+<span class="n">bd</span> <span class="o">=</span> <span class="n">MyDB</span><span class="p">()</span>
+
+
+<span class="nd">@json_view</span>
+<div class="viewcode-block" id="get_balance"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.auth.get_balance">[docs]</a><span class="k">def</span> <span class="nf">get_balance</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">user_id</span><span class="p">,</span><span class="n">app_name</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">        Get user&#39;s balance</span>
+
+<span class="sd">        [server]/api/[app_name]/[user_id]/get_balance</span>
+
+<span class="sd">        Example: http://chat.localhost/api/tpa1com/150040/get_balance</span>
+
+<span class="sd">        Return: {&#39;status&#39;: 0, &#39;user_id&#39;: 150040, &#39;balance&#39;: 35}</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="c">#try:</span>
+    <span class="n">sql</span> <span class="o">=</span> <span class="s">&#39;select coins from users where login=&quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span> <span class="o">%</span> <span class="n">user_id</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">bd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+    <span class="c">#print(user)</span>
+    <span class="c">#print &#39;---&#39;+str(user[&#39;coins&#39;])</span>
+    <span class="k">if</span> <span class="n">user</span><span class="p">[</span><span class="s">&#39;coins&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">:</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="n">status</span><span class="p">,</span> <span class="s">&#39;user_id&#39;</span><span class="p">:</span> <span class="n">user_id</span><span class="p">,</span> <span class="s">&#39;balance&#39;</span><span class="p">:</span> <span class="n">user</span><span class="p">[</span><span class="s">&#39;coins&#39;</span><span class="p">]}</span>
+    <span class="c">#except:</span>
+    <span class="c">#    return {&#39;status&#39;: 1, &#39;id&#39;: 0}</span>
+
+</div>
+<span class="nd">@json_view</span>
+<div class="viewcode-block" id="is_auth"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.auth.is_auth">[docs]</a><span class="k">def</span> <span class="nf">is_auth</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">app_name</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">        Checking if user authenticated or not.</span>
+
+<span class="sd">        [server]/api/[app_name]/is_auth </span>
+
+<span class="sd">        Example: http://chat.localhost/api/tpa1com/is_auth</span>
+
+<span class="sd">        Return: {&#39;status&#39;: 0, &#39;user_id&#39;: request.session[&#39;user_id&#39;]}</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">is_auth</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s">&#39;is_auth&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s">&#39;user_id&#39;</span><span class="p">]}</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+    
+</div>
+<span class="nd">@json_view</span>
+<div class="viewcode-block" id="login"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.auth.login">[docs]</a><span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">user_id</span><span class="p">,</span> <span class="n">app_name</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">        Login function. Set couple variables</span>
+<span class="sd"> </span>
+<span class="sd">             request.session[&#39;is_auth&#39;]</span>
+
+<span class="sd">             request.session[&#39;user_id&#39;]  </span>
+
+<span class="sd">            [server]/api/[user_id]/[app_name]login  </span>
+
+<span class="sd">         Example: http://chat.localhost/api/150014/tpa1com/login   </span>
+
+<span class="sd">            http://chat.localhost/api/150043/tpa1com/login</span>
+<span class="sd">    </span>
+<span class="sd">            http://chat.localhost/api/150031/tpa1com/login</span>
+
+<span class="sd">        in session to determitate authentication status </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cuser</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">get_url_by_name</span><span class="p">(</span><span class="s">&#39;get_profile_from_tpa&#39;</span><span class="p">,{</span><span class="s">&#39;user_id&#39;</span><span class="p">:</span><span class="n">user_id</span><span class="p">,</span> <span class="s">&#39;app_name&#39;</span><span class="p">:</span> <span class="n">app_name</span><span class="p">})</span>
+        <span class="k">print</span> <span class="s">&#39;REQUEST_____</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">url</span>
+        <span class="n">responce</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">cuser</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s">&#39;is_auth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;true&#39;</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s">&#39;user_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">user_id</span>
+    <span class="c">#return { &#39;status&#39;: 0, &#39;user_id&#39;: user_id, &#39;username&#39;: cuser.name }</span>
+    <span class="kn">from</span> <span class="nn">djapp.settings</span> <span class="kn">import</span> <span class="n">TPA_SERVER</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s">&#39;http://</span><span class="si">%s</span><span class="s">/video-chat&#39;</span> <span class="o">%</span> <span class="n">TPA_SERVER</span><span class="p">)</span>
+     
+
+
+</div>
+<span class="nd">@json_view</span>
+<div class="viewcode-block" id="logout"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.auth.logout">[docs]</a><span class="k">def</span> <span class="nf">logout</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">        Logout function. </span>
+<span class="sd">        </span>
+<span class="sd">        [server]/api/logout</span>
+
+<span class="sd">        Delete variables request.session[&#39;is_auth&#39;] and request.session[&#39;user_id&#39;] from session </span>
+<span class="sd">        Example: http://chat.localhost/api/logout</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">del</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s">&#39;is_auth&#39;</span><span class="p">]</span>
+    <span class="k">del</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s">&#39;user_id&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span> <span class="p">}</span>
+
+
+    
+</pre></div></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Dmitry.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

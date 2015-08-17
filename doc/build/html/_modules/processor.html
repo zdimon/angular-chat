@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>processor &mdash; Angular chat 1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Angular chat 1 documentation" href="../index.html"/>
+        <link rel="up" title="Module code" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../index.html" class="icon icon-home"> Angular chat
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html">Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../test_loading.html">Loading test data</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../owerview.html">Owerview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../owerview.html#angular-app-initialization">Angular app initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../angularapp.html">Angular application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ng/application.html">Application</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ng/application.html#services">Services</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ng/controllers.html">Controllers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ng/controllers.html#useronlinectrl">UserOnlineCtrl</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ng/services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ng/directives.html">Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ng/tpapp.html">Client side application.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ng/tpapp.html#tpapp-js">tpapp.js</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../djangoapp.html">Django  application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../djangoapp.html#module-chat.views_api.auth">Authentication views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../djangoapp.html#module-chat.views_api.contact">Contact views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../djangoapp.html#online-views">Online  views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../djangoapp.html#module-chat.views_api.room">Room views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_structure.html">File structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../socketserver.html">Socketserver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../db.html">Database structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Signalserver API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/authentication.html">Authentication</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/contact.html">Contact</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/online.html">Online</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../model.html">Chat Model</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../uml.html">UML diagrams</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../uml/inicialization.html">Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/disconnect.html">Disconect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/invite.html">Chat invitation from man</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/user-case.html">User case diagramm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/database.html">Database diagramm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/tornado.html">Tornado Websocket server application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/angular.html">Angular application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/state.html">State diagramms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/state.html#invitation">Invitation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security.html">Security</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Angular chat</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Module code</a> &raquo;</li>
+      
+    <li>processor</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for processor</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">brukva</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">brukva</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
+<span class="n">c</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="s">&#39;DEBUG&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MessageProcessor"><a class="viewcode-back" href="../socketserver.html#processor.MessageProcessor">[docs]</a><span class="k">class</span> <span class="nc">MessageProcessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;This  class manages with income messages from javascript. &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MessageProcessor</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">brukva</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
+
+
+
+
+    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">message</span><span class="p">):</span>  
+        <span class="k">if</span> <span class="n">message</span><span class="p">[</span><span class="s">&#39;action&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;send_message&#39;</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&#39;jjjjjjjjjjjjjjjjjjjjjjjjjjjjj&#39;</span>
+
+
+
+
+            </div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Dmitry.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

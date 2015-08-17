@@ -1,0 +1,452 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Django application &mdash; Angular chat 1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Angular chat 1 documentation" href="index.html"/>
+        <link rel="next" title="File structure" href="file_structure.html"/>
+        <link rel="prev" title="Client side application." href="ng/tpapp.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Angular chat
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html">Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#api">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_loading.html">Loading test data</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="owerview.html">Owerview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="owerview.html#angular-app-initialization">Angular app initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="angularapp.html">Angular application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ng/application.html">Application</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ng/application.html#services">Services</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ng/controllers.html">Controllers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ng/controllers.html#contactctrl-js">contactCtrl.js</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ng/services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ng/directives.html">Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ng/tpapp.html">Client side application.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ng/tpapp.html#tpapp-js">tpapp.js</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Django  application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#module-chat.views_api.auth">Authentication views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#module-chat.views_api.contact">Contact views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#online-views">Online  views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#module-chat.views_api.room">Room views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_structure.html">File structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="socketserver.html">Socketserver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="db.html">Database structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Signalserver API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/authentication.html">Authentication</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/contact.html">Contact</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/online.html">Online</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">Chat Model</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="uml.html">UML diagrams</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uml/inicialization.html">Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uml/disconnect.html">Disconect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uml/invite.html">Chat invitation from man</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uml/user-case.html">User case diagramm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uml/database.html">Database diagramm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uml/tornado.html">Tornado Websocket server application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uml/angular.html">Angular application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uml/state.html">State diagramms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uml/state.html#invitation">Invitation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Angular chat</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Django  application</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/djangoapp.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="django-application">
+<h1>Django  application<a class="headerlink" href="#django-application" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="module-chat.views_api.auth">
+<span id="authentication-views"></span><h1>Authentication views<a class="headerlink" href="#module-chat.views_api.auth" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="chat.views_api.auth.get_balance">
+<code class="descclassname">chat.views_api.auth.</code><code class="descname">get_balance</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/auth.html#get_balance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.auth.get_balance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get user&#8217;s balance</p>
+<p>[server]/api/[app_name]/[user_id]/get_balance</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/150040/get_balance">http://chat.localhost/api/tpa1com/150040/get_balance</a></p>
+<p>Return: {&#8216;status&#8217;: 0, &#8216;user_id&#8217;: 150040, &#8216;balance&#8217;: 35}</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.auth.is_auth">
+<code class="descclassname">chat.views_api.auth.</code><code class="descname">is_auth</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/auth.html#is_auth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.auth.is_auth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checking if user authenticated or not.</p>
+<p>[server]/api/[app_name]/is_auth</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/is_auth">http://chat.localhost/api/tpa1com/is_auth</a></p>
+<p>Return: {&#8216;status&#8217;: 0, &#8216;user_id&#8217;: request.session[&#8216;user_id&#8217;]}</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.auth.login">
+<code class="descclassname">chat.views_api.auth.</code><code class="descname">login</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/auth.html#login"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.auth.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Login function. Set couple variables</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote>
+<div><p>request.session[&#8216;is_auth&#8217;]</p>
+<p>request.session[&#8216;user_id&#8217;]</p>
+</div></blockquote>
+<p>[server]/api/[user_id]/[app_name]login</p>
+</div></blockquote>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/150014/tpa1com/login">http://chat.localhost/api/150014/tpa1com/login</a></p>
+<blockquote>
+<div><p><a class="reference external" href="http://chat.localhost/api/150043/tpa1com/login">http://chat.localhost/api/150043/tpa1com/login</a></p>
+<p><a class="reference external" href="http://chat.localhost/api/150031/tpa1com/login">http://chat.localhost/api/150031/tpa1com/login</a></p>
+</div></blockquote>
+</div></blockquote>
+<p>in session to determitate authentication status</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.auth.logout">
+<code class="descclassname">chat.views_api.auth.</code><code class="descname">logout</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/auth.html#logout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.auth.logout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logout function.</p>
+<p>[server]/api/logout</p>
+<p>Delete variables request.session[&#8216;is_auth&#8217;] and request.session[&#8216;user_id&#8217;] from session 
+Example: <a class="reference external" href="http://chat.localhost/api/logout">http://chat.localhost/api/logout</a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-chat.views_api.contact">
+<span id="contact-views"></span><h1>Contact views<a class="headerlink" href="#module-chat.views_api.contact" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="chat.views_api.contact.add_contact">
+<code class="descclassname">chat.views_api.contact.</code><code class="descname">add_contact</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/contact.html#add_contact"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.contact.add_contact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new contact to owner</p>
+<p>[server]/api/[app_name]/[owner_id]/[contact_id]/add_contact</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/14/15/add_contact">http://chat.localhost/api/tpa1com/14/15/add_contact</a></p>
+<p>Responce 1: { &#8216;status&#8217;: 0, &#8216;message&#8217;: &#8216;Contact has been added&#8217; }</p>
+<p>Responce 2: { &#8216;status&#8217;: 1, &#8216;message&#8217;: &#8216;Contact is already exists&#8217; }</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.contact.del_all_contacts">
+<code class="descclassname">chat.views_api.contact.</code><code class="descname">del_all_contacts</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/contact.html#del_all_contacts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.contact.del_all_contacts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Del all contacts in owner</p>
+<p>[server]/api/[app_name]/[owner_id]/del_all_contacts</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/150043/del_all_contacts">http://chat.localhost/api/tpa1com/150043/del_all_contacts</a></p>
+<p>Responce 1: { &#8216;status&#8217;: 0, &#8216;message&#8217;: &#8216;All Contacts have been deleted.&#8217; }</p>
+<p>Responce 2: { &#8216;status&#8217;: 1, &#8216;message&#8217;: &#8216;List Contacts is empty.&#8217; }</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.contact.del_contact">
+<code class="descclassname">chat.views_api.contact.</code><code class="descname">del_contact</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/contact.html#del_contact"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.contact.del_contact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Del contact in owner</p>
+<p>[server]/api/[app_name]/[owner_id]/[contact_id]/del_contact</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/14/15/del_contact">http://chat.localhost/api/tpa1com/14/15/del_contact</a></p>
+<p>Responce 1: { &#8216;status&#8217;: 0, &#8216;message&#8217;: &#8216;Contact has been deleted&#8217; }</p>
+<p>Responce 2: { &#8216;status&#8217;: 1, &#8216;message&#8217;: &#8216;Contact does not exist.&#8217; }</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.contact.get_contact_list">
+<code class="descclassname">chat.views_api.contact.</code><code class="descname">get_contact_list</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/contact.html#get_contact_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.contact.get_contact_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function returns user&#8217;s contact list</p>
+<p>[server]/api/[app_name]/[user_id]/get_contact_list</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/1/get_contact_list">http://chat.localhost/api/tpa1com/1/get_contact_list</a></p>
+<p>Responce:  {&#8220;status&#8221;: 0, &#8220;message&#8221;: &#8220;ok&#8221;, &#8220;contact_list&#8221;: [{&#8220;image&#8221;: &#8220;/static/images/avatar.jpg&#8221;, &#8220;is_invisible&#8221;: false, &#8220;is_invitation_enabled&#8221;: true, &#8220;culture&#8221;: &#8220;ru&#8221;, &#8220;birthday&#8221;: &#8220;1996-12-08&#8221;, &#8220;id&#8221;: 44, &#8220;city&#8221;: &#8220;Washava&#8221;, &#8220;user_id&#8221;: 3, &#8220;name&#8221;: &#8220;serg&#8221;, &#8220;country&#8221;: &#8220;Poland&#8221;, &#8220;gender&#8221;: &#8220;m&#8221;, &#8220;profile_url&#8221;: &#8220;serg_plofile_url&#8221;, &#8220;is_camera_active&#8221;: false}]}</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.contact.send_invitation">
+<code class="descclassname">chat.views_api.contact.</code><code class="descname">send_invitation</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/contact.html#send_invitation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.contact.send_invitation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function saves invitation from woman.</p>
+<p>parameters by POST: app_name,owner_id,contact_id,message</p>
+<p>[server]/api/send_invitation</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/send_invitation">http://chat.localhost/api/send_invitation</a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="online-views">
+<h1>Online  views<a class="headerlink" href="#online-views" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-chat.views_api.online"></span><dl class="function">
+<dt id="chat.views_api.online.get_online">
+<code class="descclassname">chat.views_api.online.</code><code class="descname">get_online</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/online.html#get_online"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.online.get_online" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function return list of users with opposite gender who are on line</p>
+<p>[server]/api/[app_name]/[user_id]/get_online</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/150031/get_online">http://chat.localhost/api/tpa1com/150031/get_online</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.online.get_online_except_contact">
+<code class="descclassname">chat.views_api.online.</code><code class="descname">get_online_except_contact</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/online.html#get_online_except_contact"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.online.get_online_except_contact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function return list of users with opposite gender who are online except those who is not in contact list.</p>
+<p>[server]/api/[app_name]/[user_id]/get_online_except_contact</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/150031/get_online_except_contact">http://chat.localhost/api/tpa1com/150031/get_online_except_contact</a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-chat.views_api.room">
+<span id="room-views"></span><h1>Room views<a class="headerlink" href="#module-chat.views_api.room" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="chat.views_api.room.add_me_to_contact_if_not_exist">
+<code class="descclassname">chat.views_api.room.</code><code class="descname">add_me_to_contact_if_not_exist</code><span class="sig-paren">(</span><em>tpa</em>, <em>owner</em>, <em>opponent</em>, <em>chanel</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/room.html#add_me_to_contact_if_not_exist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.room.add_me_to_contact_if_not_exist" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>owner</strong> &#8211; </li>
+<li><strong>opponent</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.room.get_messages">
+<code class="descclassname">chat.views_api.room.</code><code class="descname">get_messages</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/room.html#get_messages"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.room.get_messages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function get message in DB for room and app_name</p>
+<p>[server]/api/[room_id]/get_message</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/23/get_message">http://chat.localhost/api/23/get_message</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.room.get_room_or_create">
+<code class="descclassname">chat.views_api.room.</code><code class="descname">get_room_or_create</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/room.html#get_room_or_create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.room.get_room_or_create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function return existed room identifier or create new room.
+Also it create two records in ChatUser2Room model.</p>
+<p>[server]/api/[app_name]/[caler_id]/[opponent_id]/get_online</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/150031/150014/get_online">http://chat.localhost/api/tpa1com/150031/150014/get_online</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.room.invite">
+<code class="descclassname">chat.views_api.room.</code><code class="descname">invite</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/room.html#invite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.room.invite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function send invite to opponent.</p>
+<p>Add the opponent to the contact list.</p>
+<p>Mark contact as active</p>
+<p>Create the room. Put the user into the room.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.room.mark_new_message">
+<code class="descclassname">chat.views_api.room.</code><code class="descname">mark_new_message</code><span class="sig-paren">(</span><em>room</em>, <em>owner</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/room.html#mark_new_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.room.mark_new_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get contact object and set has_new_message is Tru if this contact is not active.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>owner</strong> &#8211; </li>
+<li><strong>room</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">contact</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.room.multi_invitation">
+<code class="descclassname">chat.views_api.room.</code><code class="descname">multi_invitation</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/room.html#multi_invitation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.room.multi_invitation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function send invite to multiply opponent.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.room.save_message">
+<code class="descclassname">chat.views_api.room.</code><code class="descname">save_message</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/room.html#save_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.room.save_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function save message owner in DB,</p>
+<p>Add owner to opponent&#8217;s contact list.</p>
+<p>If the message is first send notification to tpa side.</p>
+<p>parameters by POST: app_name,owner_id,room_id,message</p>
+<p>[server]/api/save_message</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/save_message">http://chat.localhost/api/save_message</a></p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="file_structure.html" class="btn btn-neutral float-right" title="File structure" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ng/tpapp.html" class="btn btn-neutral" title="Client side application." accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Dmitry.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

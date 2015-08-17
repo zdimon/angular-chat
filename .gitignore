@@ -2,7 +2,7 @@
 *.pyc
 *~
 /www/js/lib
-/doc/build
+#/doc/build
 /djapp/db.sqlite3
 /djapp/djapp/local.py
 /www/js/app/local_config.js

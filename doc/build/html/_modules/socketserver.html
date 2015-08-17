@@ -1,0 +1,381 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>socketserver &mdash; Angular chat 1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Angular chat 1 documentation" href="../index.html"/>
+        <link rel="up" title="Module code" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../index.html" class="icon icon-home"> Angular chat
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html">Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html#api">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../test_loading.html">Loading test data</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../owerview.html">Owerview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../owerview.html#angular-app-initialization">Angular app initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../angularapp.html">Angular application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ng/application.html">Application</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ng/application.html#services">Services</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ng/controllers.html">Controllers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ng/controllers.html#contactctrl-js">contactCtrl.js</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ng/services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ng/directives.html">Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ng/tpapp.html">Client side application.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ng/tpapp.html#tpapp-js">tpapp.js</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../djangoapp.html">Django  application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../djangoapp.html#module-chat.views_api.auth">Authentication views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../djangoapp.html#module-chat.views_api.contact">Contact views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../djangoapp.html#online-views">Online  views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../djangoapp.html#module-chat.views_api.room">Room views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_structure.html">File structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../socketserver.html">Socketserver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../db.html">Database structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Signalserver API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/authentication.html">Authentication</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/contact.html">Contact</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/online.html">Online</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../model.html">Chat Model</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../uml.html">UML diagrams</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../uml/inicialization.html">Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/disconnect.html">Disconect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/invite.html">Chat invitation from man</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/user-case.html">User case diagramm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/database.html">Database diagramm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/tornado.html">Tornado Websocket server application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/angular.html">Angular application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/state.html">State diagramms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uml/state.html#invitation">Invitation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security.html">Security</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Angular chat</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Module code</a> &raquo;</li>
+      
+    <li>socketserver</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for socketserver</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">tornado.httpserver</span>
+<span class="kn">import</span> <span class="nn">tornado.websocket</span>
+<span class="kn">import</span> <span class="nn">tornado.ioloop</span>
+<span class="kn">import</span> <span class="nn">tornado.web</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">processor</span> <span class="kn">import</span> <span class="n">handle</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">brukva</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">brukva</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
+<span class="n">c</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="s">&#39;DEBUG&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="s">&#39;../djapp&#39;</span><span class="p">))</span>
+
+<span class="kn">from</span> <span class="nn">utils.db</span> <span class="kn">import</span> <span class="n">MyDB</span>
+<span class="n">bd</span> <span class="o">=</span> <span class="n">MyDB</span><span class="p">()</span>
+<span class="kn">import</span> <span class="nn">sockjs.tornado</span>
+ 
+<div class="viewcode-block" id="WSHandler"><a class="viewcode-back" href="../socketserver.html#socketserver.WSHandler">[docs]</a><span class="k">class</span> <span class="nc">WSHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">websocket</span><span class="o">.</span><span class="n">WebSocketHandler</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Websocket server that uses the Tornado websocket handler.</span>
+<span class="sd">    Please run `pip install tornado` with python of version 2.7.9 or greater to install tornado.</span>
+<span class="sd">    &#39;&#39;&#39;</span> 
+    <span class="n">participants</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span> <span class="c"># List of users online</span>
+
+    <span class="k">def</span> <span class="nf">broadcast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">participants</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Initialization&#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">WSHandler</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">brukva</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_user_name</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tpa_id</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tpa_name</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">processor</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&#39;new connection&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">participants</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="WSHandler.subscribe"><a class="viewcode-back" href="../socketserver.html#socketserver.WSHandler.subscribe">[docs]</a>    <span class="k">def</span> <span class="nf">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Subscribing user to the channel in the REDIS server&#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">room</span><span class="p">)</span> <span class="c"># Redis subscribe</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;subscribing to room </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">room</span><span class="p">,</span> <span class="p">))</span> <span class="c"># Debug</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">redis_message</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">pass_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">message</span><span class="p">))</span> 
+
+      
+<div class="viewcode-block" id="WSHandler.on_message"><a class="viewcode-back" href="../socketserver.html#socketserver.WSHandler.on_message">[docs]</a>    <span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="s">&#39;Accepting message from javasctipt client&#39;</span>
+        <span class="k">print</span> <span class="s">&#39;message received:  </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">message</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> 
+
+        <span class="k">if</span> <span class="n">message</span><span class="p">[</span><span class="s">&#39;action&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;connect&#39;</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">chanel</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s">&quot;tpa&quot;</span><span class="p">],</span> <span class="n">message</span><span class="p">[</span><span class="s">&quot;user_id&quot;</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">chanel</span><span class="p">)</span>
+                <span class="n">tpa</span> <span class="o">=</span> <span class="n">bd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;select id, name from chat_tpa where name=&quot;</span><span class="si">%s</span><span class="s">&quot; &#39;</span> <span class="o">%</span> <span class="n">message</span><span class="p">[</span><span class="s">&quot;tpa&quot;</span><span class="p">])</span>
+                <span class="n">user</span> <span class="o">=</span> <span class="n">bd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;select name from chat_chatuser where user_id=&quot;</span><span class="si">%s</span><span class="s">&quot; &#39;</span> <span class="o">%</span> <span class="n">message</span><span class="p">[</span><span class="s">&quot;user_id&quot;</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s">&quot;user_id&quot;</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">current_user_name</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
+                
+                <span class="bp">self</span><span class="o">.</span><span class="n">tpa_id</span> <span class="o">=</span> <span class="n">tpa</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tpa_name</span> <span class="o">=</span> <span class="n">tpa</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;current tpa information </span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tpa_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tpa_name</span> <span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;connected&#39;</span><span class="p">,</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;user_id&#39;</span><span class="p">:</span>  <span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">,</span> <span class="s">&#39;user_name&#39;</span><span class="p">:</span>  <span class="bp">self</span><span class="o">.</span><span class="n">current_user_name</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;you have been connected to </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">chanel</span> <span class="p">}))</span> 
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_user_online</span><span class="p">()</span>
+                <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;update_users_online&#39;</span><span class="p">}</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">mes</span><span class="p">)</span>     
+                <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;set_me_online&#39;</span><span class="p">,</span> <span class="s">&#39;uid&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">}</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">mes</span><span class="p">)</span>  
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">print</span> <span class="n">e</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}))</span> 
+          
+        <span class="n">handle</span><span class="p">(</span><span class="n">message</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span>
+        
+        
+
+ </div>
+<div class="viewcode-block" id="WSHandler.on_close"><a class="viewcode-back" href="../socketserver.html#socketserver.WSHandler.on_close">[docs]</a>    <span class="k">def</span> <span class="nf">on_close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Method whith fires when connection is closed. &#39;&#39;&#39;</span>
+        <span class="k">print</span> <span class="s">&#39;connection closed&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_user_offline</span><span class="p">()</span>
+        <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;update_users_online&#39;</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">mes</span><span class="p">)</span> 
+        <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;set_me_offline&#39;</span><span class="p">,</span> <span class="s">&#39;uid&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">mes</span><span class="p">)</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">participants</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+</div>
+    <span class="k">def</span> <span class="nf">set_user_online</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">bd</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s">&#39;update chat_chatuser set is_online=1 where user_id=</span><span class="si">%s</span><span class="s"> and tpa_id=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tpa_id</span><span class="p">))</span>
+
+
+    <span class="k">def</span> <span class="nf">set_user_offline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">bd</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s">&#39;update chat_chatuser set is_online=0 where user_id=</span><span class="si">%s</span><span class="s"> and tpa_id=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tpa_id</span><span class="p">))</span>
+
+<div class="viewcode-block" id="WSHandler.redis_message"><a class="viewcode-back" href="../socketserver.html#socketserver.WSHandler.redis_message">[docs]</a>    <span class="k">def</span> <span class="nf">redis_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; recieving  message from redis server, </span>
+<span class="sd">            convertin it in json format </span>
+<span class="sd">            and sending it to the current chanel</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        
+        <span class="n">message</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+        <span class="k">print</span> <span class="n">message</span>
+        <span class="c">#self.write_message(json.dumps({&#39;status&#39;: 1}))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">message</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&quot;Can not send </span><span class="si">%s</span><span class="s"> to </span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">message</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">tpa_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">)</span>
+
+ </div>
+    <span class="k">def</span> <span class="nf">check_origin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">origin</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+ </div>
+<span class="n">application</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+    <span class="p">(</span><span class="s">r&#39;/ws&#39;</span><span class="p">,</span> <span class="n">WSHandler</span><span class="p">),</span>
+<span class="p">])</span>
+ 
+
+
+    
+        
+ 
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">http_server</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">httpserver</span><span class="o">.</span><span class="n">HTTPServer</span><span class="p">(</span><span class="n">application</span><span class="p">)</span>
+    <span class="n">http_server</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">8889</span><span class="p">)</span>
+    <span class="n">myIP</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostbyname</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">())</span>
+    <span class="k">print</span> <span class="s">&#39;*** Websocket Server Started at </span><span class="si">%s</span><span class="s">***&#39;</span> <span class="o">%</span> <span class="n">myIP</span>
+    <span class="c">#tornado.ioloop.PeriodicCallback(send_charge_request, 10000).start()</span>
+    <span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">IOLoop</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Dmitry.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
