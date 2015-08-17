@@ -13,7 +13,7 @@ c.connect()
 logger = logging.getLogger(__name__)
 logger.setLevel('DEBUG')
 import requests
-
+import time
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '../djapp'))
 
@@ -134,7 +134,64 @@ application = tornado.web.Application([
  
 
 
+def send_charge_request():
+    print "Charge request!"    
+    sql = '''select chat_chatroom.id, chat_chatroom.activity, chat_tpa.price_text_chat, chat_tpa.charge_url, chat_tpa.timeout_chating
+             from chat_chatroom, chat_tpa  
+             where 
+             chat_chatroom.tpa_id = chat_tpa.id and
+             is_charging="%s"''' % 1
+    rooms = bd.select(sql)
+    for room in rooms.record:
+        now = int(time.time())
+        timeout = room['activity']+room['timeout_chating']
+        #print 'checking %s %s' % (now,timeout)
+        if(now>timeout):
+            sql_update = ''' update chat_chatroom set is_charging=0 where id = %s  ''' % room['id']
+            bd.update(sql_update)
+            #print 'TIMOUT   00000000'
+        else:
+            data = []
+            # select users from room
+            sql = ''' select chat_chatuser.user_id, chat_chatuser.gender 
+                      from chat_chatuser, chat_chatuser2room
+                      where chat_chatuser2room.user_id = chat_chatuser.id 
+                            and chat_chatuser2room.room_id = %s 
+                  ''' % room['id']
+
+            users = bd.select(sql)
+            #print 'ROOM %s price %s url %s' % (room['id'], room['price_text_chat'], room['charge_url'] )
+            for u in users.record:
+                print 'room %s user %s' % (room['id'],u['gender'])
+                if u['gender'] == 'm':
+                    man = u['user_id']
+                else:
+                    woman = u['user_id']
+            data.append({'action': 'text_chat', 'user_id': man, 'opponent_id': woman, 'room_id': room['id']})
+            #print data
+            requests.post(room['charge_url'],data=json.dumps(data))
+
+
+'''
+[
     
+        {
+          'action': 'text_chat',
+          'user_id': 150040,
+          'opponent_id': 150042,
+          'room_id': 23
+        },
+
+        {
+          'action': 'text_chat',
+          'user_id': 150040,
+          'opponent_id': 150043,
+          'room_id': 24
+        }
+
+]'''
+
+        
         
  
 
@@ -144,6 +201,6 @@ if __name__ == "__main__":
     http_server.listen(8889)
     myIP = socket.gethostbyname(socket.gethostname())
     print '*** Websocket Server Started at %s***' % myIP
-    #tornado.ioloop.PeriodicCallback(send_charge_request, 10000).start()
+    tornado.ioloop.PeriodicCallback(send_charge_request, 60000).start()
     tornado.ioloop.IOLoop.instance().start()
     

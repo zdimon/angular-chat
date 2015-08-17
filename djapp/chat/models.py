@@ -78,8 +78,9 @@ class ChatRoom(models.Model):
     sign = models.CharField(max_length = 250, blank = True, verbose_name = _('Identifier'), editable = False)
     created = models.DateTimeField( auto_now = True, blank = True, null = True)
     tpa = models.ForeignKey(Tpa, verbose_name = _('TPA'))
-    is_charging = models.BooleanField(verbose_name = _('Allow charging?'), default = True)
+    is_charging = models.BooleanField(verbose_name = _('Allow charging?'), default = False)
     is_closed = models.BooleanField(verbose_name = _('Chat Closed'), default = False)
+    activity = models.IntegerField(blank = True, verbose_name = _('Activiti (sec)'), default = 0)
     class Meta:
         verbose_name = _("Chat session")
         verbose_name_plural = _("Chat sessions")
@@ -113,10 +114,13 @@ class ChatRoom(models.Model):
             return None
 
     def get_last_message_enother_user(self,mes):
+        self.activity = int(time.time())
+        self.save()
         try:
-            return ChatMessage.objects.filter(room=self).exclude(user=mes.user,is_old=False).order_by('id')[0:1][0]
+            return ChatMessage.objects.filter(room=self).exclude(user=mes.user).order_by('-id')[0:1][0]
         except:
             return None
+
 
 
         

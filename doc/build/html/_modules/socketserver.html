@@ -78,7 +78,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#inviting-link">Inviting link.</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../integration.html#api">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html#income-api">INCOME API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integration.html#request-to-get-information-about-user">1. Request to get information about user.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#response">RESPONSE</a></li>
 </ul>
@@ -109,6 +109,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../integration.html#request-to-block-unblock-user">7. Request to block/unblock user.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#id8">REQUEST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#id9">RESPONSE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html#outcome-api">OUTCOME API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html#request-to-add-user-to-the-contact-list">1. Request to add user to the contact list.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#id10">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#id11">RESPONSE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html#request-to-remove-user-from-the-contact-list">2. Request to remove user from the contact list.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#id12">REQUEST</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../test_loading.html">Loading test data</a><ul class="simple">
@@ -223,7 +233,7 @@
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="s">&#39;DEBUG&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">requests</span>
-
+<span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="s">&#39;../djapp&#39;</span><span class="p">))</span>
 
@@ -344,7 +354,64 @@
  
 
 
-    
+<span class="k">def</span> <span class="nf">send_charge_request</span><span class="p">():</span>
+    <span class="k">print</span> <span class="s">&quot;Charge request!&quot;</span>    
+    <span class="n">sql</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;select chat_chatroom.id, chat_chatroom.activity, chat_tpa.price_text_chat, chat_tpa.charge_url, chat_tpa.timeout_chating</span>
+<span class="s">             from chat_chatroom, chat_tpa  </span>
+<span class="s">             where </span>
+<span class="s">             chat_chatroom.tpa_id = chat_tpa.id and</span>
+<span class="s">             is_charging=&quot;</span><span class="si">%s</span><span class="s">&quot;&#39;&#39;&#39;</span> <span class="o">%</span> <span class="mi">1</span>
+    <span class="n">rooms</span> <span class="o">=</span> <span class="n">bd</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">room</span> <span class="ow">in</span> <span class="n">rooms</span><span class="o">.</span><span class="n">record</span><span class="p">:</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+        <span class="n">timeout</span> <span class="o">=</span> <span class="n">room</span><span class="p">[</span><span class="s">&#39;activity&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">room</span><span class="p">[</span><span class="s">&#39;timeout_chating&#39;</span><span class="p">]</span>
+        <span class="c">#print &#39;checking %s %s&#39; % (now,timeout)</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">now</span><span class="o">&gt;</span><span class="n">timeout</span><span class="p">):</span>
+            <span class="n">sql_update</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39; update chat_chatroom set is_charging=0 where id = </span><span class="si">%s</span><span class="s">  &#39;&#39;&#39;</span> <span class="o">%</span> <span class="n">room</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
+            <span class="n">bd</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">sql_update</span><span class="p">)</span>
+            <span class="c">#print &#39;TIMOUT   00000000&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="c"># select users from room</span>
+            <span class="n">sql</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39; select chat_chatuser.user_id, chat_chatuser.gender </span>
+<span class="s">                      from chat_chatuser, chat_chatuser2room</span>
+<span class="s">                      where chat_chatuser2room.user_id = chat_chatuser.id </span>
+<span class="s">                            and chat_chatuser2room.room_id = </span><span class="si">%s</span><span class="s"> </span>
+<span class="s">                  &#39;&#39;&#39;</span> <span class="o">%</span> <span class="n">room</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
+
+            <span class="n">users</span> <span class="o">=</span> <span class="n">bd</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+            <span class="c">#print &#39;ROOM %s price %s url %s&#39; % (room[&#39;id&#39;], room[&#39;price_text_chat&#39;], room[&#39;charge_url&#39;] )</span>
+            <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">users</span><span class="o">.</span><span class="n">record</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">&#39;room </span><span class="si">%s</span><span class="s"> user </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">room</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span><span class="n">u</span><span class="p">[</span><span class="s">&#39;gender&#39;</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">u</span><span class="p">[</span><span class="s">&#39;gender&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;m&#39;</span><span class="p">:</span>
+                    <span class="n">man</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="s">&#39;user_id&#39;</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">woman</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="s">&#39;user_id&#39;</span><span class="p">]</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;text_chat&#39;</span><span class="p">,</span> <span class="s">&#39;user_id&#39;</span><span class="p">:</span> <span class="n">man</span><span class="p">,</span> <span class="s">&#39;opponent_id&#39;</span><span class="p">:</span> <span class="n">woman</span><span class="p">,</span> <span class="s">&#39;room_id&#39;</span><span class="p">:</span> <span class="n">room</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]})</span>
+            <span class="c">#print data</span>
+            <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">room</span><span class="p">[</span><span class="s">&#39;charge_url&#39;</span><span class="p">],</span><span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">[</span>
+<span class="sd">    </span>
+<span class="sd">        {</span>
+<span class="sd">          &#39;action&#39;: &#39;text_chat&#39;,</span>
+<span class="sd">          &#39;user_id&#39;: 150040,</span>
+<span class="sd">          &#39;opponent_id&#39;: 150042,</span>
+<span class="sd">          &#39;room_id&#39;: 23</span>
+<span class="sd">        },</span>
+
+<span class="sd">        {</span>
+<span class="sd">          &#39;action&#39;: &#39;text_chat&#39;,</span>
+<span class="sd">          &#39;user_id&#39;: 150040,</span>
+<span class="sd">          &#39;opponent_id&#39;: 150043,</span>
+<span class="sd">          &#39;room_id&#39;: 24</span>
+<span class="sd">        }</span>
+
+<span class="sd">]&#39;&#39;&#39;</span>
+
+        
         
  
 
@@ -354,7 +421,7 @@
     <span class="n">http_server</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">8889</span><span class="p">)</span>
     <span class="n">myIP</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostbyname</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">())</span>
     <span class="k">print</span> <span class="s">&#39;*** Websocket Server Started at </span><span class="si">%s</span><span class="s">***&#39;</span> <span class="o">%</span> <span class="n">myIP</span>
-    <span class="c">#tornado.ioloop.PeriodicCallback(send_charge_request, 10000).start()</span>
+    <span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">PeriodicCallback</span><span class="p">(</span><span class="n">send_charge_request</span><span class="p">,</span> <span class="mi">60000</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
     <span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">IOLoop</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
     
 </pre></div>

@@ -73,8 +73,46 @@
           
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="integration.html">Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="integration.html#api">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html">Integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#online-indicator">Online indicator.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#active-cam-indicator">Active cam indicator.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#inviting-link">Inviting link.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#income-api">INCOME API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-get-information-about-user">1. Request to get information about user.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#response">RESPONSE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-get-know-is-user-authorized-or-not">2. Request to get know is user authorized or not.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id1">RESPONSE:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-get-user-s-balance">3 Request to get user&#8217;s balance.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id2">RESPONSE:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-of-charging-money-from-user-s-account-for-text-chating">4. Request of charging money from user&#8217;s account for text chating.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#request">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id3">RESPONSE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-add-remove-user-to-from-the-contact-list">5. Request to add/remove user to/from the contact list.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id4">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id5">RESPONSE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-add-user-to-favorites">6. Request to add user to favorites.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id6">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id7">RESPONSE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-block-unblock-user">7. Request to block/unblock user.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id8">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id9">RESPONSE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#outcome-api">OUTCOME API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="test_loading.html">Loading test data</a><ul class="simple">
 </ul>
 </li>
@@ -199,7 +237,7 @@
 
 <dl class="class">
 <dt id="chat.models.ChatRoom">
-<em class="property">class </em><code class="descclassname">chat.models.</code><code class="descname">ChatRoom</code><span class="sig-paren">(</span><em>id</em>, <em>duration</em>, <em>sign</em>, <em>created</em>, <em>tpa</em>, <em>is_charging</em>, <em>is_closed</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/models.html#ChatRoom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.models.ChatRoom" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">chat.models.</code><code class="descname">ChatRoom</code><span class="sig-paren">(</span><em>id</em>, <em>duration</em>, <em>sign</em>, <em>created</em>, <em>tpa</em>, <em>is_charging</em>, <em>is_closed</em>, <em>activity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/models.html#ChatRoom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.models.ChatRoom" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="class">

@@ -76,8 +76,8 @@ This link will send user to the chat page and put him in the room with opponent 
 
 
 
-API
-===
+INCOME API
+==========
 
 1. Request to get information about user.
 =========================================
@@ -294,6 +294,48 @@ RESPONSE
     { status:1, message: 'User not found'}
 
 
+
+OUTCOME API
+===========
+
+
+1. Request to add user to the contact list.
+===========================================
+
+REQUEST
+-------
+
+
+**URI** http://[server]/api/[app_name]/[owner_id]/[contact_id]/add_contact
+
+**[app_name]** - application identifire that was given after registration in the chat system.
+
+RESPONSE
+--------
+
+.. code-block:: json
+
+        Responce 1: { 'status': 0, 'message': 'Contact has been added' }
+
+        Responce 2: { 'status': 1, 'message': 'Contact is already exists' }  
+
+
+
+2. Request to remove user from the contact list.
+================================================
+
+REQUEST
+-------
+
+**URI** [server]/api/[app_name]/[owner_id]/[contact_id]/del_contact
+        
+**Example:** http://chat.localhost/api/tpa1com/14/15/del_contact
+
+.. code-block:: json
+
+    Responce 1: { 'status': 0, 'message': 'Contact has been deleted' }
+
+    Responce 2: { 'status': 1, 'message': 'Contact does not exist.' }
 
 
 

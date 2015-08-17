@@ -240,47 +240,24 @@ def charge_for_chat(lm,room,tpa):
     from django.utils.dateformat import format
     import time
     print('Charging for chat room %s price %s timeout %s' % (room, tpa.price_text_chat, tpa.timeout_chating))
-    #import pdb; pdb.set_trace()
-
-    #try:
-
     curt = int(format(lm.created, 'U'))
-    if(room.is_charging==True):
-        paytime = int(time.time() - curt)
-        if (paytime < tpa.timeout_chating):
-            #room.is_charging = False
-            #room.save()
-            print 'DEDUCT FOR %s SEC' % paytime
-        else:
-            print 'TOO LONG %s SEC' % paytime
+    #try:
+    lme = room.get_last_message_enother_user(lm)        
+    en = int(format(lme.created, 'U'))   
+    fork = curt - en
+    if (fork<tpa.timeout_chating):
+        print '...DEDUCT FOR %s SEC' % fork
+        room.is_charging = True
+        room.save()
+    else:
+        room.is_charging = False
+        room.save()
+        print '...TOO LONG %s SEC' % fork
     #except:
+    #    print 'no messages'
     #    room.is_charging = False
     #    room.save()
-    try:
-        lme = room.get_last_message_enother_user(lm)        
-        en = int(format(lme.created, 'U'))   
-        fork = curt - en
-        if (fork<tpa.timeout_chating):
-            print '...DEDUCT FOR %s SEC' % fork
-            ChatMessage.objects.filter(room=room,id__lte=lm.id).update(is_old=True)
-        else:
-            ChatMessage.objects.filter(room=room,id__lte=lm.id).update(is_old=True)
-            print '...TOO LONG %s SEC' % fork
-    except:
-        pass
-    #print 'fork - %s ' % fork
-    #maxt = datetime.now() - timedelta(seconds=60)
-
-    #print 'lesssssssss %s --- %s' % (curt , maxt)
-    
-    #if (fork>tpa.timeout_chating):
-    #    room.is_charging = False
-    #    room.save()
-    #except:
-    #    room.is_charging = False
-    #    room.save()
-
-
+   
 
 
 
