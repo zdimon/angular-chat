@@ -230,7 +230,7 @@ def multi_invitation(request):
     data = {'message': b['message'], 'opponent': serialize_user(owner), 'id': id }
     mes = { 'action': 'show_multi_invite_notification', 'data': data }
     bclient.publish('%s_%s' % (b['app_name'], str(b['opponent_id'])), json.dumps(mes)) 
-    print 'sent to %s_%s ' %   (b['app_name'], str(b['opponent_id']))
+    #print 'sent to %s_%s ' %   (b['app_name'], str(b['opponent_id']))
     return  { 'status': 0, 'message': 'ok' }
 
 
@@ -241,19 +241,20 @@ def charge_for_chat(lm,room,tpa):
     import time
     print('Charging for chat room %s price %s timeout %s' % (room, tpa.price_text_chat, tpa.timeout_chating))
     curt = int(format(lm.created, 'U'))
-    #try:
-    lme = room.get_last_message_enother_user(lm)        
-    en = int(format(lme.created, 'U'))   
-    fork = curt - en
-    if (fork<tpa.timeout_chating):
-        print '...DEDUCT FOR %s SEC' % fork
-        room.is_charging = True
-        room.save()
-    else:
-        room.is_charging = False
-        room.save()
-        print '...TOO LONG %s SEC' % fork
-    #except:
+    try:
+        lme = room.get_last_message_enother_user(lm)        
+        en = int(format(lme.created, 'U'))   
+        fork = curt - en
+        if (fork<tpa.timeout_chating):
+            print '...DEDUCT FOR %s SEC' % fork
+            room.is_charging = True
+            room.save()
+        else:
+            room.is_charging = False
+            room.save()
+            print '...TOO LONG %s SEC' % fork
+    except:
+        pass
     #    print 'no messages'
     #    room.is_charging = False
     #    room.save()

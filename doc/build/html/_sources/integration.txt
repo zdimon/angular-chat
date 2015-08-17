@@ -294,6 +294,32 @@ RESPONSE
     { status:1, message: 'User not found'}
 
 
+8. Request to chek if user blocked or not.
+==========================================
+
+**URI** http://[server]/chat-request/is_blocked?user_id=150014&blocked_id=150040
+
+Where: 
+
+**user_id** - user who is checking, and who want to talk with
+
+**blocked_id** - user who could block user who is checking
+
+
+RESPONSE
+--------
+
+.. code-block:: json
+
+    { status:0, is_blocked: 'yes/no'}
+
+
+.. code-block:: json
+
+    { status:1, message: 'User not found'}
+
+
+
 
 OUTCOME API
 ===========

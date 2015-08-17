@@ -183,21 +183,7 @@ class ChatMessage(models.Model):
         return _(u'Chat message')
 
 
-class ChatInvitations(models.Model):
-    from_user = models.ForeignKey(ChatUser, related_name = 'from_user')
-    to_user = models.ForeignKey(ChatUser, related_name = 'to_user')
-    created = models.DateTimeField( auto_now = True, blank = True)
-    is_accepted = models.BooleanField(default = False)
-    from_token = models.CharField(max_length = 250, blank = True)
-    tpa = models.ForeignKey(Tpa, verbose_name = _('TPA'))
 
-    class Meta:
-        verbose_name = "Invitation"
-        verbose_name_plural = "Invitations"
-        ordering = ['-id']
-
-    def __unicode__(self):
-        pass
 
 class ChatContacts(models.Model):
     owner = models.ForeignKey(ChatUser, related_name = 'contact_owner_user')
@@ -226,20 +212,7 @@ class ChatContacts(models.Model):
         pass
 
 
-class ChatFriends(models.Model):
-    owner = models.ForeignKey(ChatUser, related_name = 'friend_owner_user')
-    friend = models.ForeignKey(ChatUser, related_name = 'friend_user')
-    created = models.DateTimeField( auto_now = True, blank = True)
-    visible = models.BooleanField(default = True)
-    tpa = models.ForeignKey(Tpa, verbose_name = _('TPA'))
 
-    class Meta:
-        verbose_name = _("Chat friend")
-        verbose_name_plural = _("Chat friends")
-        ordering = ['-id']
-
-    def __unicode__(self):
-        pass
 
 
 class ChatTransactions(models.Model):

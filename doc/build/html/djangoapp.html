@@ -112,7 +112,20 @@
 <li class="toctree-l2"><a class="reference internal" href="integration.html#id9">RESPONSE</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-chek-if-user-blocked-or-not">8. Request to chek if user blocked or not.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id10">RESPONSE</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="integration.html#outcome-api">OUTCOME API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-add-user-to-the-contact-list">1. Request to add user to the contact list.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id11">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id12">RESPONSE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-remove-user-from-the-contact-list">2. Request to remove user from the contact list.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id13">REQUEST</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="test_loading.html">Loading test data</a><ul class="simple">
 </ul>
 </li>
@@ -306,7 +319,7 @@ Example: <a class="reference external" href="http://chat.localhost/api/logout">h
 
 <dl class="function">
 <dt id="chat.views_api.contact.send_invitation">
-<code class="descclassname">chat.views_api.contact.</code><code class="descname">send_invitation</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/contact.html#send_invitation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.contact.send_invitation" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">chat.views_api.contact.</code><code class="descname">send_invitation</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/contact.html#send_invitation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.contact.send_invitation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function saves invitation from woman.</p>
 <p>parameters by POST: app_name,owner_id,contact_id,message</p>
 <p>[server]/api/send_invitation</p>

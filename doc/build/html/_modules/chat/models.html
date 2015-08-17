@@ -111,14 +111,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../../integration.html#id9">RESPONSE</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../integration.html#request-to-chek-if-user-blocked-or-not">8. Request to chek if user blocked or not.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../integration.html#id10">RESPONSE</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../integration.html#outcome-api">OUTCOME API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../integration.html#request-to-add-user-to-the-contact-list">1. Request to add user to the contact list.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../integration.html#id10">REQUEST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../integration.html#id11">RESPONSE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration.html#id11">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration.html#id12">RESPONSE</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../integration.html#request-to-remove-user-from-the-contact-list">2. Request to remove user from the contact list.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../integration.html#id12">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration.html#id13">REQUEST</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../test_loading.html">Loading test data</a><ul class="simple">
@@ -402,22 +406,8 @@
     <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;Chat message&#39;</span><span class="p">)</span>
 
-</div>
-<div class="viewcode-block" id="ChatInvitations"><a class="viewcode-back" href="../../model.html#chat.models.ChatInvitations">[docs]</a><span class="k">class</span> <span class="nc">ChatInvitations</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="n">from_user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">related_name</span> <span class="o">=</span> <span class="s">&#39;from_user&#39;</span><span class="p">)</span>
-    <span class="n">to_user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">related_name</span> <span class="o">=</span> <span class="s">&#39;to_user&#39;</span><span class="p">)</span>
-    <span class="n">created</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span> <span class="n">auto_now</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
-    <span class="n">is_accepted</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
-    <span class="n">from_token</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
-    <span class="n">tpa</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Tpa</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;TPA&#39;</span><span class="p">))</span>
 
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
-        <span class="n">verbose_name</span> <span class="o">=</span> <span class="s">&quot;Invitation&quot;</span>
-        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s">&quot;Invitations&quot;</span>
-        <span class="n">ordering</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;-id&#39;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
 </div>
 <div class="viewcode-block" id="ChatContacts"><a class="viewcode-back" href="../../model.html#chat.models.ChatContacts">[docs]</a><span class="k">class</span> <span class="nc">ChatContacts</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">owner</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">related_name</span> <span class="o">=</span> <span class="s">&#39;contact_owner_user&#39;</span><span class="p">)</span>
@@ -445,21 +435,8 @@
     <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
 
-</div>
-<div class="viewcode-block" id="ChatFriends"><a class="viewcode-back" href="../../model.html#chat.models.ChatFriends">[docs]</a><span class="k">class</span> <span class="nc">ChatFriends</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="n">owner</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">related_name</span> <span class="o">=</span> <span class="s">&#39;friend_owner_user&#39;</span><span class="p">)</span>
-    <span class="n">friend</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">related_name</span> <span class="o">=</span> <span class="s">&#39;friend_user&#39;</span><span class="p">)</span>
-    <span class="n">created</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span> <span class="n">auto_now</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
-    <span class="n">visible</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
-    <span class="n">tpa</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Tpa</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;TPA&#39;</span><span class="p">))</span>
 
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
-        <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Chat friend&quot;</span><span class="p">)</span>
-        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Chat friends&quot;</span><span class="p">)</span>
-        <span class="n">ordering</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;-id&#39;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
 
 </div>
 <div class="viewcode-block" id="ChatTransactions"><a class="viewcode-back" href="../../model.html#chat.models.ChatTransactions">[docs]</a><span class="k">class</span> <span class="nc">ChatTransactions</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>

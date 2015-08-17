@@ -69,6 +69,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
         $scope.$on('show_message', function (event, data) { 
 
+              if($rootScope.new_messages === 'undefined') $rootScope.new_messages = []
               
               console.log(data);
 
@@ -128,6 +129,17 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
          });
 
         });
+
+        $rootScope.$on('show_invite_notification',function(event,data){
+            
+            //if(typeof $rootScope.chat_invitation == 'undefined' || $rootScope.chat_invitation == false)
+           // {
+                $rootScope.notifies[data.data.id] = data.data;
+           // }
+            log($rootScope.notifies);
+
+        })
+
 
 
     })

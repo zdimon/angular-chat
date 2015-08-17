@@ -3,7 +3,11 @@ from django.http import HttpResponse
 from chat.models import Tpa, ChatUser, ChatContacts
 from jsonview.decorators import json_view
 from utils.util import serialize_user
-
+import time
+import brukva
+bclient = brukva.Client()
+bclient.connect()
+from django.views.decorators.csrf import csrf_exempt
 
 def _add_contact(app_name,owner_id,contact_id):
     ''' 
@@ -129,7 +133,7 @@ def get_contact_list(request,app_name,user_id):
     return { 'status': 0, 'message': 'ok', 'contact_list': contactlst }
 
         
-
+@csrf_exempt
 @json_view
 def send_invitation(request):
     '''
@@ -143,22 +147,14 @@ def send_invitation(request):
     '''
     #import pdb; pdb.set_trace() 
     b = json.loads(request.body)
+    print b
     tpa = Tpa.objects.get(name=b['app_name'])
     owner = ChatUser.objects.get(tpa=tpa,user_id=int(b['owner_id']))
-    #room = ChatRoom.objects.get(tpa=tpa,id=int(b['room_id']))
-    #cm = ChatMessage()
-    #cm.tpa = tpa
-    #cm.user = owner
-    #m.room = room
-    #cm.message = b['message']
-    #gender = owner.gender
-    #cm.save()
-    #try:
-    #    for p in b['participants']:
-    #        mes = { 'action': 'show_message', 'room_id': b['room_id']}
-    #        bclient.publish(p, json.dumps(mes))   
-    #except Exception, e:
-    #    print e
+
+    data = {'message': b['message'], 'opponent': serialize_user(owner), 'id': int(time.time()) }
+    mes = { 'action': 'show_invite_notification', 'data': data }
+    bclient.publish('%s_%s' % (b['app_name'], str(b['contact_id'])), json.dumps(mes)) 
+
     return  { 'status': 0 }
 
 

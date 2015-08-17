@@ -111,14 +111,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id9">RESPONSE</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integration.html#request-to-chek-if-user-blocked-or-not">8. Request to chek if user blocked or not.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id10">RESPONSE</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integration.html#outcome-api">OUTCOME API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integration.html#request-to-add-user-to-the-contact-list">1. Request to add user to the contact list.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id10">REQUEST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id11">RESPONSE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id11">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id12">RESPONSE</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integration.html#request-to-remove-user-from-the-contact-list">2. Request to remove user from the contact list.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id12">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id13">REQUEST</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../test_loading.html">Loading test data</a><ul class="simple">
@@ -450,7 +454,7 @@
     <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="n">b</span><span class="p">[</span><span class="s">&#39;message&#39;</span><span class="p">],</span> <span class="s">&#39;opponent&#39;</span><span class="p">:</span> <span class="n">serialize_user</span><span class="p">(</span><span class="n">owner</span><span class="p">),</span> <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="nb">id</span> <span class="p">}</span>
     <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;show_multi_invite_notification&#39;</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span> <span class="n">data</span> <span class="p">}</span>
     <span class="n">bclient</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;app_name&#39;</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;opponent_id&#39;</span><span class="p">])),</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">mes</span><span class="p">))</span> 
-    <span class="k">print</span> <span class="s">&#39;sent to </span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s"> &#39;</span> <span class="o">%</span>   <span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;app_name&#39;</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;opponent_id&#39;</span><span class="p">]))</span>
+    <span class="c">#print &#39;sent to %s_%s &#39; %   (b[&#39;app_name&#39;], str(b[&#39;opponent_id&#39;]))</span>
     <span class="k">return</span>  <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;ok&#39;</span> <span class="p">}</span>
 
 
@@ -461,19 +465,20 @@
     <span class="kn">import</span> <span class="nn">time</span>
     <span class="k">print</span><span class="p">(</span><span class="s">&#39;Charging for chat room </span><span class="si">%s</span><span class="s"> price </span><span class="si">%s</span><span class="s"> timeout </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">room</span><span class="p">,</span> <span class="n">tpa</span><span class="o">.</span><span class="n">price_text_chat</span><span class="p">,</span> <span class="n">tpa</span><span class="o">.</span><span class="n">timeout_chating</span><span class="p">))</span>
     <span class="n">curt</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">format</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">created</span><span class="p">,</span> <span class="s">&#39;U&#39;</span><span class="p">))</span>
-    <span class="c">#try:</span>
-    <span class="n">lme</span> <span class="o">=</span> <span class="n">room</span><span class="o">.</span><span class="n">get_last_message_enother_user</span><span class="p">(</span><span class="n">lm</span><span class="p">)</span>        
-    <span class="n">en</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">format</span><span class="p">(</span><span class="n">lme</span><span class="o">.</span><span class="n">created</span><span class="p">,</span> <span class="s">&#39;U&#39;</span><span class="p">))</span>   
-    <span class="n">fork</span> <span class="o">=</span> <span class="n">curt</span> <span class="o">-</span> <span class="n">en</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">fork</span><span class="o">&lt;</span><span class="n">tpa</span><span class="o">.</span><span class="n">timeout_chating</span><span class="p">):</span>
-        <span class="k">print</span> <span class="s">&#39;...DEDUCT FOR </span><span class="si">%s</span><span class="s"> SEC&#39;</span> <span class="o">%</span> <span class="n">fork</span>
-        <span class="n">room</span><span class="o">.</span><span class="n">is_charging</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="n">room</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">room</span><span class="o">.</span><span class="n">is_charging</span> <span class="o">=</span> <span class="bp">False</span>
-        <span class="n">room</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-        <span class="k">print</span> <span class="s">&#39;...TOO LONG </span><span class="si">%s</span><span class="s"> SEC&#39;</span> <span class="o">%</span> <span class="n">fork</span>
-    <span class="c">#except:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">lme</span> <span class="o">=</span> <span class="n">room</span><span class="o">.</span><span class="n">get_last_message_enother_user</span><span class="p">(</span><span class="n">lm</span><span class="p">)</span>        
+        <span class="n">en</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">format</span><span class="p">(</span><span class="n">lme</span><span class="o">.</span><span class="n">created</span><span class="p">,</span> <span class="s">&#39;U&#39;</span><span class="p">))</span>   
+        <span class="n">fork</span> <span class="o">=</span> <span class="n">curt</span> <span class="o">-</span> <span class="n">en</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">fork</span><span class="o">&lt;</span><span class="n">tpa</span><span class="o">.</span><span class="n">timeout_chating</span><span class="p">):</span>
+            <span class="k">print</span> <span class="s">&#39;...DEDUCT FOR </span><span class="si">%s</span><span class="s"> SEC&#39;</span> <span class="o">%</span> <span class="n">fork</span>
+            <span class="n">room</span><span class="o">.</span><span class="n">is_charging</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="n">room</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">room</span><span class="o">.</span><span class="n">is_charging</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">room</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">print</span> <span class="s">&#39;...TOO LONG </span><span class="si">%s</span><span class="s"> SEC&#39;</span> <span class="o">%</span> <span class="n">fork</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
     <span class="c">#    print &#39;no messages&#39;</span>
     <span class="c">#    room.is_charging = False</span>
     <span class="c">#    room.save()</span>

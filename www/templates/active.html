@@ -1,6 +1,5 @@
 
 
-
  <!-- .wHeader -->
     <div class="wConteiner">
         <div class="wSize clearFix">
@@ -13,8 +12,8 @@
                 <a href="#" class="show_block">Click here to show video chat window</a>
             </div>
             <div class="fll mans">
-                <section ng-show="gender=='w'" ng-controller="multiInviteCtrl">
-                <a  ng-click="multiInviteWindow()" class="wButton wButtonA padd_max delivery_pop"><span>Multiple Invitations</span></a>
+                <section  ng-controller="multiInviteCtrl">
+                <a  ng-show="gender=='w'" ng-click="multiInviteWindow()" class="wButton wButtonA padd_max delivery_pop"><span>Multiple Invitations</span></a>
 
 
                  <div class="message_up_block">
@@ -28,7 +27,7 @@
                                         <img ng-src="Media/images/users/small/[[n.opponent.image]]" alt="">
                                     </div>
                                     <a ng-click="remove(n.id)">Close</a>
-                                    <a href="#" class="ignore_hid">Block</a>
+                                    <a ng-click="block(n.opponent.user_id,n.id)" class="ignore_hid">Block</a>
                                 </div>
                                 <div class="flr">
                                     <a href="#" class="name">[[n.opponent.name]], [[n.opponent.age]]</a>

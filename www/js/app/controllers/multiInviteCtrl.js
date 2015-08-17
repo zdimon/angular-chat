@@ -84,6 +84,11 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
             
         }
 
+         $scope.block = function(user_id,id){
+            alert(user_id+' blocking');
+            delete $rootScope.notifies[id];
+        }
+
 
         $scope.stopSending = function(){
             $scope.isSending = false;
