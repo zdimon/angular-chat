@@ -33,7 +33,8 @@ Add follows javascripts into the bottom of your page.
      <script src="/chatapp/local_config.js"></script>
 
 
-Insert online indicator.
+Online indicator.
+-----------------
 
 .. code-block:: html  
 
@@ -51,7 +52,8 @@ Or you can use ng-show directive to show and hide online indicator depending on 
 
     <a class="like int_pop" href="#invite_pop" ng-show="online.user_<?php echo $user->id ?>"></a>
 
-Insert active cam indicator.
+Active cam indicator.
+---------------------
 
 .. code-block:: html
 
@@ -59,10 +61,13 @@ Insert active cam indicator.
 
 
 Inviting link.
+--------------
+
+This link will send user to the chat page and put him in the room with opponent which id passed to invite() js function.
 
 .. code-block:: html
 
-    <a ng-click="invite(<?php echo $girl->login ?>)" class="web_chat "></a>
+    <a ng-click="invite(<?php echo $girl->login ?>)" class="web_chat ">Chat with me</a>
 
 
 
@@ -75,10 +80,12 @@ API
 ===
 
 1. Request to get information about current user.
+=================================================
 
-Request: http://localhost/chat-request/isLogin
+**URI** http:/[server]/chat-request/isLogin
 
-Responce:
+RESPONSE:
+---------
 
 if logined
 
@@ -88,58 +95,168 @@ if logined
 
 if not 
 
-.. code-block:: python
+.. code-block:: json
 
     {"id":"0" ,"success":false}
 
 2. Request to get user's balance.
+=================================
 
-    Request: [server]/api/[user_id]/[app_name]/get_balance
+**URI** http:/[server]/chat-request/getBalance?user_id=150040
 
-    Example: 
+RESPONSE:
+---------
 
+.. code-block:: json
 
-3. Request of charging money from user's account.
+    {'status': 0, 'user_id': 150040, 'balance': 35}
 
-Input data
+Where **status** define the necessity of notify user about low balance.
 
-.. code-block:: python
-
-            { 
-              'action': 'video/text_chat', 
-              'user_id': 150040, 
-              'opponent_id': 150042, 
-              'room_id': 23 
-            } 
-
-Where 
-
-user_id - man
-
-opponent_id - woman
+If **status** is 1 user will see pop up window with link directed to the billing page.
  
-room_id - identifier of the chat room. This parameter make it possible to collect the same payment in the one record of the database.
-
-.. code-block:: python
-
-    def charge(request):
-        json_data = json.loads(request.body)
-        sql = 'select id,coins from users where login="%s"' % json_data['user_id']
-        user = bd.get(sql)
-        if json_data['price']<user['coins']:
-            new_coins = user['coins'] - json_data['price']
-            sql = 'update users set coins=%s where id=%d' % (new_coins,user['id'])
-            print sql
-            bd.update(sql)
-            status = 0
-        else:
-            status = 1
-        return {'user_id': json_data['user_id'], 'account': user['coins'], 'status': status}
 
 
+3. Request of charging money from user's account for text chating.
+==================================================================
+
+REQUEST
+-------
+
+**url**: http://[server]/chat-request/charge
+
+.. code-block:: json
+
+            [
+                
+                    { 
+                      'action': 'text_chat', 
+                      'user_id': 150040, 
+                      'opponent_id': 150042, 
+                      'room_id': 23 
+                    },
+
+                    { 
+                      'action': 'text_chat', 
+                      'user_id': 150040, 
+                      'opponent_id': 150043, 
+                      'room_id': 24 
+                    }
+                    
+            ]
+             
+
+Json data represents group of payments where 
+
+**user_id** - man
+
+**opponent_id** - woman
+ 
+**room_id** - identifier of the chat room. This parameter make it possible to collect the same payments in the one record of the database.
+
+
+RESPONSE
+--------
+
+.. code-block:: json
+
+    [
+        {'user_id': 150040, 'balance': '23.78'},
+        {'user_id': 150041, 'balance': '20.03'}
+    ]
+
+
+4. Request to add/remove user to/from the contact list.
+=======================================================
+
+**URI** http://[server]/chat-request/contact
+
+
+REQUEST
+-------
+
+.. code-block:: json
+
+    {'user_id': 150040, 'opponent_id': 150032, 'action': 'add/delete'}
+
+
+RESPONSE
+--------
+
+.. code-block:: json
+
+    { status:0, message: 'ok'}
 
 
 
+.. code-block:: json
+
+    { status:1, message: 'User not found'}
+
+
+.. code-block:: json
+
+    { status:1, message: 'Contact is aleady exists'}
+
+
+
+5. Request to add user to favorites.
+====================================
+
+**URI** http://[server]/chat-request/add_fav
+
+
+REQUEST
+-------
+
+.. code-block:: json
+
+    { 'user_id': 150040, 'opponent_id': 150032 }
+
+
+RESPONSE
+--------
+
+.. code-block:: json
+
+    { status:0, message: 'ok'}
+
+
+.. code-block:: json
+
+    { status:1, message: 'User not found'}
+
+
+.. code-block:: json
+
+    { status:1, message: 'Favorite is aleady exists'}
+
+
+6. Request to block/unblock user.
+=================================
+
+**URI** http://[server]/chat-request/block
+
+
+REQUEST
+-------
+
+.. code-block:: json
+
+    { 'user_id': 150040, 'opponent_id': 150032, 'action': 'block/unblock' }
+
+
+RESPONSE
+--------
+
+.. code-block:: json
+
+    { status:0, message: 'ok'}
+
+
+.. code-block:: json
+
+    { status:1, message: 'User not found'}
 
 
 
