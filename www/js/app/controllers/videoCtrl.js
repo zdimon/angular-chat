@@ -50,41 +50,53 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
 
       $scope.showOpponentVideo = function(user_id){
-  
-                Room.getBalance().then( function(result){
 
-                if(result.data.status==1){
+                var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+user_id+"&url=rtmp://chat.mirbu.com/myapp&micOn=false&type=in" };  
 
-                    $rootScope.emptyAccountAlert();
-                    
+                if($rootScope.gender=='m') { // if man check balance and turn charging every min
 
-                } else {
-                     var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+user_id+"&url=rtmp://chat.mirbu.com/myapp&micOn=false&type=in" };
-                     swfobject.embedSWF("Media/chat.swf", "opponentVideo", "320", "240", "9.0.0", "expressInstall.swf", par);
-                     $rootScope.isOpponentCamEnabled = true;
-                     Video.showOpponentCam(function(result){
-                        // Initiate periodic calling to charge money
-                        $scope.invite_promise = $interval(function(){
+                    Room.getBalance().then( function(result){
 
-                            WS.send({ 'action': 'video_charge', 
-                                      'user_id': $rootScope.currentUserId, 
-                                      'app_name': local_config.app_name, 
-                                      'opponent_id': result.user_id, 
-                                      'room_id': $rootScope.room_id 
-                                    });
+                        if(result.data.status==1){
 
-                        }, 10000);
+                            $rootScope.emptyAccountAlert();
+                            
+                        } else {
 
-                        
-                    })
+                             swfobject.embedSWF("Media/chat.swf", "opponentVideo", "320", "240", "9.0.0", "expressInstall.swf", par);
+                             $rootScope.isOpponentCamEnabled = true;
+                             Video.showOpponentCam(function(result){
+                                // Initiate periodic calling to charge money
+                                $scope.invite_promise = $interval(function(){
+
+                                    WS.send({ 'action': 'video_charge', 
+                                              'user_id': $rootScope.currentUserId, 
+                                              'app_name': local_config.app_name, 
+                                              'opponent_id': result.user_id, 
+                                              'room_id': $rootScope.room_id 
+                                            });
+
+                                }, 10000);
+                             })
+
+                        }
+                    })                
+
+                } else { // if woman just turn cam on
+
+                  
+                        swfobject.embedSWF("Media/chat.swf", "opponentVideo", "320", "240", "9.0.0", "expressInstall.swf", par);
+                }
+        
+               
             
-                }        
-            })
+                        
+            }
 
            
 
             
-        }
+        
 
 
       $scope.hideOpponentVideo = function(){
