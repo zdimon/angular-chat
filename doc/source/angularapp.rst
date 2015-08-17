@@ -6,7 +6,7 @@ Angular application
 
     ng/application
     ng/routers
-    ng/controllers
+    ng/controllers 
     ng/services
     ng/directives
-    ng/tpapp
+    ng/tpapp     

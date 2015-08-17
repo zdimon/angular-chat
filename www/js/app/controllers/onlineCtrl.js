@@ -1,13 +1,4 @@
-/*"""
-onlineCtrl.js
-``````````````
 
-
- Populate users online
- 
-
-
-*/
     
  app.controller('UserOnlineCtrl',
         
@@ -16,17 +7,7 @@ onlineCtrl.js
          
    
         $scope.update = function(){
-        /*"""
-        .. function:: $scope.update()
 
-            Make request throw Online service.
-    
-            :pattern: [server]/api/[app_name]/get_online
-
-            :example: http://chat.localhost/api/tpa1com/get_online
-            
-            :result: Update  $scope.user_list parameter.
-        */
           Online.getOnlineExceptContact(function(rezult){
                 $scope.user_list = rezult.user_list;
             }) 
@@ -34,13 +15,7 @@ onlineCtrl.js
         $scope.update();
 
 
-
-        $scope.$on('update_users_online', function (event, data) {
-        /*"""
-        .. js:attribute:: $scope.$on
-            
-            :result: Subscribing on event update_users_online that comes from websocket service.
-        */        
+        $scope.$on('update_users_online', function (event, data) {      
            $scope.update()
         });
         

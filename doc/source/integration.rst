@@ -35,9 +35,15 @@ Add follows javascripts into the bottom of your page.
 
 Insert online indicator.
 
-.. code-block:: html
+.. code-block:: html  
 
     <x-online-indicator uid="online.user_<?php echo $user->id ?>"></x-online-indicator>
+
+This angular directive will use this thml template which will replace x-online-indicator tag.
+
+.. code-block:: html 
+
+    <p class="online online/offline">Online now</p>
 
 Or you can use ng-show directive to show and hide online indicator depending on  online.user_id variable in the angular's scope.
 
