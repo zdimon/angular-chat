@@ -32,16 +32,22 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
     
             It takes content of div by id $(document).find('#chat_message').html() 
            
+            Check if the message is not emply string.
+
             And makes request via Room service Room.sendMessage()
 
             Then clears textarea $(document).find('#chat_message').html("")
         */
 
         $scope.sendMessage = function(){
-            
+
             var message = $(document).find('#chat_message').html()
+
+            chm = message.replace('<br>','');
+            if(chm.length>0) {
+
            Room.sendMessage($scope.room_id, message, $rootScope.currentUserId, $scope.room_participants, $rootScope.gender, function(result) {
-              log(result);
+              log(message.length);
               if(result.status==1) {
                     $rootScope.emptyAccountAlert(); // when user has not money
                 } else { 
@@ -49,6 +55,8 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                 } 
               
             });
+
+            }
         };
 
 
