@@ -2,4 +2,9 @@ source ../bin/activate
 git add --all
 git commit -m 'auto'
 git push
+cd ~/www/marriage-brides.com/
+git add --all
+git commit -m 'auto'
+git push
+cd ~/www/ngchat_ve/chat/
 fab deploy
