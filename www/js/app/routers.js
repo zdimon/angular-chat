@@ -29,7 +29,7 @@
             .state('registered', {
 
                 url: "/:user",
-                templateUrl: "/static/templates/active.html",
+                //templateUrl: "/static/templates/active.html",
                 controller: function(){
    
                 }
@@ -39,7 +39,7 @@
             .state('active', {
 
                 url: "/:user/:opponent",
-                templateUrl: "/static/templates/active.html",
+                //templateUrl: "/static/templates/active.html",
 
                 controller: function($stateParams, Room, $rootScope, $log){
                 
