@@ -59,6 +59,23 @@ def _get_room_or_create(app_name,caler_id,opponent_id):
 
 
 @json_view
+def show_feather(request,app_name,room_id,opponent_id):
+    '''
+    Function sends message to user to show feather indicator to notice about user is started typing.
+    
+    [server]/api/[app_name]/[room_id]/[opponent_id]/show_feather
+
+    Example: http://chat.localhost/api/tpa1com/34/150014/show_feather
+    '''
+    mes = { 'action': 'show_feather', 
+            'room_id': room_id
+          }
+   
+    bclient.publish('%s_%s' % (app_name, opponent_id), json.dumps(mes))
+    return  { 'status': 0, 'message': 'Ok' }
+
+
+@json_view
 def get_room_or_create(request,app_name,caler_id,opponent_id):
     '''
     Function return existed room identifier or create new room.

@@ -14,6 +14,13 @@ urlpatterns = [
     url(r'^api/charge$', 'chat.views.charge', name='charge'), # simulate tpa request handler
     url(r'^api/(?P<app_name>[^\.]+)/config.js$', 'chat.views.config', name='config'), # simulate tpa request handler
     url(r'^admin/', include(admin.site.urls)),
+
+    #outcome API
+     url(r'^api/(?P<user_id>[^\.]+)/(?P<app_name>[^\.]+)/get_balance$', 'chat.views.get_balance', name='get_balance'),
+
+
+
+
 ]
 
 
@@ -22,10 +29,11 @@ import re
 apiconf = read_conf()
 
 for i in apiconf['api']:
-    a = apiconf['api'][i]['url'].replace('[server]/','')
-    for par in re.findall('\[(.*?)\]',a):
-        a = a.replace('[%s]' % par, '(?P<%s>[^\.]+)' % par)
-    urlpatterns += patterns(
-        '',
-        url(r'^%s$' % a,'chat.views.'+apiconf['api'][i]['name'])
-        )
+    if apiconf['api'][i]['type'] != 'outapi':
+        a = apiconf['api'][i]['url'].replace('[server]/','')
+        for par in re.findall('\[(.*?)\]',a):
+            a = a.replace('[%s]' % par, '(?P<%s>[^\.]+)' % par)
+        urlpatterns += patterns(
+            '',
+            url(r'^%s$' % a,'chat.views.'+apiconf['api'][i]['name'])
+            )

@@ -9,9 +9,9 @@ bd = MyDB()
 
 def read_conf():
     from djapp.settings import BASE_DIR, SS_SERVER
-    #path = BASE_DIR+'../www/api.conf.js'
+    path = BASE_DIR+'/templates/config.js.tpl'
     ar = BASE_DIR.split('/')
-    path = '/'.join(ar[:len(ar)-1])+'/www/js/app/config.js'
+    #path = '/'.join(ar[:len(ar)-1])+'/www/js/app/config.js'
     exec open(path).read()
     return apiconf
 

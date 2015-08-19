@@ -119,7 +119,8 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         
 
         $scope.$on('put_me_in_room', function (event, data) {
-           
+           var text_changed = 0;
+           $rootScope.feather = false;
            $scope.room_participants = [local_config.app_name+'_'+data.owner_id, local_config.app_name+'_'+data.contact_id];
            $rootScope.room_participants = [local_config.app_name+'_'+data.owner_id, local_config.app_name+'_'+data.contact_id];
            $scope.room_id = data.room_id;
@@ -134,16 +135,38 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
               
               $scope.messages = result.message;
               setTimeout(function(){scroolldown(),1000});
+
+              $(document).find('#chat_message').bind("DOMSubtreeModified",function(){
+                  if (text_changed==0){
+               
+                       Room.showFeather(data.contact.user_id, function(result) {
+
+                        $rootScope.feather = true;
+                       });
+                  }
+                  text_changed = 1;
+                });
+
          });
 
         });
 
+        $rootScope.$on('show_feather',function(event,data){
+            
+            
+            log('swow feather');
+
+        })
+
+
+        
+
         $rootScope.$on('show_invite_notification',function(event,data){
             
-            //if(typeof $rootScope.chat_invitation == 'undefined' || $rootScope.chat_invitation == false)
-           // {
+            if(typeof $rootScope.chat_invitation == 'undefined' || $rootScope.chat_invitation == false)
+            {
                 $rootScope.notifies[data.data.id] = data.data;
-           // }
+            }
             log($rootScope.notifies);
 
         })

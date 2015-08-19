@@ -9,8 +9,15 @@
                         getUserInfo: getUserInfo,
                         getMessages: getMessages,
                         sendMessage: sendMessage,
+                        showFeather: showFeather,
                         getBalance, getBalance
                     }
+
+            function showFeather(contact_id,callback) {
+                             var url = utils.prepare_url(apiconf.api.show_feather.url,{'[room_id]':$rootScope.room_id,'[opponent_id]':contact_id});
+                             return $http.get(url).success(callback);
+                        };
+
 
             function invite(contact_id,callback) {
                              var url = utils.prepare_url(apiconf.api.invite.url,{'[owner_id]':$rootScope.currentUserId,'[contact_id]':contact_id});

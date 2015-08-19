@@ -78,6 +78,13 @@
 
         }
 
+        if(message.action=='show_feather'){
+
+            $rootScope.$broadcast('show_feather',message);
+
+        }
+
+
         if(message.action=='show_invite_notification'){
 
             $rootScope.$broadcast('show_invite_notification',message);

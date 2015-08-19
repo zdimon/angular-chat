@@ -169,16 +169,24 @@ apiconf = {
             }, 
 
 
-        'get_balance':
+        'show_feather':
             {
                 'type': 'ajax',
+                'name': 'show_feather',
+                'url':  '[server]/api/[app_name]/[room_id]/[opponent_id]/show_feather'
+            },
+
+
+        'get_balance':
+            {
+                'type': 'outapi',
                 'name': 'get_balance',
                 'url':  '{{ tpa.get_balance_url }}'
             },
 
         'billing_page':
             {
-                'type': 'link',
+                'type': 'outapi',
                 'name': 'billing_page',
                 'url':  '{{ tpa.billing_page }}'
             }  
