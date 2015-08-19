@@ -26,7 +26,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
       $scope.showMyVideo = function(){
             var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://chat.mirbu.com/myapp&micOn=false&type=out" };
-            swfobject.embedSWF("Media/chat.swf", "myVideo", "320", "240", "9.0.0", "expressInstall.swf", par);
+            swfobject.embedSWF("Media/chat.swf", "myVideo", "320", "225", "9.0.0", "expressInstall.swf", par);
             $scope.isMyVideoActive = true;
 
             Video.showMyCam(function(){
