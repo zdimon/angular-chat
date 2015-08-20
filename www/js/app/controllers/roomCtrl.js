@@ -153,7 +153,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
         $rootScope.$on('show_feather',function(event,data){
             
-            
+            log(data);
 
             if(data.room_id==$rootScope.room_id){
             $rootScope.feather = true;
