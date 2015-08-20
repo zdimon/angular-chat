@@ -141,7 +141,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                
                        Room.showFeather(data.contact.user_id, function(result) {
 
-                        $rootScope.feather = true;
+                        
                        });
                   }
                   text_changed = 1;
@@ -154,7 +154,11 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         $rootScope.$on('show_feather',function(event,data){
             
             
-            log('swow feather');
+
+            if(data.room_id==$rootScope.room_id){
+            $rootScope.feather = true;
+            }
+          
 
         })
 

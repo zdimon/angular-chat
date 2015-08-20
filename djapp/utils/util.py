@@ -56,7 +56,6 @@ def clean_db():
     ChatStopword.objects.all().delete()
     ChatTemplates.objects.all().delete()
     ChatTransactions.objects.all().delete()
-    ChatFriends.objects.all().delete()
     ChatContacts.objects.all().delete()
     ChatMessage.objects.all().delete()
     ChatUser2Room.objects.all().delete()
@@ -73,6 +72,9 @@ def load_db():
     t = Tpa()
     t.name = 'tpa1com'
     t.domain ='tpa1.com'
+    t.get_balance_url = 'http://chat.localhost/api/[user_id]/tpa1com/get_balance'
+    t.billing_page = 'http://chat.localhost/account/get-coins'
+    t.charge_url = 'http://chat.localhost/api/charge'
     t.timeout_chating = 30
     t.save()
 
