@@ -25,7 +25,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
       $scope.isMyVideoActive = false;
 
       $scope.showMyVideo = function(){
-            var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://chat.mirbu.com/myapp&micOn=false&type=out" };
+            var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=out" };
             swfobject.embedSWF("Media/chat.swf", "myVideo", "320", "225", "9.0.0", "expressInstall.swf", par);
             $scope.isMyVideoActive = true;
 
@@ -51,7 +51,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
       $scope.showOpponentVideo = function(user_id){
 
-                var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+user_id+"&url=rtmp://chat.mirbu.com/myapp&micOn=false&type=in" };  
+                var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+user_id+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=in" };  
 
                 if($rootScope.gender=='m') { // if man check balance and turn charging every min
 
@@ -120,7 +120,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
 
     $rootScope.$on('update_cam_indicators',function(event,data){
-        if (!event.defaultPrevented) {
+        if (!event.defaultPrevented && typeof $rootScope.room_participants !== 'undefined') {
             event.defaultPrevented = true;
             for (var i = 0; i < $rootScope.room_participants.length; i++) {
                 var val = $rootScope.room_participants[i];
