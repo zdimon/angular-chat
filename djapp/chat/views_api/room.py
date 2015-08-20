@@ -7,7 +7,7 @@ from utils.util import read_conf
 from django.views.decorators.csrf import csrf_exempt
 import requests
 from django.contrib.auth.models import User
-from chat.models import ChatUser,ChatRoom,ChatMessage, ChatContacts
+from chat.models import ChatUser,ChatRoom,ChatMessage, ChatContacts, ChatStopword
 from chat.models import Tpa
 from utils.util import read_conf, serialize_user
 from utils.db import MyDB
@@ -88,12 +88,24 @@ def get_room_or_create(request,app_name,caler_id,opponent_id):
     return _get_room_or_create(app_name,caler_id,opponent_id)
 
 
+def stop_words(message):
+    stopwords = []
+    stopwordsreplace = []
+    for i in ChatStopword.objects.all():
+        stopwords.append(i.word)
+        stopwordsreplace.append(i.replace)
+    if (any(substring in message for substring in stopwords)):
+        for i,s in enumerate(stopwords):
+            message = message.replace(s,stopwordsreplace[i])
+    return message
 
 @csrf_exempt
 @json_view
 def save_message(request):
     '''
     Function save message owner in DB,
+
+    Check message out on stop words and replace them.
 
     Add owner to opponent's contact list.
 
@@ -107,6 +119,9 @@ def save_message(request):
     '''
     #import pdb; pdb.set_trace()
     b = json.loads(request.body)
+
+    b['message'] = stop_words(b['message'])
+
     tpa = Tpa.objects.get(name=b['app_name'])
     owner = ChatUser.objects.get(tpa=tpa,user_id=int(b['owner_id']))
     
