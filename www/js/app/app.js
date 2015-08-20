@@ -22,7 +22,7 @@ The function :func:`someService` does a some function.
 })
 
 
-.run(function ($rootScope, Auth, $window, WS) {
+.run(function ($rootScope, Auth, $window, WS, Online) {
 
             // Initialization
             Auth.isauth(function(result){
@@ -67,6 +67,15 @@ The function :func:`someService` does a some function.
 
                     } else { $rootScope.isAuthenticated = false;}
             })
+        
+                
+                  // Insert user online into rootScope
+                  $rootScope.online = {}
+                  Online.getOnline(function(rezult){
+                    for (user in rezult.user_list) {
+                        $rootScope.online['user_'+rezult.user_list[user]['user_id']] = true;
+                    }       
+                 }); 
 
 })
 

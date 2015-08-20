@@ -3,9 +3,10 @@
                 <a href="#" class="img_man_w">
                     <img src="Media/images/users/small/[[opponent.image]]" alt="">
 
-                    <div ng-show="opponent.is_online == 1" class="on_line"><span></span></div>
-                    <div ng-show="opponent.is_online == 0" class="off_line"><span></span></div>
-                 
+                    <div ng-show="online['user_'+opponent.user_id]" class="on_line"><span></span></div>
+                    <div ng-show="!online['user_'+opponent.user_id]" class="off_line"><span></span></div>
+                                 
+
                 </a>
             </div>
             <div class="flr">
