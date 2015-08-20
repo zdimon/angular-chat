@@ -31,7 +31,7 @@
                 url: "/:user",
                 //templateUrl: "/static/templates/active.html",
                 controller: function(){
-   
+                
                 }
                 
             })          
@@ -42,14 +42,16 @@
                 //templateUrl: "/static/templates/active.html",
 
                 controller: function($stateParams, Room, $rootScope, $log){
+                       
                 
                         $rootScope.$on('connected', function (event, data) {
+                            
                             Room.invite($stateParams.opponent,function(rezult){})
                         });
                         
                       
 
-                      init_wisiwig();
+                     
 
                 }
                 

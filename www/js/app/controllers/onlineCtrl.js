@@ -12,11 +12,10 @@
                 $scope.user_list = rezult.user_list;
             }) 
         };
-        $scope.update();
 
 
-        $scope.$on('update_users_online', function (event, data) {      
-           $scope.update()
+        $scope.$on('update_users_online', function (event, data) {   
+           $scope.update();
         });
         
         
