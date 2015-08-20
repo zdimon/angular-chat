@@ -112,7 +112,18 @@ def get_profile_from_tpa(request,user_id,app_name):
         else:
             gender = 'm'
 
-        out = { 'status': 0, 'user_profile': {'user_id':u_login['login'],'name':u['name'],'birthday': datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d'),'country':u['country'],'city':u['city'],'culture':u['languages'], 'gender': gender, 'image': photo, 'tpa': tpa.name}
+        out = { 'status': 0, 'user_profile': {
+                                                'user_id':u_login['login'],
+                                                'name':u['name'],
+                                                'birthday': datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d'),
+                                                'country':u['country'],
+                                                'city':u['city'],
+                                                'culture':u['languages'], 
+                                                'gender': gender, 
+                                                'image': photo, 
+                                                'profile_url': '/lady/profile/%s' % u_login['login'],
+                                                'tpa': tpa.name
+                                                }
                   }
         save_profile_in_our_db(out['user_profile'])
     return out 
@@ -127,6 +138,7 @@ def save_profile_in_our_db(dict_profile_from_tpa):
     u.country = dict_profile_from_tpa['country']
     u.city = dict_profile_from_tpa['city']
     u.culture = dict_profile_from_tpa['culture']
+    u.profile_url = dict_profile_from_tpa['profile_url']
     u.image = dict_profile_from_tpa['image']
     u.gender = dict_profile_from_tpa['gender']
     u.tpa = tpa

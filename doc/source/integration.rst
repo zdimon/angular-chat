@@ -99,6 +99,7 @@ RESPONSE
                         'culture': 'en', 
                         'gender': 'm', 
                         'image': 'http://site.com/oleg.jpg', 
+                        'profile_url': 'http://site.com/profile?id=34', 
                         'tpa': 'site_com'
                       }
     }

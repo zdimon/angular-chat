@@ -5,7 +5,7 @@ from utils.db import MyDB
 from chat.models import *
 from django.contrib.auth.models import User
 bd = MyDB()
-
+from djapp.local import TPA_SERVER
 
 def read_conf():
     from djapp.settings import BASE_DIR, SS_SERVER
@@ -72,10 +72,10 @@ def load_db():
     t = Tpa()
     t.name = 'tpa1com'
     t.domain ='tpa1.com'
-    t.get_balance_url = 'http://chat.localhost/api/[user_id]/tpa1com/get_balance'
-    t.billing_page = 'http://chat.localhost/account/get-coins'
-    t.charge_url = 'http://chat.localhost/api/charge'
-    t.timeout_chating = 30
+    t.get_balance_url = 'http://%s/api/[user_id]/tpa1com/get_balance' % TPA_SERVER
+    t.billing_page = 'http://%s/account/get-coins' % TPA_SERVER
+    t.charge_url = 'http://%s/api/charge' % TPA_SERVER
+    t.timeout_chating = 33
     t.save()
 
     men = ['vova','fedor', 'oleg', 'serg', 'dima', 'alex']
@@ -189,6 +189,9 @@ def load_db_from_tpa():
     t = Tpa()
     t.name = 'tpa1com'
     t.domain ='tpa1.com'
+    t.get_balance_url = 'http://%s/api/[user_id]/tpa1com/get_balance' % TPA_SERVER
+    t.billing_page = 'http://%s/account/get-coins' % TPA_SERVER
+    t.charge_url = 'http://%s/api/charge' % TPA_SERVER
     t.timeout_chating = 30
     t.save()
 
@@ -239,7 +242,8 @@ def serialize_user(user):
     return ({'id':user.id, 'user_id':user.user_id,'gender':user.gender,'name':user.name,
                     'birthday':str(user.birthday),
                     'country':user.country,'city':user.city,'image':user.image,
-                    'profile_url':user.profile_url,'culture':user.culture,
+                    'profile_url':user.profile_url,
+                    'culture':user.culture,
                     'is_camera_active':user.is_camera_active, 
                     'is_invisible': user.is_invisible, 
                     'is_invitation_enabled': user.is_invitation_enabled,
