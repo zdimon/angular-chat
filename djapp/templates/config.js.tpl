@@ -176,6 +176,13 @@ apiconf = {
                 'url':  '[server]/api/[app_name]/[room_id]/[opponent_id]/show_feather'
             },
 
+        'close_chat_room':
+            {
+                'type': 'ajax',
+                'name': 'close_chat_room',
+                'url':  '[server]/api/[app_name]/[room_id]/[opponent_id]/close_chat_room'
+            },
+
 
         'get_balance':
             {

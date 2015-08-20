@@ -59,6 +59,24 @@ def _get_room_or_create(app_name,caler_id,opponent_id):
 
 
 @json_view
+def close_chat_room(request,app_name,room_id, opponent_id):
+    '''
+    Function closes chat session.
+    
+    [server]/api/[app_name]/[room_id]/close_chat_room
+
+    Example: http://chat.localhost/api/tpa1com/34/close_chat_room
+    '''
+    mes = { 'action': 'close_room', 
+            'room_id': room_id
+          }
+   
+    bclient.publish('%s_%s' % (app_name, opponent_id), json.dumps(mes))
+    return  { 'status': 0, 'message': 'Ok' }
+
+
+
+@json_view
 def show_feather(request,app_name,room_id,opponent_id):
     '''
     Function sends message to user to show feather indicator to notice about user is started typing.

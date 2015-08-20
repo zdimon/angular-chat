@@ -72,6 +72,13 @@
         }
 
 
+        if(message.action=='close_room'){
+            
+            $rootScope.$broadcast('close_room',message);
+
+        }
+
+
         if(message.action=='show_multi_invite_notification'){
 
             $rootScope.$broadcast('show_multi_invite_notification',message);

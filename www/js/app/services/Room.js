@@ -10,8 +10,16 @@
                         getMessages: getMessages,
                         sendMessage: sendMessage,
                         showFeather: showFeather,
+                        closeRoom: closeRoom,
                         getBalance, getBalance
                     }
+
+
+            function closeRoom(opponent_id,callback) {
+                             var url = utils.prepare_url(apiconf.api.close_chat_room.url,{'[room_id]':$rootScope.room_id,'[opponent_id]':opponent_id});
+                             return $http.get(url).success(callback);
+                        };
+
 
             function showFeather(contact_id,callback) {
                              var url = utils.prepare_url(apiconf.api.show_feather.url,{'[room_id]':$rootScope.room_id,'[opponent_id]':contact_id});

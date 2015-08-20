@@ -1,9 +1,20 @@
  
 
 
-app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTranslate, $log, $http) {
+app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTranslate, $log, $http, $window) {
         $scope.ws = WS;
         scroolldown();
+
+        $scope.stopChat = function(opponent_id){
+
+            Room.closeRoom(opponent_id,function(result){
+                var url = "http://" + local_config.chat_url  + "#/" + $rootScope.currentUserId;  
+                $scope.hasActiveRoom = false;
+                $window.location.href = url;       
+                $scope.room_just_closed = true;        
+            })
+            
+        }
 
         /*"""
         .. function:: $scope.translate()
@@ -123,6 +134,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         $scope.$on('put_me_in_room', function (event, data) {
            var text_changed = 0;
            $rootScope.feather = false;
+           $scope.room_just_closed = false;
            $scope.room_participants = [local_config.app_name+'_'+data.owner_id, local_config.app_name+'_'+data.contact_id];
            $rootScope.room_participants = [local_config.app_name+'_'+data.owner_id, local_config.app_name+'_'+data.contact_id];
            $scope.room_id = data.room_id;
@@ -154,17 +166,19 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         });
 
         $rootScope.$on('show_feather',function(event,data){
-            
-           
 
             if(data.room_id==$rootScope.room_id){
              $rootScope.feather = true;
             }
-          
-
         })
 
 
+        $rootScope.$on('close_room',function(event,data){
+           $scope.room_just_closed = true;
+           var url = "http://" + local_config.chat_url  + "#/" + $rootScope.currentUserId;  
+           $scope.hasActiveRoom = false;
+           $window.location.href = url;      
+        })
         
 
         $rootScope.$on('show_invite_notification',function(event,data){
