@@ -77,6 +77,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
         $scope.$on('show_message', function (event, data) { 
 
+
               if($rootScope.new_messages === 'undefined') $rootScope.new_messages = []
               
               console.log(data);
@@ -91,6 +92,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                     console.log($scope.new_messages['user_'+data.message.message]);
 
               } else {
+                     $rootScope.feather = false;
 
                       if($scope.chat_translate==true){
 
@@ -153,10 +155,10 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
         $rootScope.$on('show_feather',function(event,data){
             
-            log(data);
+           
 
             if(data.room_id==$rootScope.room_id){
-            $rootScope.feather = true;
+             $rootScope.feather = true;
             }
           
 
