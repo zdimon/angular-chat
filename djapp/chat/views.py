@@ -18,6 +18,7 @@ from chat.views_api.online import *
 from chat.views_api.room import *
 from chat.views_api.video import *
 from jsonview.decorators import json_view
+from djapp.local import TPA_SERVER
 
 bd = MyDB()
 
@@ -103,7 +104,7 @@ def get_profile_from_tpa(request,user_id,app_name):
 
         u_photo = bd.get('select image from users_photos where user_id = %d and main = 1' % int(u_login['id']))
         try:
-            photo = u_photo['image']
+            photo = 'http://'+TPA_SERVER+'/Media/images/users/small/'+u_photo['image']
         except:
             photo = ''
 

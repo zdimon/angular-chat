@@ -54,7 +54,7 @@ class ChatUser(models.Model):
         unique_together = ('user_id','tpa',)
     @property  
     def avatar(self):
-        return mark_safe(u'<img src="%s" />' % self.image)  
+        return mark_safe(u'ss<img src="%s" />' % self.image)  
     def __unicode__(self):
         return self.name
     @property

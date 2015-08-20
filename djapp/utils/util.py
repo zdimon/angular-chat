@@ -239,9 +239,15 @@ def load_db_from_tpa():
 
 
 def serialize_user(user):
-    return ({'id':user.id, 'user_id':user.user_id,'gender':user.gender,'name':user.name,
+    return ({
+                    'id':user.id, 
+                    'user_id':user.user_id,
+                    'gender':user.gender,
+                    'name':user.name,
                     'birthday':str(user.birthday),
-                    'country':user.country,'city':user.city,'image':user.image,
+                    'country':user.country,
+                    'city':user.city,
+                    'image':user.image,
                     'profile_url':user.profile_url,
                     'culture':user.culture,
                     'is_camera_active':user.is_camera_active, 

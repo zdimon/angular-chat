@@ -11,7 +11,7 @@ class ChatUserAdmin(admin.ModelAdmin):
     search_fields = ("name", "country", "city")
     list_filter = ("tpa", "is_online", "gender")
     def avatar(self, instance):
-        return u'<img width="100" src="{0}" />'.format(instance.image)
+        return u'<img width="100" src="%s" />' % instance.image
     avatar.allow_tags = True
 admin.site.register(ChatUser, ChatUserAdmin)
 

@@ -108,6 +108,26 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
    )
 
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'Angular Chat',
+
+'MENU': (
+
+        {'label': 'Apps', 'url': 'chat.tpa', 'icon':'icon-cog'},
+        {'label': 'Users', 'url': 'chat.chatuser', 'icon':'icon-user'},
+        
+        {'label': 'Stop words', 'url': 'chat.chatstopword', 'icon':'icon-alert'},
+        {'label': 'Templates', 'url': 'chat.chattemplates', 'icon':'icon-menu-hamburger'},
+        {'label': 'Transactions', 'url': 'chat.chattransactions', 'icon':'icon-alert'},
+
+        
+       
+    )
+}
+
+
+
+
 
 
 
