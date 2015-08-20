@@ -63,7 +63,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                             
                         } else {
 
-                             swfobject.embedSWF("Media/chat.swf", "opponentVideo", "320", "240", "9.0.0", "expressInstall.swf", par);
+                             swfobject.embedSWF("Media/chat.swf", "opponentVideo", "640", "480", "9.0.0", "expressInstall.swf", par);
                              $rootScope.isOpponentCamEnabled = true;
                              Video.showOpponentCam(function(result){
                                 // Initiate periodic calling to charge money
