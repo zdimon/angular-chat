@@ -104,6 +104,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
             swfobject.removeSWF("opponentVideo");
             $(document).find('#oponent_video_container').append('<div id="opponentVideo"> </div>');
             $rootScope.isOpponentCamEnabled = false;
+         
              Video.hideOpponentCam(opponent_id, function(){
                 if (angular.isDefined($scope.invite_promise)) {
                     $interval.cancel($scope.invite_promise);

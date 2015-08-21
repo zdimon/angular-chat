@@ -181,11 +181,15 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         })
 
          $scope.$on('i_started_watching_you', function (event, data) {
-           alert('User started watching you.');
+           if($rootScope.gender=='w') {
+                alert('User started watching you.');
+            }
         });
         
          $scope.$on('i_stopted_watching_you', function (event, data) {
-           alert('User stopted watching you.');
+           if($rootScope.gender=='w') {
+               alert('User stopted watching you.');
+            }
         });
 
         $rootScope.$on('show_invite_notification',function(event,data){
