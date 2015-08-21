@@ -11,7 +11,7 @@
                         sendMessage: sendMessage,
                         showFeather: showFeather,
                         closeRoom: closeRoom,
-                        getBalance, getBalance
+                        getBalance: getBalance
                     }
 
 
