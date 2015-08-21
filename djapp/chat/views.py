@@ -35,6 +35,10 @@ def config(request,app_name):
     return HttpResponse(t.render(c))    
 
 
+def create_transaction(room_id,user_id,opponent_id,price,type):
+    pass
+    
+
 @csrf_exempt
 @json_view
 def charge(request):
@@ -46,7 +50,7 @@ def charge(request):
           'room_id': 23 
         }        
     '''
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
     json_data = json.loads(request.body)
     for user_json in json_data:
         sql = 'select id,coins from users where login="%s"' % user_json['user_id']
