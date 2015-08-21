@@ -46,6 +46,7 @@ def charge(request):
           'room_id': 23 
         }        
     '''
+    import pdb; pdb.set_trace()
     json_data = json.loads(request.body)
     sql = 'select id,coins from users where login="%s"' % json_data['user_id']
     user = bd.get(sql)
