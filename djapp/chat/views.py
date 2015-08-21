@@ -50,12 +50,12 @@ def charge(request):
           'room_id': 23 
         }        
     '''
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
     json_data = json.loads(request.body)
     for user_json in json_data:
         sql = 'select id,coins from users where login="%s"' % user_json['user_id']
         user = bd.get(sql)
-        if int(user_json['price'])<int(user['coins']):
+        if float(user_json['price'])<user['coins']:
             new_coins = user['coins'] - user_json['price']
             sql = 'update users set coins=%s where id=%d' % (new_coins,user['id'])
             print sql
