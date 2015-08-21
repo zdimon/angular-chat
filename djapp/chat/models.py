@@ -222,7 +222,7 @@ class ChatTransactions(models.Model):
     woman = models.ForeignKey(ChatUser, related_name = 'woman')
     created = models.DateTimeField( auto_now = True, blank = True)
     tpa = models.ForeignKey(Tpa, verbose_name = _('TPA'))
-    ammount = models.DecimalField( verbose_name=_('Price RUB'), max_digits= 12, decimal_places= 2)
+    ammount = models.DecimalField( verbose_name=_('Ammount'), max_digits= 12, decimal_places= 2)
 
 
 

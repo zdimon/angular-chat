@@ -5,7 +5,7 @@ from django.template import loader, RequestContext
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import login as login_user
-from chat.models import Tpa, ChatUser, ChatContacts
+from chat.models import Tpa, ChatUser, ChatContacts, ChatTransactions, ChatRoom
 from djapp.settings import DATABASES
 import PySQLPool
 import requests
@@ -39,8 +39,26 @@ def config(request,app_name):
     return HttpResponse(t.render(c))    
 
 
-def create_transaction(room_id,user_id,opponent_id,price,type):
-    pass
+def create_transaction(room_id,user_id,opponent_id, app_name, price,type):
+    import decimal
+    print 'start transaction room_id - %s ' % room_id
+    tpa = Tpa.objects.get(name=app_name)
+    room = ChatRoom.objects.get(pk=room_id)
+    man = ChatUser.objects.get(user_id=user_id) 
+    woman = ChatUser.objects.get(user_id=opponent_id) 
+    try:
+        tr = ChatTransactions.objects.get(room=room,man=man,woman=woman, tpa=tpa)
+        tr.ammount = tr.ammount + decimal.Decimal(float(price))
+        tr.save()
+    except Exception, e:
+        print e
+        tr = ChatTransactions()
+        tr.man = man
+        tr.woman = woman
+        tr.tpa = tpa
+        tr.room = room
+        tr.ammount = price
+        tr.save()
     
 
 @csrf_exempt
@@ -73,7 +91,7 @@ def charge(request):
         if float(user_json['price'])<user['coins']:
             new_coins = user['coins'] - float(user_json['price'])
             sql = 'update users set coins=%s where id=%d' % (new_coins,user['id'])
-            print sql
+            create_transaction(user_json['room_id'],user_json['user_id'],user_json['opponent_id'],user_json['app_name'],user_json['price'],'text_chat')
             bd.update(sql)
             status = 0
         else:

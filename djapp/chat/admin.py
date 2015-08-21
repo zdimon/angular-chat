@@ -46,7 +46,7 @@ admin.site.register(ChatMessage, ChatMessageAdmin)
 
 
 class ChatTransactionsAdmin(admin.ModelAdmin):
-    list_display = ("man", "woman", "room", "tpa")
+    list_display = ("man", "woman", "room", "tpa", 'ammount', 'created')
     list_filter = ("tpa", "room", "tpa")
 admin.site.register(ChatTransactions, ChatTransactionsAdmin)
 
