@@ -122,6 +122,7 @@ gulp.task('main', [
 
 gulp.task('angularScripts', function () {
     return vendors_javascript(angularScripts, 'angular.scripts.min.js')
+        .pipe(strip())
         .pipe(gulp.dest('./www/js/build/'));
 });
 
@@ -129,6 +130,7 @@ gulp.task('angularScripts', function () {
 
 gulp.task('angularChatLib', function () {
     return vendors_javascript(angularChatLib, 'angular.chat.lib.min.js')
+        .pipe(strip())
         .pipe(gulp.dest('./www/js/build/'));
         //.pipe(uglify());
 });
