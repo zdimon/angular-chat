@@ -77,15 +77,17 @@ def hide_my_cam(request,user_id,app_name):
 
 
 @json_view
-def show_opponent_cam(request,user_id,app_name,room_id):
+def show_opponent_cam(request,user_id,opponent_id,app_name,room_id):
     ''' 
         Request fires after user turn apponent cam on.
 
         We mark room object as with video watching.   
 
-        [server]/api/[user_id]/[app_name]/[room_id]/show_opponent_cam
+        Send notivication to girl about man start watching her.
 
-        Example: http://chat.localhost/api/150046/tpa1com/5/show_opponent_cam
+        [server]/api/[user_id]/[opponent_id]/[app_name]/[room_id]/show_opponent_cam
+
+        Example: http://chat.localhost/api/150046/150040/tpa1com/5/show_opponent_cam
 
         Return: {'status': 0, 'message': 'ok'}
     '''
@@ -95,12 +97,15 @@ def show_opponent_cam(request,user_id,app_name,room_id):
     u2r = ChatUser2Room.objects.get(user=owner,room=room)
     u2r.is_video_watching = True
     u2r.save()
+    mes = { 'action': 'i_started_watching_you', 'user_id': owner.user_id, 'opponent_id': opponent_id }
+    bclient.publish('%s_%s' % (app_name, opponent_id), json.dumps(mes)) 
+
     return {'status': 0, 'message': 'ok', 'user_id': user_id}
 
 
 
 @json_view
-def hide_opponent_cam(request,user_id,app_name,room_id):
+def hide_opponent_cam(request,user_id,opponent_id,app_name,room_id):
     ''' 
         Request fires after user turn apponent cam off.
 
@@ -117,6 +122,8 @@ def hide_opponent_cam(request,user_id,app_name,room_id):
     u2r = ChatUser2Room.objects.get(user=owner,room=room)
     u2r.is_video_watching = False
     u2r.save()
+    mes = { 'action': 'i_stopted_watching_you', 'user_id': owner.user_id, 'opponent_id': opponent_id }
+    bclient.publish('%s_%s' % (app_name, opponent_id), json.dumps(mes)) 
     return {'status': 0, 'message': 'ok', 'user_id': user_id}
 
 

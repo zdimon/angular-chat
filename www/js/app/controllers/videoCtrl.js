@@ -63,9 +63,9 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                             
                         } else {
 
-                             swfobject.embedSWF("Media/chat.swf", "opponentVideo", "640", "480", "9.0.0", "expressInstall.swf", par);
+                             swfobject.embedSWF("Media/chat.swf", "opponentVideo", "100%", "480", "9.0.0", "expressInstall.swf", par);
                              $rootScope.isOpponentCamEnabled = true;
-                             Video.showOpponentCam(function(result){
+                             Video.showOpponentCam(user_id,function(result){
                                 // Initiate periodic calling to charge money
                                 $scope.invite_promise = $interval(function(){
 
@@ -84,7 +84,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
                 } else { // if woman just turn cam on
 
-                  
+                        $rootScope.isOpponentCamEnabled = true;
                         swfobject.embedSWF("Media/chat.swf", "opponentVideo", "320", "240", "9.0.0", "expressInstall.swf", par);
                 }
         
@@ -99,12 +99,12 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
         
 
 
-      $scope.hideOpponentVideo = function(){
+      $scope.hideOpponentVideo = function(opponent_id){
        
             swfobject.removeSWF("opponentVideo");
             $(document).find('#oponent_video_container').append('<div id="opponentVideo"> </div>');
             $rootScope.isOpponentCamEnabled = false;
-             Video.hideOpponentCam(function(){
+             Video.hideOpponentCam(opponent_id, function(){
                 if (angular.isDefined($scope.invite_promise)) {
                     $interval.cancel($scope.invite_promise);
                     $scope.invite_promise = undefined;
@@ -114,6 +114,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
         }
 
     $rootScope.$on('close_video',function(event,data){
+        alert('close video');
         $scope.hideOpponentVideo();
         $rootScope.emptyAccountAlert();
     })
@@ -132,12 +133,14 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
             for (var i = 0; i < $rootScope.room_participants.length; i++) {
                 var val = $rootScope.room_participants[i];
                 var arr = val.split('_');
-                //log(arr);
+                log(arr);
                 if(arr[1]==data.owner && data.owner!= $rootScope.currentUserId){
                     log(data);
                     if(data.cam_status=='on') { 
                         $rootScope.isOpponentVideoActive = true;
                     } else {
+                        swfobject.removeSWF("opponentVideo");
+                        $(document).find('#oponent_video_container').append('<div id="opponentVideo"> </div>');
                         $rootScope.isOpponentVideoActive = false;
                     }
                     

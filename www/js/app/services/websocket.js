@@ -79,6 +79,18 @@
         }
 
 
+        if(message.action=='i_started_watching_you'){
+
+            $rootScope.$broadcast('i_started_watching_you',message);
+
+        }
+
+        if(message.action=='i_stopted_watching_you'){
+
+            $rootScope.$broadcast('i_stopted_watching_you',message);
+
+        }
+
         if(message.action=='show_multi_invite_notification'){
 
             $rootScope.$broadcast('show_multi_invite_notification',message);
