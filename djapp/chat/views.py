@@ -48,17 +48,18 @@ def charge(request):
     '''
     import pdb; pdb.set_trace()
     json_data = json.loads(request.body)
-    sql = 'select id,coins from users where login="%s"' % json_data['user_id']
-    user = bd.get(sql)
-    if json_data['price']<user['coins']:
-        new_coins = user['coins'] - json_data['price']
-        sql = 'update users set coins=%s where id=%d' % (new_coins,user['id'])
-        print sql
-        bd.update(sql)
-        status = 0
-    else:
-        status = 1
-    return {'user_id': json_data['user_id'], 'account': user['coins'], 'status': status}
+    for user_json in json_data:
+        sql = 'select id,coins from users where login="%s"' % user_json['user_id']
+        user = bd.get(sql)
+        if user_json['price']<user['coins']:
+            new_coins = user['coins'] - user_json['price']
+            sql = 'update users set coins=%s where id=%d' % (new_coins,user['id'])
+            print sql
+            bd.update(sql)
+            status = 0
+        else:
+            status = 1
+    return {'status': 0, 'message': 'ok'}
 
 
 def home(request):

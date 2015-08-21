@@ -167,7 +167,7 @@ def send_charge_request():
                     man = u['user_id']
                 else:
                     woman = u['user_id']
-            data.append({'action': 'text_chat', 'user_id': man, 'opponent_id': woman, 'room_id': room['id']})
+            data.append({'action': 'text_chat', 'user_id': man, 'opponent_id': woman, 'room_id': room['id'], 'price': room['price_text_chat'] })
             #print data
             requests.post(room['charge_url'],data=json.dumps(data))
 
