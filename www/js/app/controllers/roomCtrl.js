@@ -172,6 +172,12 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
             }
         })
 
+        $rootScope.$on('update_balance',function(event,data){
+
+            $rootScope.balance = data.balance;
+            log(data);
+        })
+
 
         $rootScope.$on('close_room',function(event,data){
            $scope.room_just_closed = true;

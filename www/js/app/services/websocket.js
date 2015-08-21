@@ -85,6 +85,13 @@
 
         }
 
+        if(message.action=='update_balance'){
+           
+            $rootScope.$broadcast('update_balance',message);
+
+        }
+
+
         if(message.action=='i_stopted_watching_you'){
 
             $rootScope.$broadcast('i_stopted_watching_you',message);

@@ -20,6 +20,10 @@ from chat.views_api.video import *
 from jsonview.decorators import json_view
 from djapp.local import TPA_SERVER
 
+import brukva
+bclient = brukva.Client()
+bclient.connect()
+
 bd = MyDB()
 
     #users = bd.select('select * from users_info')
@@ -44,17 +48,28 @@ def create_transaction(room_id,user_id,opponent_id,price,type):
 def charge(request):
     '''
         Input data
-        { 'action': 'video_charge', 
-          'user_id': 150040, 
-          'opponent_id': 150042, 
-          'room_id': 23 
-        }        
+        [
+
+            { 
+              'action': 'video_charge', 
+              'user_id': 150040, 
+              'opponent_id': 150042, 
+              'room_id': 23,
+              'app_name': 'tpa1com',
+              'price': 2 
+            }
+        ]    
+
+        Request send notification to men to update account on the page.
+    
     '''
     #import pdb; pdb.set_trace()
     json_data = json.loads(request.body)
     for user_json in json_data:
         sql = 'select id,coins from users where login="%s"' % user_json['user_id']
         user = bd.get(sql)
+        mes = { 'action': 'update_balance', 'balance': user['coins'] }
+        bclient.publish('%s_%s' % (user_json['app_name'], user_json['user_id']), json.dumps(mes))
         if float(user_json['price'])<user['coins']:
             new_coins = user['coins'] - float(user_json['price'])
             sql = 'update users set coins=%s where id=%d' % (new_coins,user['id'])

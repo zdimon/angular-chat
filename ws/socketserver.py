@@ -136,7 +136,7 @@ application = tornado.web.Application([
 
 def send_charge_request():
     print "Charge request!"    
-    sql = '''select chat_chatroom.id, chat_chatroom.activity, chat_tpa.price_text_chat, chat_tpa.charge_url, chat_tpa.timeout_chating
+    sql = '''select chat_chatroom.id, chat_chatroom.activity, chat_tpa.price_text_chat, chat_tpa.charge_url, chat_tpa.name as app_name, chat_tpa.timeout_chating
              from chat_chatroom, chat_tpa  
              where 
              chat_chatroom.tpa_id = chat_tpa.id and
@@ -167,7 +167,7 @@ def send_charge_request():
                     man = u['user_id']
                 else:
                     woman = u['user_id']
-            data.append({'action': 'text_chat', 'user_id': man, 'opponent_id': woman, 'room_id': room['id'], 'price': str(room['price_text_chat']) })
+            data.append({'action': 'text_chat', 'app_name': room['app_name'],  'user_id': man, 'opponent_id': woman, 'room_id': room['id'], 'price': str(room['price_text_chat']) })
             #print data
             requests.post(room['charge_url'],data=json.dumps(data))
 
