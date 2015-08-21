@@ -12,7 +12,7 @@ Manipulate with video blocks.
 app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$interval, WS, Room) {
 
 
-
+         $rootScope.active_cams = {}
 
         /*"""
         .. function:: $scope.$on('rootScope_ready'...
@@ -120,12 +120,19 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
 
     $rootScope.$on('update_cam_indicators',function(event,data){
+        if(data.cam_status=='on') {
+          $rootScope.active_cams['user_'+data.owner] = true;
+        }   else {
+          $rootScope.active_cams['user_'+data.owner] = false;
+        }
+        
+        log($rootScope.active_cams);
         if (!event.defaultPrevented && typeof $rootScope.room_participants !== 'undefined') {
             event.defaultPrevented = true;
             for (var i = 0; i < $rootScope.room_participants.length; i++) {
                 var val = $rootScope.room_participants[i];
                 var arr = val.split('_');
-                log(arr);
+                //log(arr);
                 if(arr[1]==data.owner && data.owner!= $rootScope.currentUserId){
                     log(data);
                     if(data.cam_status=='on') { 
@@ -139,9 +146,9 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                     
                 }
             }
-        console.log('camera'+data.owner);
+        //console.log('camera'+data.owner);
 
-        console.log($rootScope.room_participants);
+        //console.log($rootScope.room_participants);
             
         }
 

@@ -13,6 +13,7 @@
             }) 
         };
 
+        $scope.update();
 
         $scope.$on('update_users_online', function (event, data) {   
            $scope.update();
