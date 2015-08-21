@@ -62,7 +62,7 @@ def charge(request):
             bd.update(sql)
             status = 0
         else:
-            print 'no money %s - %s' (int(user_json['price']),int(user['coins'])        
+            print 'no money %s - %s' % (int(user_json['price']),int(user['coins'])        
             status = 1
     return {'status': 0, 'message': 'ok'}
 
