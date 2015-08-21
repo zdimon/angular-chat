@@ -55,13 +55,14 @@ def charge(request):
     for user_json in json_data:
         sql = 'select id,coins from users where login="%s"' % user_json['user_id']
         user = bd.get(sql)
-        if user_json['price']<user['coins']:
+        if int(user_json['price'])<int(user['coins']):
             new_coins = user['coins'] - user_json['price']
             sql = 'update users set coins=%s where id=%d' % (new_coins,user['id'])
             print sql
             bd.update(sql)
             status = 0
         else:
+            print 'no money %s - %s' (int(user_json['price']),int(user['coins'])        
             status = 1
     return {'status': 0, 'message': 'ok'}
 
