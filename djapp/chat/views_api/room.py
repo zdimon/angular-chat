@@ -161,7 +161,7 @@ def save_message(request):
         for p in b['participants']:
             mes = { 'action': 'show_message', 'room_id': b['room_id'], 
                     'message': {'id': cm.id, 
-                                'time': str(cm.created.time()),
+                                'created': str(cm.created.time().strftime('%H:%M:%S')),
                                 'message':cm.message,
                                 'room_id':cm.room_id,
                                 'owner': serialize_user(owner)            
