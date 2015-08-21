@@ -50,7 +50,7 @@ def charge(request):
           'room_id': 23 
         }        
     '''
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
     json_data = json.loads(request.body)
     for user_json in json_data:
         sql = 'select id,coins from users where login="%s"' % user_json['user_id']
@@ -62,7 +62,7 @@ def charge(request):
             bd.update(sql)
             status = 0
         else:
-            print 'no money %s - %s' % (user_json['price'],user['coins'])        
+            #print 'no money %s - %s' % (user_json['price'],user['coins'])        
             status = 1
     return {'status': 0, 'message': 'ok'}
 
