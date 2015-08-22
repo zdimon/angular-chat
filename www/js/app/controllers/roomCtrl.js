@@ -89,9 +89,12 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         $scope.$on('show_message', function (event, data) { 
 
 
-              if($rootScope.new_messages === 'undefined') $rootScope.new_messages = []
+              if(typeof $rootScope.new_messages === 'undefined') {
+                    $rootScope.new_messages = {}
+                    
+                }
               
-              console.log(data);
+              
 
               if(data.message.message.owner.user_id!=$rootScope.currentUserId){
                     document.getElementById('audio_alert').play();
@@ -100,7 +103,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
               if(data.message.message.room_id != $scope.room_id){
                     
                     $rootScope.new_messages['user_'+data.message.message.owner.user_id] = true;
-                    console.log($scope.new_messages['user_'+data.message.message]);
+                    
 
               } else {
                      $rootScope.feather = false;

@@ -48,7 +48,7 @@ def get_online(request,app_name,user_id):
     userlst_profile = []
     tpa = Tpa.objects.get(name=app_name)
     if user_id == 'undefined':
-        users_online = ChatUser.objects.filter(tpa=tpa,is_online=1)
+        return { 'status': 0, 'message': 'ok', 'user_list': {} }
     else:
         owner = ChatUser.objects.get(tpa=tpa,user_id=user_id)
         users_online = ChatUser.objects.filter(tpa=tpa,is_online=1).exclude(gender=owner.gender)

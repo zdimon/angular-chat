@@ -69,7 +69,7 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
 
            Contact.addContact(data.message.user_id,function(){
-
+               $scope.online['user_'+data.message.user_id] = true;
                $scope.update();
 
            })
