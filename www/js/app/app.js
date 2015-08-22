@@ -34,7 +34,7 @@ The function :func:`someService` does a some function.
                         $rootScope.balance = result.balance;
                         $rootScope.gender = result.gender;
                         $rootScope.billing_page = apiconf.api.billing_page.url;
-                        $rootScope.$broadcast('rootScope_ready');
+                        
 
                         // show popup alert to force user to top account
                         $rootScope.emptyAccountAlert = function(){
@@ -66,16 +66,20 @@ The function :func:`someService` does a some function.
                        
 
                     } else { $rootScope.isAuthenticated = false;}
-            })
-        
-                
+
                   // Insert user online into rootScope
                   $rootScope.online = {}
                   Online.getOnline(function(rezult){
                     for (user in rezult.user_list) {
                         $rootScope.online['user_'+rezult.user_list[user]['user_id']] = true;
-                    }       
+                    } 
+                    $rootScope.$broadcast('rootScope_ready');      
                  }); 
+
+            })
+        
+                
+                  
 
 })
 
