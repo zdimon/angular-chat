@@ -48,7 +48,10 @@ def create_transaction(room_id,user_id,opponent_id, app_name, price,type):
     woman = ChatUser.objects.get(user_id=opponent_id) 
     try:
         tr = ChatTransactions.objects.get(room=room,man=man,woman=woman, tpa=tpa)
-        tr.ammount = tr.ammount + decimal.Decimal(float(price))
+        if(type=='text_chat'):
+            tr.coins_text = tr.coins_text + decimal.Decimal(float(price))
+        if(type=="video"):
+            tr.coins_video = tr.coins_video + decimal.Decimal(float(price))
         tr.save()
     except Exception, e:
         print e
@@ -57,7 +60,12 @@ def create_transaction(room_id,user_id,opponent_id, app_name, price,type):
         tr.woman = woman
         tr.tpa = tpa
         tr.room = room
-        tr.ammount = price
+        if(type=='text_chat'):
+            tr.coins_text = price
+            tr.coins_video = 0
+        if(type=="video"):
+            tr.coins_video = price
+            tr.coins_text = 0
         tr.save()
     
 
@@ -69,7 +77,7 @@ def charge(request):
         [
 
             { 
-              'action': 'video_charge', 
+              'action': 'video/text_chat', 
               'user_id': 150040, 
               'opponent_id': 150042, 
               'room_id': 23,
@@ -91,7 +99,7 @@ def charge(request):
         if float(user_json['price'])<user['coins']:
             new_coins = user['coins'] - float(user_json['price'])
             sql = 'update users set coins=%s where id=%d' % (new_coins,user['id'])
-            create_transaction(user_json['room_id'],user_json['user_id'],user_json['opponent_id'],user_json['app_name'],user_json['price'],'text_chat')
+            create_transaction(user_json['room_id'],user_json['user_id'],user_json['opponent_id'],user_json['app_name'],user_json['price'],user_json['action'])
             bd.update(sql)
             status = 0
         else:

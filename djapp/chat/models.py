@@ -78,7 +78,8 @@ class ChatRoom(models.Model):
     sign = models.CharField(max_length = 250, blank = True, verbose_name = _('Identifier'), editable = False)
     created = models.DateTimeField( auto_now = True, blank = True, null = True)
     tpa = models.ForeignKey(Tpa, verbose_name = _('TPA'))
-    is_charging = models.BooleanField(verbose_name = _('Allow charging?'), default = False)
+    is_charging_text = models.BooleanField(verbose_name = _('Allow charging for text?'), default = False)
+    is_charging_video = models.BooleanField(verbose_name = _('Allow charging for video?'), default = False)
     is_closed = models.BooleanField(verbose_name = _('Chat Closed'), default = False)
     activity = models.IntegerField(blank = True, verbose_name = _('Activiti (sec)'), default = 0)
     class Meta:
@@ -222,7 +223,8 @@ class ChatTransactions(models.Model):
     woman = models.ForeignKey(ChatUser, related_name = 'woman')
     created = models.DateTimeField( auto_now = True, blank = True)
     tpa = models.ForeignKey(Tpa, verbose_name = _('TPA'))
-    ammount = models.DecimalField( verbose_name=_('Ammount'), max_digits= 12, decimal_places= 2)
+    coins_text = models.DecimalField( verbose_name=_('Coins for text chating'), max_digits= 12, decimal_places= 2)
+    coins_video = models.DecimalField( verbose_name=_('Coins for video'), max_digits= 12, decimal_places= 2)
 
 
 

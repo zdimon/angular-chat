@@ -63,10 +63,11 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                             
                         } else {
 
-                             swfobject.embedSWF("Media/chat.swf", "opponentVideo", "100%", "480", "9.0.0", "expressInstall.swf", par);
+                             swfobject.embedSWF("Media/chat.swf", "opponentVideo", "640", "480", "9.0.0", "expressInstall.swf", par);
                              $rootScope.isOpponentCamEnabled = true;
                              Video.showOpponentCam(user_id,function(result){
                                 // Initiate periodic calling to charge money
+                                /*
                                 $scope.invite_promise = $interval(function(){
 
                                     WS.send({ 'action': 'video_charge', 
@@ -77,6 +78,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                                             });
 
                                 }, 10000);
+                                */
                              })
 
                         }
@@ -85,7 +87,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                 } else { // if woman just turn cam on
 
                         $rootScope.isOpponentCamEnabled = true;
-                        swfobject.embedSWF("Media/chat.swf", "opponentVideo", "320", "240", "9.0.0", "expressInstall.swf", par);
+                        swfobject.embedSWF("Media/chat.swf", "opponentVideo", "640", "480", "9.0.0", "expressInstall.swf", par);
                 }
         
                
@@ -122,6 +124,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
 
     $rootScope.$on('update_cam_indicators',function(event,data){
+
         if(data.cam_status=='on') {
           $rootScope.active_cams['user_'+data.owner] = true;
         }   else {

@@ -33,7 +33,7 @@ tpapp.js
 
       $scope.test_login = function(user_id,opponent_id){
 
-        var url = utils.prepare_url(apiconf.api.login.url,{'[user_id]': user_id});
+        var url = utils.prepare_url(local_config.outapi.login,{'[user_id]': user_id});
         $http.get(url).then(function(res){
                 console.log(res.data);
                 var url = "http://" + $window.location.host + "/video-chat#/" + res.data.id + "/"+ opponent_id;
@@ -73,7 +73,7 @@ tpapp.js
 
  .controller('AuthCtrl', function ($window, $rootScope, $scope, API, $http) {
       $scope.login = function(user_id){
-        var url = utils.prepare_url(apiconf.api.login.url,{'[user_id]': user_id});
+        var url = utils.prepare_url(local_config.outapi.login,{'[user_id]': user_id});
         $http.get(url).then(function(res){
                 var url = "http://" + $window.location.host + "#/" + res.data.user_id;  
                 $window.location.href = url;
@@ -87,7 +87,7 @@ tpapp.js
         
 
        $scope.tpalogin = function(user_id){
-        var url = utils.prepare_url(apiconf.api.tpa_login.url,{'[user_id]': user_id});
+        var url = utils.prepare_url(local_config.outapi.login,{'[user_id]': user_id});
         $http.get(url).then(function(res){
                 var url = "http://brides.localhost/";  
                 $window.location.href = url;

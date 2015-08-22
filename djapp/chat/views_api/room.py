@@ -297,10 +297,10 @@ def charge_for_chat(lm,room,tpa):
         fork = curt - en
         if (fork<tpa.timeout_chating):
             print '...DEDUCT FOR %s SEC' % fork
-            room.is_charging = True
+            room.is_charging_text = True
             room.save()
         else:
-            room.is_charging = False
+            room.is_charging_text = False
             room.save()
             print '...TOO LONG %s SEC' % fork
     except:

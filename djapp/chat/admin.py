@@ -25,7 +25,7 @@ class ChatMessageAdminInline(admin.TabularInline):
 
 
 class ChatRoomAdmin(admin.ModelAdmin):
-    list_display = ("id", "duration", "sign", "tpa", "is_charging")
+    list_display = ("id", "duration", "sign", "tpa", "is_charging_text", "is_charging_video")
     search_fields = ("sign", )
     list_filter = ("tpa", )
     inlines = [
@@ -46,7 +46,7 @@ admin.site.register(ChatMessage, ChatMessageAdmin)
 
 
 class ChatTransactionsAdmin(admin.ModelAdmin):
-    list_display = ("man", "woman", "room", "tpa", 'ammount', 'created')
+    list_display = ("man", "woman", "room", "tpa", 'coins_text', 'coins_video', 'created')
     list_filter = ("tpa", "room", "tpa")
 admin.site.register(ChatTransactions, ChatTransactionsAdmin)
 

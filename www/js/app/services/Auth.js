@@ -41,7 +41,7 @@
     }
 
     function isauth(callback) {
-      var url = utils.prepare_url(apiconf.api.is_auth.url,{})
+      var url = utils.prepare_url(local_config.outapi.is_auth,{})
       return $http.get(url).success(callback); 
     }
 
