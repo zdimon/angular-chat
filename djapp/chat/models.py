@@ -26,6 +26,7 @@ class Tpa(models.Model):
     def __unicode__(self):
         return self.domain
 
+
 class ChatUser(models.Model):
     class Meta:
         verbose_name = "User"
@@ -236,6 +237,15 @@ class ChatTemplates(models.Model):
 class ChatStopword(models.Model):
     word = models.CharField(max_length = 250, blank = True, verbose_name = _('Work'), db_index=True)
     replace = models.CharField(max_length = 250, blank = True, verbose_name = _('Replace with'), default="***")
+
+
+
+class ChatBlocklist(models.Model):
+    ''' Block list '''
+    user_id = models.IntegerField(db_index=True, verbose_name = _('User who did blocke'))
+    block_id = models.IntegerField(db_index=True, verbose_name = _('User who is blocked'))
+    tpa = models.ForeignKey(Tpa, verbose_name = _('TPA'))
+
 
 
 

@@ -174,6 +174,30 @@ apiconf = {
             },
 
 
+        'block_user':
+            {
+                'type': 'ajax',
+                'name': 'block_user',
+                'url':  '[server]/api/[app_name]/[user_id]/[block_id]/block_user'
+            },
+
+
+        'unblock_user':
+            {
+                'type': 'ajax',
+                'name': 'unblock_user',
+                'url':  '[server]/api/[app_name]/[user_id]/[block_id]/unblock_user'
+            },
+
+        'check_block_user':
+            {
+                'type': 'ajax',
+                'name': 'check_block_user',
+                'url':  '[server]/api/[app_name]/[user_id]/[block_id]/check_block_user'
+            },
+
+
+
         'get_balance':
             {
                 'type': 'outapi',

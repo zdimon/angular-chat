@@ -17,6 +17,7 @@ from chat.views_api.auth import *
 from chat.views_api.online import *
 from chat.views_api.room import *
 from chat.views_api.video import *
+from chat.views_api.block import *
 from jsonview.decorators import json_view
 from djapp.local import TPA_SERVER
 

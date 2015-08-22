@@ -9,7 +9,7 @@ Multiply invitation.
 
 */
 
-app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, Video, Online, $interval, $http, Room) {
+app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, Video, Online, Block, $interval, $http, Room) {
 
 
 
@@ -66,28 +66,42 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
             var index = 0;
          
 
+           
+                $scope.invite_promise = $interval(function(){
+                opponent_id = $scope.listOnline[index].user_id;
+                message = $(document).find('#multi_invite_text').html();
+                var data = {
+                                'app_name': local_config.app_name, 
+                                'owner_id': $rootScope.currentUserId, 
+                                'opponent_id': opponent_id, 
+                                'message': message 
+                            };
+                $rootScope.$broadcast('multi_invite',data);
+                  index += 1;  
+                }, 1000);
             
-            $scope.invite_promise = $interval(function(){
-            opponent_id = $scope.listOnline[index].user_id;
-            message = $(document).find('#multi_invite_text').html();
-            var data = {
-                            'app_name': local_config.app_name, 
-                            'owner_id': $rootScope.currentUserId, 
-                            'opponent_id': opponent_id, 
-                            'message': message 
-                        };
-            $rootScope.$broadcast('multi_invite',data);
-              index += 1;  
-            }, 1000);
            
             
             
         }
 
          $scope.block = function(user_id,id){
-            alert(user_id+' blocking');
-            delete $rootScope.notifies[id];
+            //alert(user_id+' blocking');
+            Block.blockUser(user_id,function(result){
+                $scope.is_blocked = true;
+            })
+            //delete $rootScope.notifies[id];
         }
+
+
+         $scope.unblock = function(user_id,id){
+            //alert(user_id+' blocking');
+            Block.unblockUser(user_id,function(result){
+                $scope.is_blocked = false;
+            })
+            //delete $rootScope.notifies[id];
+        }
+
 
 
         $scope.stopSending = function(){
@@ -102,14 +116,26 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
         }
         
         $rootScope.$on('multi_invite',function(event,data){
-            var url = utils.prepare_url(apiconf.api.multi_invitation.url,{});
-            $http.post(url,data).success(function(){
+
+            Block.checkBlockUser(data.opponent_id,function(result){
+                log(result);
+                if(result.block=='no'){
+                    var url = utils.prepare_url(apiconf.api.multi_invitation.url,{});
+                    $http.post(url,data).success(function(){
+
+                    }); 
+                }
                 $scope.currentCursor += 1;
                 if ($scope.currentCursor==$scope.countOnline){
                     $interval.cancel($scope.invite_promise);
                     $scope.invite_promise = undefined;
                 }
-            }); 
+                
+            }) 
+
+            /*
+            
+            */
 
         })
 
