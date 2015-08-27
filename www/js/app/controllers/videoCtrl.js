@@ -63,7 +63,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                             
                         } else {
 
-                             swfobject.embedSWF("Media/chat.swf", "opponentVideo", "640", "480", "9.0.0", "expressInstall.swf", par);
+                             swfobject.embedSWF("Media/chat.swf", "opponentVideo", "100%", "480", "9.0.0", "expressInstall.swf", par);
                              $rootScope.isOpponentCamEnabled = true;
                              Video.showOpponentCam(user_id,function(result){
                                 // Initiate periodic calling to charge money
@@ -87,7 +87,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                 } else { // if woman just turn cam on
 
                         $rootScope.isOpponentCamEnabled = true;
-                        swfobject.embedSWF("Media/chat.swf", "opponentVideo", "640", "480", "9.0.0", "expressInstall.swf", par);
+                        swfobject.embedSWF("Media/chat.swf", "opponentVideo", "100%", "480", "9.0.0", "expressInstall.swf", par);
                 }
         
                
