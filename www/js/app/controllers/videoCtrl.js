@@ -26,7 +26,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
       $scope.showMyVideo = function(){
             var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=out" };
-            swfobject.embedSWF("Media/chat.swf", "myVideo", "320", "225", "9.0.0", "expressInstall.swf", par);
+            swfobject.embedSWF("Media/chat.swf", "myVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
             $scope.isMyVideoActive = true;
 
             Video.showMyCam(function(){
@@ -63,7 +63,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                             
                         } else {
 
-                             swfobject.embedSWF("Media/chat.swf", "opponentVideo", "100%", "480", "9.0.0", "expressInstall.swf", par);
+                             swfobject.embedSWF("Media/chat.swf", "opponentVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
                              $rootScope.isOpponentCamEnabled = true;
                              Video.showOpponentCam(user_id,function(result){
                                 // Initiate periodic calling to charge money
@@ -87,7 +87,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                 } else { // if woman just turn cam on
 
                         $rootScope.isOpponentCamEnabled = true;
-                        swfobject.embedSWF("Media/chat.swf", "opponentVideo", "100%", "480", "9.0.0", "expressInstall.swf", par);
+                        swfobject.embedSWF("Media/chat.swf", "opponentVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
                 }
         
                
@@ -117,7 +117,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
         }
 
     $rootScope.$on('close_video',function(event,data){
-        alert('close video');
+
         $scope.hideOpponentVideo();
         $rootScope.emptyAccountAlert();
     })
@@ -166,4 +166,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
      
 
     })
+
+
+
 

@@ -92,7 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="integration.html#id2">RESPONSE:</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="integration.html#request-of-charging-money-from-user-s-account-for-text-chating">4. Request of charging money from user&#8217;s account for text chating.</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-of-charging-money-from-user-s-account-for-text-chating-or-video">4. Request of charging money from user&#8217;s account for text chating or video.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#request">REQUEST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#id3">RESPONSE</a></li>
 </ul>
@@ -229,6 +229,12 @@
 </ul>
 </div>
 <span class="target" id="module-chat.models"></span><dl class="class">
+<dt id="chat.models.ChatBlocklist">
+<em class="property">class </em><code class="descclassname">chat.models.</code><code class="descname">ChatBlocklist</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/models.html#ChatBlocklist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.models.ChatBlocklist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Block list</p>
+</dd></dl>
+
+<dl class="class">
 <dt id="chat.models.ChatContacts">
 <em class="property">class </em><code class="descclassname">chat.models.</code><code class="descname">ChatContacts</code><span class="sig-paren">(</span><em>id</em>, <em>owner</em>, <em>contact</em>, <em>created</em>, <em>has_new_message</em>, <em>successfuly_connected</em>, <em>is_active</em>, <em>tpa</em>, <em>room</em>, <em>is_man_camera_active</em>, <em>is_woman_camera_active</em>, <em>is_ununswerd</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/models.html#ChatContacts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.models.ChatContacts" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -240,7 +246,7 @@
 
 <dl class="class">
 <dt id="chat.models.ChatRoom">
-<em class="property">class </em><code class="descclassname">chat.models.</code><code class="descname">ChatRoom</code><span class="sig-paren">(</span><em>id</em>, <em>duration</em>, <em>sign</em>, <em>created</em>, <em>tpa</em>, <em>is_charging</em>, <em>is_closed</em>, <em>activity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/models.html#ChatRoom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.models.ChatRoom" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">chat.models.</code><code class="descname">ChatRoom</code><span class="sig-paren">(</span><em>id</em>, <em>duration</em>, <em>sign</em>, <em>created</em>, <em>tpa</em>, <em>is_charging_text</em>, <em>is_charging_video</em>, <em>is_closed</em>, <em>activity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/models.html#ChatRoom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.models.ChatRoom" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="class">

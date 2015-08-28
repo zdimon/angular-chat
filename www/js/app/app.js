@@ -33,7 +33,7 @@ The function :func:`someService` does a some function.
                         $rootScope.currentUsername = result.id;
                         $rootScope.balance = result.balance;
                         $rootScope.gender = result.gender;
-                        $rootScope.billing_page = apiconf.api.billing_page.url;
+                        
                         
 
                         // show popup alert to force user to top account

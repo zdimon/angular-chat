@@ -91,7 +91,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id2">RESPONSE:</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../../integration.html#request-of-charging-money-from-user-s-account-for-text-chating">4. Request of charging money from user&#8217;s account for text chating.</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../integration.html#request-of-charging-money-from-user-s-account-for-text-chating-or-video">4. Request of charging money from user&#8217;s account for text chating or video.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../integration.html#request">REQUEST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id3">RESPONSE</a></li>
 </ul>
@@ -231,7 +231,7 @@
 <span class="kn">from</span> <span class="nn">django.views.decorators.csrf</span> <span class="kn">import</span> <span class="n">csrf_exempt</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
-<span class="kn">from</span> <span class="nn">chat.models</span> <span class="kn">import</span> <span class="n">ChatUser</span><span class="p">,</span><span class="n">ChatRoom</span><span class="p">,</span><span class="n">ChatMessage</span><span class="p">,</span> <span class="n">ChatContacts</span>
+<span class="kn">from</span> <span class="nn">chat.models</span> <span class="kn">import</span> <span class="n">ChatUser</span><span class="p">,</span><span class="n">ChatRoom</span><span class="p">,</span><span class="n">ChatMessage</span><span class="p">,</span> <span class="n">ChatContacts</span><span class="p">,</span> <span class="n">ChatStopword</span>
 <span class="kn">from</span> <span class="nn">chat.models</span> <span class="kn">import</span> <span class="n">Tpa</span>
 <span class="kn">from</span> <span class="nn">utils.util</span> <span class="kn">import</span> <span class="n">read_conf</span><span class="p">,</span> <span class="n">serialize_user</span>
 <span class="kn">from</span> <span class="nn">utils.db</span> <span class="kn">import</span> <span class="n">MyDB</span>
@@ -283,6 +283,41 @@
 
 
 <span class="nd">@json_view</span>
+<div class="viewcode-block" id="close_chat_room"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.room.close_chat_room">[docs]</a><span class="k">def</span> <span class="nf">close_chat_room</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">app_name</span><span class="p">,</span><span class="n">room_id</span><span class="p">,</span> <span class="n">opponent_id</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Function closes chat session.</span>
+<span class="sd">    </span>
+<span class="sd">    [server]/api/[app_name]/[room_id]/close_chat_room</span>
+
+<span class="sd">    Example: http://chat.localhost/api/tpa1com/34/close_chat_room</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;close_room&#39;</span><span class="p">,</span> 
+            <span class="s">&#39;room_id&#39;</span><span class="p">:</span> <span class="n">room_id</span>
+          <span class="p">}</span>
+   
+    <span class="n">bclient</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">app_name</span><span class="p">,</span> <span class="n">opponent_id</span><span class="p">),</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">mes</span><span class="p">))</span>
+    <span class="k">return</span>  <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;Ok&#39;</span> <span class="p">}</span>
+
+
+</div>
+<span class="nd">@json_view</span>
+<div class="viewcode-block" id="show_feather"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.room.show_feather">[docs]</a><span class="k">def</span> <span class="nf">show_feather</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">app_name</span><span class="p">,</span><span class="n">room_id</span><span class="p">,</span><span class="n">opponent_id</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Function sends message to user to show feather indicator to notice about user is started typing.</span>
+<span class="sd">    </span>
+<span class="sd">    [server]/api/[app_name]/[room_id]/[opponent_id]/show_feather</span>
+
+<span class="sd">    Example: http://chat.localhost/api/tpa1com/34/150014/show_feather</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;show_feather&#39;</span><span class="p">,</span> 
+            <span class="s">&#39;room_id&#39;</span><span class="p">:</span> <span class="n">room_id</span>
+          <span class="p">}</span>
+   
+    <span class="n">bclient</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">app_name</span><span class="p">,</span> <span class="n">opponent_id</span><span class="p">),</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">mes</span><span class="p">))</span>
+    <span class="k">return</span>  <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;Ok&#39;</span> <span class="p">}</span>
+
+</div>
+<span class="nd">@json_view</span>
 <div class="viewcode-block" id="get_room_or_create"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.room.get_room_or_create">[docs]</a><span class="k">def</span> <span class="nf">get_room_or_create</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">app_name</span><span class="p">,</span><span class="n">caler_id</span><span class="p">,</span><span class="n">opponent_id</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Function return existed room identifier or create new room.</span>
@@ -294,13 +329,25 @@
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="n">_get_room_or_create</span><span class="p">(</span><span class="n">app_name</span><span class="p">,</span><span class="n">caler_id</span><span class="p">,</span><span class="n">opponent_id</span><span class="p">)</span>
 
-
 </div>
+<span class="k">def</span> <span class="nf">stop_words</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+    <span class="n">stopwords</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">stopwordsreplace</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ChatStopword</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="n">stopwords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">word</span><span class="p">)</span>
+        <span class="n">stopwordsreplace</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">any</span><span class="p">(</span><span class="n">substring</span> <span class="ow">in</span> <span class="n">message</span> <span class="k">for</span> <span class="n">substring</span> <span class="ow">in</span> <span class="n">stopwords</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">stopwords</span><span class="p">):</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">stopwordsreplace</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">message</span>
+
 <span class="nd">@csrf_exempt</span>
 <span class="nd">@json_view</span>
 <div class="viewcode-block" id="save_message"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.room.save_message">[docs]</a><span class="k">def</span> <span class="nf">save_message</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Function save message owner in DB,</span>
+
+<span class="sd">    Check message out on stop words and replace them.</span>
 
 <span class="sd">    Add owner to opponent&#39;s contact list.</span>
 
@@ -314,6 +361,9 @@
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="c">#import pdb; pdb.set_trace()</span>
     <span class="n">b</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+
+    <span class="n">b</span><span class="p">[</span><span class="s">&#39;message&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stop_words</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;message&#39;</span><span class="p">])</span>
+
     <span class="n">tpa</span> <span class="o">=</span> <span class="n">Tpa</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;app_name&#39;</span><span class="p">])</span>
     <span class="n">owner</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;owner_id&#39;</span><span class="p">]))</span>
     
@@ -335,7 +385,7 @@
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">b</span><span class="p">[</span><span class="s">&#39;participants&#39;</span><span class="p">]:</span>
             <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;show_message&#39;</span><span class="p">,</span> <span class="s">&#39;room_id&#39;</span><span class="p">:</span> <span class="n">b</span><span class="p">[</span><span class="s">&#39;room_id&#39;</span><span class="p">],</span> 
                     <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="n">cm</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> 
-                                <span class="s">&#39;time&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">created</span><span class="o">.</span><span class="n">time</span><span class="p">()),</span>
+                                <span class="s">&#39;created&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">created</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&#39;%H:%M:%S&#39;</span><span class="p">)),</span>
                                 <span class="s">&#39;message&#39;</span><span class="p">:</span><span class="n">cm</span><span class="o">.</span><span class="n">message</span><span class="p">,</span>
                                 <span class="s">&#39;room_id&#39;</span><span class="p">:</span><span class="n">cm</span><span class="o">.</span><span class="n">room_id</span><span class="p">,</span>
                                 <span class="s">&#39;owner&#39;</span><span class="p">:</span> <span class="n">serialize_user</span><span class="p">(</span><span class="n">owner</span><span class="p">)</span>            
@@ -471,10 +521,10 @@
         <span class="n">fork</span> <span class="o">=</span> <span class="n">curt</span> <span class="o">-</span> <span class="n">en</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">fork</span><span class="o">&lt;</span><span class="n">tpa</span><span class="o">.</span><span class="n">timeout_chating</span><span class="p">):</span>
             <span class="k">print</span> <span class="s">&#39;...DEDUCT FOR </span><span class="si">%s</span><span class="s"> SEC&#39;</span> <span class="o">%</span> <span class="n">fork</span>
-            <span class="n">room</span><span class="o">.</span><span class="n">is_charging</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="n">room</span><span class="o">.</span><span class="n">is_charging_text</span> <span class="o">=</span> <span class="bp">True</span>
             <span class="n">room</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">room</span><span class="o">.</span><span class="n">is_charging</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">room</span><span class="o">.</span><span class="n">is_charging_text</span> <span class="o">=</span> <span class="bp">False</span>
             <span class="n">room</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
             <span class="k">print</span> <span class="s">&#39;...TOO LONG </span><span class="si">%s</span><span class="s"> SEC&#39;</span> <span class="o">%</span> <span class="n">fork</span>
     <span class="k">except</span><span class="p">:</span>

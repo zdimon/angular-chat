@@ -99,6 +99,7 @@ RESPONSE
                         'culture': 'en', 
                         'gender': 'm', 
                         'image': 'http://site.com/oleg.jpg', 
+                        'profile_url': 'http://site.com/profile?id=34', 
                         'tpa': 'site_com'
                       }
     }
@@ -152,8 +153,8 @@ If **status** is 1 user will see pop up window with link directed to the billing
  
 
 
-4. Request of charging money from user's account for text chating.
-==================================================================
+4. Request of charging money from user's account for text chating or video.
+===========================================================================
 
 REQUEST
 -------
@@ -166,16 +167,20 @@ REQUEST
                 
                     { 
                       'action': 'text_chat', 
+                      'app_name': 'bridescom', 
                       'user_id': 150040, 
                       'opponent_id': 150042, 
-                      'room_id': 23 
+                      'room_id': 23, 
+                      'price': 2
                     },
 
                     { 
-                      'action': 'text_chat', 
+                      'action': 'video', 
+                      'app_name': 'bridescom', 
                       'user_id': 150040, 
-                      'opponent_id': 150043, 
-                      'room_id': 24 
+                      'opponent_id': 150042, 
+                      'room_id': 23, 
+                      'price': 3
                     }
                     
             ]

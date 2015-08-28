@@ -205,12 +205,7 @@ apiconf = {
                 'url':  '{{ tpa.get_balance_url }}'
             },
 
-        'billing_page':
-            {
-                'type': 'outapi',
-                'name': 'billing_page',
-                'url':  '{{ tpa.billing_page }}'
-            }  
+  
 
 
 

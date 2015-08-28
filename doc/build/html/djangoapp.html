@@ -92,7 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="integration.html#id2">RESPONSE:</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="integration.html#request-of-charging-money-from-user-s-account-for-text-chating">4. Request of charging money from user&#8217;s account for text chating.</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-of-charging-money-from-user-s-account-for-text-chating-or-video">4. Request of charging money from user&#8217;s account for text chating or video.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#request">REQUEST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#id3">RESPONSE</a></li>
 </ul>
@@ -369,6 +369,14 @@ Example: <a class="reference external" href="http://chat.localhost/api/logout">h
 </dd></dl>
 
 <dl class="function">
+<dt id="chat.views_api.room.close_chat_room">
+<code class="descclassname">chat.views_api.room.</code><code class="descname">close_chat_room</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/room.html#close_chat_room"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.room.close_chat_room" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function closes chat session.</p>
+<p>[server]/api/[app_name]/[room_id]/close_chat_room</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/34/close_chat_room">http://chat.localhost/api/tpa1com/34/close_chat_room</a></p>
+</dd></dl>
+
+<dl class="function">
 <dt id="chat.views_api.room.get_messages">
 <code class="descclassname">chat.views_api.room.</code><code class="descname">get_messages</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/room.html#get_messages"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.room.get_messages" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function get message in DB for room and app_name</p>
@@ -425,11 +433,20 @@ Also it create two records in ChatUser2Room model.</p>
 <dt id="chat.views_api.room.save_message">
 <code class="descclassname">chat.views_api.room.</code><code class="descname">save_message</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/room.html#save_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.room.save_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function save message owner in DB,</p>
+<p>Check message out on stop words and replace them.</p>
 <p>Add owner to opponent&#8217;s contact list.</p>
 <p>If the message is first send notification to tpa side.</p>
 <p>parameters by POST: app_name,owner_id,room_id,message</p>
 <p>[server]/api/save_message</p>
 <p>Example: <a class="reference external" href="http://chat.localhost/api/save_message">http://chat.localhost/api/save_message</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.room.show_feather">
+<code class="descclassname">chat.views_api.room.</code><code class="descname">show_feather</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/room.html#show_feather"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.room.show_feather" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function sends message to user to show feather indicator to notice about user is started typing.</p>
+<p>[server]/api/[app_name]/[room_id]/[opponent_id]/show_feather</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/34/150014/show_feather">http://chat.localhost/api/tpa1com/34/150014/show_feather</a></p>
 </dd></dl>
 
 </div>

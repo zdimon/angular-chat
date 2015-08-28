@@ -3,6 +3,7 @@
 
 app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTranslate, $log, $http, $window) {
         $scope.ws = WS;
+        var text_changed = 0;
         scroolldown();
 
         $scope.stopChat = function(opponent_id){
@@ -56,13 +57,14 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
             chm = message.replace('<br>','');
             if(chm.length>0) {
-
+            
            Room.sendMessage($scope.room_id, message, $rootScope.currentUserId, $scope.room_participants, $rootScope.gender, function(result) {
               log(message.length);
               if(result.status==1) {
                     $rootScope.emptyAccountAlert(); // when user has not money
                 } else { 
                     $(document).find('#chat_message').html("");
+                    text_changed = 0;
                 } 
               
             });
@@ -135,7 +137,6 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         
 
         $scope.$on('put_me_in_room', function (event, data) {
-           var text_changed = 0;
            $rootScope.feather = false;
            $scope.room_just_closed = false;
            $scope.room_participants = [local_config.app_name+'_'+data.owner_id, local_config.app_name+'_'+data.contact_id];
@@ -154,6 +155,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
               setTimeout(function(){scroolldown(),1000});
 
               $(document).find('#chat_message').bind("DOMSubtreeModified",function(){
+                 
                   if (text_changed==0){
                
                        Room.showFeather(data.contact.user_id, function(result) {
@@ -169,7 +171,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         });
 
         $rootScope.$on('show_feather',function(event,data){
-
+            log(data);
             if(data.room_id==$rootScope.room_id){
              $rootScope.feather = true;
             }

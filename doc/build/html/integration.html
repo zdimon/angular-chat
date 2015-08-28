@@ -92,7 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#id2">RESPONSE:</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#request-of-charging-money-from-user-s-account-for-text-chating">4. Request of charging money from user&#8217;s account for text chating.</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="#request-of-charging-money-from-user-s-account-for-text-chating-or-video">4. Request of charging money from user&#8217;s account for text chating or video.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#request">REQUEST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id3">RESPONSE</a></li>
 </ul>
@@ -296,6 +296,7 @@
                     &#39;culture&#39;: &#39;en&#39;,
                     &#39;gender&#39;: &#39;m&#39;,
                     &#39;image&#39;: &#39;http://site.com/oleg.jpg&#39;,
+                    &#39;profile_url&#39;: &#39;http://site.com/profile?id=34&#39;,
                     &#39;tpa&#39;: &#39;site_com&#39;
                   }
 }
@@ -336,8 +337,8 @@
 <p>If <strong>status</strong> is 1 user will see pop up window with link directed to the billing page.</p>
 </div>
 </div>
-<div class="section" id="request-of-charging-money-from-user-s-account-for-text-chating">
-<h1>4. Request of charging money from user&#8217;s account for text chating.<a class="headerlink" href="#request-of-charging-money-from-user-s-account-for-text-chating" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="request-of-charging-money-from-user-s-account-for-text-chating-or-video">
+<h1>4. Request of charging money from user&#8217;s account for text chating or video.<a class="headerlink" href="#request-of-charging-money-from-user-s-account-for-text-chating-or-video" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="request">
 <h2>REQUEST<a class="headerlink" href="#request" title="Permalink to this headline">¶</a></h2>
 <p><strong>url</strong>: <a class="reference external" href="http://[server]/chat-request/charge">http://[server]/chat-request/charge</a></p>
@@ -345,16 +346,20 @@
 
         {
           &#39;action&#39;: &#39;text_chat&#39;,
+          &#39;app_name&#39;: &#39;bridescom&#39;,
           &#39;user_id&#39;: 150040,
           &#39;opponent_id&#39;: 150042,
-          &#39;room_id&#39;: 23
+          &#39;room_id&#39;: 23,
+          &#39;price&#39;: 2
         },
 
         {
-          &#39;action&#39;: &#39;text_chat&#39;,
+          &#39;action&#39;: &#39;video&#39;,
+          &#39;app_name&#39;: &#39;bridescom&#39;,
           &#39;user_id&#39;: 150040,
-          &#39;opponent_id&#39;: 150043,
-          &#39;room_id&#39;: 24
+          &#39;opponent_id&#39;: 150042,
+          &#39;room_id&#39;: 23,
+          &#39;price&#39;: 3
         }
 
 ]

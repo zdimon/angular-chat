@@ -82,7 +82,8 @@ class WSHandler(tornado.websocket.WebSocketHandler):
                 mes = {'action': 'update_users_online'}
                 self.broadcast(mes)     
                 mes = {'action': 'set_me_online', 'uid': self.current_user_id}
-                self.broadcast(mes)  
+                self.broadcast(mes)
+                print 'set me online!!!!!!!!!!!!'  
             except Exception, e:
                 print e
                 self.write_message(json.dumps({'status': 1, 'message': str(e)})) 

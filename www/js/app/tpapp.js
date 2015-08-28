@@ -101,14 +101,7 @@ tpapp.js
 .controller('OnlineCtrl', function ($window, $rootScope, $scope, $http, WS) {
 
 
-        $scope.online = {'user_44': true};
-        $scope.one = function(){
-            
-
-        }
-
-
-
+       
         $scope.$on('update_users_online',function(event, data){
            
             $scope["user_online_"+1] = true;
@@ -204,17 +197,20 @@ tpapp.js
                         $rootScope.currentUserId = result.id;
                         WS.send({ action: 'connect', user_id: $rootScope.currentUserId });
 
+                        $rootScope.online = {}
+
+                          Online.getOnline(function(rezult){
+                                for (user in rezult.user_list) {
+                                    $rootScope.online['user_'+rezult.user_list[user]['user_id']] = true;
+                                }       
+                             }); 
+
+
                     } else { $rootScope.isAuthenticated = false;}
             })
 
 
-    $rootScope.online = {}
 
-      Online.getOnline(function(rezult){
-            for (user in rezult.user_list) {
-                $rootScope.online['user_'+rezult.user_list[user]['user_id']] = true;
-            }       
-         }); 
     
 
     //WS.send({ action: 'get_users_online'});
