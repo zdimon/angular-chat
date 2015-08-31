@@ -8,7 +8,8 @@
                         setOnline: setOnline,
                         setOffline: setOffline,
                         getOnline: getOnline,
-                        getOnlineExceptContact: getOnlineExceptContact               
+                        getOnlineExceptContact: getOnlineExceptContact,
+                        sendMessage: sendMessage               
                     }
             function setOnline() {
                  
@@ -32,6 +33,21 @@
                 return $http.get(url).success(callback); 
 
             };
+
+
+            /*"""
+            .. function:: sendMessage()
+
+            Send message to inbox by http request to the server.
+               
+            */
+
+            function sendMessage(owner_id,contact_id,message,callback) {
+                             var url = utils.prepare_url(apiconf.api.send_message.url,{});
+                             var data = {'app_name':local_config.app_name, 'owner_id':$rootScope.currentUserId,'contact_id':contact_id,  'message': message}
+                             return $http.post(url,data).success(callback);
+            };
+
 
 
     }]);

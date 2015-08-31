@@ -6,7 +6,7 @@
      
          $scope.send_message = function(user_id){
 
-           Room.getUserInfo(contact_id,function(result){ 
+           Room.getUserInfo(user_id,function(result){ 
             $scope.message_user = result.user_profile
          });
 
@@ -19,6 +19,39 @@
 
         };
         
+
+        $scope.submit_message = function(){
+        /*"""
+        .. function:: $scope.submit_message()
+
+        Send message to inbox.
+
+        1. Get message.
+
+        2. Send message to the opponent.
+
+        3. Clear text box.
+
+        4. Close popup window.
+
+           
+        */ 
+           //1
+           var message = $(document).find('#mess_text').html();
+           //2
+          Online.sendMessage($rootScope.currentUserId, $scope.message_user.user_id, message, function(result) {
+          //3,4 
+                 $(document).find('#mess_text').html('');
+                 $.magnificPopup.close({
+                  items: {
+                    src: '#message_window'
+                  }});
+          }); 
+           
+
+
+        }
+
    
         $scope.update = function(){
 

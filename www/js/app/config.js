@@ -112,6 +112,14 @@ apiconf = {
                 'params': 'app_name,owner_id,opponent_id,message'
             },
 
+        'send_message':
+            {
+                'type': 'ajax[POST]',
+                'name': 'send_message',
+                'url':  '[server]/api/send_message',
+                'params': 'app_name,owner_id,opponent_id,message'
+            },
+
         'multi_invitation':
             {
                 'type': 'ajax[POST]',
@@ -205,7 +213,12 @@ apiconf = {
                 'url':  '{{ tpa.get_balance_url }}'
             },
 
-  
+        'billing_page':
+            {
+                'type': 'outapi',
+                'name': 'billing_page',
+                'url':  '{{ tpa.billing_page }}'
+            }  
 
 
 

@@ -57,7 +57,26 @@ def get_online(request,app_name,user_id):
     return { 'status': 0, 'message': 'ok', 'user_list': userlst_profile }
 
 
+@csrf_exempt
+@json_view
+def send_message(request):
+    '''
+    Function make a request to send message to the user's inbox'.
 
+    parameters by POST: app_name,owner_id,contact_id,message
+
+    [server]/api/send_message
+
+    Example: http://chat.localhost/api/send_message
+    '''
+    #import pdb; pdb.set_trace() 
+    b = json.loads(request.body)
+    print b
+    tpa = Tpa.objects.get(name=b['app_name'])
+    owner = ChatUser.objects.get(tpa=tpa,user_id=int(b['owner_id']))
+
+  
+    return  { 'status': 0 }
     
 
 
