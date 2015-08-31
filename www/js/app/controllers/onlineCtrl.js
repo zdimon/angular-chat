@@ -4,7 +4,21 @@
         
         function ($scope, Online , WS, Contact, Room, $rootScope, $window) {
      
-         
+         $scope.send_message = function(user_id){
+
+           Room.getUserInfo(contact_id,function(result){ 
+            $scope.message_user = result.user_profile
+         });
+
+            $.magnificPopup.open({
+              items: {
+                src: '#message_window'
+              },
+              type: 'inline'
+            }, 0);
+
+        };
+        
    
         $scope.update = function(){
 

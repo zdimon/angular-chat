@@ -324,6 +324,41 @@ RESPONSE
     { status:1, message: 'User not found'}
 
 
+9. Request to send message in message box.
+==========================================
+
+**URI** http://[server]/chat-request/send_message
+
+REQUEST
+-------
+
+.. code-block:: json
+
+    { 'from_id': 150040, 'to_id': 150032, 'message': 'Hello my friend!!!' }
+
+Where: 
+
+**from_id** - user who send the message
+
+**to_id** - user who recieve the message
+
+
+
+
+RESPONSE
+--------
+
+.. code-block:: json
+
+    { status:0, message: 'ok'}
+
+
+.. code-block:: json
+
+    { status:1, message: 'Not enought money'}
+
+
+
 
 
 OUTCOME API
