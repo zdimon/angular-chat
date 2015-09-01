@@ -198,12 +198,12 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                
                 // close window after some time
                 $timeout(function(){
-                    delete $rootScope.system_messages[data.opponent_id+'_show'];
+                    delete $rootScope.system_messages[data.user_id+'_show'];
                 }, 5000);
 
-                Room.getUserInfo(data.opponent_id,function(result){ 
-                    $rootScope.system_messages[data.opponent_id+'_show'] = {
-                                                                             'message': 'User started watching you.',
+                Room.getUserInfo(data.user_id,function(result){ 
+                    $rootScope.system_messages[data.user_id+'_show'] = {
+                                                                             'message': result.user_profile.name+' started watching you.',
                                                                              'user': result.user_profile
                                                                             }
                     
@@ -214,15 +214,15 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         
          $scope.$on('i_stopted_watching_you', function (event, data) {
            if($rootScope.gender=='w') {
-
+                log(data);
                 // close window after some time
                 $timeout(function(){
-                    delete $rootScope.system_messages[data.opponent_id+'_hide'];
+                    delete $rootScope.system_messages[data.user_id+'_hide'];
                 }, 5000);
 
-                Room.getUserInfo(data.opponent_id,function(result){ 
-                    $rootScope.system_messages[data.opponent_id+'_hide'] = {
-                                                                             'message': 'User stopted watching you.',
+                Room.getUserInfo(data.user_id,function(result){ 
+                    $rootScope.system_messages[data.user_id+'_hide'] = {
+                                                                             'message': result.user_profile.name+' stopted watching you.',
                                                                              'user': result.user_profile
                                                                             }
                     
