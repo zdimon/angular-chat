@@ -146,7 +146,8 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
            $scope.hasActiveRoom=true;
            if(data.contact.is_camera_active) $rootScope.isOpponentVideoActive = true;
            Room.getUserInfo(data.contact_id,function(result){ 
-            $scope.opponent = result.user_profile
+            $scope.opponent = result.user_profile;
+            $rootScope.current_opponent_id = data.contact_id;
          });
     
            Room.getMessages(data.room_id, function(result) {
