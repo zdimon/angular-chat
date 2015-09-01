@@ -66,6 +66,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
       $scope.showOpponentVideo = function(user_id){
 
+                
                 var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.current_opponent_id+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=in" }; 
                 log(par) ;
 

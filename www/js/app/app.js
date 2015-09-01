@@ -33,8 +33,11 @@ The function :func:`someService` does a some function.
                         $rootScope.currentUsername = result.id;
                         $rootScope.balance = result.balance;
                         $rootScope.gender = result.gender;
+                        $rootScope.system_messages = {};
                         
-                        
+                        $rootScope.close_system_message = function(win_id) {
+                            delete $rootScope.system_messages[win_id];
+                        }
 
                         // show popup alert to force user to top account
                         $rootScope.emptyAccountAlert = function(){

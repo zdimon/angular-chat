@@ -1,7 +1,7 @@
  
 
 
-app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTranslate, $log, $http, $window) {
+app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTranslate, $log, $http, $window, $timeout) {
         $scope.ws = WS;
         var text_changed = 0;
         scroolldown();
@@ -194,13 +194,38 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
          $scope.$on('i_started_watching_you', function (event, data) {
            if($rootScope.gender=='w') {
-                alert('User started watching you.');
+               
+                // close window after some time
+                $timeout(function(){
+                    delete $rootScope.system_messages[data.opponent_id+'_show'];
+                }, 5000);
+
+                Room.getUserInfo(data.opponent_id,function(result){ 
+                    $rootScope.system_messages[data.opponent_id+'_show'] = {
+                                                                             'message': 'User started watching you.',
+                                                                             'user': result.user_profile
+                                                                            }
+                    
+                 });
+                
             }
         });
         
          $scope.$on('i_stopted_watching_you', function (event, data) {
            if($rootScope.gender=='w') {
-               alert('User stopted watching you.');
+
+                // close window after some time
+                $timeout(function(){
+                    delete $rootScope.system_messages[data.opponent_id+'_hide'];
+                }, 5000);
+
+                Room.getUserInfo(data.opponent_id,function(result){ 
+                    $rootScope.system_messages[data.opponent_id+'_hide'] = {
+                                                                             'message': 'User stopted watching you.',
+                                                                             'user': result.user_profile
+                                                                            }
+                    
+                 });
             }
         });
 
