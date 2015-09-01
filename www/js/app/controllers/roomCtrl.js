@@ -148,6 +148,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
            Room.getUserInfo(data.contact_id,function(result){ 
             $scope.opponent = result.user_profile;
             $rootScope.current_opponent_id = data.contact_id;
+            $rootScope.current_opponent = result.user_profile;
          });
     
            Room.getMessages(data.room_id, function(result) {
