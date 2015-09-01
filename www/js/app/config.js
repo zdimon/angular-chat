@@ -46,6 +46,14 @@ apiconf = {
                 'url':  '[server]/api/[app_name]/[user_id]/get_contact_list'
             },
 
+        'mark_watching_profile':
+            {
+                'type': 'ajax',
+                'name': 'mark_watching_profile',
+                'url':  '[server]/api/[app_name]/[user_id]/[opponent_id]/mark_watching_profile'
+            },
+
+
         'get_profile_from_tpa':
             {
                 'type': 'ajax',

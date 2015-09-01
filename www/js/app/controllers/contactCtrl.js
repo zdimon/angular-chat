@@ -12,7 +12,7 @@ contactCtrl.js
 app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window, Room, $log) {
 
 
-
+      $scope.watch_profile = {}
 
         /*"""
         .. function:: $scope.$on('rootScope_ready'...
@@ -74,6 +74,16 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
            })
 
+      })
+
+      $rootScope.$on('mark_watching_profile',function(event, data){
+            log(data);
+            $scope.watch_profile['user_'+data.user_id] = true;
+      })
+
+      $rootScope.$on('set_me_offline',function(event, data){
+            log(data);
+            delete $scope.watch_profile['user_'+data.message.uid];
       })
 
 

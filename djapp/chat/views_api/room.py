@@ -170,8 +170,16 @@ def save_message(request):
            
             bclient.publish(p, json.dumps(mes))
             opponent = ChatUser.objects.get(user_id=p.split('_')[1])
+            #import pdb; pdb.set_trace()
             if owner != opponent:
+                # adding contact
                 add_me_to_contact_if_not_exist(tpa,owner,opponent,p)
+                contact = _add_contact(tpa.name,owner.user_id,opponent.user_id)
+                mes_contact = { 'action': 'update_contact' }
+                mes_online = { 'action': 'update_users_online' }
+                owner_chanel = '%s_%s' % (b['app_name'], owner.user_id)
+                bclient.publish(owner_chanel, json.dumps(mes_contact))
+                bclient.publish(owner_chanel, json.dumps(mes_online))
                 if room.get_count_messages()<2999:
                     data = {'message': cm.message, 'id': cm.id, 'opponent': serialize_user(owner)}
                     mes = { 'action': 'show_new_message_notification', 'data': data }
@@ -238,22 +246,22 @@ def invite(request,app_name,owner_id,contact_id):
     '''
     Function send invite to opponent. 
 
-    Add the opponent to the contact list.
+    REMOVED Add the opponent to the contact list.
 
     Mark contact as active
 
     Create the room. Put the user into the room.
      
     '''
-    #apiconf = read_conf()
-    #app_name = apiconf['config']['app_name']
-    contact = _add_contact(app_name,owner_id,contact_id)
-    mes = { 'action': 'update_contact' }
+
+    #contact = _add_contact(app_name,owner_id,contact_id)
+    #mes = { 'action': 'update_contact' }
     owner_chanel = '%s_%s' % (app_name, owner_id)
+    #bclient.publish(owner_chanel, json.dumps(mes))
+
     contact_chanel = '%s_%s' % (app_name, contact_id)
-    bclient.publish(owner_chanel, json.dumps(mes))
     rm = _get_room_or_create(app_name,owner_id,contact_id)
-    contact.set_active(rm['room_id'])
+    #contact.set_active(rm['room_id'])
     tpa = Tpa.objects.get(name=app_name)
     owner = ChatUser.objects.get(user_id=owner_id,tpa=tpa)
     contact_user = ChatUser.objects.get(user_id=contact_id,tpa=tpa)

@@ -158,3 +158,19 @@ def send_invitation(request):
     return  { 'status': 0 }
 
 
+@json_view
+def mark_watching_profile(request,app_name,user_id,opponent_id):
+    ''' 
+        Request to mark indicator about user is watching profile.
+
+        [server]/api/[app_name]/[user_id]/[opponent_id]/mark_watching_profile
+
+        Example: http://chat.localhost/api/tpa1com/14/15/mark_watching_profile
+
+        Responce 1: { 'status': 0, 'message': 'ok' }
+    '''
+    mes = { 'action': 'mark_watching_profile', 'user_id': user_id }
+    bclient.publish('%s_%s' % (app_name,opponent_id), json.dumps(mes)) 
+    return { 'status': 0, 'message': 'ok' }
+
+

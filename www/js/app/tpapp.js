@@ -121,6 +121,18 @@ tpapp.js
      
     })
 
+.controller('ShowProfileCtrl', function ($window, $rootScope, $scope, $http, Contact) {
+        
+        $scope.init = function(user_id,opponent_id){
+                
+                Contact.markWatchingProfile(user_id,opponent_id,function(result){
+                    log(result);
+                })
+        }
+     
+    })
+
+
 
     .directive('onlineIndicator', function() {
 

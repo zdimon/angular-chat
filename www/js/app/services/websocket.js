@@ -43,6 +43,13 @@
                    
         }
 
+        if(message.action=='mark_watching_profile'){
+            
+            $rootScope.$broadcast('mark_watching_profile', message);
+                   
+        }
+
+
         if(message.action=='show_inv_win'){
             
             $rootScope.$broadcast('show_inv_win',{'message':message}); 

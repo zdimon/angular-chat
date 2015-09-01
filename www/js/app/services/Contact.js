@@ -9,8 +9,15 @@
                         delContact: delContact,
                         deleteAll: deleteAll,
                         addContact: addContact,
+                        markWatchingProfile: markWatchingProfile,
                         sendInvitation: sendInvitation
                     }
+
+            function markWatchingProfile(user_id,opponent_id,callback) {
+                var url = utils.prepare_url(apiconf.api.mark_watching_profile.url,{'[user_id]':user_id, '[opponent_id]':opponent_id});
+                return $http.get(url).success(callback); 
+
+            };
 
             function getContactList(callback) {
                 var url = utils.prepare_url(apiconf.api.get_contact_list.url,{'[user_id]':$rootScope.currentUserId});
