@@ -30,9 +30,17 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
                   type: 'inline'
                 }, 0);  
 
-                init_wisiwig();
+
 
             })         
+        }
+
+        $scope.updateOnline = function(){
+            Online.getOnline(function(result){
+
+                 $scope.countOnline = result.user_list.length;
+
+            })                     
         }
 
         
