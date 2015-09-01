@@ -49,6 +49,21 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
         }
 
 
+      $scope.turnMicOn = function(){
+         document["myVideo"].JsTurnMicOn();
+         $scope.is_mic_on = true;
+      }
+
+
+      $scope.turnMicOff = function(){
+        document["myVideo"].JsTurnMicOff();
+        $scope.is_mic_on = false;
+      }
+
+
+
+
+
       $scope.showOpponentVideo = function(user_id){
 
                 var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+user_id+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=in" };  
