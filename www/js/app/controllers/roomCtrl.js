@@ -222,7 +222,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
                 Room.getUserInfo(data.user_id,function(result){ 
                     $rootScope.system_messages[data.user_id+'_hide'] = {
-                                                                             'message': result.user_profile.name+' stopted watching you.',
+                                                                             'message': result.user_profile.name+' stoped watching you.',
                                                                              'user': result.user_profile
                                                                             }
                     
