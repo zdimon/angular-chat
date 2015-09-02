@@ -67,6 +67,10 @@ def close_chat_room(request,app_name,room_id, opponent_id):
 
     Example: http://chat.localhost/api/tpa1com/34/close_chat_room
     '''
+    room = ChatRoom.objects.get(pk = room_id)
+    room.is_charging_text = False
+    room.is_charging_video = False
+    room.save()
     mes = { 'action': 'close_room', 
             'room_id': room_id
           }

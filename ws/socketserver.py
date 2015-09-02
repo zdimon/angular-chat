@@ -216,6 +216,6 @@ if __name__ == "__main__":
     http_server.listen(8889)
     myIP = socket.gethostbyname(socket.gethostname())
     print '*** Websocket Server Started at %s***' % myIP
-    tornado.ioloop.PeriodicCallback(send_charge_request, 60000).start()
+    tornado.ioloop.PeriodicCallback(send_charge_request, 10000).start()
     tornado.ioloop.IOLoop.instance().start()
     
