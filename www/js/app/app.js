@@ -34,6 +34,7 @@ The function :func:`someService` does a some function.
                         $rootScope.balance = result.balance;
                         $rootScope.gender = result.gender;
                         $rootScope.system_messages = {};
+                        $rootScope.waiting_to_responce = {};
                         
                         $rootScope.close_system_message = function(win_id) {
                             delete $rootScope.system_messages[win_id];

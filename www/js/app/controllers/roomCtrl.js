@@ -59,7 +59,14 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
             if(chm.length>0) {
             
            Room.sendMessage($scope.room_id, message, $rootScope.currentUserId, $scope.room_participants, $rootScope.gender, function(result) {
-              log(message.length);
+              log(result);
+
+                // mark opponent as waiting to responce
+                for (var i = 0; i < result.participants.length; i++) {
+                    $rootScope.waiting_to_responce['user_'+result.participants[i]] = true;
+                }              
+                //**************************************
+
               if(result.status==1) {
                     $rootScope.emptyAccountAlert(); // when user has not money
                 } else { 
@@ -101,6 +108,12 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
               if(data.message.message.owner.user_id!=$rootScope.currentUserId){
                     document.getElementById('audio_alert').play();
                 }
+
+              // mark user as is not waiting to responce 
+              delete $rootScope.waiting_to_responce['user_'+data.message.message.owner.user_id]
+              //****************************************
+
+
 
               if(data.message.message.room_id != $scope.room_id){
                     

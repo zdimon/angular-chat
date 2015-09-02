@@ -158,7 +158,9 @@ def save_message(request):
     cm.save()
     charge_for_chat(cm,room,tpa) #charging
     try:
+        arr_participants = []
         for p in b['participants']:
+            arr_participants.append(p.split('_')[1])
             mes = { 'action': 'show_message', 'room_id': b['room_id'], 
                     'message': {'id': cm.id, 
                                 'created': str(cm.created.time().strftime('%H:%M:%S')),
@@ -188,7 +190,7 @@ def save_message(request):
         print e
     mark_new_message(room, owner)
 
-    return  { 'status': 0, 'message': b['message'], 'room_id': str(room.id), 'owner_id': str(owner.id) }
+    return  { 'status': 0, 'message': b['message'], 'room_id': str(room.id), 'owner_id': str(owner.id), 'participants': arr_participants }
 
 
 def mark_new_message(room, owner):
