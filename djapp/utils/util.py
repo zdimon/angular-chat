@@ -192,6 +192,8 @@ def load_db_from_tpa():
     t.get_balance_url = 'http://%s/api/[user_id]/tpa1com/get_balance' % TPA_SERVER
     t.billing_page = 'http://%s/account/get-coins' % TPA_SERVER
     t.charge_url = 'http://%s/api/charge' % TPA_SERVER
+    t.favorite_url = 'http://%s/chat-request/favorite' % TPA_SERVER
+    t.message_url = 'http://%s/chat-request/message' % TPA_SERVER
     t.timeout_chating = 30
     t.save()
 

@@ -19,6 +19,8 @@ class Tpa(models.Model):
     secret = models.CharField(max_length = 250, blank = True, verbose_name = _('Secret key'))
     charge_url = models.CharField(max_length = 250, blank = True, verbose_name = _('Url for charging'))
     get_balance_url = models.CharField(max_length = 250, blank = True, verbose_name = _('Url for geting balance'))
+    favorite_url = models.CharField(max_length = 250, blank = True, verbose_name = _('Url for add/delete from favorite'))
+    message_url = models.CharField(max_length = 250, blank = True, verbose_name = _('Url for send offline message to messagebox'))
     billing_page = models.CharField(max_length = 250, blank = True, verbose_name = _('Link (url) to the billing page'))
     timeout_chating = models.IntegerField(verbose_name = _('Chat timeout'), default = 180)
     price_text_chat = models.DecimalField( verbose_name=_('Price of text chating'), max_digits= 12, decimal_places= 2, default="1")

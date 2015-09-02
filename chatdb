@@ -1,0 +1,4 @@
+#!/bin/bash
+source ../bin/activate
+./manage.py migrate
+./manage.py load_data_from_tpa
