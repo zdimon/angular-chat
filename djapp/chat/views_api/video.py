@@ -92,6 +92,7 @@ def show_opponent_cam(request,user_id,opponent_id,app_name,room_id):
         Return: {'status': 0, 'message': 'ok'}
     '''
     #tpa = Tpa.objects.get(name=app_name)
+    #import pdb; pdb.set_trace()
     owner = ChatUser.objects.get(user_id=user_id)
     room =  ChatRoom.objects.get(pk=room_id)
     u2r = ChatUser2Room.objects.get(user=owner,room=room)

@@ -207,8 +207,13 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         })
 
          $scope.$on('i_started_watching_you', function (event, data) {
+           
            if($rootScope.gender=='w') {
                
+                // mark user as watching in contact list
+                $rootScope.men_watching['user_'+data.user_id] = true;
+                //**************************************
+
                 // close window after some time
                 $timeout(function(){
                     delete $rootScope.system_messages[data.user_id+'_show'];
@@ -228,6 +233,11 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
          $scope.$on('i_stopted_watching_you', function (event, data) {
            if($rootScope.gender=='w') {
                 log(data);
+
+                // mark user as not watching in contact list
+                delete $rootScope.men_watching['user_'+data.user_id];
+                //**************************************
+
                 // close window after some time
                 $timeout(function(){
                     delete $rootScope.system_messages[data.user_id+'_hide'];
