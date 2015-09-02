@@ -94,6 +94,7 @@ def show_opponent_cam(request,user_id,opponent_id,app_name,room_id):
     #tpa = Tpa.objects.get(name=app_name)
     #import pdb; pdb.set_trace()
     owner = ChatUser.objects.get(user_id=user_id)
+    tpa = Tpa.objects.get(name=app_name)
     room =  ChatRoom.objects.get(pk=room_id)
     u2r = ChatUser2Room.objects.get(user=owner,room=room)
     u2r.is_video_watching = True
@@ -102,6 +103,13 @@ def show_opponent_cam(request,user_id,opponent_id,app_name,room_id):
     room.save()
     mes = { 'action': 'i_started_watching_you', 'user_id': owner.user_id, 'opponent_id': opponent_id }
     bclient.publish('%s_%s' % (app_name, opponent_id), json.dumps(mes)) 
+
+    # deduct money
+    data = []
+    data.append({'action': 'video', 'app_name': app_name,  'user_id': user_id, 'opponent_id': opponent_id, 'room_id': room_id, 'price': str(tpa.price_video) })     
+
+    print requests.post(tpa.charge_url,data=json.dumps(data)).content
+
 
     return {'status': 0, 'message': 'ok', 'user_id': user_id}
 
