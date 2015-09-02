@@ -88,7 +88,7 @@
 
         if(message.action=='i_started_watching_you'){
 
- 
+         
             $rootScope.$broadcast('i_started_watching_you',message);
             
 

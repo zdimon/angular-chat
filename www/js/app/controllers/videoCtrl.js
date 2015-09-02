@@ -64,7 +64,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
 
 
-      $scope.showOpponentVideo = function(user_id){
+      $scope.showOpponentVideo = function(){
 
                 
                 var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.current_opponent_id+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=in" }; 
@@ -82,7 +82,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
                              swfobject.embedSWF("Media/chat.swf", "opponentVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
                              $rootScope.isOpponentCamEnabled = true;
-                             Video.showOpponentCam(user_id,function(result){
+                             Video.showOpponentCam($rootScope.current_opponent_id,function(result){
                                 // Initiate periodic calling to charge money
                                 /*
                                 $scope.invite_promise = $interval(function(){
@@ -118,13 +118,13 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
         
 
 
-      $scope.hideOpponentVideo = function(opponent_id){
+      $scope.hideOpponentVideo = function(){
        
             swfobject.removeSWF("opponentVideo");
             $(document).find('#oponent_video_container').append('<div id="opponentVideo"> </div>');
             $rootScope.isOpponentCamEnabled = false;
          
-             Video.hideOpponentCam(opponent_id, function(){
+             Video.hideOpponentCam($rootScope.current_opponent_id, function(){
                 if (angular.isDefined($scope.invite_promise)) {
                     $interval.cancel($scope.invite_promise);
                     $scope.invite_promise = undefined;
