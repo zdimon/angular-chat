@@ -106,10 +106,11 @@ class WSHandler(tornado.websocket.WebSocketHandler):
 
     def set_user_online(self):
         bd.update('update chat_chatuser set is_online=1 where user_id=%s and tpa_id=%s' % (self.current_user_id, self.tpa_id))
-
+        bd.update('update users set online=1 where login=%s' % self.current_user_id)
 
     def set_user_offline(self):
         bd.update('update chat_chatuser set is_online=0 where user_id=%s and tpa_id=%s' % (self.current_user_id, self.tpa_id))
+        
 
     def redis_message(self, result):
         ''' recieving  message from redis server, 
