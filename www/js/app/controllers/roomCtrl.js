@@ -61,18 +61,19 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
            Room.sendMessage($scope.room_id, message, $rootScope.currentUserId, $scope.room_participants, $rootScope.gender, function(result) {
               log(result);
 
-                // mark opponent as waiting to responce
-                for (var i = 0; i < result.participants.length; i++) {
-                    $rootScope.waiting_to_responce['user_'+result.participants[i]] = true;
-                }              
-                //**************************************
+
 
               if(result.status==1) {
                     $rootScope.emptyAccountAlert(); // when user has not money
                 } else { 
                     $(document).find('#chat_message').html("");
                     text_changed = 0;
-                } 
+                    // mark opponent as waiting to responce
+                    for (var i = 0; i < result.participants.length; i++) {
+                        $rootScope.waiting_to_responce['user_'+result.participants[i]] = true;
+                    }              
+                    //**************************************
+                    } 
               
             });
 
@@ -162,6 +163,11 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
             $scope.opponent = result.user_profile;
             $rootScope.current_opponent_id = data.contact_id;
             $rootScope.current_opponent = result.user_profile;
+            if(result.user_profile.is_camera_active==true) {
+                $rootScope.isOpponentVideoActive = true;
+            } else {
+                $rootScope.isOpponentVideoActive = false;
+            }
          });
     
            Room.getMessages(data.room_id, function(result) {
