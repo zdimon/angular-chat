@@ -55,7 +55,7 @@ Or you can use ng-show directive to show and hide online indicator depending on 
 Chat actions.
 -------------
 
-All the chat icons have to be inside div block with ng-controller="ActionCtrl" attribute.
+All the chat icons have to be inside html block with ng-controller="ActionCtrl" attribute.
 -----------------------------------------------------------------------------------------
 
 For example: 
