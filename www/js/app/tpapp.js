@@ -66,6 +66,10 @@ tpapp.js
                 delete $rootScope.notifies[id];
             }
 
+            $scope.busy = function(id){
+                alert(id);
+            }
+
 
          })
 
