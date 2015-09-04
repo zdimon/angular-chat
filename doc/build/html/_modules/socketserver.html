@@ -74,6 +74,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integration.html">Integration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#online-indicator">Online indicator.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#chat-actions">Chat actions.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html#all-chat-icons-have-to-be-inside-div-block-with-ng-controller-actionctrl-attribute">All chat icons have to be inside div block with ng-controller=&#8221;ActionCtrl&#8221; attribute.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#active-cam-indicator">Active cam indicator.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#inviting-link">Inviting link.</a></li>
 </ul>
@@ -335,10 +339,11 @@
 </div>
     <span class="k">def</span> <span class="nf">set_user_online</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">bd</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s">&#39;update chat_chatuser set is_online=1 where user_id=</span><span class="si">%s</span><span class="s"> and tpa_id=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tpa_id</span><span class="p">))</span>
-
+        <span class="n">bd</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s">&#39;update users set online=1 where login=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">set_user_offline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">bd</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s">&#39;update chat_chatuser set is_online=0 where user_id=</span><span class="si">%s</span><span class="s"> and tpa_id=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tpa_id</span><span class="p">))</span>
+        
 
 <div class="viewcode-block" id="WSHandler.redis_message"><a class="viewcode-back" href="../socketserver.html#socketserver.WSHandler.redis_message">[docs]</a>    <span class="k">def</span> <span class="nf">redis_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; recieving  message from redis server, </span>
@@ -445,7 +450,7 @@
     <span class="n">http_server</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">8889</span><span class="p">)</span>
     <span class="n">myIP</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostbyname</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">())</span>
     <span class="k">print</span> <span class="s">&#39;*** Websocket Server Started at </span><span class="si">%s</span><span class="s">***&#39;</span> <span class="o">%</span> <span class="n">myIP</span>
-    <span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">PeriodicCallback</span><span class="p">(</span><span class="n">send_charge_request</span><span class="p">,</span> <span class="mi">60000</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">PeriodicCallback</span><span class="p">(</span><span class="n">send_charge_request</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
     <span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">IOLoop</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
     
 </pre></div>

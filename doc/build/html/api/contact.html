@@ -76,6 +76,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integration.html">Integration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#online-indicator">Online indicator.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#chat-actions">Chat actions.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html#all-chat-icons-have-to-be-inside-div-block-with-ng-controller-actionctrl-attribute">All chat icons have to be inside div block with ng-controller=&#8221;ActionCtrl&#8221; attribute.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#active-cam-indicator">Active cam indicator.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#inviting-link">Inviting link.</a></li>
 </ul>
@@ -93,7 +97,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#id2">RESPONSE:</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../integration.html#request-of-charging-money-from-user-s-account-for-text-chating">4. Request of charging money from user&#8217;s account for text chating.</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html#request-of-charging-money-from-user-s-account-for-text-chating-or-video">4. Request of charging money from user&#8217;s account for text chating or video.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#request">REQUEST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#id3">RESPONSE</a></li>
 </ul>
@@ -117,14 +121,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#id10">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../integration.html#outcome-api">OUTCOME API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../integration.html#request-to-add-user-to-the-contact-list">1. Request to add user to the contact list.</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html#request-to-send-message-in-message-box">9. Request to send message in message box.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#id11">REQUEST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#id12">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../integration.html#request-to-remove-user-from-the-contact-list">2. Request to remove user from the contact list.</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html#outcome-api">OUTCOME API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html#request-to-add-user-to-the-contact-list">1. Request to add user to the contact list.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#id13">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#id14">RESPONSE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html#request-to-remove-user-from-the-contact-list">2. Request to remove user from the contact list.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#id15">REQUEST</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../test_loading.html">Loading test data</a><ul class="simple">
@@ -268,6 +277,15 @@
 <p>[server]/api/[app_name]/[user_id]/get_contact_list</p>
 <p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/1/get_contact_list">http://chat.localhost/api/tpa1com/1/get_contact_list</a></p>
 <p>Responce:  {&#8220;status&#8221;: 0, &#8220;message&#8221;: &#8220;ok&#8221;, &#8220;contact_list&#8221;: [{&#8220;image&#8221;: &#8220;/static/images/avatar.jpg&#8221;, &#8220;is_invisible&#8221;: false, &#8220;is_invitation_enabled&#8221;: true, &#8220;culture&#8221;: &#8220;ru&#8221;, &#8220;birthday&#8221;: &#8220;1996-12-08&#8221;, &#8220;id&#8221;: 44, &#8220;city&#8221;: &#8220;Washava&#8221;, &#8220;user_id&#8221;: 3, &#8220;name&#8221;: &#8220;serg&#8221;, &#8220;country&#8221;: &#8220;Poland&#8221;, &#8220;gender&#8221;: &#8220;m&#8221;, &#8220;profile_url&#8221;: &#8220;serg_plofile_url&#8221;, &#8220;is_camera_active&#8221;: false}]}</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.contact.mark_watching_profile">
+<code class="descclassname">chat.views_api.contact.</code><code class="descname">mark_watching_profile</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/chat/views_api/contact.html#mark_watching_profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.contact.mark_watching_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request to mark indicator about user is watching profile.</p>
+<p>[server]/api/[app_name]/[user_id]/[opponent_id]/mark_watching_profile</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/14/15/mark_watching_profile">http://chat.localhost/api/tpa1com/14/15/mark_watching_profile</a></p>
+<p>Responce 1: { &#8216;status&#8217;: 0, &#8216;message&#8217;: &#8216;ok&#8217; }</p>
 </dd></dl>
 
 <dl class="function">

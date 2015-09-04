@@ -74,6 +74,10 @@
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integration.html">Integration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#online-indicator">Online indicator.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#chat-actions">Chat actions.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#all-chat-icons-have-to-be-inside-div-block-with-ng-controller-actionctrl-attribute">All chat icons have to be inside div block with ng-controller=&#8221;ActionCtrl&#8221; attribute.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#active-cam-indicator">Active cam indicator.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#inviting-link">Inviting link.</a></li>
 </ul>
@@ -267,12 +271,12 @@
   <dt><a href="ng/controllers.html#_S_scope._S_on('set_me_online'...">$scope.$on(&#39;set_me_online&#39;...() ($scope.$on(&#39;set_me_online&#39;.. method)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="ng/controllers.html#_S_scope._S_on('update_contact'...">$scope.$on(&#39;update_contact&#39;...() ($scope.$on(&#39;update_contact&#39;.. method)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="ng/controllers.html#_S_scope.delete">$scope.delete() ($scope method)</a>
   </dt>
@@ -283,6 +287,10 @@
 
       
   <dt><a href="ng/controllers.html#_S_scope.submit_invitation">$scope.submit_invitation() ($scope method)</a>
+  </dt>
+
+      
+  <dt><a href="ng/controllers.html#_S_scope.submit_message">$scope.submit_message() ($scope method)</a>
   </dt>
 
       
@@ -481,6 +489,10 @@
   <dt><a href="djangoapp.html#chat.views_api.room.mark_new_message">mark_new_message() (in module chat.views_api.room)</a>
   </dt>
 
+      
+  <dt><a href="api/contact.html#chat.views_api.contact.mark_watching_profile">mark_watching_profile() (in module chat.views_api.contact)</a>, <a href="djangoapp.html#chat.views_api.contact.mark_watching_profile">[1]</a>
+  </dt>
+
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
@@ -546,15 +558,23 @@
   </dt>
 
       
+  <dt><a href="api/online.html#chat.views_api.online.send_message">send_message() (in module chat.views_api.online)</a>, <a href="djangoapp.html#chat.views_api.online.send_message">[1]</a>
+  </dt>
+
+      
   <dt><a href="ng/services.html#sendInvitation">sendInvitation() (built-in function)</a>
   </dt>
 
       
-  <dt><a href="djangoapp.html#chat.views_api.room.show_feather">show_feather() (in module chat.views_api.room)</a>
+  <dt><a href="ng/services.html#sendMessage">sendMessage() (built-in function)</a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="djangoapp.html#chat.views_api.room.show_feather">show_feather() (in module chat.views_api.room)</a>
+  </dt>
+
       
   <dt><a href="socketserver.html#module-socketserver">socketserver (module)</a>
   </dt>

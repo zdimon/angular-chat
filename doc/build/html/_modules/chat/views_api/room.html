@@ -74,6 +74,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integration.html">Integration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../integration.html#online-indicator">Online indicator.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#chat-actions">Chat actions.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integration.html#all-chat-icons-have-to-be-inside-div-block-with-ng-controller-actionctrl-attribute">All chat icons have to be inside div block with ng-controller=&#8221;ActionCtrl&#8221; attribute.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../integration.html#active-cam-indicator">Active cam indicator.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../integration.html#inviting-link">Inviting link.</a></li>
 </ul>
@@ -296,6 +300,10 @@
 
 <span class="sd">    Example: http://chat.localhost/api/tpa1com/34/close_chat_room</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">room</span> <span class="o">=</span> <span class="n">ChatRoom</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span> <span class="o">=</span> <span class="n">room_id</span><span class="p">)</span>
+    <span class="n">room</span><span class="o">.</span><span class="n">is_charging_text</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">room</span><span class="o">.</span><span class="n">is_charging_video</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">room</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
     <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;close_room&#39;</span><span class="p">,</span> 
             <span class="s">&#39;room_id&#39;</span><span class="p">:</span> <span class="n">room_id</span>
           <span class="p">}</span>
@@ -387,7 +395,9 @@
     <span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
     <span class="n">charge_for_chat</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span><span class="n">room</span><span class="p">,</span><span class="n">tpa</span><span class="p">)</span> <span class="c">#charging</span>
     <span class="k">try</span><span class="p">:</span>
+        <span class="n">arr_participants</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">b</span><span class="p">[</span><span class="s">&#39;participants&#39;</span><span class="p">]:</span>
+            <span class="n">arr_participants</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;_&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
             <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;show_message&#39;</span><span class="p">,</span> <span class="s">&#39;room_id&#39;</span><span class="p">:</span> <span class="n">b</span><span class="p">[</span><span class="s">&#39;room_id&#39;</span><span class="p">],</span> 
                     <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="n">cm</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> 
                                 <span class="s">&#39;created&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">created</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&#39;%H:%M:%S&#39;</span><span class="p">)),</span>
@@ -399,8 +409,16 @@
            
             <span class="n">bclient</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">mes</span><span class="p">))</span>
             <span class="n">opponent</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;_&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="c">#import pdb; pdb.set_trace()</span>
             <span class="k">if</span> <span class="n">owner</span> <span class="o">!=</span> <span class="n">opponent</span><span class="p">:</span>
+                <span class="c"># adding contact</span>
                 <span class="n">add_me_to_contact_if_not_exist</span><span class="p">(</span><span class="n">tpa</span><span class="p">,</span><span class="n">owner</span><span class="p">,</span><span class="n">opponent</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+                <span class="n">contact</span> <span class="o">=</span> <span class="n">_add_contact</span><span class="p">(</span><span class="n">tpa</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">owner</span><span class="o">.</span><span class="n">user_id</span><span class="p">,</span><span class="n">opponent</span><span class="o">.</span><span class="n">user_id</span><span class="p">)</span>
+                <span class="n">mes_contact</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;update_contact&#39;</span> <span class="p">}</span>
+                <span class="n">mes_online</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;update_users_online&#39;</span> <span class="p">}</span>
+                <span class="n">owner_chanel</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;app_name&#39;</span><span class="p">],</span> <span class="n">owner</span><span class="o">.</span><span class="n">user_id</span><span class="p">)</span>
+                <span class="n">bclient</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">owner_chanel</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">mes_contact</span><span class="p">))</span>
+                <span class="n">bclient</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">owner_chanel</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">mes_online</span><span class="p">))</span>
                 <span class="k">if</span> <span class="n">room</span><span class="o">.</span><span class="n">get_count_messages</span><span class="p">()</span><span class="o">&lt;</span><span class="mi">2999</span><span class="p">:</span>
                     <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="n">cm</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="n">cm</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s">&#39;opponent&#39;</span><span class="p">:</span> <span class="n">serialize_user</span><span class="p">(</span><span class="n">owner</span><span class="p">)}</span>
                     <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;show_new_message_notification&#39;</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span> <span class="n">data</span> <span class="p">}</span>
@@ -409,7 +427,7 @@
         <span class="k">print</span> <span class="n">e</span>
     <span class="n">mark_new_message</span><span class="p">(</span><span class="n">room</span><span class="p">,</span> <span class="n">owner</span><span class="p">)</span>
 
-    <span class="k">return</span>  <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="n">b</span><span class="p">[</span><span class="s">&#39;message&#39;</span><span class="p">],</span> <span class="s">&#39;room_id&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">room</span><span class="o">.</span><span class="n">id</span><span class="p">),</span> <span class="s">&#39;owner_id&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">owner</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="p">}</span>
+    <span class="k">return</span>  <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="n">b</span><span class="p">[</span><span class="s">&#39;message&#39;</span><span class="p">],</span> <span class="s">&#39;room_id&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">room</span><span class="o">.</span><span class="n">id</span><span class="p">),</span> <span class="s">&#39;owner_id&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">owner</span><span class="o">.</span><span class="n">id</span><span class="p">),</span> <span class="s">&#39;participants&#39;</span><span class="p">:</span> <span class="n">arr_participants</span> <span class="p">}</span>
 
 </div>
 <div class="viewcode-block" id="mark_new_message"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.room.mark_new_message">[docs]</a><span class="k">def</span> <span class="nf">mark_new_message</span><span class="p">(</span><span class="n">room</span><span class="p">,</span> <span class="n">owner</span><span class="p">):</span>
@@ -467,22 +485,22 @@
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Function send invite to opponent. </span>
 
-<span class="sd">    Add the opponent to the contact list.</span>
+<span class="sd">    REMOVED Add the opponent to the contact list.</span>
 
 <span class="sd">    Mark contact as active</span>
 
 <span class="sd">    Create the room. Put the user into the room.</span>
 <span class="sd">     </span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="c">#apiconf = read_conf()</span>
-    <span class="c">#app_name = apiconf[&#39;config&#39;][&#39;app_name&#39;]</span>
-    <span class="n">contact</span> <span class="o">=</span> <span class="n">_add_contact</span><span class="p">(</span><span class="n">app_name</span><span class="p">,</span><span class="n">owner_id</span><span class="p">,</span><span class="n">contact_id</span><span class="p">)</span>
-    <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;update_contact&#39;</span> <span class="p">}</span>
+
+    <span class="c">#contact = _add_contact(app_name,owner_id,contact_id)</span>
+    <span class="c">#mes = { &#39;action&#39;: &#39;update_contact&#39; }</span>
     <span class="n">owner_chanel</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">app_name</span><span class="p">,</span> <span class="n">owner_id</span><span class="p">)</span>
+    <span class="c">#bclient.publish(owner_chanel, json.dumps(mes))</span>
+
     <span class="n">contact_chanel</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">app_name</span><span class="p">,</span> <span class="n">contact_id</span><span class="p">)</span>
-    <span class="n">bclient</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">owner_chanel</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">mes</span><span class="p">))</span>
     <span class="n">rm</span> <span class="o">=</span> <span class="n">_get_room_or_create</span><span class="p">(</span><span class="n">app_name</span><span class="p">,</span><span class="n">owner_id</span><span class="p">,</span><span class="n">contact_id</span><span class="p">)</span>
-    <span class="n">contact</span><span class="o">.</span><span class="n">set_active</span><span class="p">(</span><span class="n">rm</span><span class="p">[</span><span class="s">&#39;room_id&#39;</span><span class="p">])</span>
+    <span class="c">#contact.set_active(rm[&#39;room_id&#39;])</span>
     <span class="n">tpa</span> <span class="o">=</span> <span class="n">Tpa</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">app_name</span><span class="p">)</span>
     <span class="n">owner</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">owner_id</span><span class="p">,</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">)</span>
     <span class="n">contact_user</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">contact_id</span><span class="p">,</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">)</span>

@@ -74,6 +74,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integration.html">Integration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../integration.html#online-indicator">Online indicator.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#chat-actions">Chat actions.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integration.html#all-chat-icons-have-to-be-inside-div-block-with-ng-controller-actionctrl-attribute">All chat icons have to be inside div block with ng-controller=&#8221;ActionCtrl&#8221; attribute.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../integration.html#active-cam-indicator">Active cam indicator.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../integration.html#inviting-link">Inviting link.</a></li>
 </ul>
@@ -385,6 +389,22 @@
     <span class="n">bclient</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;app_name&#39;</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;contact_id&#39;</span><span class="p">])),</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">mes</span><span class="p">))</span> 
 
     <span class="k">return</span>  <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span> <span class="p">}</span>
+
+</div>
+<span class="nd">@json_view</span>
+<div class="viewcode-block" id="mark_watching_profile"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.contact.mark_watching_profile">[docs]</a><span class="k">def</span> <span class="nf">mark_watching_profile</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">app_name</span><span class="p">,</span><span class="n">user_id</span><span class="p">,</span><span class="n">opponent_id</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">        Request to mark indicator about user is watching profile.</span>
+
+<span class="sd">        [server]/api/[app_name]/[user_id]/[opponent_id]/mark_watching_profile</span>
+
+<span class="sd">        Example: http://chat.localhost/api/tpa1com/14/15/mark_watching_profile</span>
+
+<span class="sd">        Responce 1: { &#39;status&#39;: 0, &#39;message&#39;: &#39;ok&#39; }</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;mark_watching_profile&#39;</span><span class="p">,</span> <span class="s">&#39;user_id&#39;</span><span class="p">:</span> <span class="n">user_id</span> <span class="p">}</span>
+    <span class="n">bclient</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">app_name</span><span class="p">,</span><span class="n">opponent_id</span><span class="p">),</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">mes</span><span class="p">))</span> 
+    <span class="k">return</span> <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;ok&#39;</span> <span class="p">}</span>
 </pre></div></div>
 
           </div>

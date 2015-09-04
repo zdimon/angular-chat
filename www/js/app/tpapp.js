@@ -114,6 +114,7 @@ tpapp.js
     .controller('ActionCtrl', function ($window, $rootScope, $scope, $http) {
         
         $scope.invite = function(user_id){
+
                 var url = "http://" + $window.location.host + "/video-chat#/"+ $rootScope.currentUserId + '/' +user_id;  
                 $window.location.href = url;            
             

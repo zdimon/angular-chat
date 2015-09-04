@@ -52,6 +52,25 @@ Or you can use ng-show directive to show and hide online indicator depending on 
 
     <a class="like int_pop" href="#invite_pop" ng-show="online.user_<?php echo $user->id ?>"></a>
 
+Chat actions.
+-------------
+
+All chat icons have to be inside div block with ng-controller="ActionCtrl" attribute.
+=====================================================================================
+
+For example: 
+
+.. code-block:: html 
+
+            <div class="servise" ng-controller="ActionCtrl">
+            <ul data-id="<?php echo $man->id; ?>">
+               
+                <li ng-show="activecam.user_<?php echo $man->login ?>"><a ng-click="invite(<?php echo $man->login ?>)" class="web_chat "></a></li>
+                <li ng-show="online.user_<?php echo $man->login ?>" ><a ng-click="invite(<?php echo $man->login ?>)" class="chat "></a></li>
+
+            </ul>
+        </div>
+
 Active cam indicator.
 ---------------------
 

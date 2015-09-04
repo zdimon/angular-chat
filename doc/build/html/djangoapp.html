@@ -75,6 +75,10 @@
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integration.html">Integration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#online-indicator">Online indicator.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#chat-actions">Chat actions.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#all-chat-icons-have-to-be-inside-div-block-with-ng-controller-actionctrl-attribute">All chat icons have to be inside div block with ng-controller=&#8221;ActionCtrl&#8221; attribute.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#active-cam-indicator">Active cam indicator.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#inviting-link">Inviting link.</a></li>
 </ul>
@@ -116,14 +120,19 @@
 <li class="toctree-l2"><a class="reference internal" href="integration.html#id10">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="integration.html#outcome-api">OUTCOME API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-add-user-to-the-contact-list">1. Request to add user to the contact list.</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-send-message-in-message-box">9. Request to send message in message box.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#id11">REQUEST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#id12">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-remove-user-from-the-contact-list">2. Request to remove user from the contact list.</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#outcome-api">OUTCOME API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-add-user-to-the-contact-list">1. Request to add user to the contact list.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#id13">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id14">RESPONSE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-remove-user-from-the-contact-list">2. Request to remove user from the contact list.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id15">REQUEST</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="test_loading.html">Loading test data</a><ul class="simple">
@@ -318,6 +327,15 @@ Example: <a class="reference external" href="http://chat.localhost/api/logout">h
 </dd></dl>
 
 <dl class="function">
+<dt id="chat.views_api.contact.mark_watching_profile">
+<code class="descclassname">chat.views_api.contact.</code><code class="descname">mark_watching_profile</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/contact.html#mark_watching_profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.contact.mark_watching_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request to mark indicator about user is watching profile.</p>
+<p>[server]/api/[app_name]/[user_id]/[opponent_id]/mark_watching_profile</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/14/15/mark_watching_profile">http://chat.localhost/api/tpa1com/14/15/mark_watching_profile</a></p>
+<p>Responce 1: { &#8216;status&#8217;: 0, &#8216;message&#8217;: &#8216;ok&#8217; }</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="chat.views_api.contact.send_invitation">
 <code class="descclassname">chat.views_api.contact.</code><code class="descname">send_invitation</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/contact.html#send_invitation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.contact.send_invitation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function saves invitation from woman.</p>
@@ -343,6 +361,15 @@ Example: <a class="reference external" href="http://chat.localhost/api/logout">h
 <dd><p>Function return list of users with opposite gender who are online except those who is not in contact list.</p>
 <p>[server]/api/[app_name]/[user_id]/get_online_except_contact</p>
 <p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/150031/get_online_except_contact">http://chat.localhost/api/tpa1com/150031/get_online_except_contact</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.online.send_message">
+<code class="descclassname">chat.views_api.online.</code><code class="descname">send_message</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/online.html#send_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.online.send_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function make a request to send message to the user&#8217;s inbox&#8217;.</p>
+<p>parameters by POST: app_name,owner_id,contact_id,message</p>
+<p>[server]/api/send_message</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/send_message">http://chat.localhost/api/send_message</a></p>
 </dd></dl>
 
 </div>
@@ -397,7 +424,7 @@ Also it create two records in ChatUser2Room model.</p>
 <dt id="chat.views_api.room.invite">
 <code class="descclassname">chat.views_api.room.</code><code class="descname">invite</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/room.html#invite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.room.invite" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function send invite to opponent.</p>
-<p>Add the opponent to the contact list.</p>
+<p>REMOVED Add the opponent to the contact list.</p>
 <p>Mark contact as active</p>
 <p>Create the room. Put the user into the room.</p>
 </dd></dl>

@@ -75,6 +75,10 @@
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integration.html">Integration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#online-indicator">Online indicator.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#chat-actions">Chat actions.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#all-chat-icons-have-to-be-inside-div-block-with-ng-controller-actionctrl-attribute">All chat icons have to be inside div block with ng-controller=&#8221;ActionCtrl&#8221; attribute.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#active-cam-indicator">Active cam indicator.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#inviting-link">Inviting link.</a></li>
 </ul>
@@ -116,14 +120,19 @@
 <li class="toctree-l2"><a class="reference internal" href="integration.html#id10">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="integration.html#outcome-api">OUTCOME API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-add-user-to-the-contact-list">1. Request to add user to the contact list.</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-send-message-in-message-box">9. Request to send message in message box.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#id11">REQUEST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#id12">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-remove-user-from-the-contact-list">2. Request to remove user from the contact list.</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#outcome-api">OUTCOME API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-add-user-to-the-contact-list">1. Request to add user to the contact list.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#id13">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id14">RESPONSE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-remove-user-from-the-contact-list">2. Request to remove user from the contact list.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id15">REQUEST</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="test_loading.html">Loading test data</a><ul class="simple">
@@ -236,7 +245,7 @@
 
 <dl class="class">
 <dt id="chat.models.ChatContacts">
-<em class="property">class </em><code class="descclassname">chat.models.</code><code class="descname">ChatContacts</code><span class="sig-paren">(</span><em>id</em>, <em>owner</em>, <em>contact</em>, <em>created</em>, <em>has_new_message</em>, <em>successfuly_connected</em>, <em>is_active</em>, <em>tpa</em>, <em>room</em>, <em>is_man_camera_active</em>, <em>is_woman_camera_active</em>, <em>is_ununswerd</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/models.html#ChatContacts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.models.ChatContacts" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">chat.models.</code><code class="descname">ChatContacts</code><span class="sig-paren">(</span><em>id</em>, <em>owner</em>, <em>contact</em>, <em>created</em>, <em>has_new_message</em>, <em>waiting_for_answer</em>, <em>is_answered</em>, <em>is_ignored</em>, <em>chat_with_cam</em>, <em>chat_without_cam</em>, <em>watch_profile</em>, <em>successfuly_connected</em>, <em>is_active</em>, <em>tpa</em>, <em>room</em>, <em>is_man_camera_active</em>, <em>is_woman_camera_active</em>, <em>is_ununswerd</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/models.html#ChatContacts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.models.ChatContacts" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="class">
