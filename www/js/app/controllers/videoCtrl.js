@@ -50,12 +50,15 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
 
       $scope.turnMicOn = function(){
+         alert('mic on');
          document["myVideo"].JsTurnMicOn();
+         log(document["myVideo"]);
          $scope.is_mic_on = true;
       }
 
 
       $scope.turnMicOff = function(){
+        alert('mic off');
         document["myVideo"].JsTurnMicOff();
         $scope.is_mic_on = false;
       }
