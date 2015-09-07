@@ -8,7 +8,8 @@ import requests
 from django.contrib.auth.models import User
 from chat.models import ChatUser, ChatContacts
 from chat.models import Tpa
-from utils.util import serialize_user
+from utils.util import serialize_user, get_url_by_name
+from djapp.local import TPA_SERVER
 
 @json_view
 def get_online_except_contact(request,app_name,user_id):
@@ -50,8 +51,16 @@ def get_online(request,app_name,user_id):
     if user_id == 'undefined':
         return { 'status': 0, 'message': 'ok', 'user_list': {} }
     else:
-        owner = ChatUser.objects.get(tpa=tpa,user_id=user_id)
-        users_online = ChatUser.objects.filter(tpa=tpa,is_online=1).exclude(gender=owner.gender)
+	try:
+            owner = ChatUser.objects.get(tpa=tpa,user_id=user_id)
+	except:
+            url = get_url_by_name('get_profile_from_tpa',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
+            responce = requests.get(url)
+	    owner = ChatUser.objects.get(tpa=tpa,user_id=user_id)
+	users_online = ChatUser.objects.filter(tpa=tpa,is_online=1).exclude(gender=owner.gender)
+	
+            
+	
     for u in users_online:        
         userlst_profile.append(serialize_user(u))
     return { 'status': 0, 'message': 'ok', 'user_list': userlst_profile }
