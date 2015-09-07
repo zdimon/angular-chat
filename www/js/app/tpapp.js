@@ -47,7 +47,7 @@ tpapp.js
     })
 
 
-        .controller('NotifyCtrl', function ($window, $rootScope, $scope, API, $http) {
+        .controller('NotifyCtrl', function ($window, $rootScope, $scope, API, Status, $http) {
 
             $rootScope.notifies = {};
             $rootScope.$on('show_new_message_notification',function(event,data){
@@ -66,8 +66,11 @@ tpapp.js
                 delete $rootScope.notifies[id];
             }
 
-            $scope.busy = function(id){
-                alert(id);
+            $scope.busy = function(opponent_id,notify_id){
+                Status.sayBusy(opponent_id, function(result){
+                    delete $rootScope.notifies[notify_id];
+                })
+               
             }
 
 

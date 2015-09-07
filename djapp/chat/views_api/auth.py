@@ -6,10 +6,33 @@ from utils.util import read_conf, get_url_by_name
 from django.views.decorators.csrf import csrf_exempt
 import requests
 from django.contrib.auth.models import User
-from chat.models import ChatUser
+from chat.models import ChatUser, Tpa
+from utils.util import read_conf, serialize_user
+import brukva
+bclient = brukva.Client()
+bclient.connect()
 
 from utils.db import MyDB
 bd = MyDB()
+
+
+@json_view
+def say_busy(request,user_id,opponent_id,app_name):
+    ''' 
+        Send message to opponet about youa are busy now
+
+        [server]/api/[app_name]/[user_id]/[opponent_id]/say_busy
+
+        Example: http://chat.localhost/api/tpa1com/150040/150042/say_busy
+
+        Return: {'status': 0, message: 'ok'}
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    opponent = ChatUser.objects.get(tpa=tpa,user_id=opponent_id)
+    message = { 'action': 'say_busy', 'message': 'Sorry but I am busy now.', 'user_profile': serialize_user(opponent) }
+    opponent_chanel = '%s_%s' % (app_name, opponent_id)
+    bclient.publish(opponent_chanel, json.dumps(message))    
+    return {'status': 0, 'message': 'ok'}
 
 
 @json_view

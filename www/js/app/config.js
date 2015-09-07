@@ -213,6 +213,13 @@ apiconf = {
             },
 
 
+        'say_busy':
+            {
+                'type': 'ajax',
+                'name': 'say_busy',
+                'url':  '[server]/api/[app_name]/[user_id]/[opponent_id]/say_busy'
+            },
+
 
         'get_balance':
             {

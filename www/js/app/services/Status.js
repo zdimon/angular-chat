@@ -11,7 +11,7 @@
                         declineInvitation: declineInvitation,
                         acceptInvitation: acceptInvitation               
                     }
-            function sayBusy(opponent_id) {
+            function sayBusy(opponent_id,callback) {
 
                 var url = utils.prepare_url(apiconf.api.say_busy.url,{
                                                                         '[user_id]':$rootScope.currentUserId,

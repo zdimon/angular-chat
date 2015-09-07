@@ -265,7 +265,16 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
             {
                 $rootScope.notifies[data.data.id] = data.data;
             }
-            log($rootScope.notifies);
+            
+
+        })
+
+        $rootScope.$on('say_busy',function(event,data){
+
+                    $rootScope.system_messages[data.user_id+'_show'] = {
+                                                                             'message': data.message,
+                                                                             'user': data.user_profile
+                                                                            };
 
         })
 

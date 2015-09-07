@@ -78,6 +78,13 @@
 
         }
 
+        if(message.action=='say_busy'){
+            
+            $rootScope.$broadcast('say_busy',message);
+
+        }
+
+
 
         if(message.action=='close_room'){
             
