@@ -162,11 +162,16 @@ def get_profile_from_tpa(request,user_id,app_name):
             gender = 'w'
         else:
             gender = 'm'
-
+	try:
+		birth = datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d')
+	except:
+		birth = '1900-01-01'
+	if u['name'] == None :
+		u['name']='undefined'
         out = { 'status': 0, 'user_profile': {
                                                 'user_id':u_login['login'],
                                                 'name':u['name'],
-                                                'birthday': datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d'),
+                                                'birthday': birth,
                                                 'country':u['country'],
                                                 'city':u['city'],
                                                 'culture':u['languages'], 
