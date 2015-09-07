@@ -45,7 +45,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
   
       $scope.hideMyVideo = function(){
 
-            $(document).find('#myVideoContainer').html('<div id="myVideo"> </div>');
+            $(document).find('#myVideoContainer').html('<div id="myVideo"> There are no cameras are available or installed </div>');
             //swfobject.removeSWF("myVideo");
             $scope.isMyVideoActive = false;
 
