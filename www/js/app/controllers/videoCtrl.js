@@ -25,7 +25,14 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
       $scope.isMyVideoActive = false;
 
       $scope.showMyVideo = function(){
-            var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=out" };
+
+            if($rootScope.gender=='m') {
+               var with_audio = true;          
+            } else {
+               var with_audio = false; 
+            }            
+
+            var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://chat.mirbu.com/myapp&micOn="+with_audio+"&type=out" };
             swfobject.embedSWF("Media/chat.swf", "myVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
             $scope.isMyVideoActive = true;
 
@@ -50,7 +57,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
 
       $scope.turnMicOn = function(){
-         alert('mic on');
+
          document["myVideo"].JsTurnMicOn();
          log(document["myVideo"]);
          $scope.is_mic_on = true;
@@ -58,7 +65,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
 
       $scope.turnMicOff = function(){
-        alert('mic off');
+
         document["myVideo"].JsTurnMicOff();
         $scope.is_mic_on = false;
       }
