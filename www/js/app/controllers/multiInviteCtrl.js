@@ -72,12 +72,15 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
             $scope.isSending = true;
             $scope.currentCursor = 0;
             var index = 0;
-         
-
+            var message = $(document).find('#multi_invite_text').html();
+            
+            if (message.length == 0) {
+                alert('You can not sent empty message!');            
+            }
            
                 $scope.invite_promise = $interval(function(){
                 opponent_id = $scope.listOnline[index].user_id;
-                message = $(document).find('#multi_invite_text').html();
+                
                 var data = {
                                 'app_name': local_config.app_name, 
                                 'owner_id': $rootScope.currentUserId, 
