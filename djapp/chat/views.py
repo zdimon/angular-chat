@@ -131,9 +131,10 @@ def get_profile_from_tpa(request,user_id,app_name):
     Function get profile user from outer DB (Tpa) and 
     if user not exist in our DB save into our DB.
 
-    [server]/api/get_profile_from_tpa/[user_id]
 
-    Example: http://chat.locahost/api/get_profile_from_tpa/14
+    [server]/api/[app_name]/get_profile_from_tpa/[user_id]
+
+    Example: http://chat.locahost/api/tpa1com/get_profile_from_tpa/150064
     '''
     tpa = Tpa.objects.get(name=app_name)
     try:
