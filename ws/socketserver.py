@@ -152,8 +152,8 @@ def send_charge_request():
              chat_chatroom.tpa_id = chat_tpa.id and
              (is_charging_text="%s" or is_charging_video="%s")''' % (1,1)
     rooms = bd.select(sql)
+    data = []
     for room in rooms.record: 
-        data = []
         # select users from room
         sql = ''' select chat_chatuser.user_id, chat_chatuser.gender 
                   from chat_chatuser, chat_chatuser2room
@@ -184,8 +184,9 @@ def send_charge_request():
 
         if(room['is_charging_video']==1):     
              data.append({'action': 'video', 'app_name': room['app_name'],  'user_id': man, 'opponent_id': woman, 'room_id': room['id'], 'price': str(room['price_video']) })     
-        print "Charge request to %s " % room['charge_url'] 
-        print requests.post(room['charge_url'],data=json.dumps(data)).content  
+    print "Charge request to %s " % room['charge_url'] 
+    #print "DATA %s" % data
+    print requests.post(room['charge_url'],json=data).content  
 
 
 
