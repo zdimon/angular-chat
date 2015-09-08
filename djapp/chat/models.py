@@ -83,6 +83,7 @@ class ChatRoom(models.Model):
     tpa = models.ForeignKey(Tpa, verbose_name = _('TPA'))
     is_charging_text = models.BooleanField(verbose_name = _('Allow charging for text?'), default = False)
     is_charging_video = models.BooleanField(verbose_name = _('Allow charging for video?'), default = False)
+    is_charging_audio = models.BooleanField(verbose_name = _('Allow charging for audio?'), default = False)
     is_closed = models.BooleanField(verbose_name = _('Chat Closed'), default = False)
     activity = models.IntegerField(blank = True, verbose_name = _('Activiti (sec)'), default = 0)
     class Meta:
