@@ -15,9 +15,26 @@ from contact import _add_contact
 import brukva
 bclient = brukva.Client()
 bclient.connect()
-
+import re
 bd = MyDB()
 
+def check_message(message):
+    ''' Check content of the message on phone number or email or url address '''
+    message =  message.strip()
+    message =  message.replace('+','')
+    if re.match(r"([^@|\s]+@[^@]+\.[^@|\s]+)", message): 
+        return False
+    if re.match(r"[0-9][0-9][0-9]*.", message): 
+        return False
+    if message.find('.com')>0 or \
+       message.find('http://')>0 or \
+       message.find('www')>0 or \
+       message.find('.ua')>0 or \
+       message.find('.net')>0 or \
+       message.find('.ru')>0 or \
+       message.find('.org')>0:
+       return False
+    return True
 
 def get_user_balance(tpa,user):
     url = tpa.get_balance_url
@@ -144,6 +161,10 @@ def save_message(request):
 
     b['message'] = stop_words(b['message'])
 
+    if(check_message(b['message']) == False):
+        message = 'This message contains prohibited information!'
+    else:
+        message = b['message']         
     tpa = Tpa.objects.get(name=b['app_name'])
     owner = ChatUser.objects.get(tpa=tpa,user_id=int(b['owner_id']))
     
@@ -157,7 +178,7 @@ def save_message(request):
     cm.tpa = tpa
     cm.user = owner
     cm.room = room
-    cm.message = b['message']
+    cm.message = message
     gender = owner.gender
     cm.save()
     charge_for_chat(cm,room,tpa) #charging
