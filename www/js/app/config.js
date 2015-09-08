@@ -19,7 +19,16 @@ apiconf = {
                 'type': 'ajax',
                 'name': 'has_opponent',
                 'url':  '[server]/api/[user_id]/has_opponent'
+            }, 
+
+        'update_user':
+            {
+                'type': 'ajax',
+                'name': 'update_user',
+                'url':  '[server]/api/[app_name]/[user_id]/update_user',
+                'responce': '{"status": 0, "message": "ok", }]'
             },  
+ 
 
         'get_online':
             {

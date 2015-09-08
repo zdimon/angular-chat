@@ -127,6 +127,18 @@ def has_opponent(request,user_id):
  
 
 @json_view
+def update_user(request,user_id,app_name):
+    '''
+         Function update or create user.
+        
+         Example: http://chat.locahost/api/tpa1com/150064/update_user
+        
+    '''
+    url = get_url_by_name('get_profile_from_tpa',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
+    responce = requests.get(url)
+    return {'status': 0, 'message': 'ok'}
+
+@json_view
 def get_profile_from_tpa(request,user_id,app_name):
     '''
     Function get profile user from outer DB (Tpa) and 
