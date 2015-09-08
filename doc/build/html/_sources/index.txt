@@ -20,7 +20,7 @@ Contents:
     file_structure
     socketserver
     architecture
-    db
+    model
     api
     model
     uml
