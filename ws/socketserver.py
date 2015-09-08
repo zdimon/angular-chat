@@ -64,24 +64,24 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         message = json.loads(message) 
 
         if message['action'] == 'connect':
-            try:
-                url = get_url_by_name('set_connected',{'user_id':message["user_id"], 'app_name': message["tpa"]})
-                requests.get(url)
-                chanel = '%s_%s' % (message["tpa"], message["user_id"])
-                self.subscribe(chanel)
-                self.current_user_id = message["user_id"]             
-                self.tpa_name = message["tpa"]
+            #try:
+            url = get_url_by_name('set_connected',{'user_id':message["user_id"], 'app_name': message["tpa"]})
+            requests.get(url)
+            chanel = '%s_%s' % (message["tpa"], message["user_id"])
+            self.subscribe(chanel)
+            self.current_user_id = message["user_id"]             
+            self.tpa_name = message["tpa"]
 
-                self.write_message(json.dumps({'action': 'connected', 'status': 0, 'user_id':  self.current_user_id, 'message': 'you have been connected to %s' % chanel })) 
+            self.write_message(json.dumps({'action': 'connected', 'status': 0, 'user_id':  self.current_user_id, 'message': 'you have been connected to %s' % chanel })) 
                 #self.set_user_online()
                 #mes = {'action': 'update_users_online'}
                 #self.broadcast(mes)     
                 #mes = {'action': 'set_me_online', 'uid': self.current_user_id}
                 #self.broadcast(mes)
                 #print 'set me online!!!!!!!!!!!!'  
-            except Exception, e:
-                print e
-                self.write_message(json.dumps({'status': 1, 'message': str(e)})) 
+            #except Exception, e:
+            #    print e
+            #    self.write_message(json.dumps({'status': 1, 'message': str(e)})) 
           
         handle(message,self)
         
