@@ -59,7 +59,8 @@ def show_my_cam(request,user_id,app_name):
         Return: {'status': 0, 'message': 'ok'}
     '''
     try:
-        owner = ChatUser.objects.get(user_id=user_id)
+        tpa = Tpa.objects.get(name=app_name)
+        owner = ChatUser.objects.get(user_id=user_id, tpa=tpa)
         owner.is_camera_active = True
         owner.save()
         tpa = Tpa.objects.get(name=app_name)
@@ -91,7 +92,8 @@ def hide_my_cam(request,user_id,app_name):
         Return: {'status': 0, 'message': 'ok'}
     '''
     try:
-        owner = ChatUser.objects.get(user_id=user_id)
+        tpa = Tpa.objects.get(name=app_name)
+        owner = ChatUser.objects.get(user_id=user_id, tpa=tpa)
         owner.is_camera_active = False
         owner.save()
         camerausers = []
@@ -132,8 +134,8 @@ def show_opponent_cam(request,user_id,opponent_id,app_name,room_id):
     '''
     #tpa = Tpa.objects.get(name=app_name)
     #import pdb; pdb.set_trace()
-    owner = ChatUser.objects.get(user_id=user_id)
     tpa = Tpa.objects.get(name=app_name)
+    owner = ChatUser.objects.get(user_id=user_id, tpa=tpa)
     room =  ChatRoom.objects.get(pk=room_id)
     u2r = ChatUser2Room.objects.get(user=owner,room=room)
     u2r.is_video_watching = True
@@ -167,7 +169,8 @@ def hide_opponent_cam(request,user_id,opponent_id,app_name,room_id):
 
         Return: {'status': 0, 'message': 'ok'}
     '''
-    owner = ChatUser.objects.get(user_id=user_id)
+    tpa = Tpa.objects.get(name=app_name)
+    owner = ChatUser.objects.get(user_id=user_id, tpa=tpa)
     room =  ChatRoom.objects.get(pk=room_id)
     u2r = ChatUser2Room.objects.get(user=owner,room=room)
     u2r.is_video_watching = False

@@ -3,7 +3,6 @@ import json
 from django.http import HttpResponse
 from jsonview.decorators import json_view
 from django.shortcuts import redirect
-from utils.util import read_conf
 from django.views.decorators.csrf import csrf_exempt
 import requests
 from django.contrib.auth.models import User

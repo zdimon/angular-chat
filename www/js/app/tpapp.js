@@ -220,13 +220,14 @@ tpapp.js
 
 .run(function ($rootScope,$window,Online,$log, WS, Auth) {
 
-
+            
             Auth.isauth(function(result){
                 if(result.id>0) {
+                        
                         $rootScope.isAuthenticated = true;
                         $rootScope.currentUserId = result.id;
                         WS.send({ action: 'connect', user_id: $rootScope.currentUserId });
-
+                        console.log('connect from tpa user-id ' + $rootScope.currentUserId)
                         $rootScope.online = {}
 
                           Online.getOnline(function(rezult){
@@ -236,7 +237,9 @@ tpapp.js
                              }); 
 
 
-                    } else { $rootScope.isAuthenticated = false;}
+                    } else { 
+                        $rootScope.isAuthenticated = false;                   
+                    }
             })
 
 
@@ -247,6 +250,7 @@ tpapp.js
 
     $rootScope.$on('set_me_online',function(event,data){
         $rootScope.online['user_'+data.message.uid] = true;
+        //log('set online - '+data.message.uid)
     });
 
 
@@ -262,7 +266,8 @@ tpapp.js
 
 
     $rootScope.$on('set_me_offline',function(event,data){
-        $rootScope.online['user_'+data.message.uid] = false;
+        delete $rootScope.online['user_'+data.message.uid];
+        //log('set offline - '+data.message.uid)
     });
 
 

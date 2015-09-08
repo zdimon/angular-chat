@@ -29,6 +29,23 @@ apiconf = {
                 'responce': '{"status": 0, "message": "ok", }]'
             },  
 
+
+        'set_connected':
+            {
+                'type': 'ajax',
+                'name': 'set_connected',
+                'url':  '[server]/api/[app_name]/[user_id]/set_connected',
+                'responce': '{"status": 0, "message": "ok", }]'
+            }, 
+
+        'set_disconnected':
+            {
+                'type': 'ajax',
+                'name': 'set_disconnected',
+                'url':  '[server]/api/[app_name]/[user_id]/set_disconnected',
+                'responce': '{"status": 0, "message": "ok", }]'
+            }, 
+
         'get_online':
             {
                 'type': 'ajax',

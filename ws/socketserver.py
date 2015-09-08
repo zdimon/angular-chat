@@ -16,7 +16,7 @@ import requests
 import time
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '../djapp'))
-
+from utils.api_router import get_url_by_name
 from utils.db import MyDB
 bd = MyDB()
 import sockjs.tornado
@@ -41,8 +41,6 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         self.client = brukva.Client()
         self.client.connect()
         self.current_user_id = None
-        self.current_user_name = None
-        self.tpa_id = None
         self.tpa_name = None
         self.processor = None
 
@@ -62,28 +60,25 @@ class WSHandler(tornado.websocket.WebSocketHandler):
       
     def on_message(self, message):
         'Accepting message from javasctipt client'
-        print 'message received:  %s' % message
+        #print 'message received:  %s' % message
         message = json.loads(message) 
 
         if message['action'] == 'connect':
             try:
+                url = get_url_by_name('set_connected',{'user_id':message["user_id"], 'app_name': message["tpa"]})
+                requests.get(url)
                 chanel = '%s_%s' % (message["tpa"], message["user_id"])
                 self.subscribe(chanel)
-                tpa = bd.get('select id, name from chat_tpa where name="%s" ' % message["tpa"])
-                user = bd.get('select name from chat_chatuser where user_id="%s" ' % message["user_id"])
-                self.current_user_id = message["user_id"]
-                self.current_user_name = user['name']
-                
-                self.tpa_id = tpa['id']
-                self.tpa_name = tpa['name']
-                logger.debug('current tpa information %s %s' % (self.tpa_id, self.tpa_name ))
-                self.write_message(json.dumps({'action': 'connected', 'status': 0, 'user_id':  self.current_user_id, 'user_name':  self.current_user_name, 'message': 'you have been connected to %s' % chanel })) 
-                self.set_user_online()
-                mes = {'action': 'update_users_online'}
-                self.broadcast(mes)     
-                mes = {'action': 'set_me_online', 'uid': self.current_user_id}
-                self.broadcast(mes)
-                print 'set me online!!!!!!!!!!!!'  
+                self.current_user_id = message["user_id"]             
+                self.tpa_name = message["tpa"]
+
+                self.write_message(json.dumps({'action': 'connected', 'status': 0, 'user_id':  self.current_user_id, 'message': 'you have been connected to %s' % chanel })) 
+                #self.set_user_online()
+                #mes = {'action': 'update_users_online'}
+                #self.broadcast(mes)     
+                #mes = {'action': 'set_me_online', 'uid': self.current_user_id}
+                #self.broadcast(mes)
+                #print 'set me online!!!!!!!!!!!!'  
             except Exception, e:
                 print e
                 self.write_message(json.dumps({'status': 1, 'message': str(e)})) 
@@ -96,17 +91,19 @@ class WSHandler(tornado.websocket.WebSocketHandler):
     def on_close(self):
         ''' Method whith fires when connection is closed. '''
         print 'connection closed'
-        self.set_user_offline()
-        mes = {'action': 'update_users_online'}
-        self.broadcast(mes) 
-        mes = {'action': 'set_me_offline', 'uid': self.current_user_id}
-        self.broadcast(mes) 
+        url = get_url_by_name('set_disconnected',{'user_id':self.current_user_id, 'app_name': self.tpa_name})
+        requests.get(url)
+        #self.set_user_offline()
+        #mes = {'action': 'update_users_online'}
+        #self.broadcast(mes) 
+        #mes = {'action': 'set_me_offline', 'uid': self.current_user_id}
+        #self.broadcast(mes) 
         self.participants.remove(self)
 
 
-    def set_user_online(self):
-        bd.update('update chat_chatuser set is_online=1 where user_id=%s and tpa_id=%s' % (self.current_user_id, self.tpa_id))
-        bd.update('update users set online=1 where login=%s' % self.current_user_id)
+    #def set_user_online(self):
+    #    bd.update('update chat_chatuser set is_online=1 where user_id=%s and tpa_id=%s' % (self.current_user_id, self.tpa_id))
+    #    bd.update('update users set online=1 where login=%s' % self.current_user_id)
 
     def set_user_offline(self):
         bd.update('update chat_chatuser set is_online=0 where user_id=%s and tpa_id=%s' % (self.current_user_id, self.tpa_id))
@@ -119,7 +116,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         '''
         
         message = json.loads(result.body)
-        print message
+        #print message
         #self.write_message(json.dumps({'status': 1}))
         try:
             self.write_message(json.dumps(message))
