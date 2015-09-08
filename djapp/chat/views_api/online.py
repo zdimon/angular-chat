@@ -51,19 +51,35 @@ def get_online(request,app_name,user_id):
     if user_id == 'undefined':
         return { 'status': 0, 'message': 'ok', 'user_list': {} }
     else:
-	try:
+        try:
             owner = ChatUser.objects.get(tpa=tpa,user_id=user_id)
-	except:
+        except:
             url = get_url_by_name('get_profile_from_tpa',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
             responce = requests.get(url)
-	    owner = ChatUser.objects.get(tpa=tpa,user_id=user_id)
-	users_online = ChatUser.objects.filter(tpa=tpa,is_online=1).exclude(gender=owner.gender)
-	
-            
-	
-    for u in users_online:        
-        userlst_profile.append(serialize_user(u))
+            owner = ChatUser.objects.get(tpa=tpa,user_id=user_id)
+        users_online = ChatUser.objects.filter(tpa=tpa,is_online=1).exclude(gender=owner.gender)
+        for u in users_online:        
+            userlst_profile.append(serialize_user(u))
     return { 'status': 0, 'message': 'ok', 'user_list': userlst_profile }
+
+
+
+@json_view
+def get_online_ids(request,app_name,user_id):
+    '''
+    Function return list of users (IDs) with opposite gender who are on line
+
+    [server]/api/[app_name]/[user_id]/get_online_ids
+
+    Example: http://chat.localhost/api/tpa1com/150031/get_online_ids
+    '''
+    userlst_profile = []
+    tpa = Tpa.objects.get(name=app_name)
+    owner = ChatUser.objects.get(tpa=tpa,user_id=user_id)
+    users_online = ChatUser.objects.filter(tpa=tpa,is_online=1).exclude(gender=owner.gender)
+    for u in users_online:        
+        userlst_profile.append(u.user_id)
+    return { 'status': 0, 'message': 'ok', 'count': len(userlst_profile), 'user_list': userlst_profile }
 
 
 @csrf_exempt

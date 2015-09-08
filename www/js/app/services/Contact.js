@@ -6,6 +6,7 @@
     .factory('Contact', ['$http','$rootScope', function($http,$rootScope){
             return {
                         getContactList: getContactList,
+                        getContactListIds: getContactListIds,
                         delContact: delContact,
                         deleteAll: deleteAll,
                         addContact: addContact,
@@ -21,6 +22,12 @@
 
             function getContactList(callback) {
                 var url = utils.prepare_url(apiconf.api.get_contact_list.url,{'[user_id]':$rootScope.currentUserId});
+                return $http.get(url).success(callback); 
+
+            };
+
+            function getContactListIds(callback) {
+                var url = utils.prepare_url(apiconf.api.get_contact_list_ids.url,{'[user_id]':$rootScope.currentUserId});
                 return $http.get(url).success(callback); 
 
             };

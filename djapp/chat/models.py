@@ -10,7 +10,7 @@ import time
 # Create your models here.
 class Tpa(models.Model):
     ''' Third Part Applications. Table with sites which integrate this chat.
-    Primary key used as app_id in all API requests. '''
+    Field 'name' uses as app_id in all API requests. '''
     class Meta:
         verbose_name = "Site"
         verbose_name_plural = "Sites"
@@ -30,6 +30,7 @@ class Tpa(models.Model):
 
 
 class ChatUser(models.Model):
+    ''' Information about users. Username, gender and so on...  '''
     class Meta:
         verbose_name = "User"
         verbose_name_plural = "Users"
@@ -77,6 +78,7 @@ class ChatUser(models.Model):
 
 
 class ChatRoom(models.Model):
+    ''' Chat sessions. '''
     duration = models.IntegerField(blank = True, verbose_name = _('Duration (min)'), default = 0)
     sign = models.CharField(max_length = 250, blank = True, verbose_name = _('Identifier'), editable = False)
     created = models.DateTimeField( auto_now = True, blank = True, null = True)
@@ -162,6 +164,7 @@ class ChatRoom(models.Model):
             print 'Try to close %s' % destination
 
 class ChatUser2Room(models.Model):
+    ''' Relation between user and chat session. '''
     user = models.ForeignKey(ChatUser, verbose_name = _('User'))
     room = models.ForeignKey(ChatRoom, verbose_name = _('Room'))
     tpa = models.ForeignKey(Tpa, verbose_name = _('TPA'))
@@ -171,6 +174,7 @@ class ChatUser2Room(models.Model):
 
 
 class ChatMessage(models.Model):
+    ''' Chat messages. '''
     GENDERS = ( ('m', _('Man')), ('w', _('Woman')) )
     gender = models.CharField(max_length = 1, choices = GENDERS, default = 'm', verbose_name = _('Gender'))
     user = models.ForeignKey(ChatUser, verbose_name = _('User'))
@@ -191,6 +195,7 @@ class ChatMessage(models.Model):
 
 
 class ChatContacts(models.Model):
+    ''' User's contacts. '''
     owner = models.ForeignKey(ChatUser, related_name = 'contact_owner_user')
     contact = models.ForeignKey(ChatUser, related_name = 'contact_user')
     created = models.DateTimeField(auto_now = True, blank = True)
@@ -239,11 +244,13 @@ class ChatTransactions(models.Model):
 
 
 class ChatTemplates(models.Model):
+    ''' Templates of phrases that often in use during conversation.'''
     message_ru = models.TextField(blank = True, verbose_name = _('Message russian'))
     message_en = models.TextField(blank = True, verbose_name = _('Message english'))
 
 
 class ChatStopword(models.Model):
+    ''' Bad words that will be rejected from the message. '''
     word = models.CharField(max_length = 250, blank = True, verbose_name = _('Work'), db_index=True)
     replace = models.CharField(max_length = 250, blank = True, verbose_name = _('Replace with'), default="***")
 

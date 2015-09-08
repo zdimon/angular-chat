@@ -132,6 +132,29 @@ def get_contact_list(request,app_name,user_id):
         contactlst.append(serialize_user(c.contact))
     return { 'status': 0, 'message': 'ok', 'contact_list': contactlst }
 
+
+
+@json_view
+def get_contact_list_ids(request,app_name,user_id):
+    '''
+    Function returns user's ids contact list
+
+    [server]/api/[app_name]/[user_id]/get_contact_list_ids
+
+    Example: http://chat.localhost/api/tpa1com/1/get_contact_list_ids
+
+    Responce:  {"status": 0, "message": "ok", "contact_list": [150023, 150032]}
+
+    '''
+    contactlst = []
+    tpa = Tpa.objects.get(name=app_name)
+    owner = ChatUser.objects.filter(tpa=tpa,user_id=user_id)
+    
+    for c in ChatContacts.objects.filter(owner=owner):
+        contactlst.append(c.contact.user_id)
+    return { 'status': 0, 'message': 'ok', 'count': len(contactlst), 'contact_list': contactlst }
+
+
         
 @csrf_exempt
 @json_view

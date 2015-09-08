@@ -9,12 +9,13 @@ Multiply invitation.
 
 */
 
-app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, Video, Online, Block, $interval, $http, Room) {
+app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, Video, Online, Block, $interval, $http, Room, Contact) {
 
 
 
 
-      $rootScope.notifies = {}  
+      $rootScope.notifies = {}; 
+      $scope.towho = 'online';
 
       $scope.multiInviteWindow = function(){
 
@@ -71,26 +72,66 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
         $scope.startSending = function(){
             $scope.isSending = true;
             $scope.currentCursor = 0;
+            $scope.sending_list = [];
             var index = 0;
             var message = $(document).find('#multi_invite_text').html();
-            
+
             if (message.length == 0) {
                 alert('You can not sent empty message!');            
             }
-           
+            
+            if($scope.towho=='online'){
+                Online.getOnlineIds(function(result){
+                    $scope.countUsersInvite = result.count;
+                    set_interval_sending(result.user_list);
+                })
+                
+            } 
+            if($scope.towho=='favorites'){
+                //$scope.sending_list = $scope.listOnline;
+                alert('this function is on the construction')
+            }
+            if($scope.towho=='contacts'){
+                Contact.getContactListIds(function(result){
+
+                    $scope.countUsersInvite = result.count;
+                    set_interval_sending(result.contact_list)
+                })
+            }       
+     
+            function set_interval_sending(user_list){
+                    
+                    $scope.invite_promise = $interval(function(){
+
+                    opponent_id = user_list[index];
+                    
+                    var data = {
+                                    'app_name': local_config.app_name, 
+                                    'owner_id': $rootScope.currentUserId, 
+                                    'opponent_id': opponent_id, 
+                                    'message': message
+                                };
+                    $rootScope.$broadcast('multi_invite',data);
+                      index += 1;  
+                    }, 1000);
+                
+            }
+            /*
                 $scope.invite_promise = $interval(function(){
-                opponent_id = $scope.listOnline[index].user_id;
+
+                opponent_id = $scope.sending_list[index].user_id;
                 
                 var data = {
                                 'app_name': local_config.app_name, 
                                 'owner_id': $rootScope.currentUserId, 
                                 'opponent_id': opponent_id, 
-                                'message': message 
+                                'message': message,
+                                'towho': $scope.towho
                             };
                 $rootScope.$broadcast('multi_invite',data);
                   index += 1;  
                 }, 1000);
-            
+            */
            
             
             
@@ -137,7 +178,8 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
                     }); 
                 }
                 $scope.currentCursor += 1;
-                if ($scope.currentCursor==$scope.countOnline){
+                log($scope.currentCursor+'--'+$scope.countUsersInvite)
+                if (parseInt($scope.currentCursor)==parseInt($scope.countUsersInvite)){
                     $interval.cancel($scope.invite_promise);
                     $scope.invite_promise = undefined;
                 }

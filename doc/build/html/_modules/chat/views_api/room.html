@@ -132,6 +132,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id14">REQUEST</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integration.html#request-to-update-user-s-information-or-create-new-one-if-he-does-not-exist">3. Request to update user&#8217;s information or create new one if he does not exist.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#example">Example:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#where">Where:</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../../test_loading.html">Loading test data</a><ul class="simple">
 </ul>
 </li>
@@ -246,10 +251,27 @@
 <span class="kn">import</span> <span class="nn">brukva</span>
 <span class="n">bclient</span> <span class="o">=</span> <span class="n">brukva</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
 <span class="n">bclient</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
-
+<span class="kn">import</span> <span class="nn">re</span>
 <span class="n">bd</span> <span class="o">=</span> <span class="n">MyDB</span><span class="p">()</span>
 
-
+<div class="viewcode-block" id="check_message"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.room.check_message">[docs]</a><span class="k">def</span> <span class="nf">check_message</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Check content of the message on phone number or email or url address &#39;&#39;&#39;</span>
+    <span class="n">message</span> <span class="o">=</span>  <span class="n">message</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">message</span> <span class="o">=</span>  <span class="n">message</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;+&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">r&quot;([^@|\s]+@[^@]+\.[^@|\s]+)&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span> 
+        <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">r&quot;[0-9][0-9][0-9]*.&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span> 
+        <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">if</span> <span class="n">message</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;.com&#39;</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span> <span class="ow">or</span> \
+       <span class="n">message</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;http://&#39;</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span> <span class="ow">or</span> \
+       <span class="n">message</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;www&#39;</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span> <span class="ow">or</span> \
+       <span class="n">message</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;.ua&#39;</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span> <span class="ow">or</span> \
+       <span class="n">message</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;.net&#39;</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span> <span class="ow">or</span> \
+       <span class="n">message</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;.ru&#39;</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span> <span class="ow">or</span> \
+       <span class="n">message</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;.org&#39;</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+       <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">return</span> <span class="bp">True</span>
+</div>
 <span class="k">def</span> <span class="nf">get_user_balance</span><span class="p">(</span><span class="n">tpa</span><span class="p">,</span><span class="n">user</span><span class="p">):</span>
     <span class="n">url</span> <span class="o">=</span> <span class="n">tpa</span><span class="o">.</span><span class="n">get_balance_url</span>
     <span class="n">url</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;[user_id]&#39;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">user_id</span><span class="p">))</span>
@@ -375,6 +397,10 @@
 
     <span class="n">b</span><span class="p">[</span><span class="s">&#39;message&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stop_words</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;message&#39;</span><span class="p">])</span>
 
+    <span class="k">if</span><span class="p">(</span><span class="n">check_message</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;message&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="bp">False</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s">&#39;This message contains prohibited information!&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="s">&#39;message&#39;</span><span class="p">]</span>         
     <span class="n">tpa</span> <span class="o">=</span> <span class="n">Tpa</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;app_name&#39;</span><span class="p">])</span>
     <span class="n">owner</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;owner_id&#39;</span><span class="p">]))</span>
     
@@ -388,7 +414,7 @@
     <span class="n">cm</span><span class="o">.</span><span class="n">tpa</span> <span class="o">=</span> <span class="n">tpa</span>
     <span class="n">cm</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">owner</span>
     <span class="n">cm</span><span class="o">.</span><span class="n">room</span> <span class="o">=</span> <span class="n">room</span>
-    <span class="n">cm</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="s">&#39;message&#39;</span><span class="p">]</span>
+    <span class="n">cm</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
     <span class="n">gender</span> <span class="o">=</span> <span class="n">owner</span><span class="o">.</span><span class="n">gender</span>
     <span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
     <span class="n">charge_for_chat</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span><span class="n">room</span><span class="p">,</span><span class="n">tpa</span><span class="p">)</span> <span class="c">#charging</span>

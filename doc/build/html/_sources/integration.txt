@@ -263,7 +263,7 @@ RESPONSE
 ==============================================
 
 **URI** http://[server]/chat-request/favorites
-
+ 
 
 REQUEST
 -------
@@ -386,6 +386,7 @@ RESPONSE
 
 
 
+
 OUTCOME API
 ===========
 
@@ -428,6 +429,23 @@ REQUEST
 
     Responce 2: { 'status': 1, 'message': 'Contact does not exist.' }
 
+
+3. Request to update user's information or create new one if he does not exist.
+===============================================================================
+
+**URI** http://[server]/api/[app_name]/[user_id]/user_update
+
+Example:
+-------- 
+
+**http://brides.mirbu.com/api/tpa1com/510027/user_update**
+
+Where:
+------
+
+[app_name] - site name 'tpa1com'
+
+[user_id] - user indentifier
 
 
 

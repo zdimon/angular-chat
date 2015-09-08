@@ -334,6 +334,15 @@ Example: <a class="reference external" href="http://chat.localhost/api/logout">h
 </dd></dl>
 
 <dl class="function">
+<dt id="chat.views_api.contact.get_contact_list_ids">
+<code class="descclassname">chat.views_api.contact.</code><code class="descname">get_contact_list_ids</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/contact.html#get_contact_list_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.contact.get_contact_list_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function returns user&#8217;s ids contact list</p>
+<p>[server]/api/[app_name]/[user_id]/get_contact_list_ids</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/1/get_contact_list_ids">http://chat.localhost/api/tpa1com/1/get_contact_list_ids</a></p>
+<p>Responce:  {&#8220;status&#8221;: 0, &#8220;message&#8221;: &#8220;ok&#8221;, &#8220;contact_list&#8221;: [150023, 150032]}</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="chat.views_api.contact.mark_watching_profile">
 <code class="descclassname">chat.views_api.contact.</code><code class="descname">mark_watching_profile</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/contact.html#mark_watching_profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.contact.mark_watching_profile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Request to mark indicator about user is watching profile.</p>
@@ -371,6 +380,14 @@ Example: <a class="reference external" href="http://chat.localhost/api/logout">h
 </dd></dl>
 
 <dl class="function">
+<dt id="chat.views_api.online.get_online_ids">
+<code class="descclassname">chat.views_api.online.</code><code class="descname">get_online_ids</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/online.html#get_online_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.online.get_online_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function return list of users (IDs) with opposite gender who are on line</p>
+<p>[server]/api/[app_name]/[user_id]/get_online_ids</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/150031/get_online_ids">http://chat.localhost/api/tpa1com/150031/get_online_ids</a></p>
+</dd></dl>
+
+<dl class="function">
 <dt id="chat.views_api.online.send_message">
 <code class="descclassname">chat.views_api.online.</code><code class="descname">send_message</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/online.html#send_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.online.send_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function make a request to send message to the user&#8217;s inbox&#8217;.</p>
@@ -400,6 +417,12 @@ Example: <a class="reference external" href="http://chat.localhost/api/logout">h
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.room.check_message">
+<code class="descclassname">chat.views_api.room.</code><code class="descname">check_message</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/room.html#check_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.room.check_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check content of the message on phone number or email or url address</p>
 </dd></dl>
 
 <dl class="function">

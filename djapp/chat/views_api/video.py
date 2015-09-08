@@ -14,6 +14,38 @@ bclient.connect()
 
 
 @json_view
+def turn_mic_on(request,user_id,app_name):
+    ''' 
+        Request turns mic on.
+
+        [server]/api/[user_id]/turn_mic_on
+
+        Example: http://chat.localhost/api/150041/turn_mic_on
+
+        Return: {'status': 0, 'message': 'ok'}
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    owner = ChatUser.objects.get(user_id=user_id, tpa=tpa)
+    return {'status': 0, 'message': 'ok'}
+
+@json_view
+def turn_mic_off(request,user_id,app_name):
+    ''' 
+        Request turns mic off.
+
+        [server]/api/[user_id]/turn_mic_on
+
+        Example: http://chat.localhost/api/150041/turn_mic_on
+
+        Return: {'status': 0, 'message': 'ok'}
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    owner = ChatUser.objects.get(user_id=user_id, tpa=tpa)
+    return {'status': 0, 'message': 'ok'}
+
+
+
+@json_view
 def show_my_cam(request,user_id,app_name):
     ''' 
         Request fires after adding video block into the DOM.

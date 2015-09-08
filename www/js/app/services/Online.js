@@ -8,6 +8,7 @@
                         setOnline: setOnline,
                         setOffline: setOffline,
                         getOnline: getOnline,
+                        getOnlineIds: getOnlineIds,
                         getOnlineExceptContact: getOnlineExceptContact,
                         sendMessage: sendMessage               
                     }
@@ -33,6 +34,14 @@
                 return $http.get(url).success(callback); 
 
             };
+
+            function getOnlineIds(callback) {
+             
+                var url = utils.prepare_url(apiconf.api.get_online_ids.url,{'[user_id]':$rootScope.currentUserId});
+                return $http.get(url).success(callback); 
+
+            };
+
 
 
             /*"""

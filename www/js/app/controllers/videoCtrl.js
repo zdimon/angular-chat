@@ -57,10 +57,12 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
 
       $scope.turnMicOn = function(){
-
          document["myVideo"].JsTurnMicOn();
          log(document["myVideo"]);
          $scope.is_mic_on = true;
+         Video.turnMicOn(function(result){
+            
+         })
       }
 
 
@@ -68,6 +70,9 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
         document["myVideo"].JsTurnMicOff();
         $scope.is_mic_on = false;
+         Video.turnMicOff(function(result){
+            
+         })
       }
 
 

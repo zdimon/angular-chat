@@ -29,6 +29,14 @@ apiconf = {
                 'responce': '{"status": 0, "message": "ok", "user_list": [{...}]'
             },  
 
+        'get_online_ids':
+            {
+                'type': 'ajax',
+                'name': 'get_online_ids',
+                'url':  '[server]/api/[app_name]/[user_id]/get_online_ids',
+                'responce': '{"status": 0, "message": "ok", "user_list": [150043,150042]'
+            }, 
+
         'get_online_except_contact':
             {
                 'type': 'ajax',
@@ -45,6 +53,14 @@ apiconf = {
                 'name': 'get_contact_list',
                 'url':  '[server]/api/[app_name]/[user_id]/get_contact_list'
             },
+
+        'get_contact_list_ids':
+            {
+                'type': 'ajax',
+                'name': 'get_contact_list_ids',
+                'url':  '[server]/api/[app_name]/[user_id]/get_contact_list_ids'
+            },
+
 
         'mark_watching_profile':
             {
@@ -158,6 +174,20 @@ apiconf = {
                 'type': 'ajax',
                 'name': 'hide_my_cam',
                 'url':  '[server]/api/[user_id]/[app_name]/hide_my_cam'
+            } ,
+
+        'turn_mic_on':
+            {
+                'type': 'ajax',
+                'name': 'turn_mic_on',
+                'url':  '[server]/api/[user_id]/[app_name]/turn_mic_on'
+            } ,
+
+        'turn_mic_off':
+            {
+                'type': 'ajax',
+                'name': 'turn_mic_off',
+                'url':  '[server]/api/[user_id]/[app_name]/turn_mic_off'
             } ,
 
         'show_opponent_cam':

@@ -132,6 +132,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../../integration.html#id14">REQUEST</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../integration.html#request-to-update-user-s-information-or-create-new-one-if-he-does-not-exist">3. Request to update user&#8217;s information or create new one if he does not exist.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../integration.html#example">Example:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration.html#where">Where:</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../test_loading.html">Loading test data</a><ul class="simple">
 </ul>
 </li>
@@ -241,7 +246,7 @@
 <span class="c"># Create your models here.</span>
 <div class="viewcode-block" id="Tpa"><a class="viewcode-back" href="../../model.html#chat.models.Tpa">[docs]</a><span class="k">class</span> <span class="nc">Tpa</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Third Part Applications. Table with sites which integrate this chat.</span>
-<span class="sd">    Primary key used as app_id in all API requests. &#39;&#39;&#39;</span>
+<span class="sd">    Field &#39;name&#39; uses as app_id in all API requests. &#39;&#39;&#39;</span>
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">verbose_name</span> <span class="o">=</span> <span class="s">&quot;Site&quot;</span>
         <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s">&quot;Sites&quot;</span>
@@ -261,6 +266,7 @@
 
 </div>
 <div class="viewcode-block" id="ChatUser"><a class="viewcode-back" href="../../model.html#chat.models.ChatUser">[docs]</a><span class="k">class</span> <span class="nc">ChatUser</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Information about users. Username, gender and so on...  &#39;&#39;&#39;</span>
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">verbose_name</span> <span class="o">=</span> <span class="s">&quot;User&quot;</span>
         <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s">&quot;Users&quot;</span>
@@ -308,12 +314,14 @@
 
 </div>
 <div class="viewcode-block" id="ChatRoom"><a class="viewcode-back" href="../../model.html#chat.models.ChatRoom">[docs]</a><span class="k">class</span> <span class="nc">ChatRoom</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Chat sessions. &#39;&#39;&#39;</span>
     <span class="n">duration</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Duration (min)&#39;</span><span class="p">),</span> <span class="n">default</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">sign</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Identifier&#39;</span><span class="p">),</span> <span class="n">editable</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
     <span class="n">created</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span> <span class="n">auto_now</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">null</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
     <span class="n">tpa</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Tpa</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;TPA&#39;</span><span class="p">))</span>
     <span class="n">is_charging_text</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Allow charging for text?&#39;</span><span class="p">),</span> <span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
     <span class="n">is_charging_video</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Allow charging for video?&#39;</span><span class="p">),</span> <span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="n">is_charging_audio</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Allow charging for audio?&#39;</span><span class="p">),</span> <span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
     <span class="n">is_closed</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Chat Closed&#39;</span><span class="p">),</span> <span class="n">default</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
     <span class="n">activity</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Activiti (sec)&#39;</span><span class="p">),</span> <span class="n">default</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
@@ -392,6 +400,7 @@
             <span class="k">print</span> <span class="s">&#39;Try to close </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">destination</span>
 </div>
 <div class="viewcode-block" id="ChatUser2Room"><a class="viewcode-back" href="../../model.html#chat.models.ChatUser2Room">[docs]</a><span class="k">class</span> <span class="nc">ChatUser2Room</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Relation between user and chat session. &#39;&#39;&#39;</span>
     <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;User&#39;</span><span class="p">))</span>
     <span class="n">room</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatRoom</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Room&#39;</span><span class="p">))</span>
     <span class="n">tpa</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Tpa</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;TPA&#39;</span><span class="p">))</span>
@@ -401,6 +410,7 @@
 
 </div>
 <div class="viewcode-block" id="ChatMessage"><a class="viewcode-back" href="../../model.html#chat.models.ChatMessage">[docs]</a><span class="k">class</span> <span class="nc">ChatMessage</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Chat messages. &#39;&#39;&#39;</span>
     <span class="n">GENDERS</span> <span class="o">=</span> <span class="p">(</span> <span class="p">(</span><span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Man&#39;</span><span class="p">)),</span> <span class="p">(</span><span class="s">&#39;w&#39;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Woman&#39;</span><span class="p">))</span> <span class="p">)</span>
     <span class="n">gender</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">choices</span> <span class="o">=</span> <span class="n">GENDERS</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Gender&#39;</span><span class="p">))</span>
     <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;User&#39;</span><span class="p">))</span>
@@ -421,6 +431,7 @@
 
 </div>
 <div class="viewcode-block" id="ChatContacts"><a class="viewcode-back" href="../../model.html#chat.models.ChatContacts">[docs]</a><span class="k">class</span> <span class="nc">ChatContacts</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; User&#39;s contacts. &#39;&#39;&#39;</span>
     <span class="n">owner</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">related_name</span> <span class="o">=</span> <span class="s">&#39;contact_owner_user&#39;</span><span class="p">)</span>
     <span class="n">contact</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ChatUser</span><span class="p">,</span> <span class="n">related_name</span> <span class="o">=</span> <span class="s">&#39;contact_user&#39;</span><span class="p">)</span>
     <span class="n">created</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
@@ -469,11 +480,13 @@
 
 </div>
 <div class="viewcode-block" id="ChatTemplates"><a class="viewcode-back" href="../../model.html#chat.models.ChatTemplates">[docs]</a><span class="k">class</span> <span class="nc">ChatTemplates</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Templates of phrases that often in use during conversation.&#39;&#39;&#39;</span>
     <span class="n">message_ru</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Message russian&#39;</span><span class="p">))</span>
     <span class="n">message_en</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Message english&#39;</span><span class="p">))</span>
 
 </div>
 <div class="viewcode-block" id="ChatStopword"><a class="viewcode-back" href="../../model.html#chat.models.ChatStopword">[docs]</a><span class="k">class</span> <span class="nc">ChatStopword</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Bad words that will be rejected from the message. &#39;&#39;&#39;</span>
     <span class="n">word</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Work&#39;</span><span class="p">),</span> <span class="n">db_index</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">replace</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span> <span class="n">blank</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Replace with&#39;</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="s">&quot;***&quot;</span><span class="p">)</span>
 

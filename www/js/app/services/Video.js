@@ -8,7 +8,9 @@
                         showMyCam: showMyCam,
                         hideMyCam: hideMyCam,
                         showOpponentCam: showOpponentCam, 
-                        hideOpponentCam: hideOpponentCam    
+                        hideOpponentCam: hideOpponentCam,
+                        turnMicOn: turnMicOn,
+                        turnMicOff: turnMicOff    
                     }
 
             function hideOpponentCam(opponent_id,callback) {
@@ -48,6 +50,25 @@
                 return $http.get(url).success(callback); 
 
             };
+
+
+
+            function turnMicOn(callback) {
+             
+                var url = utils.prepare_url(apiconf.api.turn_mic_on.url,{'[user_id]':$rootScope.currentUserId});
+                return $http.get(url).success(callback); 
+
+            };
+
+            function turnMicOff(callback) {
+             
+                var url = utils.prepare_url(apiconf.api.turn_mic_off.url,{'[user_id]':$rootScope.currentUserId});
+                return $http.get(url).success(callback); 
+
+            };
+
+
+
     }]);
 
 
