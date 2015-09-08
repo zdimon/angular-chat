@@ -250,7 +250,7 @@ tpapp.js
 
     $rootScope.$on('set_me_online',function(event,data){
         $rootScope.online['user_'+data.message.uid] = true;
-        //log('set online - '+data.message.uid)
+        log('set online - '+data.message.uid)
     });
 
 
@@ -267,7 +267,7 @@ tpapp.js
 
     $rootScope.$on('set_me_offline',function(event,data){
         delete $rootScope.online['user_'+data.message.uid];
-        //log('set offline - '+data.message.uid)
+        log('set offline - '+data.message.uid)
     });
 
 
