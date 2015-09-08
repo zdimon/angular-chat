@@ -90,15 +90,17 @@ class WSHandler(tornado.websocket.WebSocketHandler):
  
     def on_close(self):
         ''' Method whith fires when connection is closed. '''
-        print 'connection closed'
-        url = get_url_by_name('set_disconnected',{'user_id':self.current_user_id, 'app_name': self.tpa_name})
-        requests.get(url)
+        if(self.tpa_name != None):
+            print 'connection closed'
+            url = get_url_by_name('set_disconnected',{'user_id':self.current_user_id, 'app_name': self.tpa_name})
+            requests.get(url)
+            self.participants.remove(self)
         #self.set_user_offline()
         #mes = {'action': 'update_users_online'}
         #self.broadcast(mes) 
         #mes = {'action': 'set_me_offline', 'uid': self.current_user_id}
         #self.broadcast(mes) 
-        self.participants.remove(self)
+            
 
 
     #def set_user_online(self):
