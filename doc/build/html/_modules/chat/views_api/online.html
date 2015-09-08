@@ -103,33 +103,33 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id5">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../../integration.html#request-to-add-user-to-favorites">6. Request to add user to favorites.</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../integration.html#request-to-add-remove-get-user-s-favorites">6. Request to add/remove/get user&#8217;s favorites.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id6">REQUEST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id7">RESPONSE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#versions-of-the-responses">VERSIONS OF THE RESPONSES</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integration.html#request-to-block-unblock-user">7. Request to block/unblock user.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id8">REQUEST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id9">RESPONSE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id7">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id8">RESPONSE</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integration.html#request-to-chek-if-user-blocked-or-not">8. Request to chek if user blocked or not.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id10">RESPONSE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id9">RESPONSE</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integration.html#request-to-send-message-in-message-box">9. Request to send message in message box.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id11">REQUEST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id12">RESPONSE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id10">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id11">RESPONSE</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integration.html#outcome-api">OUTCOME API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integration.html#request-to-add-user-to-the-contact-list">1. Request to add user to the contact list.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id13">REQUEST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id14">RESPONSE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id12">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id13">RESPONSE</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../integration.html#request-to-remove-user-from-the-contact-list">2. Request to remove user from the contact list.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id15">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id14">REQUEST</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../test_loading.html">Loading test data</a><ul class="simple">
@@ -239,7 +239,8 @@
 <span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
 <span class="kn">from</span> <span class="nn">chat.models</span> <span class="kn">import</span> <span class="n">ChatUser</span><span class="p">,</span> <span class="n">ChatContacts</span>
 <span class="kn">from</span> <span class="nn">chat.models</span> <span class="kn">import</span> <span class="n">Tpa</span>
-<span class="kn">from</span> <span class="nn">utils.util</span> <span class="kn">import</span> <span class="n">serialize_user</span>
+<span class="kn">from</span> <span class="nn">utils.util</span> <span class="kn">import</span> <span class="n">serialize_user</span><span class="p">,</span> <span class="n">get_url_by_name</span>
+<span class="kn">from</span> <span class="nn">djapp.local</span> <span class="kn">import</span> <span class="n">TPA_SERVER</span>
 
 <span class="nd">@json_view</span>
 <div class="viewcode-block" id="get_online_except_contact"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.online.get_online_except_contact">[docs]</a><span class="k">def</span> <span class="nf">get_online_except_contact</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">app_name</span><span class="p">,</span><span class="n">user_id</span><span class="p">):</span>
@@ -281,8 +282,16 @@
     <span class="k">if</span> <span class="n">user_id</span> <span class="o">==</span> <span class="s">&#39;undefined&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span> <span class="s">&#39;user_list&#39;</span><span class="p">:</span> <span class="p">{}</span> <span class="p">}</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">owner</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
-        <span class="n">users_online</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">is_online</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">gender</span><span class="o">=</span><span class="n">owner</span><span class="o">.</span><span class="n">gender</span><span class="p">)</span>
+	<span class="k">try</span><span class="p">:</span>
+            <span class="n">owner</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+	<span class="k">except</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">get_url_by_name</span><span class="p">(</span><span class="s">&#39;get_profile_from_tpa&#39;</span><span class="p">,{</span><span class="s">&#39;user_id&#39;</span><span class="p">:</span><span class="n">user_id</span><span class="p">,</span><span class="s">&#39;app_name&#39;</span><span class="p">:</span><span class="n">app_name</span><span class="p">,</span><span class="s">&#39;signal_server&#39;</span><span class="p">:</span> <span class="n">TPA_SERVER</span><span class="p">})</span>
+            <span class="n">responce</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+	    <span class="n">owner</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+	<span class="n">users_online</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">is_online</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">gender</span><span class="o">=</span><span class="n">owner</span><span class="o">.</span><span class="n">gender</span><span class="p">)</span>
+	
+            
+	
     <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">users_online</span><span class="p">:</span>        
         <span class="n">userlst_profile</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">serialize_user</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
     <span class="k">return</span> <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span> <span class="s">&#39;user_list&#39;</span><span class="p">:</span> <span class="n">userlst_profile</span> <span class="p">}</span>

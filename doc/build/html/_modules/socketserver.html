@@ -103,33 +103,33 @@
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#id5">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../integration.html#request-to-add-user-to-favorites">6. Request to add user to favorites.</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html#request-to-add-remove-get-user-s-favorites">6. Request to add/remove/get user&#8217;s favorites.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#id6">REQUEST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../integration.html#id7">RESPONSE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#versions-of-the-responses">VERSIONS OF THE RESPONSES</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../integration.html#request-to-block-unblock-user">7. Request to block/unblock user.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../integration.html#id8">REQUEST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../integration.html#id9">RESPONSE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#id7">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#id8">RESPONSE</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../integration.html#request-to-chek-if-user-blocked-or-not">8. Request to chek if user blocked or not.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../integration.html#id10">RESPONSE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#id9">RESPONSE</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../integration.html#request-to-send-message-in-message-box">9. Request to send message in message box.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../integration.html#id11">REQUEST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../integration.html#id12">RESPONSE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#id10">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#id11">RESPONSE</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../integration.html#outcome-api">OUTCOME API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../integration.html#request-to-add-user-to-the-contact-list">1. Request to add user to the contact list.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../integration.html#id13">REQUEST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../integration.html#id14">RESPONSE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#id12">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#id13">RESPONSE</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../integration.html#request-to-remove-user-from-the-contact-list">2. Request to remove user from the contact list.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../integration.html#id15">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#id14">REQUEST</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../test_loading.html">Loading test data</a><ul class="simple">
@@ -368,7 +368,7 @@
 
 
 <span class="k">def</span> <span class="nf">send_charge_request</span><span class="p">():</span>
-    <span class="k">print</span> <span class="s">&quot;Charge request!&quot;</span>    
+       
     <span class="n">sql</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;select chat_chatroom.id, </span>
 <span class="s">                    chat_chatroom.activity, </span>
 <span class="s">                    chat_chatroom.is_charging_text, </span>
@@ -383,8 +383,10 @@
 <span class="s">             chat_chatroom.tpa_id = chat_tpa.id and</span>
 <span class="s">             (is_charging_text=&quot;</span><span class="si">%s</span><span class="s">&quot; or is_charging_video=&quot;</span><span class="si">%s</span><span class="s">&quot;)&#39;&#39;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">rooms</span> <span class="o">=</span> <span class="n">bd</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="k">for</span> <span class="n">room</span> <span class="ow">in</span> <span class="n">rooms</span><span class="o">.</span><span class="n">record</span><span class="p">:</span> 
-        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">room</span><span class="p">[</span><span class="s">&#39;charge_url&#39;</span><span class="p">]</span>
         <span class="c"># select users from room</span>
         <span class="n">sql</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39; select chat_chatuser.user_id, chat_chatuser.gender </span>
 <span class="s">                  from chat_chatuser, chat_chatuser2room</span>
@@ -414,9 +416,12 @@
                 
 
         <span class="k">if</span><span class="p">(</span><span class="n">room</span><span class="p">[</span><span class="s">&#39;is_charging_video&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">):</span>     
-             <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;video&#39;</span><span class="p">,</span> <span class="s">&#39;app_name&#39;</span><span class="p">:</span> <span class="n">room</span><span class="p">[</span><span class="s">&#39;app_name&#39;</span><span class="p">],</span>  <span class="s">&#39;user_id&#39;</span><span class="p">:</span> <span class="n">man</span><span class="p">,</span> <span class="s">&#39;opponent_id&#39;</span><span class="p">:</span> <span class="n">woman</span><span class="p">,</span> <span class="s">&#39;room_id&#39;</span><span class="p">:</span> <span class="n">room</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span> <span class="s">&#39;price&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">room</span><span class="p">[</span><span class="s">&#39;price_video&#39;</span><span class="p">])</span> <span class="p">})</span>     
+             <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;video&#39;</span><span class="p">,</span> <span class="s">&#39;app_name&#39;</span><span class="p">:</span> <span class="n">room</span><span class="p">[</span><span class="s">&#39;app_name&#39;</span><span class="p">],</span>  <span class="s">&#39;user_id&#39;</span><span class="p">:</span> <span class="n">man</span><span class="p">,</span> <span class="s">&#39;opponent_id&#39;</span><span class="p">:</span> <span class="n">woman</span><span class="p">,</span> <span class="s">&#39;room_id&#39;</span><span class="p">:</span> <span class="n">room</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span> <span class="s">&#39;price&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">room</span><span class="p">[</span><span class="s">&#39;price_video&#39;</span><span class="p">])</span> <span class="p">})</span>   
+    <span class="k">if</span> <span class="n">url</span><span class="p">:</span>  
+        <span class="k">print</span> <span class="s">&quot;Charge request to </span><span class="si">%s</span><span class="s"> &quot;</span> <span class="o">%</span> <span class="n">url</span>
+        <span class="c">#print &quot;DATA %s&quot; % data</span>
+        <span class="k">print</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">room</span><span class="p">[</span><span class="s">&#39;charge_url&#39;</span><span class="p">],</span><span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>  
 
-        <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">room</span><span class="p">[</span><span class="s">&#39;charge_url&#39;</span><span class="p">],</span><span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>  
 
 
 <span class="sd">&#39;&#39;&#39;</span>

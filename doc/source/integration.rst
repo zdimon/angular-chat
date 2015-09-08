@@ -259,10 +259,10 @@ RESPONSE
 
 
 
-6. Request to add user to favorites.
-====================================
+6. Request to add/remove/get user's favorites.
+==============================================
 
-**URI** http://[server]/chat-request/add_fav
+**URI** http://[server]/chat-request/favorites
 
 
 REQUEST
@@ -270,25 +270,31 @@ REQUEST
 
 .. code-block:: json
 
-    { 'user_id': 150040, 'opponent_id': 150032 }
+    { 'user_id': 150040, 'opponent_id': 150032, action: 'add' }
+    { 'user_id': 150040, 'opponent_id': 150032, action: 'remove' }
+    { 'user_id': 150040, action: 'get' }
 
 
-RESPONSE
---------
+VERSIONS OF THE RESPONSES
+-------------------------
 
 .. code-block:: json
 
     { status:0, message: 'ok'}
-
-
-.. code-block:: json
-
+    { status:1, message: 'This user is already exists in your favorite list'}
     { status:1, message: 'User not found'}
+    { status:0, favorite_list: [150032, 150064 ... ]}
 
 
-.. code-block:: json
+HOW TO GET INFORMATION FROM REQUEST BODY IN PHP
 
-    { status:1, message: 'Favorite is aleady exists'}
+.. code-block:: php
+
+    $result = file_get_contents('php://input');
+    $result = json_decode($result);
+    
+
+
 
 
 7. Request to block/unblock user.

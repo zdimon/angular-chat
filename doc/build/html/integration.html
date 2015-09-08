@@ -104,33 +104,33 @@
 <li class="toctree-l2"><a class="reference internal" href="#id5">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#request-to-add-user-to-favorites">6. Request to add user to favorites.</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="#request-to-add-remove-get-user-s-favorites">6. Request to add/remove/get user&#8217;s favorites.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id6">REQUEST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id7">RESPONSE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#versions-of-the-responses">VERSIONS OF THE RESPONSES</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#request-to-block-unblock-user">7. Request to block/unblock user.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id8">REQUEST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id9">RESPONSE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">RESPONSE</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#request-to-chek-if-user-blocked-or-not">8. Request to chek if user blocked or not.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id10">RESPONSE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">RESPONSE</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#request-to-send-message-in-message-box">9. Request to send message in message box.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id11">REQUEST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id12">RESPONSE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">RESPONSE</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#outcome-api">OUTCOME API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#request-to-add-user-to-the-contact-list">1. Request to add user to the contact list.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id13">REQUEST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id14">RESPONSE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id12">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id13">RESPONSE</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#request-to-remove-user-from-the-contact-list">2. Request to remove user from the contact list.</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id15">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">REQUEST</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="test_loading.html">Loading test data</a><ul class="simple">
@@ -426,24 +426,28 @@
 </div>
 </div>
 </div>
-<div class="section" id="request-to-add-user-to-favorites">
-<h1>6. Request to add user to favorites.<a class="headerlink" href="#request-to-add-user-to-favorites" title="Permalink to this headline">¶</a></h1>
-<p><strong>URI</strong> <a class="reference external" href="http://[server]/chat-request/add_fav">http://[server]/chat-request/add_fav</a></p>
+<div class="section" id="request-to-add-remove-get-user-s-favorites">
+<h1>6. Request to add/remove/get user&#8217;s favorites.<a class="headerlink" href="#request-to-add-remove-get-user-s-favorites" title="Permalink to this headline">¶</a></h1>
+<p><strong>URI</strong> <a class="reference external" href="http://[server]/chat-request/favorites">http://[server]/chat-request/favorites</a></p>
 <div class="section" id="id6">
 <h2>REQUEST<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-json"><div class="highlight"><pre>{ &#39;user_id&#39;: 150040, &#39;opponent_id&#39;: 150032 }
+<div class="highlight-json"><div class="highlight"><pre>{ &#39;user_id&#39;: 150040, &#39;opponent_id&#39;: 150032, action: &#39;add&#39; }
+{ &#39;user_id&#39;: 150040, &#39;opponent_id&#39;: 150032, action: &#39;remove&#39; }
+{ &#39;user_id&#39;: 150040, action: &#39;get&#39; }
 </pre></div>
 </div>
 </div>
-<div class="section" id="id7">
-<h2>RESPONSE<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="versions-of-the-responses">
+<h2>VERSIONS OF THE RESPONSES<a class="headerlink" href="#versions-of-the-responses" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-json"><div class="highlight"><pre>{ status:0, message: &#39;ok&#39;}
+{ status:1, message: &#39;This user is already exists in your favorite list&#39;}
+{ status:1, message: &#39;User not found&#39;}
+{ status:0, favorite_list: [150032, 150064 ... ]}
 </pre></div>
 </div>
-<div class="highlight-json"><div class="highlight"><pre>{ status:1, message: &#39;User not found&#39;}
-</pre></div>
-</div>
-<div class="highlight-json"><div class="highlight"><pre>{ status:1, message: &#39;Favorite is aleady exists&#39;}
+<p>HOW TO GET INFORMATION FROM REQUEST BODY IN PHP</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$result = file_get_contents(&#39;php://input&#39;);</span>
+<span class="x">$result = json_decode($result);</span>
 </pre></div>
 </div>
 </div>
@@ -451,14 +455,14 @@
 <div class="section" id="request-to-block-unblock-user">
 <h1>7. Request to block/unblock user.<a class="headerlink" href="#request-to-block-unblock-user" title="Permalink to this headline">¶</a></h1>
 <p><strong>URI</strong> <a class="reference external" href="http://[server]/chat-request/block">http://[server]/chat-request/block</a></p>
-<div class="section" id="id8">
-<h2>REQUEST<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h2>REQUEST<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-json"><div class="highlight"><pre>{ &#39;user_id&#39;: 150040, &#39;opponent_id&#39;: 150032, &#39;action&#39;: &#39;block/unblock&#39; }
 </pre></div>
 </div>
 </div>
-<div class="section" id="id9">
-<h2>RESPONSE<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h2>RESPONSE<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-json"><div class="highlight"><pre>{ status:0, message: &#39;ok&#39;}
 </pre></div>
 </div>
@@ -473,8 +477,8 @@
 <p>Where:</p>
 <p><strong>user_id</strong> - user who is checking, and who want to talk with</p>
 <p><strong>blocked_id</strong> - user who could block user who is checking</p>
-<div class="section" id="id10">
-<h2>RESPONSE<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h2>RESPONSE<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-json"><div class="highlight"><pre>{ status:0, is_blocked: &#39;yes/no&#39;}
 </pre></div>
 </div>
@@ -486,8 +490,8 @@
 <div class="section" id="request-to-send-message-in-message-box">
 <h1>9. Request to send message in message box.<a class="headerlink" href="#request-to-send-message-in-message-box" title="Permalink to this headline">¶</a></h1>
 <p><strong>URI</strong> <a class="reference external" href="http://[server]/chat-request/send_message">http://[server]/chat-request/send_message</a></p>
-<div class="section" id="id11">
-<h2>REQUEST<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h2>REQUEST<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-json"><div class="highlight"><pre>{ &#39;from_id&#39;: 150040, &#39;to_id&#39;: 150032, &#39;message&#39;: &#39;Hello my friend!!!&#39; }
 </pre></div>
 </div>
@@ -495,8 +499,8 @@
 <p><strong>from_id</strong> - user who send the message</p>
 <p><strong>to_id</strong> - user who recieve the message</p>
 </div>
-<div class="section" id="id12">
-<h2>RESPONSE<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h2>RESPONSE<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-json"><div class="highlight"><pre>{ status:0, message: &#39;ok&#39;}
 </pre></div>
 </div>
@@ -510,13 +514,13 @@
 </div>
 <div class="section" id="request-to-add-user-to-the-contact-list">
 <h1>1. Request to add user to the contact list.<a class="headerlink" href="#request-to-add-user-to-the-contact-list" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id13">
-<h2>REQUEST<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id12">
+<h2>REQUEST<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <p><strong>URI</strong> <a class="reference external" href="http://[server]/api/[app_name]/[owner_id]/[contact_id]/add_contact">http://[server]/api/[app_name]/[owner_id]/[contact_id]/add_contact</a></p>
 <p><strong>[app_name]</strong> - application identifire that was given after registration in the chat system.</p>
 </div>
-<div class="section" id="id14">
-<h2>RESPONSE<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id13">
+<h2>RESPONSE<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-json"><div class="highlight"><pre>Responce 1: { &#39;status&#39;: 0, &#39;message&#39;: &#39;Contact has been added&#39; }
 
 Responce 2: { &#39;status&#39;: 1, &#39;message&#39;: &#39;Contact is already exists&#39; }
@@ -526,8 +530,8 @@ Responce 2: { &#39;status&#39;: 1, &#39;message&#39;: &#39;Contact is already ex
 </div>
 <div class="section" id="request-to-remove-user-from-the-contact-list">
 <h1>2. Request to remove user from the contact list.<a class="headerlink" href="#request-to-remove-user-from-the-contact-list" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id15">
-<h2>REQUEST<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id14">
+<h2>REQUEST<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
 <p><strong>URI</strong> [server]/api/[app_name]/[owner_id]/[contact_id]/del_contact</p>
 <p><strong>Example:</strong> <a class="reference external" href="http://chat.localhost/api/tpa1com/14/15/del_contact">http://chat.localhost/api/tpa1com/14/15/del_contact</a></p>
 <div class="highlight-json"><div class="highlight"><pre>Responce 1: { &#39;status&#39;: 0, &#39;message&#39;: &#39;Contact has been deleted&#39; }
