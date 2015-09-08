@@ -433,12 +433,12 @@ REQUEST
 3. Request to update user's information or create new one if he does not exist.
 ===============================================================================
 
-**URI** http://[server]/api/[app_name]/[user_id]/user_update
+**URI** http://[server]/api/[app_name]/[user_id]/update_user
 
 Example:
 -------- 
 
-**http://brides.mirbu.com/api/tpa1com/510027/user_update**
+**http://brides.mirbu.com/api/tpa1com/510027/update_user**
 
 Where:
 ------
