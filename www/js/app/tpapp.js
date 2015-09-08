@@ -105,7 +105,7 @@ tpapp.js
     })
 
 
-.controller('OnlineCtrl', function ($window, $rootScope, $scope, $http, WS) {
+.controller('OnlineCtrl', function ($window, $rootScope, $scope, $http, WS ) {
 
 
        
@@ -118,12 +118,22 @@ tpapp.js
      
     })
 
-    .controller('ActionCtrl', function ($window, $rootScope, $scope, $http) {
+    .controller('ActionCtrl', function ($window, $rootScope, $scope, $http, Status) {
         
         $scope.invite = function(user_id){
+            
+                Status.checkAccessibility(user_id,function(result){
+                    log(result);
+                    if(result.status == 1) {
+                         alert(result.message)
+                    } else {
+                         var url = "http://" + $window.location.host + "/video-chat#/"+ $rootScope.currentUserId + '/' +user_id;  
+                         $window.location.href = url;    
+                    }
+                
+                })
 
-                var url = "http://" + $window.location.host + "/video-chat#/"+ $rootScope.currentUserId + '/' +user_id;  
-                $window.location.href = url;            
+        
             
         }
      

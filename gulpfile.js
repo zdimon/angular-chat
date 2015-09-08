@@ -93,6 +93,7 @@ var angularScripts = [
         './www/js/app/services/Online.js',
         './www/js/app/services/Video.js',
         './www/js/app/services/Block.js',
+        './www/js/app/services/Status.js',
         './www/js/app/services/Contact.js',
         './www/js/app/services/google-translator.js',
         './www/js/app/services/Room.js',

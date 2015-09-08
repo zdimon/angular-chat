@@ -8,11 +8,11 @@ app.directive('chatInvitation', function() {
     directive.link = function($scope, element, attrs) {
             attrs.$observe('chat_invitation', function(value) {
                 //element.find('figcaption').text(value)
-                   alert('Checked!');   
+                   //alert('Checked!');   
                 })
-
-                element.click(function() {
-
+                //alert($scope.chat_invitation);
+                element.click(function() { 
+                    
                     element.find('a').toggleClass('off');
                     element.find('figcaption')
                     $scope.$apply(function() {

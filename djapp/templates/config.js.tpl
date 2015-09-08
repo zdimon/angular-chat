@@ -220,6 +220,27 @@ apiconf = {
                 'url':  '[server]/api/[app_name]/[user_id]/[opponent_id]/say_busy'
             },
 
+        'accept_invitation':
+            {
+                'type': 'ajax',
+                'name': 'accept_invitation',
+                'url':  '[server]/api/[app_name]/[user_id]/accept_invitation'
+            },
+
+        'decline_invitation':
+            {
+                'type': 'ajax',
+                'name': 'decline_invitation',
+                'url':  '[server]/api/[app_name]/[user_id]/decline_invitation'
+            },
+
+        'check_accessebility':
+            {
+                'type': 'ajax',
+                'name': 'check_accessebility',
+                'url':  '[server]/api/[app_name]/[user_id]/check_accessebility'
+            },
+
 
         'get_balance':
             {

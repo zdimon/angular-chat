@@ -22,7 +22,7 @@ The function :func:`someService` does a some function.
 })
 
 
-.run(function ($rootScope, Auth, $window, WS, Online) {
+.run(function ($rootScope, Auth, $window, WS, Online, Status) {
 
             // Initialization
             Auth.isauth(function(result){
@@ -36,6 +36,7 @@ The function :func:`someService` does a some function.
                         $rootScope.system_messages = {};
                         $rootScope.waiting_to_responce = {};
                         $rootScope.men_watching = {}
+                        $rootScope.is_bootstrapted = false;
                         
                         $rootScope.close_system_message = function(win_id) {
                             delete $rootScope.system_messages[win_id];
@@ -72,13 +73,33 @@ The function :func:`someService` does a some function.
 
                     } else { $rootScope.isAuthenticated = false;}
 
+                  // watch changes of allow invitation trigger TODO
+                  $rootScope.$watch('chat_invitation', function() {
+                         //if($rootScope.is_bootstrapted == true  ){
+                            if($rootScope.chat_invitation == false || typeof $rootScope.chat_invitation == 'undefined') {
+                            
+                                    Status.acceptInvitation(function(result){
+                                                 
+                                    })
+                            } else {
+                                    Status.declineInvitation(function(result){
+                                                 
+                                    })
+                            }
+                           
+                         //}
+                     
+                    });
+
+
                   // Insert user online into rootScope
                   $rootScope.online = {}
                   Online.getOnline(function(rezult){
                     for (user in rezult.user_list) {
                         $rootScope.online['user_'+rezult.user_list[user]['user_id']] = true;
                     } 
-                    $rootScope.$broadcast('rootScope_ready');      
+                    $rootScope.$broadcast('rootScope_ready');  
+                    $rootScope.is_bootstrapted = true    
                  }); 
 
             })

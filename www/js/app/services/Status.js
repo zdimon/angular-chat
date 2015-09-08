@@ -9,7 +9,8 @@
                         setInvisible: setInvisible,
                         setVisible: setVisible,
                         declineInvitation: declineInvitation,
-                        acceptInvitation: acceptInvitation               
+                        acceptInvitation: acceptInvitation,
+                        checkAccessibility: checkAccessibility               
                     }
             function sayBusy(opponent_id,callback) {
 
@@ -33,16 +34,26 @@
 
             function declineInvitation(callback) {
              
-
+                var url = utils.prepare_url(apiconf.api.decline_invitation.url,{'[user_id]':$rootScope.currentUserId});
+                return $http.get(url).success(callback);
 
             };
 
 
             function acceptInvitation(callback) {
              
-
+                var url = utils.prepare_url(apiconf.api.accept_invitation.url,{'[user_id]':$rootScope.currentUserId});
+                return $http.get(url).success(callback);
 
             };
+
+            function checkAccessibility(user_id,callback) {
+             
+                var url = utils.prepare_url(apiconf.api.check_accessebility.url,{'[user_id]':user_id});
+                return $http.get(url).success(callback);
+
+            };
+
 
 
 
