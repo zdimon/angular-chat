@@ -7,7 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 import requests
 from django.contrib.auth.models import User
 from chat.models import ChatUser, Tpa, ChatRoom, ChatUser2Room
-
+from utils.db import MyDB
+bd = MyDB()
 import brukva
 bclient = brukva.Client()
 bclient.connect()
@@ -26,6 +27,10 @@ def turn_mic_on(request,user_id,app_name):
     '''
     tpa = Tpa.objects.get(name=app_name)
     owner = ChatUser.objects.get(user_id=user_id, tpa=tpa)
+    sql = "select chat_chatroom.id from chat_chatuser2room, chat_chatroom where chat_chatroom.id = chat_chatuser2room.room_id and chat_chatroom.is_charging_video = 1"
+    rooms = bd.select(sql)
+    for r in rooms.record:
+        bd.update('update chat_chatroom set is_charging_audio=1 where id = %s' % r['id'])
     return {'status': 0, 'message': 'ok'}
 
 @json_view
@@ -41,6 +46,10 @@ def turn_mic_off(request,user_id,app_name):
     '''
     tpa = Tpa.objects.get(name=app_name)
     owner = ChatUser.objects.get(user_id=user_id, tpa=tpa)
+    sql = "select chat_chatroom.id from chat_chatuser2room, chat_chatroom where chat_chatroom.id = chat_chatuser2room.room_id and chat_chatroom.is_charging_video = 1"
+    rooms = bd.select(sql)
+    for r in rooms.record:
+        bd.update('update chat_chatroom set is_charging_audio=0 where id = %s' % r['id'])
     return {'status': 0, 'message': 'ok'}
 
 

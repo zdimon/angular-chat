@@ -141,8 +141,10 @@ def send_charge_request():
                     chat_chatroom.activity, 
                     chat_chatroom.is_charging_text, 
                     chat_chatroom.is_charging_video, 
+                    chat_chatroom.is_charging_audio,
                     chat_tpa.price_text_chat, 
                     chat_tpa.price_video, 
+                    chat_tpa.price_audio, 
                     chat_tpa.charge_url, 
                     chat_tpa.name as app_name, 
                     chat_tpa.timeout_chating
@@ -185,9 +187,13 @@ def send_charge_request():
 
         if(room['is_charging_video']==1):     
              data.append({'action': 'video', 'app_name': room['app_name'],  'user_id': man, 'opponent_id': woman, 'room_id': room['id'], 'price': str(room['price_video']) })   
+
+        if(room['is_charging_video']==1 and room['is_charging_audio']==1):     
+             data.append({'action': 'audio', 'app_name': room['app_name'],  'user_id': man, 'opponent_id': woman, 'room_id': room['id'], 'price': str(room['price_audio']) })       
+
     if url:  
         print "Charge request to %s " % url
-        #print "DATA %s" % data
+        print "DATA %s" % data
         print requests.post(room['charge_url'],json=data).content  
 
 

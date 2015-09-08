@@ -25,6 +25,7 @@ class Tpa(models.Model):
     timeout_chating = models.IntegerField(verbose_name = _('Chat timeout'), default = 180)
     price_text_chat = models.DecimalField( verbose_name=_('Price of text chating'), max_digits= 12, decimal_places= 2, default="1")
     price_video = models.DecimalField( verbose_name=_('Price of video watching'), max_digits= 12, decimal_places= 2, default="2")
+    price_audio = models.DecimalField( verbose_name=_('Price of audio broadcasting'), max_digits= 12, decimal_places= 2, default="2")
     def __unicode__(self):
         return self.domain
 
