@@ -55,7 +55,7 @@ def check_accessebility(request,app_name,user_id):
     tpa = Tpa.objects.get(name=app_name)
     user = ChatUser.objects.get(tpa=tpa,user_id=user_id)
     if (user.is_invitation_enabled == False):
-        return { 'status': 1, 'message': '%s is temporary unvalible' % user.name }
+        return { 'status': 1, 'message': '%s is temporary unvailable' % user.name }
     else:
         return { 'status': 0, 'message': 'ok' }
 
