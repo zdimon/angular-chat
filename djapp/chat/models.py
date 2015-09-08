@@ -241,6 +241,7 @@ class ChatTransactions(models.Model):
     tpa = models.ForeignKey(Tpa, verbose_name = _('TPA'))
     coins_text = models.DecimalField( verbose_name=_('Coins for text chating'), max_digits= 12, decimal_places= 2)
     coins_video = models.DecimalField( verbose_name=_('Coins for video'), max_digits= 12, decimal_places= 2)
+    coins_audio = models.DecimalField( verbose_name=_('Coins for audio'), max_digits= 12, decimal_places= 2, default="0.00")
 
 
 

@@ -54,6 +54,8 @@ def create_transaction(room_id,user_id,opponent_id, app_name, price,type):
             tr.coins_text = tr.coins_text + decimal.Decimal(float(price))
         if(type=="video"):
             tr.coins_video = tr.coins_video + decimal.Decimal(float(price))
+        if(type=="audio"):
+            tr.coins_audio = tr.coins_audio + decimal.Decimal(float(price))
         tr.save()
     except Exception, e:
         print e
@@ -65,9 +67,15 @@ def create_transaction(room_id,user_id,opponent_id, app_name, price,type):
         if(type=='text_chat'):
             tr.coins_text = price
             tr.coins_video = 0
+            tr.coins_audio = 0
         if(type=="video"):
             tr.coins_video = price
             tr.coins_text = 0
+            tr.coins_audio = 0
+        if(type=="audio"):
+            tr.coins_audio = price
+            tr.coins_text = 0   
+            tr.coins_video = 0     
         tr.save()
     
 
