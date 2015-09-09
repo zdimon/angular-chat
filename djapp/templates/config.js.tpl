@@ -11,15 +11,13 @@ apiconf = {
                 'url':  '[server]/api/logout'
             },
 
-
-        
-
-        'has_opponent':
+        'initialization':
             {
                 'type': 'ajax',
-                'name': 'has_opponent',
-                'url':  '[server]/api/[user_id]/has_opponent'
-            },  
+                'name': 'initialization',
+                'url':  '[server]/api/[app_name]/[user_id]/initialization'
+            }, 
+        
 
         'update_user':
             {
@@ -302,6 +300,29 @@ apiconf = {
                 'name': 'charge_request',
                 'url':  '[server]/api/[app_name]/charge_request'
             },
+
+
+        'get_favorites':
+            {
+                'type': 'ajax',
+                'name': 'get_favorites',
+                'url':  '[server]/api/[app_name]/[user_id]/get_favorites'
+            },
+
+        'add_favorite':
+            {
+                'type': 'ajax',
+                'name': 'add_favorite',
+                'url':  '[server]/api/[app_name]/[user_id]/[opponent_id]/add_favorite'
+            },
+
+        'del_favorite':
+            {
+                'type': 'ajax',
+                'name': 'del_favorite',
+                'url':  '[server]/api/[app_name]/[user_id]/[opponent_id]/del_favorite'
+            },
+
 
         'get_balance':
             {

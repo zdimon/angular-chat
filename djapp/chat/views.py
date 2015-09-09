@@ -35,6 +35,38 @@ bd = MyDB()
     #    userslst.append({'name': u['name'],  'user_id': u['user_id']}) 
 
 
+@json_view
+def initialization(request,app_name,user_id):
+    '''
+        Chat initialization.
+        
+        Request gets follows information:
+
+        1. User profile.
+
+        2. User balance.
+
+        3. Contact list.
+
+        4. User online list.
+
+        
+    
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    
+    get_online_url = get_url_by_name('get_online_except_contact',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
+    res = requests.get(get_online_url).content
+    res = json.loads(res)  
+
+    #get_contact_url = get_url_by_name('get_online_except_contact',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
+    #res = requests.get(get_contact_url).content
+    #res = json.loads(res) 
+
+    return {'status': 0, 'online': res}
+
+
+
 def config(request,app_name):
     tpa = Tpa.objects.get(name=app_name)
     t = loader.get_template('config.js.tpl')
@@ -105,10 +137,10 @@ def charge_request(request,app_name):
     
     json_data = json.loads(request.body)
     tpa = Tpa.objects.get(name=app_name)
-    print 'request to %s ' % tpa.charge_url
+    #print 'request to %s ' % tpa.charge_url
     res = requests.post(tpa.charge_url,json=json_data).content
     res = json.loads(res)
-    print res
+    #print res
 
     for i in res:
         mes = { 'action': 'update_balance', 'balance': i['balance'] }

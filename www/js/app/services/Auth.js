@@ -5,16 +5,16 @@
     .module('AngularChatApp')
     .factory('Auth', Auth);
 
-  Auth.$inject = ['$http', '$window'];
+  Auth.$inject = ['$http', '$window', '$rootScope'];
 
-  function Auth($http, $window) {
+  function Auth($http, $window, $rootScope) {
 
     var Auth = {
       login: login,
       logout: logout,
       register: register,
       isauth: isauth,
-      has_opponent: has_opponent,
+      initialization: initialization
     };
     
     return Auth;
@@ -46,6 +46,12 @@
     }
 
 
+    function initialization(callback) {
+      var url = utils.prepare_url(apiconf.api.initialization.url,{'[user_id]':$rootScope.currentUserId, '[app_name]': local_config.app_name})
+      return $http.get(url).success(callback); 
+    }
+
+
 
     function register(username, password, email) {
         return $http.post('/api/register/', {
@@ -54,10 +60,7 @@
     }
 
 
-    function has_opponent(callback) {
-      var url = utils.prepare_url(apiconf.api.has_opponent.url,{})
-      return $http.get(url).success(callback); 
-    }
+  
 
    
   }
