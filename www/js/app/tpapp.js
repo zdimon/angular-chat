@@ -263,12 +263,12 @@ tpapp.js
                         $rootScope.isAuthenticated = true;
                         $rootScope.currentUserId = result.id;
                         WS.send({ action: 'connect', user_id: $rootScope.currentUserId });
-                        console.log('connect from tpa user-id ' + $rootScope.currentUserId)
-                        $rootScope.online = {}
-
+                        $rootScope.online = {};
+                        $rootScope.activecam = {};
                           Online.getOnline(function(rezult){
                                 for (user in rezult.user_list) {
                                     $rootScope.online['user_'+rezult.user_list[user]['user_id']] = true;
+                                    $rootScope.activecam['user_'+rezult.user_list[user]['user_id']] = rezult.user_list[user]['is_camera_active'];
                                 }       
                              }); 
 
