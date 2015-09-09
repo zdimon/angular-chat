@@ -9,7 +9,8 @@ from chat.models import Tpa, ChatUser, ChatContacts, ChatTransactions, ChatRoom
 from djapp.settings import DATABASES
 import PySQLPool
 import requests
-from utils.util import read_conf, get_url_by_name, serialize_user
+from utils.api_router import get_url_by_name
+from utils.util import serialize_user
 import datetime
 from utils.db import MyDB
 from chat.views_api.contact import *
@@ -81,7 +82,7 @@ def create_transaction(room_id,user_id,opponent_id, app_name, price,type):
 
 @csrf_exempt
 @json_view
-def charge(request):
+def charge_request(request,app_name):
     '''
         Input data
         [
@@ -96,25 +97,24 @@ def charge(request):
             }
         ]    
 
-        Request send notification to men to update account on the page.
+        Make external request to application to charge money.       
+        Send notification to men to update account on the page.
+        
     
     '''
-    #import pdb; pdb.set_trace()
+    
     json_data = json.loads(request.body)
-    for user_json in json_data:
-        sql = 'select id,coins from users where login="%s"' % user_json['user_id']
-        user = bd.get(sql)
-        mes = { 'action': 'update_balance', 'balance': user['coins'] }
-        bclient.publish('%s_%s' % (user_json['app_name'], user_json['user_id']), json.dumps(mes))
-        if float(user_json['price'])<user['coins']:
-            new_coins = user['coins'] - float(user_json['price'])
-            sql = 'update users set coins=%s where id=%d' % (new_coins,user['id'])
-            create_transaction(user_json['room_id'],user_json['user_id'],user_json['opponent_id'],user_json['app_name'],user_json['price'],user_json['action'])
-            bd.update(sql)
-            status = 0
-        else:
-            #print 'no money %s - %s' % (user_json['price'],user['coins'])        
-            status = 1
+    tpa = Tpa.objects.get(name=app_name)
+    print 'request to %s ' % tpa.charge_url
+    res = requests.post(tpa.charge_url,json=json_data).content
+    res = json.loads(res)
+    print res
+
+    for i in res:
+        mes = { 'action': 'update_balance', 'balance': i['balance'] }
+        chanel = '%s_%s' % (app_name, i['user_id'])
+        bclient.publish(chanel, json.dumps(mes))
+        print 'send to -%s %s' %  (chanel,mes)
     return {'status': 0, 'message': 'ok'}
 
 

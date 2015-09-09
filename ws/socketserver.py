@@ -145,7 +145,6 @@ def send_charge_request():
                     chat_tpa.price_text_chat, 
                     chat_tpa.price_video, 
                     chat_tpa.price_audio, 
-                    chat_tpa.charge_url, 
                     chat_tpa.name as app_name, 
                     chat_tpa.timeout_chating
              from chat_chatroom, chat_tpa  
@@ -156,7 +155,8 @@ def send_charge_request():
     data = []
     url = False
     for room in rooms.record: 
-        url = room['charge_url']
+        #url = room['charge_url']
+        url = get_url_by_name('charge_request',{ 'app_name': room["app_name"]})
         # select users from room
         sql = ''' select chat_chatuser.user_id, chat_chatuser.gender 
                   from chat_chatuser, chat_chatuser2room
@@ -194,7 +194,7 @@ def send_charge_request():
     if url:  
         print "Charge request to %s " % url
         print "DATA %s" % data
-        print requests.post(room['charge_url'],json=data).content  
+        print requests.post(url,json=data).content  
 
 
 

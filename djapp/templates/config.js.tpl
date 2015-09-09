@@ -296,6 +296,12 @@ apiconf = {
                 'url':  '[server]/api/[app_name]/[user_id]/check_accessebility'
             },
 
+        'charge_request':
+            {
+                'type': 'ajax[POST]',
+                'name': 'charge_request',
+                'url':  '[server]/api/[app_name]/charge_request'
+            },
 
         'get_balance':
             {

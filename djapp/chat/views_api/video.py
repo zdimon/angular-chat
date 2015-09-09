@@ -2,7 +2,7 @@ import json
 from django.http import HttpResponse
 from jsonview.decorators import json_view
 from django.shortcuts import redirect
-from utils.util import read_conf, get_url_by_name
+from utils.api_router import get_url_by_name
 from django.views.decorators.csrf import csrf_exempt
 import requests
 from django.contrib.auth.models import User
