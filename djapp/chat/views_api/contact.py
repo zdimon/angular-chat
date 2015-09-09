@@ -173,7 +173,6 @@ def send_invitation(request):
     print b
     tpa = Tpa.objects.get(name=b['app_name'])
     owner = ChatUser.objects.get(tpa=tpa,user_id=int(b['owner_id']))
-
     data = {'message': b['message'], 'opponent': serialize_user(owner), 'id': int(time.time()) }
     mes = { 'action': 'show_invite_notification', 'data': data }
     bclient.publish('%s_%s' % (b['app_name'], str(b['contact_id'])), json.dumps(mes)) 

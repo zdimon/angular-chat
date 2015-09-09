@@ -51,9 +51,13 @@ tpapp.js
 
             $rootScope.notifies = {};
             $rootScope.$on('show_new_message_notification',function(event,data){
-
                 $rootScope.notifies[data.id] = data;
             });
+
+            $rootScope.$on('show_invite_notification',function(event,data){
+                $rootScope.notifies[data.data.id] = data.data;
+            });
+
 
             $scope.goToRoom = function(user_id){
 
