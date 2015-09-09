@@ -38,7 +38,9 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
             Video.showMyCam(function(){
                 
-            })
+            });
+
+            $('.video_online').removeClass('hide_chat_window');
             
         }
 
