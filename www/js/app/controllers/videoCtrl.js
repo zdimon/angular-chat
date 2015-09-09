@@ -125,7 +125,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                 }
         
                
-            
+                $('.video_online').removeClass('hide_chat_window');
                         
             }
 
