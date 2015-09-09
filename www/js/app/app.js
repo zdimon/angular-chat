@@ -91,6 +91,8 @@ The function :func:`someService` does a some function.
                      
                     });
 
+    
+
 
                   // Insert user online into rootScope
                   $rootScope.online = {}

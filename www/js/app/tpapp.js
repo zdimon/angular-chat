@@ -142,8 +142,34 @@ tpapp.js
                     }
                 
                 })
+        }
 
-        
+        $scope.inviteWithOpponentVideo = function(user_id){
+                
+                Status.checkAccessibility(user_id,function(result){
+                    log(result);
+                    if(result.status == 1) {
+                         alert(result.message)
+                    } else {
+                         var url = "http://" + $window.location.host + "/video-chat#/"+ $rootScope.currentUserId + '/' +user_id+'/ocam';  
+                         $window.location.href = url;    
+                    }
+                
+                })
+        }
+
+        $scope.inviteWithMyVideo = function(user_id){
+         
+                Status.checkAccessibility(user_id,function(result){
+                    log(result);
+                    if(result.status == 1) {
+                         alert(result.message)
+                    } else {
+                         var url = "http://" + $window.location.host + "/video-chat#/"+ $rootScope.currentUserId + '/' +user_id+'/mcam';  
+                         $window.location.href = url;    
+                    }
+                
+                })
             
         }
      

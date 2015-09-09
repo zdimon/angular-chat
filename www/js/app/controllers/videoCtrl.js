@@ -155,6 +155,16 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
     })
 
 
+    $rootScope.$on('show_my_video',function(event,data){
+        $scope.showMyVideo();
+    })
+
+    $rootScope.$on('show_opponent_video',function(event,data){
+        $scope.showOpponentVideo();
+    })
+
+
+
     $rootScope.$on('update_cam_indicators',function(event,data){
 
         if(data.cam_status=='on') {
