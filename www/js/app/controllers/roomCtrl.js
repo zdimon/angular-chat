@@ -113,8 +113,14 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
               if(data.message.message.room_id != $scope.room_id){
                     
-                    $rootScope.new_messages['user_'+data.message.message.owner.user_id] = true;
-                    
+                     
+                   // set envelop blinking (new message)
+                   for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
+                        if($rootScope.contact_user_list[i].user_id==data.message.message.owner.user_id) {
+                            $rootScope.contact_user_list[i].has_new_message = true;
+                        }
+                   }
+
 
               } else {
                      $rootScope.feather = false;
@@ -153,7 +159,14 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
            $scope.room_id = data.room_id;
            $rootScope.room_id = data.room_id;
            $scope.hasActiveRoom=true;
-           delete $rootScope.new_messages['user_'+data.contact.user_id] // remove blinking envelop
+
+           // remove blinking envelop 
+           for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
+                if($rootScope.contact_user_list[i].user_id==data.contact.user_id) {
+                    $rootScope.contact_user_list[i].has_new_message = false;
+                }
+           }
+           
            if(data.contact.is_camera_active) $rootScope.isOpponentVideoActive = true;
            Room.getUserInfo(data.contact_id,function(result){ 
             $scope.opponent = result.user_profile;

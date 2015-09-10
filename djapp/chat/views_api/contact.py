@@ -9,6 +9,21 @@ bclient = brukva.Client()
 bclient.connect()
 from django.views.decorators.csrf import csrf_exempt
 
+def _get_contact(app_name,owner_id,contact_id):
+    ''' 
+        Try to retrieve contact terord
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    owner = ChatUser.objects.get(tpa=tpa,user_id=owner_id)
+    contactuser = ChatUser.objects.get(tpa=tpa,user_id=contact_id)
+    try:
+        contact = ChatContacts.objects.get(owner=owner,contact=contactuser) 
+        return contact
+    except:   
+        return False
+
+
+
 def _add_contact(app_name,owner_id,contact_id):
     ''' 
         Add new contact to owner 
@@ -129,7 +144,9 @@ def get_contact_list(request,app_name,user_id):
 
     owner = ChatUser.objects.filter(tpa=tpa,user_id=user_id)
     for c in ChatContacts.objects.filter(owner=owner):
-        contactlst.append(serialize_user(c.contact))
+        contact = serialize_user(c.contact)
+        contact['has_new_message'] = c.has_new_message   
+        contactlst.append(contact)
     return { 'status': 0, 'message': 'ok', 'user_list': contactlst }
 
 

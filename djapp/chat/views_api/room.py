@@ -10,7 +10,7 @@ from chat.models import ChatUser,ChatRoom,ChatMessage, ChatContacts, ChatStopwor
 from chat.models import Tpa
 from utils.util import read_conf, serialize_user
 from utils.db import MyDB
-from contact import _add_contact
+from contact import _add_contact, _get_contact
 import brukva
 bclient = brukva.Client()
 bclient.connect()
@@ -202,6 +202,8 @@ def save_message(request):
                 # adding contact
                 add_me_to_contact_if_not_exist(tpa,owner,opponent,p)
                 contact = _add_contact(tpa.name,owner.user_id,opponent.user_id)
+                contact.has_new_message = True
+                contact.save()
                 mes_contact = { 'action': 'update_contact' }
                 mes_online = { 'action': 'update_users_online' }
                 owner_chanel = '%s_%s' % (b['app_name'], owner.user_id)
@@ -280,12 +282,13 @@ def invite(request,app_name,owner_id,contact_id):
     Create the room. Put the user into the room.
      
     '''
-
-    #contact = _add_contact(app_name,owner_id,contact_id)
-    #mes = { 'action': 'update_contact' }
+    # mark contact as does not have new message if it exists
+    contact = _get_contact(app_name,owner_id,contact_id)
+    if(contact):
+        contact.has_new_message = False
+        contact.save()
+   
     owner_chanel = '%s_%s' % (app_name, owner_id)
-    #bclient.publish(owner_chanel, json.dumps(mes))
-
     contact_chanel = '%s_%s' % (app_name, contact_id)
     rm = _get_room_or_create(app_name,owner_id,contact_id)
     #contact.set_active(rm['room_id'])
