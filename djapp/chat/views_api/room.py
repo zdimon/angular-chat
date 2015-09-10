@@ -216,7 +216,7 @@ def save_message(request):
                 contact = _get_contact(app_name,opponent.user_id,owner.user_id)
                 if(contact):
                     contact.has_new_message = True
-                    contact.save()
+                    #contact.save()
                     
                 
     except Exception, e:
