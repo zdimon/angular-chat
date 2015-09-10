@@ -235,10 +235,13 @@ def mark_new_message(room, owner):
     :return: contact
     '''
     for o in room.get_participants_except_user(owner):
-        contact = ChatContacts.objects.get(room=room,owner=o)
-        if contact.is_active == False:
-            contact.has_new_message = True
-            contact.save()
+        try:
+            contact = ChatContacts.objects.get(room=room,owner=o)
+            if contact.is_active == False:
+                contact.has_new_message = True
+                contact.save()
+        except:
+            pass
 
 def add_me_to_contact_if_not_exist(tpa,owner,opponent,chanel):
     '''
