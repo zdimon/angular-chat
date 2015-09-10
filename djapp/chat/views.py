@@ -214,8 +214,10 @@ def get_profile_from_tpa(request,user_id,app_name):
         try:
             photo = 'http://'+TPA_SERVER+'/Media/images/users/small/'+u_photo['image']
         except:
-            photo = ''
-
+            if u_login['role_id']==3:
+                photo = '/pic/woman_134x179.jpg'
+            else:
+                photo = '/pic/man_134x179.jpg'
         if u_login['role_id']==3:
             gender = 'w'
         else:
