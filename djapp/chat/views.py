@@ -76,7 +76,7 @@ def initialization(request,app_name,user_id):
     online = json.loads(online)  
 
 
-    return {'status': 0, 'is_login': is_login, 'online': online, 'contact': contact, 'owner': owner}
+    return {'status': 0, 'online': online, 'contact': contact, 'owner': owner}
 
 
 
