@@ -70,7 +70,6 @@ The function :func:`someService` does a some function.
                         */
 
                         Auth.initialization(function(result){
-                            log(result);
                             $rootScope.online_user_list = result.online.user_list;
                             $rootScope.contact_user_list = result.contact.user_list;
                         })
@@ -99,18 +98,6 @@ The function :func:`someService` does a some function.
 
     
 
-
-                  // Insert user online into rootScope
-                  /*
-                  $rootScope.online = {}
-                  Online.getOnline(function(rezult){
-                    for (user in rezult.user_list) {
-                        $rootScope.online['user_'+rezult.user_list[user]['user_id']] = true;
-                    } 
-                    $rootScope.$broadcast('rootScope_ready');  
-                    $rootScope.is_bootstrapted = true    
-                 }); 
-                 */
 
             })
         

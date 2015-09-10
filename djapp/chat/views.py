@@ -41,10 +41,10 @@ def initialization(request,app_name,user_id):
         Chat initialization.
         
         Request gets follows information:
+        
+        1. Check if user is authenticated.
 
-        1. User profile.
-
-        2. User balance.
+        2. User profile.
 
         3. Contact list.
 
@@ -55,20 +55,28 @@ def initialization(request,app_name,user_id):
     '''
     tpa = Tpa.objects.get(name=app_name)
     
-    get_online_url = get_url_by_name('get_online_except_contact',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
-    online = requests.get(get_online_url).content
-    online = json.loads(online)  
+    #1
+    is_login_url = get_url_by_name('is_login',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
+    owner = requests.get(is_login_url).content
+    is_login = json.loads(is_login)
 
-    get_contact_url = get_url_by_name('get_contact_list',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
-    contact = requests.get(get_contact_url).content
-    contact = json.loads(contact) 
-
+    #2
     get_profile_url = get_url_by_name('get_profile',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
     owner = requests.get(get_profile_url).content
     owner = json.loads(owner)
 
+    #3
+    get_contact_url = get_url_by_name('get_contact_list',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
+    contact = requests.get(get_contact_url).content
+    contact = json.loads(contact) 
 
-    return {'status': 0, 'online': online, 'contact': contact, 'owner': owner}
+    #4
+    get_online_url = get_url_by_name('get_online_except_contact',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
+    online = requests.get(get_online_url).content
+    online = json.loads(online)  
+
+
+    return {'status': 0, 'is_login': is_login, 'online': online, 'contact': contact, 'owner': owner}
 
 
 

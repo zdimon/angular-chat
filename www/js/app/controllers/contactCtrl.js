@@ -45,7 +45,7 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
       $rootScope.$on('set_me_online',function(event, data){
            
-           $rootScope.online['user_'+data.message.uid] = true;
+           $rootScope.online_user_list['user_'+data.message.uid] = true;
            /*
            for(key in $scope.contact_list){
                 if ($scope.contact_list[key].user_id == data.message.uid) {
@@ -96,7 +96,7 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
       $rootScope.$on('set_me_offline',function(event, data){
            
-           $rootScope.online['user_'+data.message.uid] = false;
+           $rootScope.online_user_list['user_'+data.message.uid] = false;
            /*
            for(key in $scope.contact_list){
                 if ($scope.contact_list[key].user_id == data.message.uid) {

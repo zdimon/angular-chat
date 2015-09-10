@@ -93,7 +93,6 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
             } 
             if($scope.towho=='favorites'){
                 Auth.getFavorites(function(result){
-                    log(result);
                     $scope.countUsersInvite = result.count;
                     set_interval_sending(result.favorites.user_list)
                 })

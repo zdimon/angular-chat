@@ -192,16 +192,13 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         });
 
         $rootScope.$on('show_feather',function(event,data){
-            log(data);
             if(data.room_id==$rootScope.room_id){
              $rootScope.feather = true;
             }
         })
 
         $rootScope.$on('update_balance',function(event,data){
-
             $rootScope.balance = data.balance;
-            log(data);
         })
 
 
