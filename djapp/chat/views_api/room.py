@@ -213,7 +213,7 @@ def save_message(request):
                     bclient.publish('%s_%s' % (tpa.name, opponent.user_id), json.dumps(mes))
             else:
                 # mark contact as it has new message if it exists
-                contact = _get_contact(app_name,opponent.user_id,owner.user_id)
+                contact = _get_contact(app_name,owner.user_id,opponent.user_id)
                 if(contact):
                     contact.has_new_message = True
                     contact.save()
