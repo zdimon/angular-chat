@@ -162,7 +162,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
            // remove blinking envelop 
            for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
-                if($rootScope.contact_user_list[i].user_id==data.contact.user_id) {
+                if($rootScope.contact_user_list[i].user_id==data.contact_id) {
                     $rootScope.contact_user_list[i].has_new_message = false;
                 }
            }
