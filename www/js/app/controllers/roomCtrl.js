@@ -212,6 +212,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
 
         $rootScope.$on('close_room',function(event,data){
+           log(data);
            $scope.room_just_closed = true;
            var url = "http://" + local_config.chat_url  + "#/" + $rootScope.currentUserId;  
            $scope.hasActiveRoom = false;
