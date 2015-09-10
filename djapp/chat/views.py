@@ -231,7 +231,7 @@ def _get_profile_brides(user_id, tpa):
                                             'culture':u['languages'], 
                                             'gender': gender, 
                                             'image': photo, 
-                                            'profile_url': '/%s/profile/%s' % (u_login['login'],prefix),
+                                            'profile_url': '/%s/profile/%s' % (prefix,u_login['login']),
                                             'tpa': tpa.name
                                             }
                   }
