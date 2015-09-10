@@ -98,12 +98,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
         $scope.$on('show_message', function (event, data) { 
 
-
-              if(typeof $rootScope.new_messages === 'undefined') {
-                    $rootScope.new_messages = {}
-                    
-                }
-              
+         
               
 
               if(data.message.message.owner.user_id!=$rootScope.currentUserId){
