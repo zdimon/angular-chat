@@ -75,7 +75,7 @@ The function :func:`someService` does a some function.
                             $rootScope.contact_user_list = result.contact.user_list;
                             setTimeout(function(){
                                         $('.preloader').remove();
-                            }, 1000);
+                            }, 2000);
                         })
                          
                        
