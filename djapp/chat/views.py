@@ -199,9 +199,9 @@ def _get_profile_brides(user_id, tpa):
         photo = 'http://'+TPA_SERVER+'/Media/images/users/small/'+u_photo['image']
     except:
         if u_login['role_id']==3:
-            photo = '/pic/woman_134x179.jpg'
+            photo = '/Media/pic/woman_134x179.jpg'
         else:
-            photo = '/pic/man_134x179.jpg'
+            photo = '/Media/pic/man_134x179.jpg'
     if u_login['role_id']==3:
         gender = 'w'
     else:
