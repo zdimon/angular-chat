@@ -183,8 +183,9 @@ def update_user(request,user_id,app_name):
     responce = requests.get(url)
     return {'status': 0, 'message': 'ok'}
 
+# TODO
 
-def _get_profile_brides(user_id):
+def _get_profile_brides(user_id, tpa):
     u_login = bd.get('select id,login, role_id from users where login= %s' % int(user_id))
     u = bd.get('select * from users_info where user_id = %d' % int(u_login['id']))
     
@@ -220,7 +221,8 @@ def _get_profile_brides(user_id):
                                             'culture':u['languages'], 
                                             'gender': gender, 
                                             'image': photo, 
-                                            'profile_url': '/lady/profile/%s' % u_login['login']
+                                            'profile_url': '/lady/profile/%s' % u_login['login'],
+                                            'tpa': tpa.name
                                             }
                   }
     return out
@@ -239,7 +241,7 @@ def get_profile_from_tpa(request,user_id,app_name):
     tpa = Tpa.objects.get(name=app_name)
     try:
         u = ChatUser.objects.get(user_id=user_id,tpa=tpa)
-        profile = _get_profile_brides(user_id)
+        profile = _get_profile_brides(user_id,tpa)
         update_profile_in_our_db(profile['user_profile'],u)
         out = {
                 'status': 1,
@@ -247,49 +249,9 @@ def get_profile_from_tpa(request,user_id,app_name):
                 'profile': profile
                 }
     except:
-        u_login = bd.get('select id,login, role_id from users where login= %s' % int(user_id))
-        try:
-            u = bd.get('select * from users_info where user_id = %d' % int(u_login['id']))
-        except:
-            return {'status': 1, 'message': 'Profile does not exist!'}        
-        try:
-            u['name']
-        except:
-            return {'status': 1, 'message': 'Profile does not exist!'}
-
-        u_photo = bd.get('select image from users_photos where user_id = %d and main = 1' % int(u_login['id']))
-        try:
-            photo = 'http://'+TPA_SERVER+'/Media/images/users/small/'+u_photo['image']
-        except:
-            if u_login['role_id']==3:
-                photo = '/pic/woman_134x179.jpg'
-            else:
-                photo = '/pic/man_134x179.jpg'
-        if u_login['role_id']==3:
-            gender = 'w'
-        else:
-            gender = 'm'
-        try:
-            birth = datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d')
-        except:
-            birth = '1900-01-01'
-        if u['name'] == None :
-            u['name']='undefined'
-            out = { 'status': 0, 'user_profile': {
-                                                    'user_id':u_login['login'],
-                                                    'name':u['name'],
-                                                    'birthday': birth,
-                                                    'country':u['country'],
-                                                    'city':u['city'],
-                                                    'culture':u['languages'], 
-                                                    'gender': gender, 
-                                                    'image': photo, 
-                                                    'profile_url': '/lady/profile/%s' % u_login['login'],
-                                                    'tpa': tpa.name
-                                                    }
-                  }
-        save_profile_in_our_db(out['user_profile'])
-    return out 
+        profile = _get_profile_brides(user_id, tpa)
+        save_profile_in_our_db(profile['user_profile'])
+    return profile 
 
 
 def save_profile_in_our_db(dict_profile_from_tpa):
