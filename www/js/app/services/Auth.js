@@ -14,6 +14,7 @@
       logout: logout,
       register: register,
       isauth: isauth,
+      getFavorites: getFavorites,
       initialization: initialization
     };
     
@@ -48,6 +49,12 @@
 
     function initialization(callback) {
       var url = utils.prepare_url(apiconf.api.initialization.url,{'[user_id]':$rootScope.currentUserId, '[app_name]': local_config.app_name})
+      return $http.get(url).success(callback); 
+    }
+
+
+    function getFavorites(callback) {
+      var url = utils.prepare_url(apiconf.api.get_favorites.url,{'[user_id]':$rootScope.currentUserId, '[app_name]': local_config.app_name})
       return $http.get(url).success(callback); 
     }
 

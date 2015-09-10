@@ -9,7 +9,7 @@ Multiply invitation.
 
 */
 
-app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, Video, Online, Block, $interval, $http, Room, Contact) {
+app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, Video, Online, Block, $interval, $http, Room, Contact, Auth) {
 
 
 
@@ -70,15 +70,19 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
 
 
         $scope.startSending = function(){
+
+            var message = $(document).find('#multi_invite_text').html();
+
+            if (message.length == 0) {
+                alert('You can not sent empty message!');   
+                return true;         
+            }
+
             $scope.isSending = true;
             $scope.currentCursor = 0;
             $scope.sending_list = [];
             var index = 0;
-            var message = $(document).find('#multi_invite_text').html();
 
-            if (message.length == 0) {
-                alert('You can not sent empty message!');            
-            }
             
             if($scope.towho=='online'){
                 Online.getOnlineIds(function(result){
@@ -88,8 +92,11 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
                 
             } 
             if($scope.towho=='favorites'){
-                //$scope.sending_list = $scope.listOnline;
-                alert('this function is on the construction')
+                Auth.getFavorites(function(result){
+                    log(result);
+                    $scope.countUsersInvite = result.count;
+                    set_interval_sending(result.favorites.user_list)
+                })
             }
             if($scope.towho=='contacts'){
                 Contact.getContactListIds(function(result){
