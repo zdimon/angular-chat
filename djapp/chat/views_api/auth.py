@@ -11,9 +11,61 @@ from utils.util import serialize_user
 import brukva
 bclient = brukva.Client()
 bclient.connect()
-
+from djapp.local import TPA_SERVER
 from utils.db import MyDB
 bd = MyDB()
+
+
+@json_view
+def get_favorites(request,user_id,app_name):
+    ''' 
+        Get favorite list
+
+        [server]/api/[app_name]/[user_id]/get_favorites
+
+        Example: http://chat.localhost/api/tpa1com/150040/get_favorites
+
+        Return: {'status': 0, message: 'ok'}
+    ''' 
+    tpa = Tpa.objects.get(name=app_name)
+    get_fav_url = tpa.favorite_url
+    fav = requests.post(get_fav_url, json=json.dumps(request.body)).content
+    print 'REQUEST %s content %s' % (get_fav_url, fav)
+    fav = json.loads(fav)  
+    return {'status': 0, 'favorites': fav}
+
+
+@json_view
+def del_favorite(request,user_id,opponent_id,app_name):
+    ''' 
+        Delete favorite 
+
+        [server]/api/[app_name]/[user_id]/[opponent_id]/get_favorite
+
+        Example: http://chat.localhost/api/tpa1com/150040/150045/del_favorit
+
+        Return: {'status': 0, message: 'ok'}
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    opponent = ChatUser.objects.get(tpa=tpa,user_id=opponent_id)  
+    return {'status': 0, 'message': 'ok'}
+
+
+@json_view
+def add_favorite(request,user_id,opponent_id,app_name):
+    ''' 
+        Add favorite 
+
+        [server]/api/[app_name]/[user_id]/[opponent_id]/add_favorite
+
+        Example: http://chat.localhost/api/tpa1com/150040/150045/add_favorite
+
+        Return: {'status': 0, message: 'ok'}
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    return {'status': 0, 'message': 'ok'}
+
+
 
 
 @json_view

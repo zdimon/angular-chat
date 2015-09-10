@@ -176,7 +176,7 @@ def update_user(request,user_id,app_name):
     '''
          Function update or create user.
         
-         Example: http://chat.locahost/api/tpa1com/150064/update_user
+         Example: http://chat.locahost/api/tpa1com/150032/update_user
         
     '''
     url = get_url_by_name('get_profile_from_tpa',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
