@@ -249,9 +249,9 @@ def get_profile_from_tpa(request,user_id,app_name):
                 'profile': profile
                 }
     except:
-        profile = _get_profile_brides(user_id, tpa)
-        save_profile_in_our_db(profile['user_profile'])
-    return profile 
+        out = _get_profile_brides(user_id, tpa)
+        save_profile_in_our_db(out['user_profile'])
+    return out 
 
 
 def save_profile_in_our_db(dict_profile_from_tpa):
