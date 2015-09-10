@@ -202,6 +202,8 @@ def save_message(request):
                 # adding contact
                 add_me_to_contact_if_not_exist(tpa,owner,opponent,p)
                 contact = _add_contact(tpa.name,owner.user_id,opponent.user_id)
+                contact.has_new_message = True
+                contact.save()
                 mes_contact = { 'action': 'update_contact' }
                 mes_online = { 'action': 'update_users_online' }
                 owner_chanel = '%s_%s' % (b['app_name'], owner.user_id)
@@ -211,12 +213,12 @@ def save_message(request):
                     data = {'message': cm.message, 'id': cm.id, 'opponent': serialize_user(owner)}
                     mes = { 'action': 'show_new_message_notification', 'data': data }
                     bclient.publish('%s_%s' % (tpa.name, opponent.user_id), json.dumps(mes))
-            else:
+            #else:
                 # mark contact as it has new message if it exists
-                contact = _get_contact(app_name,opponent.user_id,owner.user_id)
-                if(contact):
-                    contact.has_new_message = True
-                    contact.save()
+                #contact = _get_contact(app_name,opponent.user_id,owner.user_id)
+                #if(contact):
+                #    contact.has_new_message = True
+                #    contact.save()
                     
                 
     except Exception, e:
