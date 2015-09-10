@@ -73,6 +73,9 @@ The function :func:`someService` does a some function.
                         Auth.initialization(function(result){
                             $rootScope.online_user_list = result.online.user_list;
                             $rootScope.contact_user_list = result.contact.user_list;
+                            setTimeout(function(){
+                                        $('.preloader').remove();
+                            }, 1000);
                         })
                          
                        
