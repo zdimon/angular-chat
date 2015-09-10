@@ -56,9 +56,9 @@ def initialization(request,app_name,user_id):
     tpa = Tpa.objects.get(name=app_name)
     
     #1
-    is_login_url = get_url_by_name('is_login',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
-    owner = requests.get(is_login_url).content
-    is_login = json.loads(is_login)
+    #is_login_url = get_url_by_name('is_login',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
+    #owner = requests.get(is_login_url).content
+    #is_login = json.loads(is_login)
 
     #2
     get_profile_url = get_url_by_name('get_profile',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
