@@ -223,6 +223,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
            if($rootScope.gender=='w') {
 
                 // make a sound
+                alert('sssss');
                 document.getElementById('audio_alert').play();
                 
                
