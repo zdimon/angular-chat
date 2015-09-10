@@ -222,9 +222,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
            
            if($rootScope.gender=='w') {
 
-                // make a sound
-                alert('saaaaaa');
-                document.getElementById('audio_alert').play();
+
                 
                
                 // mark user as watching in contact list
