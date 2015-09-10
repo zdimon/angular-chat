@@ -158,6 +158,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
            $scope.room_id = data.room_id;
            $rootScope.room_id = data.room_id;
            $scope.hasActiveRoom=true;
+           delete $rootScope.new_messages['user_'+data.contact.user_id] // remove blinking envelop
            if(data.contact.is_camera_active) $rootScope.isOpponentVideoActive = true;
            Room.getUserInfo(data.contact_id,function(result){ 
             $scope.opponent = result.user_profile;
