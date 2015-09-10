@@ -113,7 +113,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
               if(data.message.message.room_id != $scope.room_id){
                     
-                     
+                    log(data.message.message.room_id +'!='+ $scope.room_id);
                    // set envelop blinking (new message)
                    for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
                         if($rootScope.contact_user_list[i].user_id==data.message.message.owner.user_id) {
