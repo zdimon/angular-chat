@@ -212,8 +212,10 @@ def _get_profile_brides(user_id, tpa):
             photo = '/Media/pic/man_134x179.jpg'
     if u_login['role_id']==3:
         gender = 'w'
+        prefix = 'lady'
     else:
         gender = 'm'
+        prefix = 'man'
     try:
         birth = datetime.datetime.fromtimestamp(u['birthday']).strftime('%Y-%m-%d')
     except:
@@ -229,7 +231,7 @@ def _get_profile_brides(user_id, tpa):
                                             'culture':u['languages'], 
                                             'gender': gender, 
                                             'image': photo, 
-                                            'profile_url': '/lady/profile/%s' % u_login['login'],
+                                            'profile_url': '/%s/profile/%s' % (u_login['login'],prefix),
                                             'tpa': tpa.name
                                             }
                   }
