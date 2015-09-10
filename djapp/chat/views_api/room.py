@@ -202,10 +202,6 @@ def save_message(request):
                 # adding contact
                 add_me_to_contact_if_not_exist(tpa,owner,opponent,p)
                 contact = _add_contact(tpa.name,owner.user_id,opponent.user_id)
-                con = _get_contact(app_name,opponent.user_id,owner.user_id)
-                if(con):
-                    con.has_new_message = True
-                    con.save()
                 mes_contact = { 'action': 'update_contact' }
                 mes_online = { 'action': 'update_users_online' }
                 owner_chanel = '%s_%s' % (b['app_name'], owner.user_id)
