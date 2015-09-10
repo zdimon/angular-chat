@@ -29,8 +29,9 @@ def get_favorites(request,user_id,app_name):
     ''' 
     tpa = Tpa.objects.get(name=app_name)
     get_fav_url = tpa.favorite_url
-    fav = requests.post(get_fav_url, json=json.dumps(request.body)).content
-    print 'REQUEST %s content %s' % (get_fav_url, fav)
+    data = { 'user_id': user_id, 'action': 'get' }
+    fav = requests.post(get_fav_url, json=data).content
+    #print 'REQUEST %s content %s' % (get_fav_url, json.dumps(request.body))
     fav = json.loads(fav)  
     return {'status': 0, 'favorites': fav}
 
