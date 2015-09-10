@@ -71,6 +71,8 @@ The function :func:`someService` does a some function.
 
                         Auth.initialization(function(result){
                             log(result);
+                            $rootScope.online_user_list = result.online.user_list;
+                            $rootScope.contact_user_list = result.contact.user_list;
                         })
                          
                        
@@ -79,7 +81,7 @@ The function :func:`someService` does a some function.
 
                   // watch changes of allow invitation trigger TODO
                   $rootScope.$watch('chat_invitation', function() {
-                         //if($rootScope.is_bootstrapted == true  ){
+                         if($rootScope.is_bootstrapted == true  ){
                             if($rootScope.chat_invitation == false || typeof $rootScope.chat_invitation == 'undefined') {
                             
                                     Status.acceptInvitation(function(result){
@@ -91,7 +93,7 @@ The function :func:`someService` does a some function.
                                     })
                             }
                            
-                         //}
+                         }
                      
                     });
 

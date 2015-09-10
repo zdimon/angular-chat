@@ -130,7 +130,7 @@ def get_contact_list(request,app_name,user_id):
     owner = ChatUser.objects.filter(tpa=tpa,user_id=user_id)
     for c in ChatContacts.objects.filter(owner=owner):
         contactlst.append(serialize_user(c.contact))
-    return { 'status': 0, 'message': 'ok', 'contact_list': contactlst }
+    return { 'status': 0, 'message': 'ok', 'user_list': contactlst }
 
 
 

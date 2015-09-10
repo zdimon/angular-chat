@@ -56,7 +56,7 @@
         $scope.update = function(){
 
           Online.getOnlineExceptContact(function(rezult){
-                $scope.user_list = rezult.user_list;
+                $scope.online_user_list = rezult.user_list;
             }) 
         };
 

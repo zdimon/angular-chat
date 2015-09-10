@@ -56,14 +56,19 @@ def initialization(request,app_name,user_id):
     tpa = Tpa.objects.get(name=app_name)
     
     get_online_url = get_url_by_name('get_online_except_contact',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
-    res = requests.get(get_online_url).content
-    res = json.loads(res)  
+    online = requests.get(get_online_url).content
+    online = json.loads(online)  
 
-    #get_contact_url = get_url_by_name('get_online_except_contact',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
-    #res = requests.get(get_contact_url).content
-    #res = json.loads(res) 
+    get_contact_url = get_url_by_name('get_contact_list',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
+    contact = requests.get(get_contact_url).content
+    contact = json.loads(contact) 
 
-    return {'status': 0, 'online': res}
+    get_profile_url = get_url_by_name('get_profile',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
+    owner = requests.get(get_profile_url).content
+    owner = json.loads(owner)
+
+
+    return {'status': 0, 'online': online, 'contact': contact, 'owner': owner}
 
 
 

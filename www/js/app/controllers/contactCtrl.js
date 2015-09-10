@@ -130,11 +130,11 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
       $scope.update = function(){
         Contact.getContactList(function(rezult){
-                $scope.contact_list = rezult.contact_list;
+                $scope.contact_user_list = rezult.user_list;
             })       
       }
 
-      $scope.update();
+     
 
       $scope.deleteAll = function(){
           Contact.deleteAll(function(rezult){
