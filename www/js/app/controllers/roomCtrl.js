@@ -161,6 +161,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
            $scope.hasActiveRoom=true;
 
            // remove blinking envelop 
+	   log(data);
            for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
                 if($rootScope.contact_user_list[i].user_id==data.contact.user_id) {
                     $rootScope.contact_user_list[i].has_new_message = false;
@@ -213,10 +214,12 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
         $rootScope.$on('close_room',function(event,data){
            log(data);
-           $scope.room_just_closed = true;
-           var url = "http://" + local_config.chat_url  + "#/" + $rootScope.currentUserId;  
-           $scope.hasActiveRoom = false;
-           $window.location.href = url;      
+	   if(data.room_id==$scope.room_id){
+		   $scope.room_just_closed = true;
+		   var url = "http://" + local_config.chat_url  + "#/" + $rootScope.currentUserId;  
+		   $scope.hasActiveRoom = false;
+		   $window.location.href = url; 
+	  }     
         })
 
          $scope.$on('i_started_watching_you', function (event, data) {
