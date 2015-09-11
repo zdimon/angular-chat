@@ -77,6 +77,25 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
       })
 
+    
+    $rootScope.$on('add_opponent_in_my_contact_list',function(event, data){
+         
+           
+           var is_exist = false;
+           for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
+                if($rootScope.contact_user_list[i].user_id==data.user_id) {
+                   is_exist = true;
+                }
+           }
+           if(is_exist==false){
+                $rootScope.contact_user_list.push(data.profile);
+            }
+
+           
+
+      })
+
+
       $rootScope.$on('mark_watching_profile',function(event, data){
             log(data);
             // make a sound

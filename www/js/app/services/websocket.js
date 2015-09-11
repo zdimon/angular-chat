@@ -36,6 +36,12 @@
 
         }
 
+        if(message.action=='add_opponent_in_my_contact_list'){
+            $rootScope.$broadcast('add_opponent_in_my_contact_list',message);
+
+        }
+
+
         if(message.action=='put_me_in_room'){
             
             $rootScope.$broadcast('put_me_in_room', message);

@@ -203,7 +203,7 @@ def save_message(request):
                 add_me_to_contact_if_not_exist(tpa,owner,opponent,p)
                 contact = _add_contact(tpa.name,owner.user_id,opponent.user_id)
                 mark_new_message(owner,opponent)
-                mes_contact = { 'action': 'add_me_in_contact_list', 'user_id': opponent.user_id, 'profile': serialize_user(opponent) }
+                mes_contact = { 'action': 'add_opponent_in_my_contact_list', 'user_id': opponent.user_id, 'profile': serialize_user(opponent) }
                 mes_online = { 'action': 'update_users_online' }
                 owner_chanel = '%s_%s' % (b['app_name'], owner.user_id)
                 bclient.publish(owner_chanel, json.dumps(mes_contact))
