@@ -1,0 +1,82 @@
+<html>
+<head>
+	<title>VIDEO TEST</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   
+    <script src="/static/swfobject.js"></script>
+    <script src="/static/jquery.min.js"></script>
+</head>
+
+<body> 
+
+<table>
+
+<tr>
+  <td style="border: 1px solid red"> VIDEO OUT 
+        <div id="video_out"> </div>
+    </td>
+
+  <td style="border: 1px solid red"> VIDEO IN 
+        <div id="video_in"> </div>
+    </td>
+</tr>
+
+
+<tr>
+  <td style="border: 1px solid red"> 
+        <a href="#" id="turn_out_on"> Turn on </a>
+        <a href="#" id="turn_out_off"> Turn off </a>
+    </td>
+
+  <td style="border: 1px solid red"> VIDEO IN 
+        <a href="#" id="turn_in_on"> Turn on </a>
+        <a href="#" id="turn_in_off"> Turn off </a>
+    </td>
+</tr>
+
+
+</table>	
+
+
+
+<script>
+$(document).ready(function() {
+
+    var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName=test&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=out" }; 
+    swfobject.embedSWF("/static/chat.swf", "video_in", "640", "480", "9.0.0", "expressInstall.swf", par);
+
+
+    var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName=test&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=in" }; 
+    swfobject.embedSWF("/static/chat.swf", "video_out", "640", "480", "9.0.0", "expressInstall.swf", par);
+
+
+    $("#turn_in_on").click(function(){
+
+           document["video_in"].JsTurnMicOn();
+        })
+
+
+    $("#turn_in_off").click(function(){
+
+            document["video_in"].JsTurnMicOff();
+        })
+
+
+    $("#turn_out_on").click(function(){
+
+           document["video_out"].JsTurnSoundOn();
+        })
+
+
+    $("#turn_out_off").click(function(){
+
+            document["video_out"].JsTurnSoundOff();
+        })
+
+
+})
+
+</script>
+</body>
+</html>
+

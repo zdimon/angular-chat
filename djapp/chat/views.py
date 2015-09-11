@@ -171,7 +171,10 @@ def home(request):
     c = RequestContext(request,{})
     return HttpResponse(t.render(c))
 
- 
+def video(request):
+    t = loader.get_template('video.html')
+    c = RequestContext(request,{})
+    return HttpResponse(t.render(c))
         
 
 def has_opponent(request,user_id):
