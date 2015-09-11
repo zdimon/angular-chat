@@ -307,7 +307,9 @@ def invite(request,app_name,owner_id,contact_id):
     bclient.publish(owner_chanel, json.dumps(mes))
     mes = { 'action': 'show_inv_win', 'room_id': rm['room_id'], 'user_profile': serialize_user(owner)}
     bclient.publish(contact_chanel, json.dumps(mes))
-    return _get_room_or_create(app_name,owner_id,contact_id)
+    out = _get_room_or_create(app_name,owner_id,contact_id)
+    out['opponent'] = serialize_user(contact_user)
+    return out
 
 
 @csrf_exempt
