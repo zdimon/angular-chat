@@ -246,6 +246,7 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
          
             var url = "http://" + local_config.chat_url + "#/" + $rootScope.currentUserId+'/'+contact_id;
             $window.location.href = url;
+            $rootScope.current_opponent_id = contact_id;
             Room.invite(contact_id,function(rezult){
                 if(rezult.video_charging == true) {
                     $rootScope.$broadcast('show_opponent_video',{})
