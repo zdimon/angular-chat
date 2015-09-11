@@ -32,8 +32,7 @@
         }
 
         if(message.action=='add_me_in_contact_list'){
-
-            $rootScope.$broadcast('add_me_in_contact_list',{'message':message});
+            $rootScope.$broadcast('add_me_in_contact_list',message);
 
         }
 

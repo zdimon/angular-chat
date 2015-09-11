@@ -20,9 +20,7 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
            
         */ 
 
-      $scope.$on('rootScope_ready',function(event, data){
-            $scope.update();
-      })
+      
 
 
         /*"""
@@ -66,13 +64,16 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
         */
 
       $rootScope.$on('add_me_in_contact_list',function(event, data){
-
-
-           Contact.addContact(data.message.user_id,function(){
-               $scope.online_user_list['user_'+data.message.user_id] = true;
-               $scope.update();
-
+         
+           
+           Contact.addContact(data.user_id,function(){
+               
+               //$scope.update();
+               $scope.contact_user_list.push(data.profile);
+               $scope.online_user_list['user_'+data.user_id] = true;
+               
            })
+           
 
       })
 
