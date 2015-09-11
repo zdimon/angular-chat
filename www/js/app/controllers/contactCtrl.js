@@ -120,9 +120,16 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
       $scope.delete = function(contact_id){
           Contact.delContact(contact_id,function(rezult){
-            $scope.update()
+            //$scope.update()
+           for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
+                if($rootScope.contact_user_list[i].user_id==contact_id) {
+                   $rootScope.contact_user_list.splice(i,1);  
+                   log($rootScope.contact_user_list);
+                }
+           }
             $rootScope.$broadcast('update_users_online');
             })
+           
         }
 
         /*"""
