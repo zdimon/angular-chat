@@ -46,9 +46,9 @@
                         
                         $rootScope.$on('connected', function (event, data) {
                            // alert('sssss');
-                           Room.invite($stateParams.opponent,function(rezult){
+                           Room.invite($stateParams.opponent,function(result){
                                 
-                                if(rezult.video_charging == true) {
+                                if(result.video_charging == true || result.opponent.gender == 'w') {
                                     $rootScope.$broadcast('show_opponent_video',{})
                                 }
                             })

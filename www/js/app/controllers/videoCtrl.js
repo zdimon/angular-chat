@@ -165,7 +165,9 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
         $scope.showOpponentVideo();
     })
 
-
+    $rootScope.$on('hide_opponent_video',function(event,data){
+        $scope.hideOpponentVideo();
+    })
 
     $rootScope.$on('update_cam_indicators',function(event,data){
 
