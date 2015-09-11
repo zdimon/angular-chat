@@ -236,13 +236,13 @@ def mark_new_message(owner,contact):
     :return: contact
     '''
     #import pdb; pdb.set_trace()
-    try:
-        con = ChatContacts.objects.get(contact=owner,owner=contact)
-        if con.is_active == False:
-            con.has_new_message = True
-            con.save()
-    except:
-        pass
+    #try:
+    conn = ChatContacts.objects.get(contact=owner,owner=contact)
+    #if conn.is_active == False:
+    conn.has_new_message = True
+    conn.save()
+    #except:
+    #    pass
 
 def add_me_to_contact_if_not_exist(tpa,owner,opponent,chanel):
     '''

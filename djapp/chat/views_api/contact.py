@@ -146,6 +146,7 @@ def get_contact_list(request,app_name,user_id):
     for c in ChatContacts.objects.filter(owner=owner):
         contact = serialize_user(c.contact)
         contact['has_new_message'] = c.has_new_message   
+	contact['contact_id'] = c.id  
         contactlst.append(contact)
     return { 'status': 0, 'message': 'ok', 'user_list': contactlst }
 
