@@ -201,7 +201,8 @@ def save_message(request):
             if owner != opponent:
                 # adding contact
                 add_me_to_contact_if_not_exist(tpa,owner,opponent,p)
-                contact = _add_contact(tpa.name,owner.user_id,opponent.user_id)
+                #contact = _add_contact(tpa.name,owner.user_id,opponent.user_id)
+                mark_new_message(owner,opponent)
                 mes_contact = { 'action': 'update_contact' }
                 mes_online = { 'action': 'update_users_online' }
                 owner_chanel = '%s_%s' % (b['app_name'], owner.user_id)
@@ -221,12 +222,12 @@ def save_message(request):
                 
     except Exception, e:
         print e
-    mark_new_message(room, owner)
+    
 
     return  { 'status': 0, 'message': b['message'], 'room_id': str(room.id), 'owner_id': str(owner.id), 'participants': arr_participants }
 
 
-def mark_new_message(room, owner):
+def mark_new_message(owner,contact):
     '''
     Get contact object and set has_new_message is Tru if this contact is not active.
 
@@ -234,14 +235,14 @@ def mark_new_message(room, owner):
     :param room:
     :return: contact
     '''
-    for o in room.get_participants_except_user(owner):
-        try:
-            contact = ChatContacts.objects.get(room=room,owner=o)
-            if contact.is_active == False:
-                contact.has_new_message = True
-                contact.save()
-        except:
-            pass
+    #import pdb; pdb.set_trace()
+    try:
+        con = ChatContacts.objects.get(contact=owner,owner=contact)
+        if con.is_active == False:
+            con.has_new_message = True
+            con.save()
+    except:
+        pass
 
 def add_me_to_contact_if_not_exist(tpa,owner,opponent,chanel):
     '''
