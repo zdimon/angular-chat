@@ -29,8 +29,10 @@
     </td>
 
   <td style="border: 1px solid red"> VIDEO IN 
-        <a href="#" id="turn_in_on"> Turn on </a>
-        <a href="#" id="turn_in_off"> Turn off </a>
+        <a href="#" id="turn_in_on"> Turn sound on </a>
+        <a href="#" id="turn_in_off"> Turn sound off </a>
+        <a href="#" id="turn_video_on"> Turn video on </a>
+        <a href="#" id="turn_video_off"> Turn video off </a>
     </td>
 </tr>
 
@@ -72,6 +74,19 @@ $(document).ready(function() {
 
             document["video_out"].JsTurnSoundOff();
         })
+
+
+    $("#turn_video_on").click(function(){
+
+           document["video_out"].JsTurnVideoOn();
+        })
+
+
+    $("#turn_video_off").click(function(){
+
+            document["video_out"].JsTurnVideoOff();
+        })
+
 
 
 })
