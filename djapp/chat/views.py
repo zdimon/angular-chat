@@ -79,7 +79,7 @@ def initialization(request,app_name,user_id, contact_id):
  
 
 
-    return {'status': 0, 'online': online, 'contact': contact, 'owner': owner, 'invite': invite}
+    return {'status': 0, 'online': online, 'contact': contact, 'owner': owner}
 
 
 
