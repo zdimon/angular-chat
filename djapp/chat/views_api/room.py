@@ -201,7 +201,7 @@ def save_message(request):
             if owner != opponent:
                 # adding contact
                 add_me_to_contact_if_not_exist(tpa,owner,opponent,p)
-                #contact = _add_contact(tpa.name,owner.user_id,opponent.user_id)
+                contact = _add_contact(tpa.name,owner.user_id,opponent.user_id)
                 mark_new_message(owner,opponent)
                 mes_contact = { 'action': 'update_contact' }
                 mes_online = { 'action': 'update_users_online' }
