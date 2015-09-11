@@ -45,8 +45,12 @@
                        
                         
                         $rootScope.$on('connected', function (event, data) {
-                            
-                            Room.invite($stateParams.opponent,function(rezult){})
+                           // alert('sssss');
+                           Room.invite($stateParams.opponent,function(rezult){
+                                if(rezult.video_charging == true) {
+                                    $rootScope.$broadcast('show_opponent_video',{})
+                                }
+                            })
                         });
                         
                       

@@ -22,7 +22,7 @@ The function :func:`someService` does a some function.
 })
 
 
-.run(function ($rootScope, Auth, $window, WS, Online, Status) {
+.run(function ($rootScope, Auth, $window, WS, Online, Status, $stateParams) {
 
             // Initialization
             Auth.isauth(function(result){
@@ -70,7 +70,7 @@ The function :func:`someService` does a some function.
                         }) 
                         */
 
-                        Auth.initialization(function(result){
+                        Auth.initialization($stateParams.opponent,function(result){
                             $rootScope.online_user_list = result.online.user_list;
                             $rootScope.contact_user_list = result.contact.user_list;
                             setTimeout(function(){

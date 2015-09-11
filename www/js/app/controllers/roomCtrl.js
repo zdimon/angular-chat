@@ -186,7 +186,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
               setTimeout(function(){scroolldown(),1000});
 
               $(document).find('#chat_message').bind("DOMSubtreeModified",function(){
-                 
+                  
                   if (text_changed==0){
                
                        Room.showFeather(data.contact.user_id, function(result) {

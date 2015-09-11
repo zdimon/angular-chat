@@ -60,8 +60,8 @@ def _get_room_or_create(app_name,caler_id,opponent_id):
         """ % (int(opponent.id), int(caler.id), int(tpa.id)))
     #import pdb; pdb.set_trace()
     if r.rowcount > 0 :
-        room_id = ChatRoom.objects.get(pk = r.record[0]['id'])
-        return { 'status': 0, 'message': 'Room is exist', 'room_id': str(room_id.id) }
+        room = ChatRoom.objects.get(pk = r.record[0]['id'])
+        return { 'status': 0, 'message': 'Room is exist', 'room_id': str(room.id), 'video_charging': room.is_charging_video }
 
     if r.rowcount == 0 :       
         room = ChatRoom()
@@ -71,7 +71,7 @@ def _get_room_or_create(app_name,caler_id,opponent_id):
         room.add_user(opponent)
         room.save()
         participans = { str(caler.user_id) : serialize_user(caler), str(opponent.user_id) : serialize_user(opponent) }
-        return { 'status': 0, 'message': 'Room was created', 'room_id': str(room.id), 'participans': participans }
+        return { 'status': 0, 'message': 'Room was created', 'room_id': str(room.id), 'participans': participans, 'video_charging': room.is_charging_video }
 
 
 @json_view

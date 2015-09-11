@@ -36,7 +36,7 @@ bd = MyDB()
 
 
 @json_view
-def initialization(request,app_name,user_id):
+def initialization(request,app_name,user_id, contact_id):
     '''
         Chat initialization.
         
@@ -49,6 +49,8 @@ def initialization(request,app_name,user_id):
         3. Contact list.
 
         4. User online list.
+
+        5. Make invitation.
 
         
     
@@ -75,8 +77,13 @@ def initialization(request,app_name,user_id):
     online = requests.get(get_online_url).content
     online = json.loads(online)  
 
+    #5
+    get_invite_url = get_url_by_name('invite',{'contact_id':contact_id,'owner_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
+    invite = requests.get(get_invite_url).content
+    invite = json.loads(invite)  
 
-    return {'status': 0, 'online': online, 'contact': contact, 'owner': owner}
+
+    return {'status': 0, 'online': online, 'contact': contact, 'owner': owner, 'invite': invite}
 
 
 

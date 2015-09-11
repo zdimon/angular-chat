@@ -18,7 +18,7 @@ apiconf = {
             {
                 'type': 'ajax',
                 'name': 'initialization',
-                'url':  '[server]/api/[app_name]/[user_id]/initialization'
+                'url':  '[server]/api/[app_name]/[user_id]/[contact_id]/initialization'
             }, 
 
         'update_user':

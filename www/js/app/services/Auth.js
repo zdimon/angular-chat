@@ -47,8 +47,8 @@
     }
 
 
-    function initialization(callback) {
-      var url = utils.prepare_url(apiconf.api.initialization.url,{'[user_id]':$rootScope.currentUserId, '[app_name]': local_config.app_name})
+    function initialization(opponent_id,callback) {
+      var url = utils.prepare_url(apiconf.api.initialization.url,{'[contact_id]':opponent_id, '[user_id]':$rootScope.currentUserId, '[app_name]': local_config.app_name})
       return $http.get(url).success(callback); 
     }
 
