@@ -42,11 +42,12 @@
                 //templateUrl: "/static/templates/active.html",
 
                 controller: function($stateParams, Room, $rootScope, $log){
-                       
+                       $rootScope.current_opponent_id = $stateParams.opponent;
                         
                         $rootScope.$on('connected', function (event, data) {
                            // alert('sssss');
                            Room.invite($stateParams.opponent,function(rezult){
+                                
                                 if(rezult.video_charging == true) {
                                     $rootScope.$broadcast('show_opponent_video',{})
                                 }
