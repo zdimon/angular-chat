@@ -82,7 +82,8 @@ def say_busy(request,user_id,opponent_id,app_name):
     '''
     tpa = Tpa.objects.get(name=app_name)
     opponent = ChatUser.objects.get(tpa=tpa,user_id=opponent_id)
-    message = { 'action': 'say_busy', 'message': 'Sorry but I am busy now.', 'user_profile': serialize_user(opponent) }
+    user = ChatUser.objects.get(tpa=tpa,user_id=user_id)
+    message = { 'action': 'say_busy', 'message': 'Sorry but I am busy now.', 'user_profile': serialize_user(user) }
     opponent_chanel = '%s_%s' % (app_name, opponent_id)
     bclient.publish(opponent_chanel, json.dumps(message))    
     return {'status': 0, 'message': 'ok'}
