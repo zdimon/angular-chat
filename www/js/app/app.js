@@ -72,9 +72,10 @@ The function :func:`someService` does a some function.
 
                         Auth.initialization($stateParams.opponent,function(result){
                             $rootScope.contact_user_list = result.contact.user_list;
-                            $rootScope.online_user_list = {};
+                            $rootScope.online_user_list = esult.online.user_list;
+                            $rootScope.online = {};
                             for (var i = 0; i < result.online.user_list.length; i++) {
-                                $rootScope.online_user_list['user_'+result.online.user_list[i].user_id] = true;
+                                $rootScope.online['user_'+result.online.user_list[i].user_id] = true;
                             }  
                             
                             setTimeout(function(){
