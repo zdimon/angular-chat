@@ -59,7 +59,10 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
   
       $scope.hideMyVideo = function(){
-
+            
+            // mark user as is NOT watching in contact list
+            delete $rootScope.men_watching['user_'+$rootScope.current_opponent_id];
+            //**************************************
             $(document).find('#myVideoContainer').html('<div id="myVideo"></div>');
             //swfobject.removeSWF("myVideo");
             $scope.isMyVideoActive = false;
@@ -220,6 +223,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
     })
 
     $rootScope.$on('hide_opponent_video',function(event,data){
+
         $scope.hideOpponentVideo();
     })
 
@@ -274,12 +278,15 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                         swfobject.removeSWF("opponentVideo");
                         $(document).find('#oponent_video_container').append('<div id="opponentVideo"> </div>');
                         $rootScope.isOpponentVideoActive = false;
+
                     }
                     
                     $rootScope.isOpponentCamEnabled = false;
                     $rootScope.opponent_id = data.owner;
                     
-                }
+                  } 
+                        
+                
             }
         //console.log('camera'+data.owner);
 

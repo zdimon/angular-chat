@@ -152,6 +152,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         
 
         $scope.$on('put_me_in_room', function (event, data) {
+           log(data);
            $rootScope.feather = false;
            $scope.room_just_closed = false;
            $scope.room_participants = [local_config.app_name+'_'+data.owner_id, local_config.app_name+'_'+data.contact_id];
@@ -165,6 +166,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
            for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
                 if($rootScope.contact_user_list[i].user_id==data.contact_id) {
                     $rootScope.contact_user_list[i].has_new_message = false;
+                    $rootScope.contact_user_list[i].activity = data.contact_data.activity;
                 }
            }
            

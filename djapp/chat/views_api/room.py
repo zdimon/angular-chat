@@ -16,6 +16,7 @@ bclient = brukva.Client()
 bclient.connect()
 import re
 bd = MyDB()
+import time
 
 def check_message(message):
     ''' Check content of the message on phone number or email or url address '''
@@ -294,7 +295,11 @@ def invite(request,app_name,owner_id,contact_id):
     contact = _get_contact(app_name,owner_id,contact_id)
     if(contact):
         contact.has_new_message = False
+        contact.activity = time.time()
         contact.save()
+        contact_data = {'activity': int(time.time())}
+    else:
+        contact_data = {}
    
     owner_chanel = '%s_%s' % (app_name, owner_id)
     contact_chanel = '%s_%s' % (app_name, contact_id)
@@ -303,12 +308,13 @@ def invite(request,app_name,owner_id,contact_id):
     tpa = Tpa.objects.get(name=app_name)
     owner = ChatUser.objects.get(user_id=owner_id,tpa=tpa)
     contact_user = ChatUser.objects.get(user_id=contact_id,tpa=tpa)
-    mes = { 'action': 'put_me_in_room', 'room_id': rm['room_id'], 'owner_id': owner_id,'contact_id':contact_id, 'contact': serialize_user(contact_user) }
+    mes = { 'action': 'put_me_in_room', 'room_id': rm['room_id'], 'owner_id': owner_id,'contact_id':contact_id, 'contact': serialize_user(contact_user), 'contact_data': contact_data}
     bclient.publish(owner_chanel, json.dumps(mes))
     mes = { 'action': 'show_inv_win', 'room_id': rm['room_id'], 'user_profile': serialize_user(owner)}
     bclient.publish(contact_chanel, json.dumps(mes))
     out = _get_room_or_create(app_name,owner_id,contact_id)
     out['opponent'] = serialize_user(contact_user)
+    out['contact_data'] = contact_data
     return out
 
 
