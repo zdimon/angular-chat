@@ -48,7 +48,7 @@
                            // alert('sssss');
                            Room.invite($stateParams.opponent,function(result){
                                 
-                                if(result.video_charging == true || result.opponent.gender == 'w') {
+                                if(result.video_charging == true && result.opponent.gender == 'w') {
                                     $rootScope.$broadcast('show_opponent_video',{})
                                 }
 
