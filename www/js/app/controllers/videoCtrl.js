@@ -30,7 +30,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
             //alert('show_my_flash');         
 
-            var par = { flashvars:"vStream=false&codecOn=true&ww=800&hh=600&fps=20&streamName=eeyy"+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://chat.mirbu.com/myapp&micOn=false&type=out" };
+            var par = { flashvars:"vStream=false&codecOn=true&ww=800&hh=600&fps=20&streamName=eeyy"+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=out" };
             swfobject.embedSWF("Media/chat_without_cam.swf?v=1", "myVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
          
             $('.video_online').removeClass('hide_chat_window');
@@ -43,13 +43,9 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
             //alert('show_my_video');         
            // document["myVideo"].JsTurnVideoOn();
             
-            if($rootScope.gender=='m') {
-               var with_audio = true;          
-            } else {
-               var with_audio = false; 
-            }            
+                      
 
-            var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://chat.mirbu.com/myapp&micOn="+with_audio+"&type=out" };
+            var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=out" };
             swfobject.embedSWF("Media/chat.swf", "myVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
             $scope.isMyVideoActive = true;
 
@@ -96,14 +92,40 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
       }
 
 
+      $scope.turnOpponentMicOn = function(){
+         
+         $scope.opponent_mic_on = true;
+         Video.turnOpponentMicOn(function(result){
+            
+         })
+      }
+
+      $scope.turnOpponentMicOff = function(){
+         
+         $scope.opponent_mic_on = false;
+         Video.turnOpponentMicOff(function(result){
+            
+         })
+      }
+
+
+
+
       $scope.alertMicOn = function(){
-         alert('i turn on');
+
+         $scope.alert_mic_on = true;
+         Video.alertMicOn(function(result){
+            log(result);
+         });
       }
 
 
       $scope.alertMicOff = function(){
+        $scope.alert_mic_on = false;
 
-        alert('i turn off');
+         Video.alertMicOff(function(result){
+            log(result);
+         });
       }
 
 
@@ -207,6 +229,23 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
     })
 
     $rootScope.$on('turn_opponent_mic_off',function(event,data){
+       $scope.turnMicOff();
+    })
+
+    $scope.$on('alert_mic_on',function(event,data){
+        $scope.alert_mic_on = true;
+    })
+
+    $rootScope.$on('alert_mic_off',function(event,data){
+       $scope.alert_mic_on = false;
+    })
+
+    $scope.$on('opponent_mic_on',function(event,data){
+      
+       $scope.turnMicOn(); 
+    })
+
+    $rootScope.$on('opponent_mic_off',function(event,data){
        $scope.turnMicOff();
     })
 

@@ -119,6 +119,32 @@
 
         }
 
+        if(message.action=='alert_mic_on'){
+            
+            $rootScope.$broadcast('alert_mic_on',message);
+
+        }
+
+        if(message.action=='alert_mic_off'){
+           
+            $rootScope.$broadcast('alert_mic_off',message);
+
+        }
+
+
+        if(message.action=='opponent_mic_on'){
+            
+            $rootScope.$broadcast('opponent_mic_on',message);
+
+        }
+
+        if(message.action=='opponent_mic_off'){
+           
+            $rootScope.$broadcast('opponent_mic_off',message);
+
+        }
+
+
         if(message.action=='show_multi_invite_notification'){
 
             $rootScope.$broadcast('show_multi_invite_notification',message);

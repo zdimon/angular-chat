@@ -12,6 +12,92 @@ bd = MyDB()
 import brukva
 bclient = brukva.Client()
 bclient.connect()
+from utils.util import serialize_user
+
+
+@json_view
+def opponent_mic_on(request,user_id,opponent_id,app_name):
+    ''' 
+        Request gives command to opponent authomatically enable mic.
+
+        [server]/api/[user_id]/[opponent_id]/both_mic_on
+
+        Example: http://chat.localhost/api/150041/150034/both_mic_on
+
+        Return: {'status': 0, 'message': 'ok'}
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    chanel = '%s_%s' % (app_name,opponent_id)
+    sql = "select chat_chatroom.id from chat_chatuser2room, chat_chatroom where chat_chatroom.id = chat_chatuser2room.room_id and chat_chatroom.is_charging_video = 1 and chat_chatroom.is_closed = 0"
+    room = bd.get(sql)
+    bd.update('update chat_chatroom set is_charging_audio=1 where id = %s' % room['id'])
+    profile = ChatUser.objects.get(user_id=opponent_id, tpa=tpa)
+    mes = { 'action': 'opponent_mic_on', 'profile': serialize_user(profile) }
+    bclient.publish(chanel, json.dumps(mes))     
+    return {'status': 0, 'message': 'ok'}
+
+
+@json_view
+def opponent_mic_off(request,user_id,opponent_id,app_name):
+    ''' 
+        Request gives command to opponent authomatically disable mic.
+
+        [server]/api/[user_id]/[opponent_id]/both_mic_on
+
+        Example: http://chat.localhost/api/150041/150034/both_mic_on
+
+        Return: {'status': 0, 'message': 'ok'}
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    chanel = '%s_%s' % (app_name,opponent_id)
+    sql = "select chat_chatroom.id from chat_chatuser2room, chat_chatroom where chat_chatroom.id = chat_chatuser2room.room_id and chat_chatroom.is_charging_video = 1 and chat_chatroom.is_closed = 0"
+    room = bd.get(sql)
+    bd.update('update chat_chatroom set is_charging_audio=0 where id = %s' % room['id'])
+    profile = ChatUser.objects.get(user_id=opponent_id, tpa=tpa)
+    mes = { 'action': 'opponent_mic_off', 'profile': serialize_user(profile) }
+    bclient.publish(chanel, json.dumps(mes))     
+    return {'status': 0, 'message': 'ok'}
+
+
+
+
+@json_view
+def alert_mic_on(request,user_id,opponent_id,app_name):
+    ''' 
+        Request alert opponent about nessesity of turning mic on.
+
+        [server]/api/[user_id]/[opponent_id]/alert_mic_on
+
+        Example: http://chat.localhost/api/150041/150034/alert_mic_on
+
+        Return: {'status': 0, 'message': 'ok'}
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    chanel = '%s_%s' % (app_name,opponent_id)
+    profile = ChatUser.objects.get(user_id=opponent_id, tpa=tpa)
+    mes = { 'action': 'alert_mic_on', 'profile': serialize_user(profile) }
+    bclient.publish(chanel, json.dumps(mes))     
+    return {'status': 0, 'message': 'ok'}
+
+
+@json_view
+def alert_mic_off(request,user_id,opponent_id,app_name):
+    ''' 
+        Request alert opponent about nessesity of turning mic off.
+
+        [server]/api/[user_id]/[opponent_id]/alert_mic_on
+
+        Example: http://chat.localhost/api/150041/150034/alert_mic_on
+
+        Return: {'status': 0, 'message': 'ok'}
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    chanel = '%s_%s' % (app_name,opponent_id)
+    profile = ChatUser.objects.get(user_id=opponent_id, tpa=tpa)
+    mes = { 'action': 'alert_mic_off', 'profile': serialize_user(profile) }
+    bclient.publish(chanel, json.dumps(mes)) 
+    return {'status': 0, 'message': 'ok'}
+
 
 
 @json_view
@@ -27,7 +113,7 @@ def turn_mic_on(request,user_id,app_name):
     '''
     tpa = Tpa.objects.get(name=app_name)
     owner = ChatUser.objects.get(user_id=user_id, tpa=tpa)
-    sql = "select chat_chatroom.id from chat_chatuser2room, chat_chatroom where chat_chatroom.id = chat_chatuser2room.room_id and chat_chatroom.is_charging_video = 1"
+    sql = "select chat_chatroom.id from chat_chatuser2room, chat_chatroom where chat_chatroom.id = chat_chatuser2room.room_id and chat_chatroom.is_charging_video = 1 and chat_chatroom.is_closed = 0"
     rooms = bd.select(sql)
     for r in rooms.record:
         bd.update('update chat_chatroom set is_charging_audio=1 where id = %s' % r['id'])
