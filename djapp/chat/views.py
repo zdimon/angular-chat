@@ -73,7 +73,7 @@ def initialization(request,app_name,user_id, contact_id):
     contact = json.loads(contact) 
 
     #4
-    get_online_url = get_url_by_name('get_online_except_contact',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
+    get_online_url = get_url_by_name('get_online',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
     online = requests.get(get_online_url).content
     online = json.loads(online)  
  
