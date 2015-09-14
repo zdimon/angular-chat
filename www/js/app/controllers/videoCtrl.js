@@ -24,8 +24,25 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
         */ 
       $scope.isMyVideoActive = false;
 
-      $scope.showMyVideo = function(){
 
+
+      $scope.showMyFlash = function(){
+
+            //alert('show_my_flash');         
+
+            var par = { flashvars:"vStream=false&codecOn=true&ww=800&hh=600&fps=20&streamName=eeyy"+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://chat.mirbu.com/myapp&micOn=false&type=out" };
+            swfobject.embedSWF("Media/chat_without_cam.swf?v=1", "myVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
+         
+            $('.video_online').removeClass('hide_chat_window');
+            
+        }
+
+
+
+      $scope.showMyVideo = function(){
+            //alert('show_my_video');         
+           // document["myVideo"].JsTurnVideoOn();
+            
             if($rootScope.gender=='m') {
                var with_audio = true;          
             } else {
@@ -36,6 +53,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
             swfobject.embedSWF("Media/chat.swf", "myVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
             $scope.isMyVideoActive = true;
 
+            
             Video.showMyCam(function(){
                 
             });
@@ -78,6 +96,15 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
       }
 
 
+      $scope.alertMicOn = function(){
+         alert('i turn on');
+      }
+
+
+      $scope.alertMicOff = function(){
+
+        alert('i turn off');
+      }
 
 
 
@@ -161,6 +188,11 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
         $scope.showMyVideo();
     })
 
+    $rootScope.$on('show_my_flash',function(event,data){
+        $scope.showMyFlash();
+    })
+
+
     $rootScope.$on('show_opponent_video',function(event,data){
         $scope.showOpponentVideo();
     })
@@ -168,6 +200,16 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
     $rootScope.$on('hide_opponent_video',function(event,data){
         $scope.hideOpponentVideo();
     })
+
+
+    $rootScope.$on('turn_opponent_mic_on',function(event,data){
+        $scope.turnMicOn();
+    })
+
+    $rootScope.$on('turn_opponent_mic_off',function(event,data){
+       $scope.turnMicOff();
+    })
+
 
     $rootScope.$on('update_cam_indicators',function(event,data){
 

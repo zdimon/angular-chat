@@ -51,6 +51,12 @@
                                 if(result.video_charging == true || result.opponent.gender == 'w') {
                                     $rootScope.$broadcast('show_opponent_video',{})
                                 }
+
+                    
+                                 setTimeout(function(){
+                                     //$rootScope.$broadcast('show_my_flash',{});
+                                    }, 2000);
+
                             })
                         });
                         

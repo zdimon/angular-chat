@@ -44,12 +44,12 @@
 <script>
 $(document).ready(function() {
 
-    var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName=test&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=out" }; 
-    swfobject.embedSWF("/static/chat.swf", "video_in", "640", "480", "9.0.0", "expressInstall.swf", par);
+    var par = { flashvars:"vStream=false&codecOn=true&ww=800&hh=600&fps=20&streamName=test&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=out" }; 
+    swfobject.embedSWF("/static/chat_without_cam.swf?d=2", "video_in", "640", "480", "9.0.0", "expressInstall.swf", par);
 
 
-    var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName=test&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=in" }; 
-    swfobject.embedSWF("/static/chat.swf", "video_out", "640", "480", "9.0.0", "expressInstall.swf", par);
+    var par = { flashvars:"vStream=false&codecOn=true&ww=800&hh=600&fps=20&streamName=test&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=in" }; 
+    swfobject.embedSWF("/static/chat_without_cam.swf?d=3", "video_out", "640", "480", "9.0.0", "expressInstall.swf", par);
 
 
     $("#turn_in_on").click(function(){
@@ -78,17 +78,21 @@ $(document).ready(function() {
 
     $("#turn_video_on").click(function(){
 
+           document["video_in"].JsTurnVideoOn();
            document["video_out"].JsTurnVideoOn();
         })
 
 
     $("#turn_video_off").click(function(){
-
             document["video_out"].JsTurnVideoOff();
+            document["video_in"].JsTurnVideoOff();
         })
 
 
-
+     // setTimeout(function(){
+     //    document["video_in"].JsTurnVideoOff();
+     //    document["video_out"].JsTurnVideoOff()
+     //   },3000);
 })
 
 </script>
