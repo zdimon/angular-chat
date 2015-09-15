@@ -6,6 +6,7 @@
     .factory('Status', ['$http', '$rootScope', function($http, $rootScope){
             return {
                         sayBusy: sayBusy,
+                        sayClose: sayClose,
                         setInvisible: setInvisible,
                         setVisible: setVisible,
                         declineInvitation: declineInvitation,
@@ -22,6 +23,19 @@
 
                  
             } ;
+
+
+            function sayClose(opponent_id,callback) {
+
+                var url = utils.prepare_url(apiconf.api.say_close.url,{
+                                                                        '[user_id]':$rootScope.currentUserId,
+                                                                        '[opponent_id]':opponent_id
+                                                                     });
+                return $http.get(url).success(callback); 
+
+                 
+            } ;
+
 
             function setInvisible() {
 
