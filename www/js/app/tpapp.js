@@ -84,6 +84,14 @@ tpapp.js
                
             }
 
+            $scope.close = function(opponent_id,notify_id){
+                Status.sayClose(opponent_id, function(result){
+                    delete $rootScope.notifies[notify_id];
+                })
+               
+            }
+
+
 
          })
 

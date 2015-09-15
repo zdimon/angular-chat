@@ -273,6 +273,13 @@ apiconf = {
                 'url':  '[server]/api/[app_name]/[user_id]/[opponent_id]/say_busy'
             },
 
+        'say_close':
+            {
+                'type': 'ajax',
+                'name': 'say_close',
+                'url':  '[server]/api/[app_name]/[user_id]/[opponent_id]/say_close'
+            },
+
         'accept_invitation':
             {
                 'type': 'ajax',

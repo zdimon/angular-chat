@@ -107,7 +107,6 @@ apiconf = {
             {
                 'type': 'ajax',
                 'name': 'get_profile',
-                'url':  '[server]/api/[app_name]/[user_id]/get_profile'
             },   
 
         'invite':
@@ -275,6 +274,14 @@ apiconf = {
                 'name': 'say_busy',
                 'url':  '[server]/api/[app_name]/[user_id]/[opponent_id]/say_busy'
             },
+
+        'say_close':
+            {
+                'type': 'ajax',
+                'name': 'say_close',
+                'url':  '[server]/api/[app_name]/[user_id]/[opponent_id]/say_close'
+            },
+
 
         'accept_invitation':
             {
