@@ -128,6 +128,26 @@ def create_transaction(room_id,user_id,opponent_id, app_name, price,type):
         tr.save()
     
 
+
+def check_users_for_off(json_data):
+    for r in json_data:
+        tpa = Tpa.objects.get(name=r['app_name'])
+        man = ChatUser.objects.get(user_id=r['user_id'],tpa=tpa)
+        woman = ChatUser.objects.get(user_id=r['opponent_id'],tpa=tpa)
+        room = ChatRoom.objects.get(pk=r['room_id'])
+
+        if (man.is_online==False or woman.is_online==False):
+            room.is_charging_text = False
+            room.is_charging_video = False
+            room.is_charging_audio = False
+            room.save()
+
+        if (woman.is_camera_active == False):
+            room.is_charging_video = False
+            room.is_charging_audio = False
+            room.save()
+    
+
 @csrf_exempt
 @json_view
 def charge_request(request,app_name):
@@ -152,6 +172,7 @@ def charge_request(request,app_name):
     '''
     
     json_data = json.loads(request.body)
+    check_users_for_off(json_data)
     tpa = Tpa.objects.get(name=app_name)
     #print 'request to %s ' % tpa.charge_url
     res = requests.post(tpa.charge_url,json=json_data).content

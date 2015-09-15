@@ -122,11 +122,12 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         #self.write_message(json.dumps({'status': 1}))
         try:
             self.write_message(json.dumps(message))
-        except:
+        except Exception, e:
             # mark room as free to charging if man is off
-            print "Can not send %s to %s_%s" % (message,self.tpa_name, self.current_user_id)
-            if(message['action']=='update_balance'):
-                bd.update('update chat_chatroom set is_charging_text=0, is_charging_video=0, is_charging_audio=0 where id= %s' % message['room_id'])
+            print "Can not send %s to %s_%s %s" % (message,self.tpa_name, self.current_user_id, e)
+            
+            #if(message['action']=='update_balance'):
+            #    bd.update('update chat_chatroom set is_charging_text=0, is_charging_video=0, is_charging_audio=0 where id= %s' % message['room_id'])
             
 
  
@@ -154,7 +155,7 @@ def send_charge_request():
              from chat_chatroom, chat_tpa  
              where 
              chat_chatroom.tpa_id = chat_tpa.id and
-             (is_charging_text="%s" or is_charging_video="%s")''' % (1,1)
+             (is_charging_text="%s" or is_charging_video="%s" or is_charging_audio="%s")''' % (1,1,1)
     rooms = bd.select(sql)
     data = []
     url = False
@@ -192,7 +193,7 @@ def send_charge_request():
         if(room['is_charging_video']==1):     
              data.append({'action': 'video', 'app_name': room['app_name'],  'user_id': man, 'opponent_id': woman, 'room_id': room['id'], 'price': str(room['price_video']) })   
 
-        if(room['is_charging_video']==1 and room['is_charging_audio']==1):     
+        if(room['is_charging_audio']==1):     
              data.append({'action': 'audio', 'app_name': room['app_name'],  'user_id': man, 'opponent_id': woman, 'room_id': room['id'], 'price': str(room['price_audio']) })       
 
     if url:  
