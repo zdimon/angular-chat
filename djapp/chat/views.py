@@ -146,6 +146,14 @@ def check_users_for_off(json_data):
             room.is_charging_video = False
             room.is_charging_audio = False
             room.save()
+            
+        if (woman.is_online==False):
+            woman.is_camera_active = False
+            woman.save()
+ 
+        if (man.is_online==False):
+            man.is_camera_active = False
+            man.save()      
     
 
 @csrf_exempt
