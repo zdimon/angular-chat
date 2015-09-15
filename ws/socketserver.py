@@ -124,6 +124,8 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             self.write_message(json.dumps(message))
         except:
             # mark room as free to charging if man is off
+            if(message['action']=='update_balance'):
+                bd.update('update chat_chatroom set is_charging_text=0, is_charging_video=0, is_charging_audio=0 where id= %s' % message['room_id'])
             print "Can not send %s to %s_%s" % (message,self.tpa_name, self.current_user_id)
 
  
