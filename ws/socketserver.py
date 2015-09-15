@@ -123,6 +123,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         try:
             self.write_message(json.dumps(message))
         except:
+            # mark room as free to charging if man is off
             print "Can not send %s to %s_%s" % (message,self.tpa_name, self.current_user_id)
 
  

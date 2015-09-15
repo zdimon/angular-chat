@@ -159,7 +159,7 @@ def charge_request(request,app_name):
     #print res
 
     for i in res:
-        mes = { 'action': 'update_balance', 'balance': i['balance'] }
+        mes = { 'action': 'update_balance', 'balance': i['balance'], 'room_id': i['room_id'] }
         chanel = '%s_%s' % (app_name, i['user_id'])
         bclient.publish(chanel, json.dumps(mes))
         print 'send to -%s %s' %  (chanel,mes)
