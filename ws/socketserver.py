@@ -124,9 +124,10 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         try:
             self.write_message(json.dumps(message))
         except Exception, e:
+            pass
             # mark room as free to charging if man is off
-            if(message['action'] != 'put_me_in_room'):
-                print "Can not send %s to %s_%s exeption %s" % (message,self.tpa_name, self.current_user_id, e)
+            #if(message['action'] != 'put_me_in_room'):
+            #    print "Can not send %s to %s_%s exeption %s" % (message,self.tpa_name, self.current_user_id, e)
             
             #if(message['action']=='update_balance'):
             #    bd.update('update chat_chatroom set is_charging_text=0, is_charging_video=0, is_charging_audio=0 where id= %s' % message['room_id'])
@@ -204,25 +205,6 @@ def send_charge_request():
         print requests.post(url,json=data).content  
         print 'Memory usage: %s (kb)' % resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
 
-
-'''
-[
-    
-        {
-          'action': 'text_chat',
-          'user_id': 150040,
-          'opponent_id': 150042,
-          'room_id': 23
-        },
-
-        {
-          'action': 'text_chat',
-          'user_id': 150040,
-          'opponent_id': 150043,
-          'room_id': 24
-        }
-
-]'''
 
         
         
