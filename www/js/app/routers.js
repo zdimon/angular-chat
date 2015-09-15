@@ -104,13 +104,15 @@
              
                         $rootScope.$on('connected', function (event, data) {
                             
-                            Room.invite($stateParams.opponent,function(rezult){})
+                            Room.invite($stateParams.opponent,function(rezult){
+                                
+                            })
                         });
                         
                       
                          $rootScope.current_opponent_id = $stateParams['opponent'];
                          setTimeout(function(){
-                            $rootScope.$broadcast('show_opponent_video',{});
+                            //$rootScope.$broadcast('show_opponent_video',{});
                             }, 2000);
                      
 
