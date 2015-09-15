@@ -42,10 +42,11 @@
                 //templateUrl: "/static/templates/active.html",
 
                 controller: function($stateParams, Room, $rootScope, $log){
+                     
                        $rootScope.current_opponent_id = $stateParams.opponent;
                         
                         $rootScope.$on('connected', function (event, data) {
-                           // alert('sssss');
+                           
                            Room.invite($stateParams.opponent,function(result){
                                 
                                 if(result.video_charging == true && result.opponent.gender == 'w') {
@@ -58,6 +59,7 @@
                                     }, 2000);
 
                             })
+                           
                         });
                         
                       

@@ -48,7 +48,9 @@ def initialization(request,app_name,user_id, contact_id):
 
         3. Contact list.
 
-        4. User online list.
+        4. User online list excepting contact.
+
+        5. Full user online list.
 
 
 
@@ -73,13 +75,18 @@ def initialization(request,app_name,user_id, contact_id):
     contact = json.loads(contact) 
 
     #4
+    get_online_url = get_url_by_name('get_online_except_contact',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
+    online_except_contact = requests.get(get_online_url).content
+    online_except_contact = json.loads(online_except_contact)  
+
+    #5
     get_online_url = get_url_by_name('get_online',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
-    online = requests.get(get_online_url).content
-    online = json.loads(online)  
+    online_full = requests.get(get_online_url).content
+    online_full = json.loads(online_full) 
  
 
 
-    return {'status': 0, 'online': online, 'contact': contact, 'owner': owner}
+    return {'status': 0, 'online_except_contact': online_except_contact, 'contact': contact, 'owner': owner, 'online_full': online_full}
 
 
 
@@ -188,10 +195,12 @@ def charge_request(request,app_name):
     #print res
 
     for i in res:
-        mes = { 'action': 'update_balance', 'balance': i['balance'], 'room_id': i['room_id'] }
-        chanel = '%s_%s' % (app_name, i['user_id'])
-        bclient.publish(chanel, json.dumps(mes))
-        print 'send to -%s %s' %  (chanel,mes)
+        user = ChatUser.objects.get(user_id=i['user_id']) 
+        if(user.is_online):
+            mes = { 'action': 'update_balance', 'balance': i['balance'], 'room_id': i['room_id'], 'user_id': i['user_id'] }
+            chanel = '%s_%s' % (app_name, i['user_id'])
+            bclient.publish(chanel, json.dumps(mes))
+            print 'send to -%s %s' %  (chanel,mes)
     return {'status': 0, 'message': 'ok'}
 
 

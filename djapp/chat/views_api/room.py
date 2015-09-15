@@ -204,15 +204,16 @@ def save_message(request):
                 add_me_to_contact_if_not_exist(tpa,owner,opponent,p)
                 contact = _add_contact(tpa.name,owner.user_id,opponent.user_id)
                 mark_new_message(owner,opponent)
-                mes_contact = { 'action': 'add_opponent_in_my_contact_list', 'user_id': opponent.user_id, 'profile': serialize_user(opponent) }
-                mes_online = { 'action': 'update_users_online' }
-                owner_chanel = '%s_%s' % (b['app_name'], owner.user_id)
-                bclient.publish(owner_chanel, json.dumps(mes_contact))
-                bclient.publish(owner_chanel, json.dumps(mes_online))
-                if room.get_count_messages()<2999:
-                    data = {'message': cm.message, 'id': cm.id, 'opponent': serialize_user(owner)}
-                    mes = { 'action': 'show_new_message_notification', 'data': data }
-                    bclient.publish('%s_%s' % (tpa.name, opponent.user_id), json.dumps(mes))
+                if(opponent.is_online):
+                    mes_contact = { 'action': 'add_opponent_in_my_contact_list', 'user_id': opponent.user_id, 'profile': serialize_user(opponent) }
+                    mes_online = { 'action': 'update_users_online' }
+                    owner_chanel = '%s_%s' % (b['app_name'], owner.user_id)
+                    bclient.publish(owner_chanel, json.dumps(mes_contact))
+                    bclient.publish(owner_chanel, json.dumps(mes_online))
+                    if room.get_count_messages()<2999:
+                        data = {'message': cm.message, 'id': cm.id, 'opponent': serialize_user(owner)}
+                        mes = { 'action': 'show_new_message_notification', 'data': data }
+                        bclient.publish('%s_%s' % (tpa.name, opponent.user_id), json.dumps(mes))
             #else:
                 # mark contact as it has new message if it exists
                 #contact = _get_contact(app_name,opponent.user_id,owner.user_id)
@@ -302,7 +303,7 @@ def invite(request,app_name,owner_id,contact_id):
         contact_data = {}
    
     owner_chanel = '%s_%s' % (app_name, owner_id)
-    contact_chanel = '%s_%s' % (app_name, contact_id)
+    
     rm = _get_room_or_create(app_name,owner_id,contact_id)
     #contact.set_active(rm['room_id'])
     tpa = Tpa.objects.get(name=app_name)
@@ -311,8 +312,12 @@ def invite(request,app_name,owner_id,contact_id):
     print "SEND TO "+ owner_chanel
     mes = { 'action': 'put_me_in_room', 'room_id': rm['room_id'], 'owner_id': owner_id,'contact_id':contact_id, 'contact': serialize_user(contact_user), 'contact_data': contact_data, 'source': 'views/room.py'}
     bclient.publish(owner_chanel, json.dumps(mes))
-    mes = { 'action': 'show_inv_win', 'room_id': rm['room_id'], 'user_profile': serialize_user(owner)}
-    bclient.publish(contact_chanel, json.dumps(mes))
+    
+    if(contact_user.is_online):
+        mes = { 'action': 'show_inv_win', 'room_id': rm['room_id'], 'user_profile': serialize_user(owner)}
+        contact_chanel = '%s_%s' % (app_name, contact_id)
+        bclient.publish(contact_chanel, json.dumps(mes))
+
     out = _get_room_or_create(app_name,owner_id,contact_id)
     out['opponent'] = serialize_user(contact_user)
     out['contact_data'] = contact_data

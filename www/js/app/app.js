@@ -22,12 +22,51 @@ The function :func:`someService` does a some function.
 })
 
 
-.run(function ($rootScope, Auth, $window, WS, Online, Status, $stateParams) {
+.run(function ($rootScope, Auth, $window, WS, Online, Status, $stateParams, $state, $timeout, Room, WS) {
 
             // Initialization
+
+            $rootScope.$on('connected', function (event, data) {
+                        Auth.initialization($rootScope.current_opponent_id,function(result){
+                            $rootScope.contact_user_list = result.contact.user_list;
+                            $rootScope.online_user_list = result.online_except_contact.user_list;
+                            $rootScope.online = {};
+                            for (var i = 0; i < result.online_full.user_list.length; i++) {
+                                $rootScope.online['user_'+result.online_full.user_list[i].user_id] = true;
+                            }  
+                           
+
+                      
+                            Room.invite($rootScope.current_opponent_id,function(result){
+                                
+                                        if(result.video_charging == true && result.opponent.gender == 'w') {
+                                            $rootScope.$broadcast('show_opponent_video',{})
+                                        }
+                                        $('.preloader').remove();
+                               
+                                })
+                            
+
+                            
+                            
+                        })
+            })  
+
+
+            $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+                
+                           event.preventDefault();
+                           log(toParams);
+                           $rootScope.currentUserId = toParams.user;    
+                           $rootScope.current_opponent_id = toParams.opponent;
+                           
+                        
+                       
+              })
+
             Auth.isauth(function(result){
                 if(result.id>0) {
-
+                        WS.send({ action: 'connect', user_id: $rootScope.currentUserId });
                         $rootScope.isAuthenticated = true;  
                         $rootScope.currentUserId = result.id;
                         $rootScope.currentUsername = result.id;
@@ -54,34 +93,7 @@ The function :func:`someService` does a some function.
                             }
 
 
-                        WS.send({ action: 'connect', user_id: $rootScope.currentUserId });
-                   
-                        /*
-                        Auth.has_opponent(function(result){
-                            if(result.status==0) {
-                                var url = "http://" + local_config.chat_url + "#/" + $rootScope.currentUserId+'/'+result.contact_id;
-                            } else {
-                                var url = "http://" + local_config.chat_url  + "#/" + $rootScope.currentUserId;  
-                            }
-                            $window.location.href = url;
-                            
-                            
-            
-                        }) 
-                        */
 
-                        Auth.initialization($stateParams.opponent,function(result){
-                            $rootScope.contact_user_list = result.contact.user_list;
-                            $rootScope.online_user_list = result.online.user_list;
-                            $rootScope.online = {};
-                            for (var i = 0; i < result.online.user_list.length; i++) {
-                                $rootScope.online['user_'+result.online.user_list[i].user_id] = true;
-                            }  
-                            
-                            setTimeout(function(){
-                                        $('.preloader').remove();
-                            }, 2000);
-                        })
                          
                        
 
@@ -110,7 +122,7 @@ The function :func:`someService` does a some function.
 
             })
         
-                
+  
                   
 
 })
