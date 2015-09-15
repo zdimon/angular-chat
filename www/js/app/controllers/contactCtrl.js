@@ -243,7 +243,7 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
 
         $scope.select = function(contact_id){
-            $rootScope.$broadcast('hide_opponent_video',{})
+            //$rootScope.$broadcast('hide_opponent_video',{})
             var url = "http://" + local_config.chat_url + "#/" + $rootScope.currentUserId+'/'+contact_id;
             $window.location.href = url;
             $rootScope.current_opponent_id = contact_id;
