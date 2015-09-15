@@ -118,7 +118,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         '''
         
         message = json.loads(result.body)
-        #print message
+        print message
         #self.write_message(json.dumps({'status': 1}))
         try:
             self.write_message(json.dumps(message))
