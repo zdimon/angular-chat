@@ -308,7 +308,8 @@ def invite(request,app_name,owner_id,contact_id):
     tpa = Tpa.objects.get(name=app_name)
     owner = ChatUser.objects.get(user_id=owner_id,tpa=tpa)
     contact_user = ChatUser.objects.get(user_id=contact_id,tpa=tpa)
-    mes = { 'action': 'put_me_in_room', 'room_id': rm['room_id'], 'owner_id': owner_id,'contact_id':contact_id, 'contact': serialize_user(contact_user), 'contact_data': contact_data}
+    print "SEND TO "+ owner_chanel
+    mes = { 'action': 'put_me_in_room', 'room_id': rm['room_id'], 'owner_id': owner_id,'contact_id':contact_id, 'contact': serialize_user(contact_user), 'contact_data': contact_data, 'source': 'views/room.py'}
     bclient.publish(owner_chanel, json.dumps(mes))
     mes = { 'action': 'show_inv_win', 'room_id': rm['room_id'], 'user_profile': serialize_user(owner)}
     bclient.publish(contact_chanel, json.dumps(mes))

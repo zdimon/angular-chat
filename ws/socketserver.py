@@ -119,13 +119,14 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         '''
         
         message = json.loads(result.body)
-        print message
+        #print message
         #self.write_message(json.dumps({'status': 1}))
-        #try:
-        self.write_message(json.dumps(message))
-        #except Exception, e:
+        try:
+            self.write_message(json.dumps(message))
+        except Exception, e:
             # mark room as free to charging if man is off
-        #    print "Can not send %s to %s_%s %s" % (message,self.tpa_name, self.current_user_id, e)
+            if(message['action'] != 'put_me_in_room'):
+                print "Can not send %s to %s_%s exeption %s" % (message,self.tpa_name, self.current_user_id, e)
             
             #if(message['action']=='update_balance'):
             #    bd.update('update chat_chatroom set is_charging_text=0, is_charging_video=0, is_charging_audio=0 where id= %s' % message['room_id'])
