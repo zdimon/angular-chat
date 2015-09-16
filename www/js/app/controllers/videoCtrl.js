@@ -189,17 +189,17 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
       $scope.hideOpponentVideo = function(){
        
             swfobject.removeSWF("opponentVideo");
-            $(document).find('#oponent_video_container').append('<div id="opponentVideo"> </div>');
+            $(document).find('#oponent_video_container').append('<div id="opponentVideo"></div>');
             $rootScope.isOpponentCamEnabled = false;
             $rootScope.alert_mic_on = false;
-         
+            $('.video_online').addClass('hide_chat_window');     
              Video.hideOpponentCam($rootScope.current_opponent_id, function(){
                 if (angular.isDefined($scope.invite_promise)) {
                     $interval.cancel($scope.invite_promise);
                     $scope.invite_promise = undefined;
                 }                
             })     
-            $('.video_online').addClass('hide_chat_window');     
+            
 
         }
 
@@ -277,8 +277,9 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                         $rootScope.isOpponentVideoActive = true;
                     } else {
                         swfobject.removeSWF("opponentVideo");
-                        $(document).find('#oponent_video_container').append('<div id="opponentVideo"> </div>');
+                        $(document).find('#oponent_video_container').append('<div id="opponentVideo"></div>');
                         $rootScope.isOpponentVideoActive = false;
+                        $('.video_online').addClass('hide_chat_window');     
 
                     }
                     
