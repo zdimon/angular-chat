@@ -186,12 +186,13 @@ def charge_request(request,app_name):
     
     '''
     session = request.session.session_key
+    print session
     json_data = json.loads(request.body)
     check_users_for_off(json_data)
     # add session key to each record
     json_data_compleated = {}
     for r in json_data:
-        r['session': session]
+        r['session': str(session)]
         json_data_compleated.append(r)
     tpa = Tpa.objects.get(name=app_name)
     #print 'request to %s ' % tpa.charge_url
