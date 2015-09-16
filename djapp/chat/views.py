@@ -185,7 +185,7 @@ def charge_request(request,app_name):
         
     
     '''
-    
+    session = request.session.session_key
     json_data = json.loads(request.body)
     check_users_for_off(json_data)
     # add session key to each record
@@ -202,7 +202,7 @@ def charge_request(request,app_name):
 
     for i in res:
         user = ChatUser.objects.get(user_id=i['user_id']) 
-        session = request.session.session_key
+        
         if(user.is_online):
             mes = { 'action': 'update_balance', 'balance': i['balance'], 'room_id': i['room_id'], 'user_id': i['user_id'] }
             chanel = '%s_%s' % (app_name, i['user_id'])
