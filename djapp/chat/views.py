@@ -176,6 +176,7 @@ def charge_request(request,app_name):
               'opponent_id': 150042, 
               'room_id': 23,
               'app_name': 'tpa1com',
+              'session': 'sefwefwe23243fef',
               'price': 2 
             }
         ]    
@@ -185,18 +186,12 @@ def charge_request(request,app_name):
         
     
     '''
-    session = request.session.session_key
-    print session
+    
     json_data = json.loads(request.body)
     check_users_for_off(json_data)
-    # add session key to each record
-    json_data_compleated = {}
-    for r in json_data:
-        r['session': str(session)]
-        json_data_compleated.append(r)
     tpa = Tpa.objects.get(name=app_name)
     #print 'request to %s ' % tpa.charge_url
-    res = requests.post(tpa.charge_url,json=json_data_compleated).content
+    res = requests.post(tpa.charge_url,json=json_data).content
     res = json.loads(res)
     
     print res

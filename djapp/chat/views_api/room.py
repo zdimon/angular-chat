@@ -56,7 +56,9 @@ def _get_room_or_create(app_name,caler_id,opponent_id):
     r = bd.select("""
             SELECT DISTINCT u1.room_id AS id, u1.user_id AS opponent, u2.user_id AS caler
             FROM   chat_chatuser2room u1, chat_chatuser2room u2, chat_chatroom
-            WHERE chat_chatroom.is_closed=False AND chat_chatroom.id = u1.room_id AND u1.user_id = '%s' AND u2.user_id = '%s' AND u1.room_id = u2.room_id AND u1.tpa_id = u2.tpa_id AND u1.tpa_id = '%s'
+            WHERE chat_chatroom.is_closed=False AND chat_chatroom.id = u1.room_id AND u1.user_id = '%s' AND u2.user_id = '%s' 
+            AND u1.room_id = u2.room_id AND u1.tpa_id = u2.tpa_id AND u1.tpa_id = '%s'
+            AND 
             ORDER BY u1.room_id DESC
             LIMIT 1
         """ % (int(opponent.id), int(caler.id), int(tpa.id)))
@@ -89,6 +91,7 @@ def close_chat_room(request,app_name,room_id, opponent_id):
     room.is_charging_text = False
     room.is_charging_video = False
     room.is_charging_audio = False
+    room.is_closed = True
     room.save()
     mes = { 'action': 'close_room', 
             'room_id': room_id
