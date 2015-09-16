@@ -110,16 +110,20 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
               //****************************************
 
 
-
+               //TODO message.message
               if(data.message.message.room_id != $scope.room_id){
                     
                     //log(data.message.message.room_id +'!='+ $scope.room_id);
-                   // set envelop blinking (new message)
-                   for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
-                        if($rootScope.contact_user_list[i].user_id==data.message.message.owner.user_id) {
-                            $rootScope.contact_user_list[i].has_new_message = true;
-                        }
-                   }
+                   // set envelop blinking (new message) or show pop up in man case 
+                   if($rootScope.gender=='m') {
+                        $rootScope.$broadcast('show_invite_notification',{'id': data.message.message.owner.user_id, 'data':{ 'message': data.message.message.message, 'opponent': data.message.message.owner}});
+                    } else {
+                       for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
+                            if($rootScope.contact_user_list[i].user_id==data.message.message.owner.user_id) {
+                                $rootScope.contact_user_list[i].has_new_message = true;
+                            }
+                       }
+                    }
 
 
               } else {
