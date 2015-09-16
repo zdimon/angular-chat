@@ -351,7 +351,7 @@ def multi_invitation(request):
      
     '''
     b = json.loads(request.body)
-    #print b
+    print b
     #import pdb; pdb.set_trace()
     tpa = Tpa.objects.get(name=b['app_name'])
     owner = ChatUser.objects.get(tpa=tpa,user_id=int(b['owner_id']))

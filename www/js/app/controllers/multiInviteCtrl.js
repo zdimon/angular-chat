@@ -87,6 +87,7 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
             if($scope.towho=='online'){
                 Online.getOnlineIds(function(result){
                     $scope.countUsersInvite = result.count;
+                    if(result.count>0)
                     set_interval_sending(result.user_list);
                 })
                 
@@ -94,6 +95,7 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
             if($scope.towho=='favorites'){
                 Auth.getFavorites(function(result){
                     $scope.countUsersInvite = result.count;
+                    if(result.count>0)
                     set_interval_sending(result.favorites.user_list)
                 })
             }
@@ -101,6 +103,7 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
                 Contact.getContactListIds(function(result){
 
                     $scope.countUsersInvite = result.count;
+                    if(result.count>0)
                     set_interval_sending(result.contact_list)
                 })
             }       
