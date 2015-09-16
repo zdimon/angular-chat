@@ -16,6 +16,6 @@ def get_url_by_name(name,dict_key):
         url = url.replace('[server]',SS_SERVER)
     url = url.replace('[app_name]',dict_key['app_name'])
     for key in dict_key:
-        url = url.replace('[%s]' % key, dict_key[key])
+        url = url.replace('[%s]' % key, str(dict_key[key]))
     return url
 

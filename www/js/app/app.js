@@ -43,6 +43,7 @@ The function :func:`someService` does a some function.
                                             $rootScope.$broadcast('show_opponent_video',{})
                                         }
                                         $('.preloader').remove();
+                                        $rootScope.is_bootstrapted = true;
                                
                                 })
                             

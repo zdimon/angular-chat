@@ -17,6 +17,7 @@ bclient.connect()
 import re
 bd = MyDB()
 import time
+from utils.api_router import get_url_by_name
 
 def check_message(message):
     ''' Check content of the message on phone number or email or url address '''
@@ -145,6 +146,8 @@ def save_message(request):
     '''
     Function save message owner in DB,
 
+    Check if user is available.
+
     Check message out on stop words and replace them.
 
     Add owner to opponent's contact list.
@@ -159,6 +162,7 @@ def save_message(request):
     '''
     #import pdb; pdb.set_trace()
     b = json.loads(request.body)
+
 
     b['message'] = stop_words(b['message'])
 
@@ -183,6 +187,7 @@ def save_message(request):
     gender = owner.gender
     cm.save()
     charge_for_chat(cm,room,tpa) #charging
+    
     try:
         arr_participants = []
         for p in b['participants']:
@@ -199,7 +204,19 @@ def save_message(request):
             bclient.publish(p, json.dumps(mes))
             opponent = ChatUser.objects.get(user_id=p.split('_')[1])
             #import pdb; pdb.set_trace()
+            
             if owner != opponent:
+                print '7744-%s' % b['app_name']
+                # check accessebilities
+                #import pdb; pdb.set_trace()
+                check_avalible_url = get_url_by_name('check_accessebility',{'user_id': opponent.user_id, 'app_name': b['app_name']})
+                print 'REQUEST_____%s' % check_avalible_url
+                res = json.loads(requests.get(check_avalible_url).content)
+                if(res['status']==1):
+                    print 'noooooo'
+                    mes = { 'action': 'say_busy', 'message': 'Sorry but I am busy now.', 'user_profile':  serialize_user(opponent)}
+                    owner_chanel = '%s_%s' % (b['app_name'], owner.user_id)
+                    bclient.publish(owner_chanel, json.dumps(mes))
                 # adding contact
                 add_me_to_contact_if_not_exist(tpa,owner,opponent,p)
                 contact = _add_contact(tpa.name,owner.user_id,opponent.user_id)

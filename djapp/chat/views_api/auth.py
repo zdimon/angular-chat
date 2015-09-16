@@ -136,7 +136,7 @@ def login(request,user_id, app_name):
         cuser = ChatUser.objects.get(user_id=user_id)
     except:
         url = get_url_by_name('get_profile_from_tpa',{'user_id':user_id, 'app_name': app_name})
-        print 'REQUEST_____%s' % url
+        #print 'REQUEST_____%s' % url
         responce = requests.get(url)
         cuser = ChatUser.objects.get(user_id=user_id)
     request.session['is_auth'] = 'true'
