@@ -188,14 +188,21 @@ def charge_request(request,app_name):
     
     json_data = json.loads(request.body)
     check_users_for_off(json_data)
+    # add session key to each record
+    json_data_compleated = {}
+    for r in json_data:
+        res['session': session]
+        json_data_compleated.append(res)
     tpa = Tpa.objects.get(name=app_name)
     #print 'request to %s ' % tpa.charge_url
-    res = requests.post(tpa.charge_url,json=json_data).content
+    res = requests.post(tpa.charge_url,json=json_data_compleated).content
     res = json.loads(res)
-    print res
+    
+    print resdone
 
     for i in res:
         user = ChatUser.objects.get(user_id=i['user_id']) 
+        session = request.session.session_key
         if(user.is_online):
             mes = { 'action': 'update_balance', 'balance': i['balance'], 'room_id': i['room_id'], 'user_id': i['user_id'] }
             chanel = '%s_%s' % (app_name, i['user_id'])
