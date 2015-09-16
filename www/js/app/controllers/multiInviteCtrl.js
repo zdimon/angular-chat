@@ -9,7 +9,7 @@ Multiply invitation.
 
 */
 
-app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, Video, Online, Block, $interval, $http, Room, Contact, Auth) {
+app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, Video, Online, Block, $interval, $http, Room, Contact, Auth, Status) {
 
 
 
@@ -160,6 +160,11 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
             //delete $rootScope.notifies[id];
         }
 
+        $scope.close = function(opponent_id,notify_id){
+            Status.sayClose(opponent_id, function(result){
+                delete $rootScope.notifies[notify_id];
+            })
+        }
 
 
         $scope.stopSending = function(){
