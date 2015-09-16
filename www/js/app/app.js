@@ -27,30 +27,35 @@ The function :func:`someService` does a some function.
             // Initialization
 
             $rootScope.$on('connected', function (event, data) {
-                        Auth.initialization($rootScope.current_opponent_id,function(result){
-                            $rootScope.contact_user_list = result.contact.user_list;
-                            $rootScope.online_user_list = result.online_except_contact.user_list;
-                            $rootScope.online = {};
-                            for (var i = 0; i < result.online_full.user_list.length; i++) {
-                                $rootScope.online['user_'+result.online_full.user_list[i].user_id] = true;
-                            }  
-                           
 
-                      
-                            Room.invite($rootScope.current_opponent_id,function(result){
-                                
-                                        if(result.video_charging == true && result.opponent.gender == 'w') {
-                                            $rootScope.$broadcast('show_opponent_video',{})
-                                        }
-                                        $('.preloader').remove();
-                                        $rootScope.is_bootstrapted = true;
+                        log($rootScope.current_opponent_id.length);
+                        if($rootScope.current_opponent_id.length != 0) {
+
+                            Auth.initialization($rootScope.current_opponent_id,function(result){
+                                $rootScope.contact_user_list = result.contact.user_list;
+                                $rootScope.online_user_list = result.online_except_contact.user_list;
+                                $rootScope.online = {};
+                                for (var i = 0; i < result.online_full.user_list.length; i++) {
+                                    $rootScope.online['user_'+result.online_full.user_list[i].user_id] = true;
+                                }  
                                
-                                })
-                            
 
-                            
-                            
-                        })
+                          
+                                Room.invite($rootScope.current_opponent_id,function(result){
+                                    
+                                            if(result.video_charging == true && result.opponent.gender == 'w') {
+                                                $rootScope.$broadcast('show_opponent_video',{})
+                                            }
+                                            $('.preloader').remove();
+                                            $rootScope.is_bootstrapted = true;
+                                   
+                                    })
+                                
+
+                                
+                                
+                            })
+                        } else { $('.preloader').remove(); }
             })  
 
 
