@@ -192,7 +192,7 @@ def charge_request(request,app_name):
     #print 'request to %s ' % tpa.charge_url
     res = requests.post(tpa.charge_url,json=json_data).content
     res = json.loads(res)
-    #print res
+    print res
 
     for i in res:
         user = ChatUser.objects.get(user_id=i['user_id']) 
