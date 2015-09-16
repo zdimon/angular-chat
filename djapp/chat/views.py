@@ -191,8 +191,8 @@ def charge_request(request,app_name):
     # add session key to each record
     json_data_compleated = {}
     for r in json_data:
-        res['session': session]
-        json_data_compleated.append(res)
+        r['session': session]
+        json_data_compleated.append(r)
     tpa = Tpa.objects.get(name=app_name)
     #print 'request to %s ' % tpa.charge_url
     res = requests.post(tpa.charge_url,json=json_data_compleated).content
