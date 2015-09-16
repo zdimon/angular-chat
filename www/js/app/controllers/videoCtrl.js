@@ -198,7 +198,8 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                     $interval.cancel($scope.invite_promise);
                     $scope.invite_promise = undefined;
                 }                
-            })          
+            })     
+            $('.video_online').addClass('hide_chat_window');     
 
         }
 
