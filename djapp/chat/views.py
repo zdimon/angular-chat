@@ -199,7 +199,7 @@ def charge_request(request,app_name):
     res = requests.post(tpa.charge_url,json=json_data_compleated).content
     res = json.loads(res)
     
-    print resdone
+    print res
 
     for i in res:
         user = ChatUser.objects.get(user_id=i['user_id']) 
