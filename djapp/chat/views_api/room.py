@@ -58,7 +58,6 @@ def _get_room_or_create(app_name,caler_id,opponent_id):
             FROM   chat_chatuser2room u1, chat_chatuser2room u2, chat_chatroom
             WHERE chat_chatroom.is_closed=False AND chat_chatroom.id = u1.room_id AND u1.user_id = '%s' AND u2.user_id = '%s' 
             AND u1.room_id = u2.room_id AND u1.tpa_id = u2.tpa_id AND u1.tpa_id = '%s'
-            AND 
             ORDER BY u1.room_id DESC
             LIMIT 1
         """ % (int(opponent.id), int(caler.id), int(tpa.id)))
