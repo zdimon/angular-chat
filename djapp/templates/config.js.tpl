@@ -378,14 +378,14 @@ apiconf = {
             {
                 'type': 'ajax',
                 'name': 'opponent_mic_on',
-                'url':  '[server]/api/[app_name]/[user_id]/[opponent_id]/opponent_mic_on'
+                'url':  '[server]/api/[app_name]/[user_id]/[opponent_id]/[room_id]/opponent_mic_on'
             },
 
         'opponent_mic_off':
             {
                 'type': 'ajax',
                 'name': 'opponent_mic_off',
-                'url':  '[server]/api/[app_name]/[user_id]/[opponent_id]/opponent_mic_off'
+                'url':  '[server]/api/[app_name]/[user_id]/[opponent_id]/[room_id]/opponent_mic_off'
             },
 
 

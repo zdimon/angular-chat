@@ -46,6 +46,7 @@
                 var url = utils.prepare_url(apiconf.api.opponent_mic_on.url,{
                                                                                 '[user_id]':$rootScope.currentUserId,
                                                                                 '[opponent_id]':$rootScope.current_opponent_id,
+                                                                                '[room_id]':$rootScope.room_id,
                                                                                 '[app_name]': local_config.app_name
                                                                                 });
                 return $http.get(url).success(callback);                  
@@ -55,6 +56,7 @@
                 var url = utils.prepare_url(apiconf.api.opponent_mic_off.url,{
                                                                                 '[user_id]':$rootScope.currentUserId,
                                                                                 '[opponent_id]':$rootScope.current_opponent_id,
+                                                                                '[room_id]':$rootScope.room_id,
                                                                                 '[app_name]': local_config.app_name
                                                                                 });
                 return $http.get(url).success(callback);                  

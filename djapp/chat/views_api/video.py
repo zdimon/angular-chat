@@ -16,7 +16,7 @@ from utils.util import serialize_user
 
 
 #@json_view
-def opponent_mic_on(request,user_id,opponent_id,app_name):
+def opponent_mic_on(request,user_id,opponent_id,room_id,app_name):
     ''' 
         Request gives command to opponent authomatically enable mic.
 
@@ -27,10 +27,10 @@ def opponent_mic_on(request,user_id,opponent_id,app_name):
         Return: {'status': 0, 'message': 'ok'}
     '''
     tpa = Tpa.objects.get(name=app_name)
+    room = ChatRoom.objects.get(pk=room_id)
+    room.is_charging_audio = True
+    room.save()
     chanel = '%s_%s' % (app_name,opponent_id)
-    sql = "select chat_chatroom.id from chat_chatuser2room, chat_chatroom where chat_chatroom.id = chat_chatuser2room.room_id and chat_chatroom.is_charging_video = 1 and chat_chatroom.is_closed = 0"
-    room = bd.get(sql)
-    bd.update('update chat_chatroom set is_charging_audio=1 where id = %s' % room['id'])
     profile = ChatUser.objects.get(user_id=opponent_id, tpa=tpa)
     mes = { 'action': 'opponent_mic_on', 'profile': serialize_user(profile) }
     bclient.publish(chanel, json.dumps(mes))     
@@ -38,7 +38,7 @@ def opponent_mic_on(request,user_id,opponent_id,app_name):
 
 
 @json_view
-def opponent_mic_off(request,user_id,opponent_id,app_name):
+def opponent_mic_off(request,user_id,opponent_id,room_id,app_name):
     ''' 
         Request gives command to opponent authomatically disable mic.
 
@@ -50,9 +50,9 @@ def opponent_mic_off(request,user_id,opponent_id,app_name):
     '''
     tpa = Tpa.objects.get(name=app_name)
     chanel = '%s_%s' % (app_name,opponent_id)
-    sql = "select chat_chatroom.id from chat_chatuser2room, chat_chatroom where chat_chatroom.id = chat_chatuser2room.room_id and chat_chatroom.is_charging_video = 1 and chat_chatroom.is_closed = 0"
-    room = bd.get(sql)
-    bd.update('update chat_chatroom set is_charging_audio=0 where id = %s' % room['id'])
+    room = ChatRoom.objects.get(pk=room_id)
+    room.is_charging_audio = True
+    room.save()
     profile = ChatUser.objects.get(user_id=opponent_id, tpa=tpa)
     mes = { 'action': 'opponent_mic_off', 'profile': serialize_user(profile) }
     bclient.publish(chanel, json.dumps(mes))     
