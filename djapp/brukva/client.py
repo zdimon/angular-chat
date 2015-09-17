@@ -156,8 +156,8 @@ class Connection(object):
             self._stream = IOStream(sock, io_loop=self._io_loop)
             self.connected()
             self.on_connect()
-        except socket.error, e:
-            pass
+        except socket.error, e: #TODO
+            print 'CAN not connect!'
             #raise ConnectionError(str(e))
         
 
