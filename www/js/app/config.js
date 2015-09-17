@@ -364,6 +364,20 @@ apiconf = {
                 'url':  '[server]/api/[app_name]/[user_id]/[opponent_id]/only_mic_off'
             },
 
+        'hide_opponent_only_mic':
+            {
+                'type': 'ajax',
+                'name': 'hide_opponent_only_mic',
+                'url':  '[server]/api/[user_id]/[opponent_id]/[app_name]/[room_id]/hide_opponent_only_mic'
+            },
+
+        'show_opponent_only_mic':
+            {
+                'type': 'ajax',
+                'name': 'show_opponent_only_mic',
+                'url':  '[server]/api/[user_id]/[opponent_id]/[app_name]/[room_id]/show_opponent_only_mic'
+            },
+
         'opponent_mic_on':
             {
                 'type': 'ajax',

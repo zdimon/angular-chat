@@ -114,7 +114,11 @@ def only_mic_on(request,user_id,opponent_id,app_name):
     chanel = '%s_%s' % (app_name,opponent_id)
     profile = ChatUser.objects.get(user_id=opponent_id, tpa=tpa)
     mes = { 'action': 'only_mic_on', 'profile': serialize_user(profile) }
-    bclient.publish(chanel, json.dumps(mes))     
+    bclient.publish(chanel, json.dumps(mes))   
+    profile = ChatUser.objects.get(user_id=opponent_id, tpa=tpa)
+    my_chanel = '%s_%s' % (app_name,user_id)
+    mes = { 'action': 'opponent_mic_on', 'profile': serialize_user(profile) }
+    #bclient.publish(my_chanel, json.dumps(mes))   
     return {'status': 0, 'message': 'ok'}
 
 
@@ -313,6 +317,50 @@ def hide_opponent_cam(request,user_id,opponent_id,app_name,room_id):
     mes = { 'action': 'i_stopted_watching_you', 'user_id': owner.user_id, 'opponent_id': opponent_id }
     bclient.publish('%s_%s' % (app_name, opponent_id), json.dumps(mes)) 
     return {'status': 0, 'message': 'ok', 'user_id': user_id}
+
+
+
+@json_view
+def hide_opponent_only_mic(request,user_id,opponent_id,app_name,room_id):
+    ''' 
+        Request fires after user turn apponent only mic off.
+
+        We mark room object as without audio charging.   
+
+        [server]/api/[user_id]/[app_name]/[room_id]/hide_opponent_only_mic
+
+        Example: http://chat.localhost/api/150046/tpa1com/hide_opponent_only_mic
+
+        Return: {'status': 0, 'message': 'ok'}
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    room =  ChatRoom.objects.get(pk=room_id) 
+    room.is_charging_audio = False
+    room.save()
+    return {'status': 0, 'message': 'ok', 'user_id': user_id}
+
+
+
+@json_view
+def show_opponent_only_mic(request,user_id,opponent_id,app_name,room_id):
+    ''' 
+        Request fires after user turn apponent only mic on.
+
+        We mark room object as with audio charging.   
+
+        [server]/api/[user_id]/[app_name]/[room_id]/show_opponent_only_mic
+
+        Example: http://chat.localhost/api/150046/tpa1com/show_opponent_only_mic
+
+        Return: {'status': 0, 'message': 'ok'}
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    room =  ChatRoom.objects.get(pk=room_id) 
+    room.is_charging_audio = True
+    room.save()
+    return {'status': 0, 'message': 'ok', 'user_id': user_id}
+
+
 
 
 

@@ -27,20 +27,22 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
       $scope.onlyMicOn = function(){
 
-            alert('show_only_mic');         
+            //alert('show_only_mic');         
          
-            var par = { flashvars:"vStream=false&codecOn=true&ww=800&hh=600&fps=20&streamName=eeyy"+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=out" };
-            swfobject.embedSWF("Media/chat_without_cam.swf?v=1", "myVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
+            var par = { flashvars:"vStream=false&codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=out" };
+            swfobject.embedSWF("Media/chat.swf?v=2", "myVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
             $scope.only_mic_on = true;
             $('.video_online').removeClass('hide_chat_window');
+            
             Video.onlyMicOn(function(result){
+                
             });
         }
 
 
       $scope.onlyMicOff = function(){
 
-            alert('show_only_mic_of');         
+            //alert('show_only_mic_of');         
             $(document).find('#myVideoContainer').html('<div id="myVideo"></div>');
             $scope.only_mic_on = false;
             $('.video_online').addClass('hide_chat_window');
@@ -65,12 +67,10 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
 
       $scope.showMyVideo = function(){
-            //alert('show_my_video');         
-           // document["myVideo"].JsTurnVideoOn();
                                  
 
             var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=out" };
-            swfobject.embedSWF("Media/chat.swf", "myVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
+            swfobject.embedSWF("Media/chat_with_cam.swf", "myVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
             $scope.isMyVideoActive = true;
 
             
@@ -120,7 +120,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
       $scope.turnOpponentMicOn = function(){
          
-         $scope.opponent_mic_on = true;
+         $rootScope.opponent_mic_on = true;
          Video.turnOpponentMicOn(function(result){
             
          })
@@ -128,7 +128,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
       $scope.turnOpponentMicOff = function(){
          
-         $scope.opponent_mic_on = false;
+         $rootScope.opponent_mic_on = false;
          Video.turnOpponentMicOff(function(result){
             
          })
@@ -174,19 +174,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                              swfobject.embedSWF("Media/chat.swf", "opponentVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
                              $rootScope.isOpponentCamEnabled = true;
                              Video.showOpponentCam($rootScope.current_opponent_id,function(result){
-                                // Initiate periodic calling to charge money
-                                /*
-                                $scope.invite_promise = $interval(function(){
-
-                                    WS.send({ 'action': 'video_charge', 
-                                              'user_id': $rootScope.currentUserId, 
-                                              'app_name': local_config.app_name, 
-                                              'opponent_id': result.user_id, 
-                                              'room_id': $rootScope.room_id 
-                                            });
-
-                                }, 10000);
-                                */
+                               
                              })
 
                         }
@@ -216,6 +204,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
             $rootScope.isOpponentCamEnabled = false;
             $rootScope.alert_mic_on = false;
             $('.video_online').addClass('hide_chat_window');     
+
              Video.hideOpponentCam($rootScope.current_opponent_id, function(){
                 if (angular.isDefined($scope.invite_promise)) {
                     $interval.cancel($scope.invite_promise);
@@ -225,6 +214,57 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
             
 
         }
+
+
+
+      $scope.showOpponentOnlyMic = function(){
+
+                
+                var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.current_opponent_id+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=in" }; 
+                
+
+                if($rootScope.gender=='m') { // if man check balance and turn charging every min
+
+                    Room.getBalance().then( function(result){
+
+                        if(result.data.status==1){
+
+                            $rootScope.emptyAccountAlert();
+                            
+                        } else {
+
+                             swfobject.embedSWF("Media/chat.swf", "opponentVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
+                             Video.showOpponentOnlyMic($rootScope.current_opponent_id, function(){})     
+
+                        }
+                    })                
+
+                } else { // if woman just turn cam on
+
+                        swfobject.embedSWF("Media/chat_without_cam.swf", "opponentVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
+                        document["myVideo"].JsTurnMicOn();
+                }
+                $rootScope.opponent_only_mic_on = true;
+               
+                $('.video_online').removeClass('hide_chat_window');
+                        
+            }
+
+
+
+      $scope.hideOpponentOnlyMic = function(){
+       
+            swfobject.removeSWF("opponentVideo");
+            $(document).find('#oponent_video_container').append('<div id="opponentVideo"></div>');
+            $rootScope.opponent_only_mic_on = false;
+            $('.video_online').addClass('hide_chat_window');     
+
+             Video.hideOpponentOnlyMic($rootScope.current_opponent_id, function(){});     
+            
+
+        }
+
+
 
     $rootScope.$on('close_video',function(event,data){
 
@@ -273,13 +313,14 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
        $scope.only_mic_on = true;
     })
 
-    $rootScope.$on('alert_mic_off',function(event,data){
+    $rootScope.$on('only_mic_off',function(event,data){
        $scope.only_mic_on = false;
        $scope.opponent_only_mic_on = false;
+       $scope.hideOpponentVideo(false);
+       
     })
 
     $scope.$on('opponent_mic_on',function(event,data){
-      
        $scope.turnMicOn(); 
     })
 

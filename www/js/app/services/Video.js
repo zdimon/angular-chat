@@ -9,6 +9,8 @@
                         hideMyCam: hideMyCam,
                         showOpponentCam: showOpponentCam, 
                         hideOpponentCam: hideOpponentCam,
+                        hideOpponentOnlyMic: hideOpponentOnlyMic,
+                        showOpponentOnlyMic: showOpponentOnlyMic,
                         turnMicOn: turnMicOn,
                         turnMicOff: turnMicOff,    
                         alertMicOn: alertMicOn,
@@ -18,6 +20,27 @@
                         turnOpponentMicOn: turnOpponentMicOn,
                         turnOpponentMicOff: turnOpponentMicOff     
                     }
+
+            function showOpponentOnlyMic(opponent_id,callback) {
+                var url = utils.prepare_url(apiconf.api.show_opponent_only_mic.url,{
+                                                                                '[user_id]':$rootScope.currentUserId,
+                                                                                '[opponent_id]':opponent_id,
+                                                                                '[room_id]':$rootScope.room_id,
+                                                                                '[app_name]': local_config.app_name
+                                                                                });
+                return $http.get(url).success(callback);                  
+            } ;
+
+            function hideOpponentOnlyMic(opponent_id,callback) {
+                var url = utils.prepare_url(apiconf.api.hide_opponent_only_mic.url,{
+                                                                                '[user_id]':$rootScope.currentUserId,
+                                                                                '[opponent_id]':opponent_id,
+                                                                                '[room_id]':$rootScope.room_id,
+                                                                                '[app_name]': local_config.app_name
+                                                                                });
+                return $http.get(url).success(callback);                  
+            } ;
+
 
             function turnOpponentMicOn(callback) {
                 var url = utils.prepare_url(apiconf.api.opponent_mic_on.url,{
