@@ -214,7 +214,7 @@ def send_charge_request():
 if __name__ == "__main__":
     http_server = tornado.httpserver.HTTPServer(application)
     http_server.listen(8889)
-    myIP = socket.gethostbyname(socket.gethostname())
+    myIP = 'localhost'
     print '*** Websocket Server Started at %s***' % myIP
     tornado.ioloop.PeriodicCallback(send_charge_request, 10000).start()
     tornado.ioloop.IOLoop.instance().start()
