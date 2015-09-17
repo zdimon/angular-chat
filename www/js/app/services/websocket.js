@@ -131,6 +131,18 @@
 
         }
 
+        if(message.action=='only_mic_on'){
+            
+            $rootScope.$broadcast('only_mic_on',message);
+
+        }
+
+        if(message.action=='only_mic_off'){
+           
+            $rootScope.$broadcast('only_mic_off',message);
+
+        }
+
 
         if(message.action=='opponent_mic_on'){
             

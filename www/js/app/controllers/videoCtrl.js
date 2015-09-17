@@ -25,6 +25,31 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
       $scope.isMyVideoActive = false;
 
 
+      $scope.onlyMicOn = function(){
+
+            alert('show_only_mic');         
+         
+            var par = { flashvars:"vStream=false&codecOn=true&ww=800&hh=600&fps=20&streamName=eeyy"+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=out" };
+            swfobject.embedSWF("Media/chat_without_cam.swf?v=1", "myVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
+            $scope.only_mic_on = true;
+            $('.video_online').removeClass('hide_chat_window');
+            Video.onlyMicOn(function(result){
+            });
+        }
+
+
+      $scope.onlyMicOff = function(){
+
+            alert('show_only_mic_of');         
+            $(document).find('#myVideoContainer').html('<div id="myVideo"></div>');
+            $scope.only_mic_on = false;
+            $('.video_online').addClass('hide_chat_window');
+            Video.onlyMicOff(function(result){
+            });
+            
+        }
+
+
 
       $scope.showMyFlash = function(){
 
@@ -116,7 +141,6 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
          $scope.alert_mic_on = true;
          Video.alertMicOn(function(result){
-            log(result);
          });
       }
 
@@ -243,6 +267,15 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
     $rootScope.$on('alert_mic_off',function(event,data){
        $scope.alert_mic_on = false;
        $scope.opponent_mic_on = false;
+    })
+
+    $scope.$on('only_mic_on',function(event,data){
+       $scope.only_mic_on = true;
+    })
+
+    $rootScope.$on('alert_mic_off',function(event,data){
+       $scope.only_mic_on = false;
+       $scope.opponent_only_mic_on = false;
     })
 
     $scope.$on('opponent_mic_on',function(event,data){

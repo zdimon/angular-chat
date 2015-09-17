@@ -92,6 +92,7 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
                 })
                 
             } 
+
             if($scope.towho=='favorites'){
                 Auth.getFavorites(function(result){
                     $scope.countUsersInvite = result.count;
@@ -99,6 +100,7 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
                     set_interval_sending(result.favorites.user_list)
                 })
             }
+
             if($scope.towho=='contacts'){
                 Contact.getContactListIds(function(result){
 

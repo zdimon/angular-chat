@@ -155,9 +155,11 @@ class Connection(object):
             sock.connect((self.host, self.port))
             self._stream = IOStream(sock, io_loop=self._io_loop)
             self.connected()
+            self.on_connect()
         except socket.error, e:
-            raise ConnectionError(str(e))
-        self.on_connect()
+            pass
+            #raise ConnectionError(str(e))
+        
 
     def disconnect(self):
         if self._stream:

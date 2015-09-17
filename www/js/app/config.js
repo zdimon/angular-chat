@@ -349,6 +349,21 @@ apiconf = {
                 'url':  '[server]/api/[app_name]/[user_id]/[opponent_id]/alert_mic_off'
             },
 
+
+        'only_mic_on':
+            {
+                'type': 'ajax',
+                'name': 'only_mic_on',
+                'url':  '[server]/api/[app_name]/[user_id]/[opponent_id]/only_mic_on'
+            },
+
+        'only_mic_off':
+            {
+                'type': 'ajax',
+                'name': 'only_mic_off',
+                'url':  '[server]/api/[app_name]/[user_id]/[opponent_id]/only_mic_off'
+            },
+
         'opponent_mic_on':
             {
                 'type': 'ajax',

@@ -13,6 +13,8 @@
                         turnMicOff: turnMicOff,    
                         alertMicOn: alertMicOn,
                         alertMicOff: alertMicOff,
+                        onlyMicOn: onlyMicOn,
+                        onlyMicOff: onlyMicOff,
                         turnOpponentMicOn: turnOpponentMicOn,
                         turnOpponentMicOff: turnOpponentMicOff     
                     }
@@ -48,6 +50,24 @@
 
             function alertMicOff(callback) {
                 var url = utils.prepare_url(apiconf.api.alert_mic_off.url,{
+                                                                                '[user_id]':$rootScope.currentUserId,
+                                                                                '[opponent_id]':$rootScope.current_opponent_id,
+                                                                                '[app_name]': local_config.app_name
+                                                                                });
+                return $http.get(url).success(callback);                  
+            } ;
+
+            function onlyMicOn(callback) {
+                var url = utils.prepare_url(apiconf.api.only_mic_on.url,{
+                                                                                '[user_id]':$rootScope.currentUserId,
+                                                                                '[opponent_id]':$rootScope.current_opponent_id,
+                                                                                '[app_name]': local_config.app_name
+                                                                                });
+                return $http.get(url).success(callback);                  
+            } ;
+
+            function onlyMicOff(callback) {
+                var url = utils.prepare_url(apiconf.api.only_mic_off.url,{
                                                                                 '[user_id]':$rootScope.currentUserId,
                                                                                 '[opponent_id]':$rootScope.current_opponent_id,
                                                                                 '[app_name]': local_config.app_name

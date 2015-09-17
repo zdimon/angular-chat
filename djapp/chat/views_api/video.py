@@ -99,6 +99,44 @@ def alert_mic_off(request,user_id,opponent_id,app_name):
     return {'status': 0, 'message': 'ok'}
 
 
+@json_view
+def only_mic_on(request,user_id,opponent_id,app_name):
+    ''' 
+        Request alert opponent about nessesity of turning mic on whem woman turn only mic.
+
+        [server]/api/[user_id]/[opponent_id]/only_mic_on
+
+        Example: http://chat.localhost/api/150041/150034/only_mic_on
+
+        Return: {'status': 0, 'message': 'ok'}
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    chanel = '%s_%s' % (app_name,opponent_id)
+    profile = ChatUser.objects.get(user_id=opponent_id, tpa=tpa)
+    mes = { 'action': 'only_mic_on', 'profile': serialize_user(profile) }
+    bclient.publish(chanel, json.dumps(mes))     
+    return {'status': 0, 'message': 'ok'}
+
+
+@json_view
+def only_mic_off(request,user_id,opponent_id,app_name):
+    ''' 
+        Request alert opponent about nessesity of turning mic off whem woman turn only mic.
+
+        [server]/api/[user_id]/[opponent_id]/only_mic_on
+
+        Example: http://chat.localhost/api/150041/150034/only_mic_on
+
+        Return: {'status': 0, 'message': 'ok'}
+    '''
+    tpa = Tpa.objects.get(name=app_name)
+    chanel = '%s_%s' % (app_name,opponent_id)
+    profile = ChatUser.objects.get(user_id=opponent_id, tpa=tpa)
+    mes = { 'action': 'only_mic_off', 'profile': serialize_user(profile) }
+    bclient.publish(chanel, json.dumps(mes)) 
+    return {'status': 0, 'message': 'ok'}
+
+
 
 @json_view
 def turn_mic_on(request,user_id,app_name):
