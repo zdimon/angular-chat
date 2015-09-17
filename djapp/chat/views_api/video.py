@@ -15,7 +15,7 @@ bclient.connect()
 from utils.util import serialize_user
 
 
-@json_view
+#@json_view
 def opponent_mic_on(request,user_id,opponent_id,app_name):
     ''' 
         Request gives command to opponent authomatically enable mic.
