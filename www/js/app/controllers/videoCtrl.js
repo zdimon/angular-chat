@@ -244,8 +244,8 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                         swfobject.embedSWF("Media/chat_without_cam.swf", "opponentVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
                         document["myVideo"].JsTurnMicOn();
                 }
-                $rootScope.opponent_only_mic_on = true;
-               
+                $scope.opponent_only_mic_on = true;
+                //alert($rootScope.opponent_only_mic_on);
                 $('.video_online').removeClass('hide_chat_window');
                         
             }
@@ -256,7 +256,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
        
             swfobject.removeSWF("opponentVideo");
             $(document).find('#oponent_video_container').append('<div id="opponentVideo"></div>');
-            $rootScope.opponent_only_mic_on = false;
+            $scope.opponent_only_mic_on = false;
             $('.video_online').addClass('hide_chat_window');     
 
              Video.hideOpponentOnlyMic($rootScope.current_opponent_id, function(){});     
