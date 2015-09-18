@@ -151,7 +151,6 @@ def check_users_for_off(json_data):
 
         if (woman.is_camera_active == False):
             room.is_charging_video = False
-            room.is_charging_audio = False
             room.save()
             
         if (woman.is_online==False):
