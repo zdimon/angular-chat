@@ -311,6 +311,9 @@ def invite(request,app_name,owner_id,contact_id):
     Create the room. Put the user into the room.
      
     '''
+    # return emptyness if request went without contact_id
+    if contact_id == '0': 
+        return {'status': 1, 'message': 'Contact does not defined'}
     # mark contact as does not have new message if it exists
     contact = _get_contact(app_name,owner_id,contact_id)
     if(contact):
