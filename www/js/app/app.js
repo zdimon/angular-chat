@@ -28,7 +28,9 @@ The function :func:`someService` does a some function.
 
             $rootScope.$on('connected', function (event, data) {
 
-                        log($rootScope.current_opponent_id.length);
+                        if (typeof $rootScope.current_opponent_id == 'undefined') {
+			    $rootScope.current_opponent_id = 0;
+                        }
                         if($rootScope.current_opponent_id.length != 0) {
 
                             Auth.initialization($rootScope.current_opponent_id,function(result){
@@ -55,7 +57,7 @@ The function :func:`someService` does a some function.
                                 
                                 
                             })
-                        } else { $('.preloader').remove(); }
+                        } 
             })  
 
 
