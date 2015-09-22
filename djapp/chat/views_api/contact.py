@@ -147,6 +147,10 @@ def get_contact_list(request,app_name,user_id):
         contact = serialize_user(c.contact)
         contact['has_new_message'] = c.has_new_message   
         contact['activity'] = c.activity
+        #try:
+        #    contact['is_room_closed'] = c.room.is_closed
+        #except:
+        #    pass
 	contact['contact_id'] = c.id  
         contactlst.append(contact)
     return { 'status': 0, 'message': 'ok', 'user_list': contactlst }

@@ -316,9 +316,12 @@ def invite(request,app_name,owner_id,contact_id):
         return {'status': 1, 'message': 'Contact does not defined'}
     # mark contact as does not have new message if it exists
     contact = _get_contact(app_name,owner_id,contact_id)
+    rm = _get_room_or_create(app_name,owner_id,contact_id)
+    room = ChatRoom.objects.get(pk=rm['room_id'])
     if(contact):
         contact.has_new_message = False
         contact.activity = time.time()
+        contact.room = room
         contact.save()
         contact_data = {'activity': int(time.time())}
     else:
@@ -326,7 +329,7 @@ def invite(request,app_name,owner_id,contact_id):
    
     owner_chanel = '%s_%s' % (app_name, owner_id)
     
-    rm = _get_room_or_create(app_name,owner_id,contact_id)
+    
     #contact.set_active(rm['room_id'])
     tpa = Tpa.objects.get(name=app_name)
     owner = ChatUser.objects.get(user_id=owner_id,tpa=tpa)
