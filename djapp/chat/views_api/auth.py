@@ -32,6 +32,7 @@ def get_favorites(request,user_id,app_name):
     data = { 'user_id': user_id, 'action': 'get' }
     fav = requests.post(get_fav_url, json=data).content
     print 'REQUEST %s content %s' % (get_fav_url, json.dumps(request.body))
+    print fav
     fav = json.loads(fav)  
     return {'status': 0, 'count': len(fav['user_list']), 'favorites': fav}
 
