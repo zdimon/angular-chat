@@ -99,7 +99,7 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
       $rootScope.$on('mark_watching_profile',function(event, data){
             log(data);
             // make a sound
-            document.getElementById('audio_alert').play();
+            //document.getElementById('audio_alert').play();
             $scope.watch_profile['user_'+data.user_id] = true;
       })
 
