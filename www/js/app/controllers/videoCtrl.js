@@ -173,9 +173,6 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
                              swfobject.embedSWF("Media/chat.swf", "opponentVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
                              $rootScope.isOpponentCamEnabled = true;
-                             Video.showOpponentCam($rootScope.current_opponent_id,function(result){
-                               
-                             })
 
                         }
                     })                
@@ -185,7 +182,8 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                         $rootScope.isOpponentCamEnabled = true;
                         swfobject.embedSWF("Media/chat.swf", "opponentVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
                 }
-        
+                
+                Video.showOpponentCam($rootScope.current_opponent_id,function(result){});
                
                 $('.video_online').removeClass('hide_chat_window');
                         
