@@ -64,13 +64,15 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
         */
 
       $rootScope.$on('add_me_in_contact_list',function(event, data){
-         
+          
            
            Contact.addContact(data.user_id,function(){
                
                //$scope.update();
+               data.profile.has_new_message = true;
                $scope.contact_user_list.push(data.profile);
                $scope.online['user_'+data.user_id] = true;
+               
                
            })
            
