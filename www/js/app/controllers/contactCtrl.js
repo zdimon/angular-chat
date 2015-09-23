@@ -69,9 +69,15 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
            Contact.addContact(data.user_id,function(){
                
                //$scope.update();
+               //log(data);
                data.profile.has_new_message = true;
                $scope.contact_user_list.push(data.profile);
                $scope.online['user_'+data.user_id] = true;
+
+               $rootScope.system_messages[data.user_id+'_hide'] = {
+                                                                     'message': data.profile.name+' just sent you new message.',
+                                                                     'user': data.profile
+                                                                  }
                
                
            })

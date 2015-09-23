@@ -202,7 +202,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
             $rootScope.isOpponentCamEnabled = false;
             $rootScope.alert_mic_on = false;
             $('.video_online').addClass('hide_chat_window');     
-            alert('sssss');
+       
              Video.hideOpponentCam($rootScope.current_opponent_id, function(){
                 if (angular.isDefined($scope.invite_promise)) {
                     $interval.cancel($scope.invite_promise);
