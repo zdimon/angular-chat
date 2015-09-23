@@ -17,6 +17,14 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
       $rootScope.notifies = {}; 
       $scope.towho = 'online';
 
+
+        $scope.busy = function(opponent_id,notify_id){
+            Status.sayBusy(opponent_id, function(result){
+                delete $rootScope.notifies[notify_id];
+            })
+           
+        }
+
       $scope.multiInviteWindow = function(){
 
 
