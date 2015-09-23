@@ -388,6 +388,21 @@ apiconf = {
                 'url':  '[server]/api/[app_name]/[user_id]/[opponent_id]/[room_id]/opponent_mic_off'
             },
 
+        'get_prices':
+            {
+                'type': 'ajax',
+                'name': 'get_prices',
+                'url':  '[server]/api/[app_name]/get_prices'
+            },
+
+
+        'set_prices':
+            {
+                'type': 'ajax',
+                'name': 'get_prices',
+                'url':  '[server]/api/[app_name]/set_prices'
+            },
+
 
 
         'get_balance':

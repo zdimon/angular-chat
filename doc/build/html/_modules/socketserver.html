@@ -137,6 +137,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../integration.html#where">Where:</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html#request-to-get-or-change-prices">4. Request to get or change prices.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#id15">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#responce">Responce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#id16">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#post-parameters">POST Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../integration.html#id17">Responce</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../test_loading.html">Loading test data</a><ul class="simple">
 </ul>
 </li>
@@ -254,11 +262,12 @@
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="s">&#39;../djapp&#39;</span><span class="p">))</span>
-
+<span class="kn">from</span> <span class="nn">utils.api_router</span> <span class="kn">import</span> <span class="n">get_url_by_name</span>
 <span class="kn">from</span> <span class="nn">utils.db</span> <span class="kn">import</span> <span class="n">MyDB</span>
 <span class="n">bd</span> <span class="o">=</span> <span class="n">MyDB</span><span class="p">()</span>
 <span class="kn">import</span> <span class="nn">sockjs.tornado</span>
- 
+<span class="kn">import</span> <span class="nn">resource</span>
+
 <div class="viewcode-block" id="WSHandler"><a class="viewcode-back" href="../socketserver.html#socketserver.WSHandler">[docs]</a><span class="k">class</span> <span class="nc">WSHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">websocket</span><span class="o">.</span><span class="n">WebSocketHandler</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Websocket server that uses the Tornado websocket handler.</span>
@@ -279,8 +288,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">brukva</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">current_user_name</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tpa_id</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tpa_name</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">processor</span> <span class="o">=</span> <span class="bp">None</span>
 
@@ -300,31 +307,28 @@
       
 <div class="viewcode-block" id="WSHandler.on_message"><a class="viewcode-back" href="../socketserver.html#socketserver.WSHandler.on_message">[docs]</a>    <span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
         <span class="s">&#39;Accepting message from javasctipt client&#39;</span>
-        <span class="k">print</span> <span class="s">&#39;message received:  </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">message</span>
+        <span class="c">#print &#39;message received:  %s&#39; % message</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> 
 
         <span class="k">if</span> <span class="n">message</span><span class="p">[</span><span class="s">&#39;action&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;connect&#39;</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">chanel</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s">&quot;tpa&quot;</span><span class="p">],</span> <span class="n">message</span><span class="p">[</span><span class="s">&quot;user_id&quot;</span><span class="p">])</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">chanel</span><span class="p">)</span>
-                <span class="n">tpa</span> <span class="o">=</span> <span class="n">bd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;select id, name from chat_tpa where name=&quot;</span><span class="si">%s</span><span class="s">&quot; &#39;</span> <span class="o">%</span> <span class="n">message</span><span class="p">[</span><span class="s">&quot;tpa&quot;</span><span class="p">])</span>
-                <span class="n">user</span> <span class="o">=</span> <span class="n">bd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;select name from chat_chatuser where user_id=&quot;</span><span class="si">%s</span><span class="s">&quot; &#39;</span> <span class="o">%</span> <span class="n">message</span><span class="p">[</span><span class="s">&quot;user_id&quot;</span><span class="p">])</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s">&quot;user_id&quot;</span><span class="p">]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">current_user_name</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
-                
-                <span class="bp">self</span><span class="o">.</span><span class="n">tpa_id</span> <span class="o">=</span> <span class="n">tpa</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">tpa_name</span> <span class="o">=</span> <span class="n">tpa</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;current tpa information </span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tpa_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tpa_name</span> <span class="p">))</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;connected&#39;</span><span class="p">,</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;user_id&#39;</span><span class="p">:</span>  <span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">,</span> <span class="s">&#39;user_name&#39;</span><span class="p">:</span>  <span class="bp">self</span><span class="o">.</span><span class="n">current_user_name</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;you have been connected to </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">chanel</span> <span class="p">}))</span> 
-                <span class="bp">self</span><span class="o">.</span><span class="n">set_user_online</span><span class="p">()</span>
-                <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;update_users_online&#39;</span><span class="p">}</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">mes</span><span class="p">)</span>     
-                <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;set_me_online&#39;</span><span class="p">,</span> <span class="s">&#39;uid&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">}</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">mes</span><span class="p">)</span>
-                <span class="k">print</span> <span class="s">&#39;set me online!!!!!!!!!!!!&#39;</span>  
-            <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-                <span class="k">print</span> <span class="n">e</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}))</span> 
+            <span class="c">#try:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">get_url_by_name</span><span class="p">(</span><span class="s">&#39;set_connected&#39;</span><span class="p">,{</span><span class="s">&#39;user_id&#39;</span><span class="p">:</span><span class="n">message</span><span class="p">[</span><span class="s">&quot;user_id&quot;</span><span class="p">],</span> <span class="s">&#39;app_name&#39;</span><span class="p">:</span> <span class="n">message</span><span class="p">[</span><span class="s">&quot;tpa&quot;</span><span class="p">]})</span>
+            <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">chanel</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s">&quot;tpa&quot;</span><span class="p">],</span> <span class="n">message</span><span class="p">[</span><span class="s">&quot;user_id&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">chanel</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s">&quot;user_id&quot;</span><span class="p">]</span>             
+            <span class="bp">self</span><span class="o">.</span><span class="n">tpa_name</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="s">&quot;tpa&quot;</span><span class="p">]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;connected&#39;</span><span class="p">,</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;user_id&#39;</span><span class="p">:</span>  <span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;you have been connected to </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">chanel</span> <span class="p">}))</span> 
+                <span class="c">#self.set_user_online()</span>
+                <span class="c">#mes = {&#39;action&#39;: &#39;update_users_online&#39;}</span>
+                <span class="c">#self.broadcast(mes)     </span>
+                <span class="c">#mes = {&#39;action&#39;: &#39;set_me_online&#39;, &#39;uid&#39;: self.current_user_id}</span>
+                <span class="c">#self.broadcast(mes)</span>
+                <span class="c">#print &#39;set me online!!!!!!!!!!!!&#39;  </span>
+            <span class="c">#except Exception, e:</span>
+            <span class="c">#    print e</span>
+            <span class="c">#    self.write_message(json.dumps({&#39;status&#39;: 1, &#39;message&#39;: str(e)})) </span>
           
         <span class="n">handle</span><span class="p">(</span><span class="n">message</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span>
         
@@ -333,19 +337,23 @@
  </div>
 <div class="viewcode-block" id="WSHandler.on_close"><a class="viewcode-back" href="../socketserver.html#socketserver.WSHandler.on_close">[docs]</a>    <span class="k">def</span> <span class="nf">on_close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Method whith fires when connection is closed. &#39;&#39;&#39;</span>
-        <span class="k">print</span> <span class="s">&#39;connection closed&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_user_offline</span><span class="p">()</span>
-        <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;update_users_online&#39;</span><span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">mes</span><span class="p">)</span> 
-        <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;set_me_offline&#39;</span><span class="p">,</span> <span class="s">&#39;uid&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">mes</span><span class="p">)</span> 
-        <span class="bp">self</span><span class="o">.</span><span class="n">participants</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tpa_name</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">):</span>
+            <span class="k">print</span> <span class="s">&#39;connection closed&#39;</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">get_url_by_name</span><span class="p">(</span><span class="s">&#39;set_disconnected&#39;</span><span class="p">,{</span><span class="s">&#39;user_id&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">,</span> <span class="s">&#39;app_name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">tpa_name</span><span class="p">})</span>
+            <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">participants</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c">#self.set_user_offline()</span>
+        <span class="c">#mes = {&#39;action&#39;: &#39;update_users_online&#39;}</span>
+        <span class="c">#self.broadcast(mes) </span>
+        <span class="c">#mes = {&#39;action&#39;: &#39;set_me_offline&#39;, &#39;uid&#39;: self.current_user_id}</span>
+        <span class="c">#self.broadcast(mes) </span>
+            
 
+
+    <span class="c">#def set_user_online(self):</span>
+    <span class="c">#    bd.update(&#39;update chat_chatuser set is_online=1 where user_id=%s and tpa_id=%s&#39; % (self.current_user_id, self.tpa_id))</span>
+    <span class="c">#    bd.update(&#39;update users set online=1 where login=%s&#39; % self.current_user_id)</span>
 </div>
-    <span class="k">def</span> <span class="nf">set_user_online</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">bd</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s">&#39;update chat_chatuser set is_online=1 where user_id=</span><span class="si">%s</span><span class="s"> and tpa_id=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tpa_id</span><span class="p">))</span>
-        <span class="n">bd</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s">&#39;update users set online=1 where login=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">)</span>
-
     <span class="k">def</span> <span class="nf">set_user_offline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">bd</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s">&#39;update chat_chatuser set is_online=0 where user_id=</span><span class="si">%s</span><span class="s"> and tpa_id=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tpa_id</span><span class="p">))</span>
         
@@ -357,12 +365,19 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         
         <span class="n">message</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
-        <span class="k">print</span> <span class="n">message</span>
+        <span class="c">#print message</span>
         <span class="c">#self.write_message(json.dumps({&#39;status&#39;: 1}))</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">message</span><span class="p">))</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="k">print</span> <span class="s">&quot;Can not send </span><span class="si">%s</span><span class="s"> to </span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">message</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">tpa_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">pass</span>
+            <span class="c"># mark room as free to charging if man is off</span>
+            <span class="c">#if(message[&#39;action&#39;] != &#39;put_me_in_room&#39;):</span>
+            <span class="c">#    print &quot;Can not send %s to %s_%s exeption %s&quot; % (message,self.tpa_name, self.current_user_id, e)</span>
+            
+            <span class="c">#if(message[&#39;action&#39;]==&#39;update_balance&#39;):</span>
+            <span class="c">#    bd.update(&#39;update chat_chatroom set is_charging_text=0, is_charging_video=0, is_charging_audio=0 where id= %s&#39; % message[&#39;room_id&#39;])</span>
+            
 
  </div>
     <span class="k">def</span> <span class="nf">check_origin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">origin</span><span class="p">):</span>
@@ -380,20 +395,22 @@
 <span class="s">                    chat_chatroom.activity, </span>
 <span class="s">                    chat_chatroom.is_charging_text, </span>
 <span class="s">                    chat_chatroom.is_charging_video, </span>
+<span class="s">                    chat_chatroom.is_charging_audio,</span>
 <span class="s">                    chat_tpa.price_text_chat, </span>
 <span class="s">                    chat_tpa.price_video, </span>
-<span class="s">                    chat_tpa.charge_url, </span>
+<span class="s">                    chat_tpa.price_audio, </span>
 <span class="s">                    chat_tpa.name as app_name, </span>
 <span class="s">                    chat_tpa.timeout_chating</span>
 <span class="s">             from chat_chatroom, chat_tpa  </span>
 <span class="s">             where </span>
 <span class="s">             chat_chatroom.tpa_id = chat_tpa.id and</span>
-<span class="s">             (is_charging_text=&quot;</span><span class="si">%s</span><span class="s">&quot; or is_charging_video=&quot;</span><span class="si">%s</span><span class="s">&quot;)&#39;&#39;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="s">             (is_charging_text=&quot;</span><span class="si">%s</span><span class="s">&quot; or is_charging_video=&quot;</span><span class="si">%s</span><span class="s">&quot; or is_charging_audio=&quot;</span><span class="si">%s</span><span class="s">&quot;)&#39;&#39;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">rooms</span> <span class="o">=</span> <span class="n">bd</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">url</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="k">for</span> <span class="n">room</span> <span class="ow">in</span> <span class="n">rooms</span><span class="o">.</span><span class="n">record</span><span class="p">:</span> 
-        <span class="n">url</span> <span class="o">=</span> <span class="n">room</span><span class="p">[</span><span class="s">&#39;charge_url&#39;</span><span class="p">]</span>
+        <span class="c">#url = room[&#39;charge_url&#39;]</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">get_url_by_name</span><span class="p">(</span><span class="s">&#39;charge_request&#39;</span><span class="p">,{</span> <span class="s">&#39;app_name&#39;</span><span class="p">:</span> <span class="n">room</span><span class="p">[</span><span class="s">&quot;app_name&quot;</span><span class="p">]})</span>
         <span class="c"># select users from room</span>
         <span class="n">sql</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39; select chat_chatuser.user_id, chat_chatuser.gender </span>
 <span class="s">                  from chat_chatuser, chat_chatuser2room</span>
@@ -424,31 +441,16 @@
 
         <span class="k">if</span><span class="p">(</span><span class="n">room</span><span class="p">[</span><span class="s">&#39;is_charging_video&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">):</span>     
              <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;video&#39;</span><span class="p">,</span> <span class="s">&#39;app_name&#39;</span><span class="p">:</span> <span class="n">room</span><span class="p">[</span><span class="s">&#39;app_name&#39;</span><span class="p">],</span>  <span class="s">&#39;user_id&#39;</span><span class="p">:</span> <span class="n">man</span><span class="p">,</span> <span class="s">&#39;opponent_id&#39;</span><span class="p">:</span> <span class="n">woman</span><span class="p">,</span> <span class="s">&#39;room_id&#39;</span><span class="p">:</span> <span class="n">room</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span> <span class="s">&#39;price&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">room</span><span class="p">[</span><span class="s">&#39;price_video&#39;</span><span class="p">])</span> <span class="p">})</span>   
+
+        <span class="k">if</span><span class="p">(</span><span class="n">room</span><span class="p">[</span><span class="s">&#39;is_charging_audio&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">):</span>     
+             <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;audio&#39;</span><span class="p">,</span> <span class="s">&#39;app_name&#39;</span><span class="p">:</span> <span class="n">room</span><span class="p">[</span><span class="s">&#39;app_name&#39;</span><span class="p">],</span>  <span class="s">&#39;user_id&#39;</span><span class="p">:</span> <span class="n">man</span><span class="p">,</span> <span class="s">&#39;opponent_id&#39;</span><span class="p">:</span> <span class="n">woman</span><span class="p">,</span> <span class="s">&#39;room_id&#39;</span><span class="p">:</span> <span class="n">room</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span> <span class="s">&#39;price&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">room</span><span class="p">[</span><span class="s">&#39;price_audio&#39;</span><span class="p">])</span> <span class="p">})</span>       
+
     <span class="k">if</span> <span class="n">url</span><span class="p">:</span>  
         <span class="k">print</span> <span class="s">&quot;Charge request to </span><span class="si">%s</span><span class="s"> &quot;</span> <span class="o">%</span> <span class="n">url</span>
-        <span class="c">#print &quot;DATA %s&quot; % data</span>
-        <span class="k">print</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">room</span><span class="p">[</span><span class="s">&#39;charge_url&#39;</span><span class="p">],</span><span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>  
+        <span class="k">print</span> <span class="s">&quot;DATA </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">data</span>
+        <span class="k">print</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>  
+        <span class="k">print</span> <span class="s">&#39;Memory usage: </span><span class="si">%s</span><span class="s"> (kb)&#39;</span> <span class="o">%</span> <span class="n">resource</span><span class="o">.</span><span class="n">getrusage</span><span class="p">(</span><span class="n">resource</span><span class="o">.</span><span class="n">RUSAGE_SELF</span><span class="p">)</span><span class="o">.</span><span class="n">ru_maxrss</span>
 
-
-
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">[</span>
-<span class="sd">    </span>
-<span class="sd">        {</span>
-<span class="sd">          &#39;action&#39;: &#39;text_chat&#39;,</span>
-<span class="sd">          &#39;user_id&#39;: 150040,</span>
-<span class="sd">          &#39;opponent_id&#39;: 150042,</span>
-<span class="sd">          &#39;room_id&#39;: 23</span>
-<span class="sd">        },</span>
-
-<span class="sd">        {</span>
-<span class="sd">          &#39;action&#39;: &#39;text_chat&#39;,</span>
-<span class="sd">          &#39;user_id&#39;: 150040,</span>
-<span class="sd">          &#39;opponent_id&#39;: 150043,</span>
-<span class="sd">          &#39;room_id&#39;: 24</span>
-<span class="sd">        }</span>
-
-<span class="sd">]&#39;&#39;&#39;</span>
 
         
         
@@ -458,7 +460,7 @@
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">http_server</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">httpserver</span><span class="o">.</span><span class="n">HTTPServer</span><span class="p">(</span><span class="n">application</span><span class="p">)</span>
     <span class="n">http_server</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">8889</span><span class="p">)</span>
-    <span class="n">myIP</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostbyname</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">())</span>
+    <span class="n">myIP</span> <span class="o">=</span> <span class="s">&#39;localhost&#39;</span>
     <span class="k">print</span> <span class="s">&#39;*** Websocket Server Started at </span><span class="si">%s</span><span class="s">***&#39;</span> <span class="o">%</span> <span class="n">myIP</span>
     <span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">PeriodicCallback</span><span class="p">(</span><span class="n">send_charge_request</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
     <span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">IOLoop</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>

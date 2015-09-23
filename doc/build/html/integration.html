@@ -138,6 +138,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#where">Where:</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#request-to-get-or-change-prices">4. Request to get or change prices.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id15">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#responce">Responce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id16">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#post-parameters">POST Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id17">Responce</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="test_loading.html">Loading test data</a><ul class="simple">
 </ul>
 </li>
@@ -559,6 +567,44 @@ Responce 2: { &#39;status&#39;: 1, &#39;message&#39;: &#39;Contact does not exis
 <h2>Where:<a class="headerlink" href="#where" title="Permalink to this headline">¶</a></h2>
 <p>[app_name] - site name &#8216;tpa1com&#8217;</p>
 <p>[user_id] - user indentifier</p>
+</div>
+</div>
+<div class="section" id="request-to-get-or-change-prices">
+<h1>4. Request to get or change prices.<a class="headerlink" href="#request-to-get-or-change-prices" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id15">
+<h2>REQUEST<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<p><strong>URI</strong> [server]/api/[app_name]/get_prices</p>
+<p><strong>Example:</strong> <a class="reference external" href="http://brides.mirbu.com/api/tpa1com/get_prices">http://brides.mirbu.com/api/tpa1com/get_prices</a></p>
+</div>
+<div class="section" id="responce">
+<h2>Responce<a class="headerlink" href="#responce" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-json"><div class="highlight"><pre>Responce 1: { &#39;status&#39;: 0, &#39;prices&#39;: {&#39;text&#39;: &#39;2.0&#39;, &#39;video&#39;: &#39;3.0&#39;, &#39;audio&#39;: &#39;1.0&#39;, &#39;timeout&#39;: &#39;60&#39;} }
+
+Responce 2: { &#39;status&#39;: 1, &#39;message&#39;: &#39;Some error.&#39; }
+</pre></div>
+</div>
+</div>
+<div class="section" id="id16">
+<h2>REQUEST<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<p><strong>URI</strong> [server]/api/[app_name]/set_prices</p>
+<p><strong>Example:</strong> <a class="reference external" href="http://brides.mirbu.com/api/tpa1com/set_prices">http://brides.mirbu.com/api/tpa1com/set_prices</a></p>
+</div>
+<div class="section" id="post-parameters">
+<h2>POST Parameters<a class="headerlink" href="#post-parameters" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">text</span> <span class="o">=</span> 2
+<span class="nv">video</span> <span class="o">=</span> 3
+<span class="nv">audio</span> <span class="o">=</span> 1
+<span class="nv">timeout</span> <span class="o">=</span> 60
+</pre></div>
+</div>
+</div>
+<div class="section" id="id17">
+<h2>Responce<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-json"><div class="highlight"><pre>Responce 1: { &#39;status&#39;: 0, &#39;prices&#39;: {&#39;text&#39;: &#39;2.0&#39;, &#39;video&#39;: &#39;3.0&#39;, &#39;audio&#39;: &#39;1.0&#39;, &#39;timeout&#39;: &#39;60&#39;} }
+
+Responce 2: { &#39;status&#39;: 1, &#39;message&#39;: &#39;Some error.&#39; }
+</pre></div>
+</div>
 </div>
 </div>
 

@@ -137,6 +137,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../integration.html#where">Where:</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integration.html#request-to-get-or-change-prices">4. Request to get or change prices.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id15">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#responce">Responce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id16">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#post-parameters">POST Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id17">Responce</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../../test_loading.html">Loading test data</a><ul class="simple">
 </ul>
 </li>
@@ -246,6 +254,21 @@
 <span class="n">bclient</span> <span class="o">=</span> <span class="n">brukva</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
 <span class="n">bclient</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
 <span class="kn">from</span> <span class="nn">django.views.decorators.csrf</span> <span class="kn">import</span> <span class="n">csrf_exempt</span>
+
+<span class="k">def</span> <span class="nf">_get_contact</span><span class="p">(</span><span class="n">app_name</span><span class="p">,</span><span class="n">owner_id</span><span class="p">,</span><span class="n">contact_id</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">        Try to retrieve contact terord</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">tpa</span> <span class="o">=</span> <span class="n">Tpa</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">app_name</span><span class="p">)</span>
+    <span class="n">owner</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="n">owner_id</span><span class="p">)</span>
+    <span class="n">contactuser</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="n">contact_id</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">contact</span> <span class="o">=</span> <span class="n">ChatContacts</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">owner</span><span class="o">=</span><span class="n">owner</span><span class="p">,</span><span class="n">contact</span><span class="o">=</span><span class="n">contactuser</span><span class="p">)</span> 
+        <span class="k">return</span> <span class="n">contact</span>
+    <span class="k">except</span><span class="p">:</span>   
+        <span class="k">return</span> <span class="bp">False</span>
+
+
 
 <span class="k">def</span> <span class="nf">_add_contact</span><span class="p">(</span><span class="n">app_name</span><span class="p">,</span><span class="n">owner_id</span><span class="p">,</span><span class="n">contact_id</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; </span>
@@ -367,8 +390,16 @@
 
     <span class="n">owner</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ChatContacts</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">owner</span><span class="o">=</span><span class="n">owner</span><span class="p">):</span>
-        <span class="n">contactlst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">serialize_user</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">contact</span><span class="p">))</span>
-    <span class="k">return</span> <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span> <span class="s">&#39;contact_list&#39;</span><span class="p">:</span> <span class="n">contactlst</span> <span class="p">}</span>
+        <span class="n">contact</span> <span class="o">=</span> <span class="n">serialize_user</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">contact</span><span class="p">)</span>
+        <span class="n">contact</span><span class="p">[</span><span class="s">&#39;has_new_message&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">has_new_message</span>   
+        <span class="n">contact</span><span class="p">[</span><span class="s">&#39;activity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">activity</span>
+        <span class="c">#try:</span>
+        <span class="c">#    contact[&#39;is_room_closed&#39;] = c.room.is_closed</span>
+        <span class="c">#except:</span>
+        <span class="c">#    pass</span>
+	<span class="n">contact</span><span class="p">[</span><span class="s">&#39;contact_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">id</span>  
+        <span class="n">contactlst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">contact</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span> <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span> <span class="s">&#39;user_list&#39;</span><span class="p">:</span> <span class="n">contactlst</span> <span class="p">}</span>
 
 
 </div>
@@ -411,7 +442,6 @@
     <span class="k">print</span> <span class="n">b</span>
     <span class="n">tpa</span> <span class="o">=</span> <span class="n">Tpa</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;app_name&#39;</span><span class="p">])</span>
     <span class="n">owner</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;owner_id&#39;</span><span class="p">]))</span>
-
     <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="n">b</span><span class="p">[</span><span class="s">&#39;message&#39;</span><span class="p">],</span> <span class="s">&#39;opponent&#39;</span><span class="p">:</span> <span class="n">serialize_user</span><span class="p">(</span><span class="n">owner</span><span class="p">),</span> <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span> <span class="p">}</span>
     <span class="n">mes</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;show_invite_notification&#39;</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span> <span class="n">data</span> <span class="p">}</span>
     <span class="n">bclient</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;app_name&#39;</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="s">&#39;contact_id&#39;</span><span class="p">])),</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">mes</span><span class="p">))</span> 

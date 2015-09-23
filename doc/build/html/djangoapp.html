@@ -133,6 +133,18 @@
 <li class="toctree-l2"><a class="reference internal" href="integration.html#id14">REQUEST</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-update-user-s-information-or-create-new-one-if-he-does-not-exist">3. Request to update user&#8217;s information or create new one if he does not exist.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#example">Example:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#where">Where:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html#request-to-get-or-change-prices">4. Request to get or change prices.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id15">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#responce">Responce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#id16">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html#post-parameters">POST Parameters</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="test_loading.html">Loading test data</a><ul class="simple">
 </ul>
 </li>
@@ -163,7 +175,9 @@
 <li class="toctree-l1"><a class="reference internal" href="file_structure.html">File structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="socketserver.html">Socketserver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="db.html">Database structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">Chat Model</a><ul class="simple">
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Signalserver API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/authentication.html">Authentication</a><ul class="simple">
 </ul>
@@ -235,12 +249,39 @@
 <div class="section" id="module-chat.views_api.auth">
 <span id="authentication-views"></span><h1>Authentication views<a class="headerlink" href="#module-chat.views_api.auth" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
+<dt id="chat.views_api.auth.add_favorite">
+<code class="descclassname">chat.views_api.auth.</code><code class="descname">add_favorite</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/auth.html#add_favorite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.auth.add_favorite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add favorite</p>
+<p>[server]/api/[app_name]/[user_id]/[opponent_id]/add_favorite</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/150040/150045/add_favorite">http://chat.localhost/api/tpa1com/150040/150045/add_favorite</a></p>
+<p>Return: {&#8216;status&#8217;: 0, message: &#8216;ok&#8217;}</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.auth.del_favorite">
+<code class="descclassname">chat.views_api.auth.</code><code class="descname">del_favorite</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/auth.html#del_favorite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.auth.del_favorite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete favorite</p>
+<p>[server]/api/[app_name]/[user_id]/[opponent_id]/get_favorite</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/150040/150045/del_favorit">http://chat.localhost/api/tpa1com/150040/150045/del_favorit</a></p>
+<p>Return: {&#8216;status&#8217;: 0, message: &#8216;ok&#8217;}</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="chat.views_api.auth.get_balance">
 <code class="descclassname">chat.views_api.auth.</code><code class="descname">get_balance</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/auth.html#get_balance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.auth.get_balance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get user&#8217;s balance</p>
 <p>[server]/api/[app_name]/[user_id]/get_balance</p>
 <p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/150040/get_balance">http://chat.localhost/api/tpa1com/150040/get_balance</a></p>
 <p>Return: {&#8216;status&#8217;: 0, &#8216;user_id&#8217;: 150040, &#8216;balance&#8217;: 35}</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="chat.views_api.auth.get_favorites">
+<code class="descclassname">chat.views_api.auth.</code><code class="descname">get_favorites</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/auth.html#get_favorites"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.auth.get_favorites" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get favorite list</p>
+<p>[server]/api/[app_name]/[user_id]/get_favorites</p>
+<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/150040/get_favorites">http://chat.localhost/api/tpa1com/150040/get_favorites</a></p>
+<p>Return: {&#8216;status&#8217;: 0, message: &#8216;ok&#8217;}</p>
 </dd></dl>
 
 <dl class="function">
@@ -280,15 +321,6 @@
 <p>[server]/api/logout</p>
 <p>Delete variables request.session[&#8216;is_auth&#8217;] and request.session[&#8216;user_id&#8217;] from session 
 Example: <a class="reference external" href="http://chat.localhost/api/logout">http://chat.localhost/api/logout</a></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="chat.views_api.auth.say_busy">
-<code class="descclassname">chat.views_api.auth.</code><code class="descname">say_busy</code><span class="sig-paren">(</span><em>request</em>, <em>*a</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/auth.html#say_busy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.auth.say_busy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Send message to opponet about youa are busy now</p>
-<p>[server]/api/[app_name]/[user_id]/[opponent_id]/say_busy</p>
-<p>Example: <a class="reference external" href="http://chat.localhost/api/tpa1com/150040/150042/say_busy">http://chat.localhost/api/tpa1com/150040/150042/say_busy</a></p>
-<p>Return: {&#8216;status&#8217;: 0, message: &#8216;ok&#8217;}</p>
 </dd></dl>
 
 </div>
@@ -461,7 +493,7 @@ Also it create two records in ChatUser2Room model.</p>
 
 <dl class="function">
 <dt id="chat.views_api.room.mark_new_message">
-<code class="descclassname">chat.views_api.room.</code><code class="descname">mark_new_message</code><span class="sig-paren">(</span><em>room</em>, <em>owner</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/room.html#mark_new_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.room.mark_new_message" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">chat.views_api.room.</code><code class="descname">mark_new_message</code><span class="sig-paren">(</span><em>owner</em>, <em>contact</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/room.html#mark_new_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.room.mark_new_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get contact object and set has_new_message is Tru if this contact is not active.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -490,6 +522,7 @@ Also it create two records in ChatUser2Room model.</p>
 <dt id="chat.views_api.room.save_message">
 <code class="descclassname">chat.views_api.room.</code><code class="descname">save_message</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chat/views_api/room.html#save_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#chat.views_api.room.save_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function save message owner in DB,</p>
+<p>Check if user is available.</p>
 <p>Check message out on stop words and replace them.</p>
 <p>Add owner to opponent&#8217;s contact list.</p>
 <p>If the message is first send notification to tpa side.</p>

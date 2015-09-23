@@ -393,6 +393,22 @@ apiconf = {
             },
 
 
+        'get_prices':
+            {
+                'type': 'ajax',
+                'name': 'get_prices',
+                'url':  '[server]/api/[app_name]/get_prices'
+            },
+
+
+        'set_prices':
+            {
+                'type': 'ajax',
+                'name': 'get_prices',
+                'url':  '[server]/api/[app_name]/set_prices'
+            },
+
+
         'get_balance':
             {
                 'type': 'outapi',

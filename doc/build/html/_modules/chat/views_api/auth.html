@@ -137,6 +137,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../integration.html#where">Where:</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integration.html#request-to-get-or-change-prices">4. Request to get or change prices.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id15">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#responce">Responce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id16">REQUEST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#post-parameters">POST Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration.html#id17">Responce</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../../test_loading.html">Loading test data</a><ul class="simple">
 </ul>
 </li>
@@ -240,37 +248,72 @@
 <span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
 <span class="kn">from</span> <span class="nn">jsonview.decorators</span> <span class="kn">import</span> <span class="n">json_view</span>
 <span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">redirect</span>
-<span class="kn">from</span> <span class="nn">utils.util</span> <span class="kn">import</span> <span class="n">read_conf</span><span class="p">,</span> <span class="n">get_url_by_name</span>
 <span class="kn">from</span> <span class="nn">django.views.decorators.csrf</span> <span class="kn">import</span> <span class="n">csrf_exempt</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
 <span class="kn">from</span> <span class="nn">chat.models</span> <span class="kn">import</span> <span class="n">ChatUser</span><span class="p">,</span> <span class="n">Tpa</span>
-<span class="kn">from</span> <span class="nn">utils.util</span> <span class="kn">import</span> <span class="n">read_conf</span><span class="p">,</span> <span class="n">serialize_user</span>
+<span class="kn">from</span> <span class="nn">utils.api_router</span> <span class="kn">import</span> <span class="n">get_url_by_name</span>
+<span class="kn">from</span> <span class="nn">utils.util</span> <span class="kn">import</span> <span class="n">serialize_user</span>
 <span class="kn">import</span> <span class="nn">brukva</span>
 <span class="n">bclient</span> <span class="o">=</span> <span class="n">brukva</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
 <span class="n">bclient</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
-
+<span class="kn">from</span> <span class="nn">djapp.local</span> <span class="kn">import</span> <span class="n">TPA_SERVER</span>
 <span class="kn">from</span> <span class="nn">utils.db</span> <span class="kn">import</span> <span class="n">MyDB</span>
 <span class="n">bd</span> <span class="o">=</span> <span class="n">MyDB</span><span class="p">()</span>
 
 
 <span class="nd">@json_view</span>
-<div class="viewcode-block" id="say_busy"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.auth.say_busy">[docs]</a><span class="k">def</span> <span class="nf">say_busy</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">user_id</span><span class="p">,</span><span class="n">opponent_id</span><span class="p">,</span><span class="n">app_name</span><span class="p">):</span>
+<div class="viewcode-block" id="get_favorites"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.auth.get_favorites">[docs]</a><span class="k">def</span> <span class="nf">get_favorites</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">user_id</span><span class="p">,</span><span class="n">app_name</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; </span>
-<span class="sd">        Send message to opponet about youa are busy now</span>
+<span class="sd">        Get favorite list</span>
 
-<span class="sd">        [server]/api/[app_name]/[user_id]/[opponent_id]/say_busy</span>
+<span class="sd">        [server]/api/[app_name]/[user_id]/get_favorites</span>
 
-<span class="sd">        Example: http://chat.localhost/api/tpa1com/150040/150042/say_busy</span>
+<span class="sd">        Example: http://chat.localhost/api/tpa1com/150040/get_favorites</span>
+
+<span class="sd">        Return: {&#39;status&#39;: 0, message: &#39;ok&#39;}</span>
+<span class="sd">    &#39;&#39;&#39;</span> 
+    <span class="n">tpa</span> <span class="o">=</span> <span class="n">Tpa</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">app_name</span><span class="p">)</span>
+    <span class="n">get_fav_url</span> <span class="o">=</span> <span class="n">tpa</span><span class="o">.</span><span class="n">favorite_url</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;user_id&#39;</span><span class="p">:</span> <span class="n">user_id</span><span class="p">,</span> <span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;get&#39;</span> <span class="p">}</span>
+    <span class="n">fav</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">get_fav_url</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
+    <span class="k">print</span> <span class="s">&#39;REQUEST </span><span class="si">%s</span><span class="s"> content </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">get_fav_url</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">))</span>
+    <span class="k">print</span> <span class="n">fav</span>
+    <span class="n">fav</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">fav</span><span class="p">)</span>  
+    <span class="k">return</span> <span class="p">{</span><span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;count&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">fav</span><span class="p">[</span><span class="s">&#39;user_list&#39;</span><span class="p">]),</span> <span class="s">&#39;favorites&#39;</span><span class="p">:</span> <span class="n">fav</span><span class="p">}</span>
+
+</div>
+<span class="nd">@json_view</span>
+<div class="viewcode-block" id="del_favorite"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.auth.del_favorite">[docs]</a><span class="k">def</span> <span class="nf">del_favorite</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">user_id</span><span class="p">,</span><span class="n">opponent_id</span><span class="p">,</span><span class="n">app_name</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">        Delete favorite </span>
+
+<span class="sd">        [server]/api/[app_name]/[user_id]/[opponent_id]/get_favorite</span>
+
+<span class="sd">        Example: http://chat.localhost/api/tpa1com/150040/150045/del_favorit</span>
 
 <span class="sd">        Return: {&#39;status&#39;: 0, message: &#39;ok&#39;}</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">tpa</span> <span class="o">=</span> <span class="n">Tpa</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">app_name</span><span class="p">)</span>
-    <span class="n">opponent</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="n">opponent_id</span><span class="p">)</span>
-    <span class="n">message</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;action&#39;</span><span class="p">:</span> <span class="s">&#39;say_busy&#39;</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;Sorry but I am busy now.&#39;</span><span class="p">,</span> <span class="s">&#39;user_profile&#39;</span><span class="p">:</span> <span class="n">serialize_user</span><span class="p">(</span><span class="n">opponent</span><span class="p">)</span> <span class="p">}</span>
-    <span class="n">opponent_chanel</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">app_name</span><span class="p">,</span> <span class="n">opponent_id</span><span class="p">)</span>
-    <span class="n">bclient</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">opponent_chanel</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">message</span><span class="p">))</span>    
+    <span class="n">opponent</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tpa</span><span class="o">=</span><span class="n">tpa</span><span class="p">,</span><span class="n">user_id</span><span class="o">=</span><span class="n">opponent_id</span><span class="p">)</span>  
     <span class="k">return</span> <span class="p">{</span><span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">}</span>
+
+</div>
+<span class="nd">@json_view</span>
+<div class="viewcode-block" id="add_favorite"><a class="viewcode-back" href="../../../djangoapp.html#chat.views_api.auth.add_favorite">[docs]</a><span class="k">def</span> <span class="nf">add_favorite</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">user_id</span><span class="p">,</span><span class="n">opponent_id</span><span class="p">,</span><span class="n">app_name</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">        Add favorite </span>
+
+<span class="sd">        [server]/api/[app_name]/[user_id]/[opponent_id]/add_favorite</span>
+
+<span class="sd">        Example: http://chat.localhost/api/tpa1com/150040/150045/add_favorite</span>
+
+<span class="sd">        Return: {&#39;status&#39;: 0, message: &#39;ok&#39;}</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">tpa</span> <span class="o">=</span> <span class="n">Tpa</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">app_name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;message&#39;</span><span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">}</span>
+
+
 
 </div>
 <span class="nd">@json_view</span>
@@ -340,7 +383,7 @@
         <span class="n">cuser</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
     <span class="k">except</span><span class="p">:</span>
         <span class="n">url</span> <span class="o">=</span> <span class="n">get_url_by_name</span><span class="p">(</span><span class="s">&#39;get_profile_from_tpa&#39;</span><span class="p">,{</span><span class="s">&#39;user_id&#39;</span><span class="p">:</span><span class="n">user_id</span><span class="p">,</span> <span class="s">&#39;app_name&#39;</span><span class="p">:</span> <span class="n">app_name</span><span class="p">})</span>
-        <span class="k">print</span> <span class="s">&#39;REQUEST_____</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">url</span>
+        <span class="c">#print &#39;REQUEST_____%s&#39; % url</span>
         <span class="n">responce</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
         <span class="n">cuser</span> <span class="o">=</span> <span class="n">ChatUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
     <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s">&#39;is_auth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;true&#39;</span>

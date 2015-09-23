@@ -448,5 +448,53 @@ Where:
 [user_id] - user indentifier
 
 
+4. Request to get or change prices.
+===================================
+
+REQUEST
+-------
+
+**URI** [server]/api/[app_name]/get_prices
+        
+**Example:** http://brides.mirbu.com/api/tpa1com/get_prices
+
+Responce
+--------
+
+.. code-block:: json
+
+    Responce 1: { 'status': 0, 'prices': {'text': '2.0', 'video': '3.0', 'audio': '1.0', 'timeout': '60'} }
+
+    Responce 2: { 'status': 1, 'message': 'Some error.' }
+
+
+REQUEST
+-------
+
+**URI** [server]/api/[app_name]/set_prices
+        
+**Example:** http://brides.mirbu.com/api/tpa1com/set_prices
+
+POST Parameters
+---------------
+
+.. code-block:: bash
+
+    text = 2
+    video = 3
+    audio = 1
+    timeout = 60
+
+Responce
+--------
+
+.. code-block:: json
+
+    Responce 1: { 'status': 0, 'prices': {'text': '2.0', 'video': '3.0', 'audio': '1.0', 'timeout': '60'} }
+
+    Responce 2: { 'status': 1, 'message': 'Some error.' }
+
+
+
 
 
