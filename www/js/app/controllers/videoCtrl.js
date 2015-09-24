@@ -185,7 +185,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                 
                 Video.showOpponentCam($rootScope.current_opponent_id,function(result){});
                
-                $('.video_online').removeClass('hide_chat_window');
+                if($rootScope.gender=='m') $('.video_online').removeClass('hide_chat_window');
                         
             }
 
