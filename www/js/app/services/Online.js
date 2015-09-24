@@ -7,11 +7,30 @@
             return {
                         setOnline: setOnline,
                         setOffline: setOffline,
+                        addToOnline: addToOnline,
+                        removeFromOnline: removeFromOnline,
                         getOnline: getOnline,
                         getOnlineIds: getOnlineIds,
                         getOnlineExceptContact: getOnlineExceptContact,
                         sendMessage: sendMessage               
                     }
+
+            function addToOnline(profile) {
+                 
+            } ;
+
+            function removeFromOnline(user_id) {
+                 alert('remove '+ user_id);
+                 log($rootScope.online_user_list);
+                    for (var i = 0; i < $rootScope.online_user_list.length; i++) {
+                        if(user_id == $rootScope.online_user_list[i].user_id) {
+                            $rootScope.online_user_list.splice(i,1);  
+                        }
+                        log($rootScope.online_user_list[i].user_id);
+                    }                  
+            } ;
+
+
             function setOnline() {
                  
             } ;

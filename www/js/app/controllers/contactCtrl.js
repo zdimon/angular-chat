@@ -9,7 +9,7 @@ contactCtrl.js
 
 */
 
-app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window, Room, $log) {
+app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window, Room, $log, Online) {
 
 
       $scope.watch_profile = {}
@@ -78,6 +78,9 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
                                                                      'message': data.profile.name+' just sent you new message.',
                                                                      'user': data.profile
                                                                   }
+
+               //Online.removeFromOnline(data.profile.user_id);
+               $rootScope.$broadcast('update_users_online'); // TODO
                
                
            })
@@ -151,7 +154,7 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
            for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
                 if($rootScope.contact_user_list[i].user_id==contact_id) {
                    $rootScope.contact_user_list.splice(i,1);  
-                   log($rootScope.contact_user_list);
+                   //log($rootScope.contact_user_list);
                 }
            }
             $rootScope.$broadcast('update_users_online');
