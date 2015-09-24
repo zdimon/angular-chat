@@ -201,7 +201,8 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
             $(document).find('#oponent_video_container').append('<div id="opponentVideo"></div>');
             $rootScope.isOpponentCamEnabled = false;
             $rootScope.alert_mic_on = false;
-            $('.video_online').addClass('hide_chat_window');     
+            
+            $('.video_online').addClass('hide_chat_window'); //TODO    
        
              Video.hideOpponentCam($rootScope.current_opponent_id, function(){
                 if (angular.isDefined($scope.invite_promise)) {
@@ -355,6 +356,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                         swfobject.removeSWF("opponentVideo");
                         $(document).find('#oponent_video_container').append('<div id="opponentVideo"></div>');
                         $rootScope.isOpponentVideoActive = false;
+                        if($rootScope.gender=='m')
                         $('.video_online').addClass('hide_chat_window');     
 
                     }
