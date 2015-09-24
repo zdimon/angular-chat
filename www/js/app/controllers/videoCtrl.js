@@ -202,7 +202,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
             $rootScope.isOpponentCamEnabled = false;
             $rootScope.alert_mic_on = false;
             
-            if($rootScope.gender == 'm') $('.video_online').addClass('hide_chat_window'); //TODO    
+            if($rootScope.gender == 'm') $('.video_online').addClass('hide_chat_window'); //TODO     
        
              Video.hideOpponentCam($rootScope.current_opponent_id, function(){
                 if (angular.isDefined($scope.invite_promise)) {
