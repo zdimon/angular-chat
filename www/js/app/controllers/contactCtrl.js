@@ -203,6 +203,7 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
            //1,2
            Room.getUserInfo(contact_id,function(result){ 
             $scope.invited_user = result.user_profile
+            $scope.hide_invite_button['user_'+contact_id] = true;
          });
         
            //3

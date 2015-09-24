@@ -84,6 +84,7 @@ The function :func:`someService` does a some function.
                         $rootScope.waiting_to_responce = {};
                         $rootScope.men_watching = {}
                         $rootScope.women_watching = {}
+                        $rootScope.hide_invite_button = {} // TODO
                         $rootScope.is_bootstrapted = false;
                         $rootScope.new_messages = {}
                         
