@@ -10,6 +10,16 @@ app.directive('chatInvitation', function() {
                 //element.find('figcaption').text(value)
                    //alert('Checked!');   
                 })
+
+                $scope.$on('initializated', function(event, data) {
+                  
+                  
+                    if(data.owner.user_profile.is_invitation_enabled==false){ 
+                        $scope.chat_invitation = true;
+                        element.find('a').addClass('off');
+                    } 
+                });
+
                 //alert($scope.chat_invitation);
                 element.click(function() { 
                     

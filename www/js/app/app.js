@@ -54,7 +54,7 @@ The function :func:`someService` does a some function.
                                     })
                                 
 
-                                
+                                $rootScope.$broadcast('initializated',result);
                                 
                             })
                         } 
