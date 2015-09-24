@@ -188,6 +188,7 @@ def charge_request(request,app_name):
     '''
     
     json_data = json.loads(request.body)
+    print json_data
     check_users_for_off(json_data)
     tpa = Tpa.objects.get(name=app_name)
     #print 'request to %s ' % tpa.charge_url
