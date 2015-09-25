@@ -61,8 +61,11 @@ class WSHandler(tornado.websocket.WebSocketHandler):
       
     def on_message(self, message):
         'Accepting message from javasctipt client'
-        #print 'message received:  %s' % message
+        print 'message received:  %s' % message
         message = json.loads(message) 
+
+        if message['action'] == 'test_overload':
+            print message
 
         if message['action'] == 'connect':
             #try:
@@ -125,6 +128,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             self.write_message(json.dumps(message))
         except Exception, e:
             pass
+            #print 'can not send!! %s' % message
             # mark room as free to charging if man is off
             #if(message['action'] != 'put_me_in_room'):
             #    print "Can not send %s to %s_%s exeption %s" % (message,self.tpa_name, self.current_user_id, e)

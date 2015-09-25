@@ -25,6 +25,7 @@ def set_connected(request,app_name,user_id):
     mes1 = {'action': 'update_users_online'}
     mes2 = {'action': 'set_me_online', 'uid': user_id}
     for u in ChatUser.objects.filter(is_online=1).exclude(user_id=user_id):
+    #for u in ChatUser.objects.all().exclude(user_id=user_id):
         bclient.publish('%s_%s' % (app_name,u.user_id), json.dumps(mes1))
         bclient.publish('%s_%s' % (app_name,u.user_id), json.dumps(mes2))
         
