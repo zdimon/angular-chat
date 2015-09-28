@@ -160,6 +160,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         
 
         $scope.$on('put_me_in_room', function (event, data) {
+           var isOldTitle;
            log(data);
            $rootScope.feather = false;
            $scope.room_just_closed = false;
