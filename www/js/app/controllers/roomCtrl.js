@@ -113,6 +113,10 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                //TODO message.message
               if(data.message.message.room_id != $scope.room_id){
                     
+                    // blinking title                    
+                    $scope.blink_title_interval = setInterval(blinkTitle, 700);
+                    
+
                     //log(data.message.message.room_id +'!='+ $scope.room_id);
                    // set envelop blinking (new message) or show pop up in man case 
                    if($rootScope.gender=='m') {
@@ -165,6 +169,9 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
            $rootScope.room_id = data.room_id;
            $scope.hasActiveRoom=true;
 
+            // remove title blinking
+            clearInterval($scope.blink_title_interval);
+            document.title = oldTitle;
            // remove blinking envelop 
 	   
            for (var i = 0; i < $rootScope.contact_user_list.length; i++) {

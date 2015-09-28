@@ -28,6 +28,15 @@ utils = {
 
  
 }
+var isOldTitle = true;
+var oldTitle = document.title;
+var newTitle = "***You have a new message!***";
+function blinkTitle() {
+   
+    document.title = isOldTitle ? oldTitle : newTitle;
+    isOldTitle = !isOldTitle;
+}
+
 
 function scroolldown(){
 

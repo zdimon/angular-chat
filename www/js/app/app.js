@@ -26,6 +26,8 @@ The function :func:`someService` does a some function.
 
             // Initialization
 
+
+
             $rootScope.$on('connected', function (event, data) {
 
                         if (typeof $rootScope.current_opponent_id == 'undefined') {
