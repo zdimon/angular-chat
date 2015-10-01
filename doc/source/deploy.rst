@@ -25,20 +25,20 @@ Install python tools
 
 .. code-block:: bash
 
-    sudo apt-get install python-dev, python-virtualenv    
+    sudo apt-get install python-dev python-virtualenv    
 
 Install Mysql
 
 .. code-block:: bash
 
-    sudo apt-get install mysql-server, libmysqlclient-dev
+    sudo apt-get install mysql-server libmysqlclient-dev
 
 
 Set remote access to mysql
 
 .. code-block:: bash
 
-    nano /etc/mysql/my.cnf
+    sudo nano /etc/mysql/my.cnf
 
 comment following lines
 
@@ -67,7 +67,7 @@ Install php5
 
 .. code-block:: bash
 
-    sudo apt-get install php5-fpm, php5-gd, php5-mcrypt, php5-mysql
+    sudo apt-get install php5-fpm php5-gd php5-mcrypt php5-mysql
 
 
 Install git
