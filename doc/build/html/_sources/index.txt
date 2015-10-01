@@ -25,6 +25,7 @@ Contents:
     model
     uml
     security 
+    deploy
 
 
 
