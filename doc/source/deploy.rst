@@ -31,7 +31,7 @@ Install Mysql
 
 .. code-block:: bash
 
-    sudo apt-get install mysql, libmysqlclient-dev
+    sudo apt-get install mysql-server, libmysqlclient-dev
 
 
 Set remote access to mysql
@@ -91,7 +91,7 @@ Add user
 
     sudo adduser webmaster 
 
-Change user_ptr
+Change user
     
 .. code-block:: bash
 
@@ -103,6 +103,7 @@ Generate ssh key
 
     ssh-keygen -t rsa
 
+Add keys to github.
 
 
 Make virtual environment
