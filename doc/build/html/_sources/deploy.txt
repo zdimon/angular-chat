@@ -124,7 +124,7 @@ Install chat app
     pip install -r requirements.txt
 
 
-Make nginx virtual host. 
+Make nginx virtual host.  
 
 
 .. code-block:: bash
