@@ -322,62 +322,9 @@ sudo locale-gen uk_UA.UTF-8
 pip install -r requirements.txt
 </pre></div>
 </div>
-<p>Make nginx virtual host.</p>
-<div class="highlight-bash"><div class="highlight"><pre>server <span class="o">{</span>
-    listen 80<span class="p">;</span>
-    server_name amazon.mirbu.com<span class="p">;</span>
-    <span class="nv">location</span> <span class="o">=</span>/favicon.ico <span class="o">{</span> empty_gif<span class="p">;</span> <span class="o">}</span>
-    root    /home/webmaster/marriage-brides.com<span class="p">;</span>
-
-    fastcgi_buffer_size   128k<span class="p">;</span>
-    fastcgi_buffers   <span class="m">4</span> 256k<span class="p">;</span>
-    fastcgi_busy_buffers_size   256k<span class="p">;</span>
-
-    location /api <span class="o">{</span>
-        proxy_pass http://127.0.0.1:8008/api<span class="p">;</span>
-        add_header <span class="s1">&#39;Access-Control-Allow-Origin&#39;</span> <span class="s1">&#39;*&#39;</span><span class="p">;</span>
-        add_header <span class="s1">&#39;Access-Control-Allow-Credentials&#39;</span> <span class="s1">&#39;true&#39;</span><span class="p">;</span>
-        add_header <span class="s1">&#39;Access-Control-Allow-Methods&#39;</span> <span class="s1">&#39;GET, POST, OPTIONS&#39;</span><span class="p">;</span>
-        add_header <span class="s1">&#39;Access-Control-Allow-Headers&#39;</span> <span class="s1">&#39;DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type&#39;</span><span class="p">;</span>
-    <span class="o">}</span>
-
-    location /chatapp <span class="o">{</span>
-        <span class="nb">alias</span> /home/webmaster/ngchat_ve/angular-chat/www/js/app/<span class="p">;</span>
-    <span class="o">}</span>
-
-    location /admin <span class="o">{</span>
-        <span class="nb">alias</span> /home/webmaster/marriage-brides.com/Backend<span class="p">;</span>
-        index index.php<span class="p">;</span>
-        try_files <span class="nv">$uri</span> /index.php?<span class="nv">$args</span><span class="p">;</span>
-    <span class="o">}</span>
-
-location /agency <span class="o">{</span>
-      <span class="nb">alias</span> /home/webmaster/marriage-brides.com/Agency/<span class="p">;</span>
-    <span class="o">}</span>
-
-
-    location /doc <span class="o">{</span>
-        <span class="nb">alias</span> /home/webmaster/ngchat_ve/angular-chat/doc/build/html/<span class="p">;</span>
-    <span class="o">}</span>
-
-    location /static <span class="o">{</span>
-        <span class="nb">alias</span> /home/webmaster/ngchat_ve/angular-chat/www/<span class="p">;</span>
-    <span class="o">}</span>
-
-   location / <span class="o">{</span>
-        index index.php<span class="p">;</span>
-        try_files <span class="nv">$uri</span> /index.php?<span class="nv">$args</span><span class="p">;</span>
-    <span class="o">}</span>
-    location ~ <span class="se">\.</span>php<span class="nv">$ </span><span class="o">{</span>
-               <span class="c"># fastcgi_pass 127.0.0.1:9000;</span>
-                fastcgi_pass unix:/var/run/php5-fpm.sock<span class="p">;</span>
-                fastcgi_index  index.php<span class="p">;</span>
-                fastcgi_param  SCRIPT_FILENAME  <span class="nv">$document_root$fastcgi_script_name</span><span class="p">;</span>
-                fastcgi_param  SCRIPT_NAME     <span class="nv">$fastcgi_script_name</span><span class="p">;</span>
-                fastcgi_param  QUERY_STRING    <span class="nv">$args</span><span class="p">;</span>
-                include        fastcgi_params<span class="p">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+<p>Install cpanel.</p>
+<div class="highlight-bash"><div class="highlight"><pre>wget -O- https://raw.github.com/ajenti/ajenti/1.x/scripts/install-ubuntu.sh <span class="p">|</span> sudo sh
+apt-get install ajenti-v ajenti-v-nginx ajenti-v-mysql ajenti-v-php-fpm php5-mysql
 </pre></div>
 </div>
 </div>

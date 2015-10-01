@@ -124,77 +124,10 @@ Install chat app
     pip install -r requirements.txt
 
 
-Make nginx virtual host.  
+Install cpanel.
 
 
 .. code-block:: bash
 
-    server {
-        listen 80;
-        server_name amazon.mirbu.com;
-        location =/favicon.ico { empty_gif; }
-        root    /home/webmaster/marriage-brides.com;
-
-        fastcgi_buffer_size   128k;
-        fastcgi_buffers   4 256k;
-        fastcgi_busy_buffers_size   256k;
-
-        location /api {
-	    proxy_pass http://127.0.0.1:8008/api;
-            add_header 'Access-Control-Allow-Origin' '*';
-            add_header 'Access-Control-Allow-Credentials' 'true';
-            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-            add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
-        }
-
-        location /chatapp {
-	    alias /home/webmaster/ngchat_ve/angular-chat/www/js/app/;
-        }
-
-        location /admin {
-	    alias /home/webmaster/marriage-brides.com/Backend;
-            index index.php;
-            try_files $uri /index.php?$args;
-        }
-
-    location /agency {
-          alias /home/webmaster/marriage-brides.com/Agency/;
-        }
-
-
-        location /doc {
-	    alias /home/webmaster/ngchat_ve/angular-chat/doc/build/html/;
-        }
-
-        location /static {
-            alias /home/webmaster/ngchat_ve/angular-chat/www/;
-        }
-
-       location / {
-            index index.php;
-            try_files $uri /index.php?$args;
-        }
-        location ~ \.php$ {
-                   # fastcgi_pass 127.0.0.1:9000; 
-                    fastcgi_pass unix:/var/run/php5-fpm.sock;
-                    fastcgi_index  index.php;
-                    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-                    fastcgi_param  SCRIPT_NAME     $fastcgi_script_name;
-                    fastcgi_param  QUERY_STRING    $args;
-                    include        fastcgi_params;
-        }
-    }
-
-
-
-
-
-
-
-
-    
-
-
-    
-    
-
+   wget -O- https://raw.github.com/ajenti/ajenti/1.x/scripts/install-ubuntu.sh | sudo sh
+   apt-get install ajenti-v ajenti-v-nginx ajenti-v-mysql ajenti-v-php-fpm php5-mysql
