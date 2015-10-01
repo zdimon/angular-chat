@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Socketserver &mdash; Angular chat 1 documentation</title>
+  <title>Deployment on Ubuntu 14.04 server platform in Amazon &mdash; Angular chat 1 documentation</title>
   
 
   
@@ -30,9 +30,7 @@
   
 
   
-    <link rel="top" title="Angular chat 1 documentation" href="index.html"/>
-        <link rel="next" title="Architecture" href="architecture.html"/>
-        <link rel="prev" title="File structure" href="file_structure.html"/> 
+    <link rel="top" title="Angular chat 1 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -71,7 +69,7 @@
         
           
           
-              <ul class="current">
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integration.html">Integration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integration.html#online-indicator">Online indicator.</a></li>
@@ -174,7 +172,7 @@
 <li class="toctree-l1"><a class="reference internal" href="djangoapp.html#online-views">Online  views</a></li>
 <li class="toctree-l1"><a class="reference internal" href="djangoapp.html#module-chat.views_api.room">Room views</a></li>
 <li class="toctree-l1"><a class="reference internal" href="file_structure.html">File structure</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Socketserver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="socketserver.html">Socketserver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="model.html">Chat Model</a><ul class="simple">
 </ul>
@@ -231,11 +229,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Socketserver</li>
+    <li>Deployment on Ubuntu 14.04 server platform in Amazon</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/socketserver.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/deploy.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -244,55 +242,147 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="module-socketserver">
-<span id="socketserver"></span><h1>Socketserver<a class="headerlink" href="#module-socketserver" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="socketserver.WSHandler">
-<em class="property">class </em><code class="descclassname">socketserver.</code><code class="descname">WSHandler</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/socketserver.html#WSHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#socketserver.WSHandler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Websocket server that uses the Tornado websocket handler.
-Please run <cite>pip install tornado</cite> with python of version 2.7.9 or greater to install tornado.</p>
-<dl class="method">
-<dt id="socketserver.WSHandler.on_close">
-<code class="descname">on_close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/socketserver.html#WSHandler.on_close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#socketserver.WSHandler.on_close" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method whith fires when connection is closed.</p>
-</dd></dl>
+  <div class="section" id="deployment-on-ubuntu-14-04-server-platform-in-amazon">
+<h1>Deployment on Ubuntu 14.04 server platform in Amazon<a class="headerlink" href="#deployment-on-ubuntu-14-04-server-platform-in-amazon" title="Permalink to this headline">¶</a></h1>
+<p>Update soft</p>
+<div class="highlight-bash"><div class="highlight"><pre>sudo apt-get update
+</pre></div>
+</div>
+<p>Install nginx</p>
+<div class="highlight-bash"><div class="highlight"><pre>sudo apt-get install nginx
+</pre></div>
+</div>
+<p>Install redis</p>
+<div class="highlight-bash"><div class="highlight"><pre>sudo apt-get install redis-server
+</pre></div>
+</div>
+<p>Install python tools</p>
+<div class="highlight-bash"><div class="highlight"><pre>sudo apt-get install python-dev, python-virtualenv
+</pre></div>
+</div>
+<p>Install Mysql</p>
+<div class="highlight-bash"><div class="highlight"><pre>sudo apt-get install mysql, libmysqlclient-dev
+</pre></div>
+</div>
+<p>Set remote access to mysql</p>
+<div class="highlight-bash"><div class="highlight"><pre>nano /etc/mysql/my.cnf
+</pre></div>
+</div>
+<p>comment following lines</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c">#bind-address           = 127.0.0.1</span>
+</pre></div>
+</div>
+<p>Restart mysql server.</p>
+<div class="highlight-bash"><div class="highlight"><pre>service mysql restart
+</pre></div>
+</div>
+<p>Connect to mysql client</p>
+<div class="highlight-bash"><div class="highlight"><pre>mysql -u root -ppassword
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre>GRANT ALL PRIVILEGES ON *.* TO <span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;%&#39;</span> IDENTIFIED BY <span class="s1">&#39;PASSWORD&#39;</span> WITH GRANT OPTION<span class="p">;</span>
+</pre></div>
+</div>
+<p>Install php5</p>
+<div class="highlight-bash"><div class="highlight"><pre>sudo apt-get install php5-fpm, php5-gd, php5-mcrypt, php5-mysql
+</pre></div>
+</div>
+<p>Install git</p>
+<div class="highlight-bash"><div class="highlight"><pre>sudo apt-get install git
+</pre></div>
+</div>
+<p>Generate locale</p>
+<div class="highlight-bash"><div class="highlight"><pre>sudo locale-gen uk_UA
+sudo locale-gen uk_UA.UTF-8
+</pre></div>
+</div>
+<p>Add user</p>
+<div class="highlight-bash"><div class="highlight"><pre>sudo adduser webmaster
+</pre></div>
+</div>
+<p>Change user_ptr</p>
+<div class="highlight-bash"><div class="highlight"><pre>su webmaster
+</pre></div>
+</div>
+<p>Generate ssh key</p>
+<div class="highlight-bash"><div class="highlight"><pre>ssh-keygen -t rsa
+</pre></div>
+</div>
+<p>Make virtual environment</p>
+<div class="highlight-bash"><div class="highlight"><pre>virtualenv achat_ve
+<span class="nb">cd </span>achat_ve
+<span class="nb">source </span>bin/activate
+</pre></div>
+</div>
+<p>Install chat app</p>
+<div class="highlight-bash"><div class="highlight"><pre>git clone git@github.com:zdimon/angular-chat.git
+<span class="nb">cd </span>angular-chat
+pip install -r requirements.txt
+</pre></div>
+</div>
+<p>Make nginx virtual host.</p>
+<div class="highlight-bash"><div class="highlight"><pre>server <span class="o">{</span>
+    listen 80<span class="p">;</span>
+    server_name amazon.mirbu.com<span class="p">;</span>
+    <span class="nv">location</span> <span class="o">=</span>/favicon.ico <span class="o">{</span> empty_gif<span class="p">;</span> <span class="o">}</span>
+    root    /home/webmaster/marriage-brides.com<span class="p">;</span>
 
-<dl class="method">
-<dt id="socketserver.WSHandler.on_message">
-<code class="descname">on_message</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/socketserver.html#WSHandler.on_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#socketserver.WSHandler.on_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Accepting message from javasctipt client</p>
-</dd></dl>
+    fastcgi_buffer_size   128k<span class="p">;</span>
+    fastcgi_buffers   <span class="m">4</span> 256k<span class="p">;</span>
+    fastcgi_busy_buffers_size   256k<span class="p">;</span>
 
-<dl class="method">
-<dt id="socketserver.WSHandler.redis_message">
-<code class="descname">redis_message</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/socketserver.html#WSHandler.redis_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#socketserver.WSHandler.redis_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>recieving  message from redis server, 
-convertin it in json format 
-and sending it to the current chanel</p>
-</dd></dl>
+    location /api <span class="o">{</span>
+        proxy_pass http://127.0.0.1:8008/api<span class="p">;</span>
+        add_header <span class="s1">&#39;Access-Control-Allow-Origin&#39;</span> <span class="s1">&#39;*&#39;</span><span class="p">;</span>
+        add_header <span class="s1">&#39;Access-Control-Allow-Credentials&#39;</span> <span class="s1">&#39;true&#39;</span><span class="p">;</span>
+        add_header <span class="s1">&#39;Access-Control-Allow-Methods&#39;</span> <span class="s1">&#39;GET, POST, OPTIONS&#39;</span><span class="p">;</span>
+        add_header <span class="s1">&#39;Access-Control-Allow-Headers&#39;</span> <span class="s1">&#39;DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type&#39;</span><span class="p">;</span>
+    <span class="o">}</span>
 
-<dl class="method">
-<dt id="socketserver.WSHandler.subscribe">
-<code class="descname">subscribe</code><span class="sig-paren">(</span><em>room</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/socketserver.html#WSHandler.subscribe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#socketserver.WSHandler.subscribe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Subscribing user to the channel in the REDIS server</p>
-</dd></dl>
+    location /chatapp <span class="o">{</span>
+        <span class="nb">alias</span> /home/webmaster/ngchat_ve/angular-chat/www/js/app/<span class="p">;</span>
+    <span class="o">}</span>
 
-</dd></dl>
+    location /admin <span class="o">{</span>
+        <span class="nb">alias</span> /home/webmaster/marriage-brides.com/Backend<span class="p">;</span>
+        index index.php<span class="p">;</span>
+        try_files <span class="nv">$uri</span> /index.php?<span class="nv">$args</span><span class="p">;</span>
+    <span class="o">}</span>
 
-<span class="target" id="module-processor"></span></div>
+location /agency <span class="o">{</span>
+      <span class="nb">alias</span> /home/webmaster/marriage-brides.com/Agency/<span class="p">;</span>
+    <span class="o">}</span>
+
+
+    location /doc <span class="o">{</span>
+        <span class="nb">alias</span> /home/webmaster/ngchat_ve/angular-chat/doc/build/html/<span class="p">;</span>
+    <span class="o">}</span>
+
+    location /static <span class="o">{</span>
+        <span class="nb">alias</span> /home/webmaster/ngchat_ve/angular-chat/www/<span class="p">;</span>
+    <span class="o">}</span>
+
+   location / <span class="o">{</span>
+        index index.php<span class="p">;</span>
+        try_files <span class="nv">$uri</span> /index.php?<span class="nv">$args</span><span class="p">;</span>
+    <span class="o">}</span>
+    location ~ <span class="se">\.</span>php<span class="nv">$ </span><span class="o">{</span>
+               <span class="c"># fastcgi_pass 127.0.0.1:9000;</span>
+                fastcgi_pass unix:/var/run/php5-fpm.sock<span class="p">;</span>
+                fastcgi_index  index.php<span class="p">;</span>
+                fastcgi_param  SCRIPT_FILENAME  <span class="nv">$document_root$fastcgi_script_name</span><span class="p">;</span>
+                fastcgi_param  SCRIPT_NAME     <span class="nv">$fastcgi_script_name</span><span class="p">;</span>
+                fastcgi_param  QUERY_STRING    <span class="nv">$args</span><span class="p">;</span>
+                include        fastcgi_params<span class="p">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
 
 
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="architecture.html" class="btn btn-neutral float-right" title="Architecture" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="file_structure.html" class="btn btn-neutral" title="File structure" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
