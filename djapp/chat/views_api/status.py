@@ -46,7 +46,8 @@ def set_disconnected(request,app_name,user_id):
     for u in ChatUser.objects.filter(is_online=1).exclude(user_id=user_id):
         bclient.publish('%s_%s' % (app_name,u.user_id), json.dumps(mes1))
         bclient.publish('%s_%s' % (app_name,u.user_id), json.dumps(mes2))
-        
+    # TODO
+    bd.update('update users set online=0 where login=%s' % user_id)        
     return { 'status': 0, 'message': 'ok' } 
 
 

@@ -7,6 +7,13 @@ Update soft
 
     sudo apt-get update
 
+Generate locale
+
+.. code-block:: bash
+
+    sudo locale-gen uk_UA
+    sudo locale-gen uk_UA.UTF-8
+
 Install nginx
 
 .. code-block:: bash
@@ -78,13 +85,6 @@ Install git
 
 
 
-Generate locale
-
-.. code-block:: bash
-
-    sudo locale-gen uk_UA
-    sudo locale-gen uk_UA.UTF-8
-
 Add user
 
 .. code-block:: bash
@@ -125,10 +125,32 @@ Install chat app
     pip install -r requirements.txt
 
 
+Install FTP
+
+.. code-block:: bash
+
+    sudo apt-get install pure-ftpd 
+
+
 Install cpanel.
 
 
 .. code-block:: bash
 
    wget -O- https://raw.github.com/ajenti/ajenti/1.x/scripts/install-ubuntu.sh | sudo sh
-   apt-get install ajenti-v ajenti-v-nginx ajenti-v-mysql ajenti-v-php-fpm php5-mysql
+   apt-get install ajenti-v ajenti-v-nginx ajenti-v-mysql ajenti-v-php-fpm php5-mysql ajenti-v-ftp-vsftpd
+
+
+
+
+
+
+Backup system via S3
+--------------------
+
+Create busket 'bridesbackup' in S3 section.
+
+
+
+
+

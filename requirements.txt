@@ -12,3 +12,4 @@ PySQLPool==0.3.8
 django-jsonview==0.4.3
 sphinxcontrib-autoanysrc
 django-suit==0.2.13
+boto

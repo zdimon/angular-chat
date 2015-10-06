@@ -132,3 +132,16 @@ Install cpanel.
 
    wget -O- https://raw.github.com/ajenti/ajenti/1.x/scripts/install-ubuntu.sh | sudo sh
    apt-get install ajenti-v ajenti-v-nginx ajenti-v-mysql ajenti-v-php-fpm php5-mysql
+
+
+
+
+Backup system via S3
+--------------------
+
+Create busket 'bridesbackup' in S3 section.
+
+
+
+
+
