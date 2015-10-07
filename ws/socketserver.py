@@ -21,6 +21,7 @@ from utils.db import MyDB
 bd = MyDB()
 import sockjs.tornado
 import resource
+import tornado.autoreload
 
 class WSHandler(tornado.websocket.WebSocketHandler):
     '''
@@ -223,5 +224,10 @@ if __name__ == "__main__":
     myIP = '127.0.0.1'
     print '*** Websocket Server Started at %s***' % myIP
     tornado.ioloop.PeriodicCallback(send_charge_request, 60000).start()
-    tornado.ioloop.IOLoop.instance().start()
+    tornado.autoreload.watch('restart')
+    tornado.autoreload.watch('socketserver.py')
+    io_loop = tornado.ioloop.IOLoop.instance()
+    tornado.autoreload.start(io_loop)
+    io_loop.start() 
+    
     
