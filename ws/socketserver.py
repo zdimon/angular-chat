@@ -68,9 +68,11 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             print message
 
         if message['action'] == 'connect':
-            #try:
-            url = get_url_by_name('set_connected',{'user_id':message["user_id"], 'app_name': message["tpa"]})
-            requests.get(url)
+            try:
+                url = get_url_by_name('set_connected',{'user_id':message["user_id"], 'app_name': message["tpa"]})
+                requests.get(url)
+            except:
+                print '!!ERROR!! can not make a request to %s' % url
             chanel = '%s_%s' % (message["tpa"], message["user_id"])
             self.subscribe(chanel)
             self.current_user_id = message["user_id"]             
