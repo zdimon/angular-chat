@@ -16,7 +16,11 @@
 
 
             function closeRoom(opponent_id,callback) {
-                             var url = utils.prepare_url(apiconf.api.close_chat_room.url,{'[room_id]':$rootScope.room_id,'[opponent_id]':opponent_id});
+                             var url = utils.prepare_url(apiconf.api.close_chat_room.url,{
+                                                                                          '[room_id]':$rootScope.room_id,
+                                                                                          '[opponent_id]':opponent_id,
+                                                                                          '[user_id]':$rootScope.currentUserId
+                                                                                         });
                              return $http.get(url).success(callback);
                         };
 

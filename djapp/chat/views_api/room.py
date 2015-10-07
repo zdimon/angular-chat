@@ -78,13 +78,16 @@ def _get_room_or_create(app_name,caler_id,opponent_id):
 
 
 @json_view
-def close_chat_room(request,app_name,room_id, opponent_id):
+def close_chat_room(request,app_name,room_id, opponent_id, user_id):
     '''
     Function closes chat session.
     
-    [server]/api/[app_name]/[room_id]/close_chat_room
+    [server]/api/[app_name]/[room_id]/[opponent_id]/[user_id]/close_chat_room
 
-    Example: http://chat.localhost/api/tpa1com/34/close_chat_room
+    Example: http://chat.localhost/api/tpa1com/34/190023/12678/close_chat_room
+
+    **user_id** = user WHO closed the room
+
     '''
     room = ChatRoom.objects.get(pk = room_id)
     room.is_charging_text = False
@@ -93,7 +96,8 @@ def close_chat_room(request,app_name,room_id, opponent_id):
     room.is_closed = True
     room.save()
     mes = { 'action': 'close_room', 
-            'room_id': room_id
+            'room_id': room_id,
+            'user_id': user_id
           }
    
     bclient.publish('%s_%s' % (app_name, opponent_id), json.dumps(mes))

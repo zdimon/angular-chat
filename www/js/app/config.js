@@ -241,7 +241,7 @@ apiconf = {
             {
                 'type': 'ajax',
                 'name': 'close_chat_room',
-                'url':  '[server]/api/[app_name]/[room_id]/[opponent_id]/close_chat_room'
+                'url':  '[server]/api/[app_name]/[room_id]/[opponent_id]/[user_id]/close_chat_room'
             },
 
 

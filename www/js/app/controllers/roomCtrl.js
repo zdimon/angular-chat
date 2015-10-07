@@ -7,6 +7,11 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         scroolldown();
 
         $scope.stopChat = function(opponent_id){
+            /* add opponent to closed_room_users list
+               to prevent sound alert in reapeted messages
+            */
+            $scope.closed_room_users.push(opponent_id);
+            ///////////////////////////////////////////
 
             Room.closeRoom(opponent_id,function(result){
                 var url = "http://" + local_config.chat_url  + "#/" + $rootScope.currentUserId;  
@@ -99,9 +104,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         $scope.$on('show_message', function (event, data) { 
 
          
-              
-
-              if(data.message.message.owner.user_id!=$rootScope.currentUserId){
+              if(data.message.message.owner.user_id!=$rootScope.currentUserId  && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 )  {
                     document.getElementById('audio_alert').play();
                 }
 
@@ -227,13 +230,17 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
 
         $rootScope.$on('close_room',function(event,data){
-           log(data);
-	   if(data.room_id==$scope.room_id){
-		   $scope.room_just_closed = true;
-		   var url = "http://" + local_config.chat_url  + "#/" + $rootScope.currentUserId;  
-		   $scope.hasActiveRoom = false;
-		   $window.location.href = url; 
-	  }     
+           //log(data);
+	       if(data.room_id==$scope.room_id){
+		       $scope.room_just_closed = true;
+               /* add opponent to closed_room_users list
+                to prevent sound alert in reapeted messages
+               */
+               $scope.closed_room_users.push(parseInt(data.user_id));
+		       var url = "http://" + local_config.chat_url  + "#/" + $rootScope.currentUserId;  
+		       $scope.hasActiveRoom = false;
+		       $window.location.href = url; 
+	      }     
         })
 
          $scope.$on('i_started_watching_you', function (event, data) {
