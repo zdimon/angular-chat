@@ -29,7 +29,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
             //alert('show_only_mic');         
          
-            var par = { flashvars:"vStream=false&codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=out" };
+            var par = { flashvars:"vStream=false&codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://"+local_config.rtmp_server+"/myapp&micOn=true&type=out" };
             swfobject.embedSWF("Media/chat.swf?v=2", "myVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
             $scope.only_mic_on = true;
             $('.video_online').removeClass('hide_chat_window');
@@ -57,7 +57,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
             //alert('show_my_flash');         
 
-            var par = { flashvars:"vStream=false&codecOn=true&ww=800&hh=600&fps=20&streamName=eeyy"+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=out" };
+            var par = { flashvars:"vStream=false&codecOn=true&ww=800&hh=600&fps=20&streamName=eeyy"+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://"+local_config.rtmp_server+"/myapp&micOn=true&type=out" };
             swfobject.embedSWF("Media/chat_without_cam.swf?v=1", "myVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
          
             $('.video_online').removeClass('hide_chat_window');
@@ -69,7 +69,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
       $scope.showMyVideo = function(){
                                  
 
-            var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=out" };
+            var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://"+local_config.rtmp_server+"/myapp&micOn=true&type=out" };
             swfobject.embedSWF("Media/chat_with_cam.swf", "myVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
             $scope.isMyVideoActive = true;
 
@@ -158,7 +158,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
       $scope.showOpponentVideo = function(){
 
                 
-                var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.current_opponent_id+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=in" }; 
+                var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.current_opponent_id+"&url=rtmp://"+local_config.rtmp_server+"/myapp&micOn=true&type=in" }; 
                 
 
                 if($rootScope.gender=='m') { // if man check balance and turn charging every min
@@ -224,7 +224,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
       $scope.showOpponentOnlyMic = function(){
 
                 
-                var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.current_opponent_id+"&url=rtmp://chat.mirbu.com/myapp&micOn=true&type=in" }; 
+                var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.current_opponent_id+"&url=rtmp://"+local_config.rtmp_server+"/myapp&micOn=true&type=in" }; 
                 
 
                 if($rootScope.gender=='m') { // if man check balance and turn charging every min
