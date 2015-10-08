@@ -1,5 +1,5 @@
-Deployment on Ubuntu 14.04 server platform in Amazon
-----------------------------------------------------
+Deployment on Ubuntu 14.04 server 
+---------------------------------
 
 Update soft
 
@@ -141,7 +141,66 @@ Install cpanel.
    apt-get install ajenti-v ajenti-v-nginx ajenti-v-mysql ajenti-v-php-fpm php5-mysql ajenti-v-ftp-vsftpd
 
 
+Rebuild nginx with rtmp module. 
 
+Open file **/etc/apt/sources.list**
+
+Add two lines.
+
+.. code-block:: bash
+
+    deb http://nginx.org/packages/ubuntu/ trusty nginx
+    deb-src http://nginx.org/packages/ubuntu/ trusty nginx
+
+Download and install key.
+
+.. code-block:: bash
+
+    wget http://nginx.org/keys/nginx_signing.key -O - | apt-key add -
+
+Create directory where we will keep source code.
+
+.. code-block:: bash
+
+    mkdir nginx
+    cd nginx
+
+Install the required soft.
+
+    apt-get install libssl-dev libxslt1-dev libgd-dev libgeoip-dev libpcre3-dev
+    apt-get update 
+
+Get source code of nginx and rtmp module.
+
+    apt-get source nginx
+    git clone https://github.com/arut/nginx-rtmp-module.git
+
+
+Build nginx
+
+    cd nginx-1.8.0
+
+    ./configure --with-cc-opt='-g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2' --with-ld-opt='-Wl,-Bsymbolic-functions -Wl,-z,relro' --prefix=/usr/share/nginx --conf-path=/etc/nginx/nginx.conf --http-log-path=/var/log/nginx/access.log --error-log-path=/var/log/nginx/error.log --lock-path=/var/lock/nginx.lock --pid-path=/run/nginx.pid --http-client-body-temp-path=/var/lib/nginx/body --http-fastcgi-temp-path=/var/lib/nginx/fastcgi --http-proxy-temp-path=/var/lib/nginx/proxy --http-scgi-temp-path=/var/lib/nginx/scgi --http-uwsgi-temp-path=/var/lib/nginx/uwsgi --with-debug --with-pcre-jit --with-ipv6 --with-http_ssl_module --with-http_stub_status_module --with-http_realip_module --with-http_addition_module --with-http_dav_module --with-http_geoip_module --with-http_gzip_static_module --with-http_image_filter_module --with-http_spdy_module --with-http_sub_module --with-http_xslt_module --with-mail --with-mail_ssl_module --add-module=../nginx-rtmp-module
+
+    make
+
+
+Add rtmp server section into **/etc/nginx/nginx.conf**
+
+
+.. code-block:: bash
+
+    rtmp {
+        server {
+            chunk_size 4000;
+            listen 1935;
+            application myapp {
+                live on;
+                allow play all;
+                allow publish all;
+            }
+        }
+    }
 
 
 

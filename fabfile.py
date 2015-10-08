@@ -13,7 +13,7 @@ def production_env():
     env.activate = 'source /home/webmaster/ngchat_ve/bin/activate'
 
 
-env.hosts = ['brides.mirbu.com']
+env.hosts = ['marriage-brides.com']
 
 @_contextmanager
 def virtualenv():
