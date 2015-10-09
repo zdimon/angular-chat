@@ -203,7 +203,8 @@ def save_message(request):
                                 'created': str(cm.created.time().strftime('%H:%M:%S')),
                                 'message':cm.message,
                                 'room_id':cm.room_id,
-                                'owner': serialize_user(owner)            
+                                'owner': serialize_user(owner),  
+                                'participants': b['participants']          
                                 }
                   }
            

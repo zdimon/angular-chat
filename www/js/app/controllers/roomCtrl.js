@@ -11,6 +11,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                to prevent sound alert in reapeted messages
             */
             $scope.closed_room_users.push(opponent_id);
+            log($scope.closed_room_users);
             ///////////////////////////////////////////
 
             Room.closeRoom(opponent_id,function(result){
@@ -107,6 +108,23 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
               if(data.message.message.owner.user_id!=$rootScope.currentUserId  && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 )  {
                     document.getElementById('audio_alert').play();
                 }
+              
+  
+              // unmark room as closed
+                for (var i = 0; i < data.message.message.participants.length; i++) {
+                    var user_id = parseInt(data.message.message.participants[i].split('_')[1]);
+                    if(user_id!=data.message.message.owner.user_id){
+                        
+                        var index = $scope.closed_room_users.indexOf(user_id);
+                        
+                        if (index > -1) {
+                             $scope.closed_room_users.splice(index, 1);
+                        }               
+                    }
+                }
+
+              
+              ////////////////////////
 
               // mark user as is not waiting to responce 
               delete $rootScope.waiting_to_responce['user_'+data.message.message.owner.user_id]

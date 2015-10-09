@@ -204,6 +204,27 @@ Add rtmp server section into **/etc/nginx/nginx.conf**
 
 
 
+Install mail function
+---------------------
+
+.. code-block:: bash
+
+    apt-get install postfix bsd-mailx
+
+
+Increase open files limit
+-------------------------
+
+Open /etc/sysctl.conf 
+
+Add following:
+
+.. code-block:: bash
+
+    fs.file-max = 2097152
+
+
+
 Backup system via S3
 --------------------
 
