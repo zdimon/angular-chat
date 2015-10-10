@@ -51,15 +51,17 @@ tpapp.js
 
             $rootScope.notifies = {};
             $rootScope.$on('show_new_message_notification',function(event,data){
-                log(data);
+                document.getElementById('audio_alert').play();
                 $rootScope.notifies[data.id] = data;
             });
 
             $rootScope.$on('show_invite_notification',function(event,data){
+                document.getElementById('audio_alert').play();
                 $rootScope.notifies[data.data.id] = data.data;
             });
 
             $rootScope.$on('show_multi_invite_notification',function(event,data){
+                document.getElementById('audio_alert').play();
                 $rootScope.notifies[data.data.id] = data.data;
             });
 
