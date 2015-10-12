@@ -204,7 +204,7 @@ def charge_request(request,app_name):
         user = ChatUser.objects.get(user_id=i['user_id']) 
         
         if(user.is_online):
-            mes = { 'action': 'update_balance', 'balance': i['balance'], 'room_id': i['room_id'], 'user_id': i['user_id'] }
+            mes = { 'action': 'update_balance', 'balance': i['balance'], 'room_id': i['room_id'], 'user_id': i['user_id'], 'status': i['status'] }
             chanel = '%s_%s' % (app_name, i['user_id'])
             bclient.publish(chanel, json.dumps(mes))
             print 'send to -%s %s' %  (chanel,mes)

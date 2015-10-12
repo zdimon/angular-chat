@@ -244,6 +244,9 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
         $rootScope.$on('update_balance',function(event,data){
             $rootScope.balance = data.balance;
+            if(data.status==1){
+                $rootScope.emptyAccountAlert();
+            }
         })
 
 
