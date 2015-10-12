@@ -147,7 +147,7 @@ def stop_words(message):
     return message
 
 @csrf_exempt
-#@json_view
+@json_view
 def save_message(request):
     '''
     Function save message owner in DB,
