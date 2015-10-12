@@ -70,7 +70,7 @@ def add_favorite(request,user_id,opponent_id,app_name):
 
 
 
-@json_view
+#@json_view
 def get_balance(request,user_id,app_name):
     ''' 
         Get user's balance
