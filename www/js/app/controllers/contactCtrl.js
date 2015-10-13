@@ -260,6 +260,7 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
             $window.location.href = url;
             $rootScope.current_opponent_id = contact_id;
             Room.invite(contact_id,function(result){
+                
                 if(result.video_charging == true && result.opponent.gender == 'w') {
                     $rootScope.$broadcast('show_opponent_video',{})
                 }

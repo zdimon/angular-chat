@@ -35,7 +35,6 @@ tpapp.js
 
         var url = utils.prepare_url(local_config.outapi.login,{'[user_id]': user_id});
         $http.get(url).then(function(res){
-                console.log(res.data);
                 var url = "http://" + $window.location.host + "/video-chat#/" + res.data.id + "/"+ opponent_id;
                 $window.location.href = url;
 
@@ -51,17 +50,17 @@ tpapp.js
 
             $rootScope.notifies = {};
             $rootScope.$on('show_new_message_notification',function(event,data){
-                document.getElementById('audio_alert').play();
+                if($rootScope.gender=='w'){ document.getElementById('audio_alert').play(); }
                 $rootScope.notifies[data.id] = data;
             });
 
             $rootScope.$on('show_invite_notification',function(event,data){
-                document.getElementById('audio_alert').play();
+                if($rootScope.gender=='w'){document.getElementById('audio_alert').play(); }
                 $rootScope.notifies[data.data.id] = data.data;
             });
 
             $rootScope.$on('show_multi_invite_notification',function(event,data){
-                document.getElementById('audio_alert').play();
+                if($rootScope.gender=='w'){document.getElementById('audio_alert').play(); }
                 $rootScope.notifies[data.data.id] = data.data;
             });
 
@@ -269,8 +268,10 @@ tpapp.js
 
             
             Auth.isauth(function(result){
+                console.log(result);
+                $rootScope.gender = result.gender;
+                
                 if(result.id>0) {
-                        
                         $rootScope.isAuthenticated = true;
                         $rootScope.currentUserId = result.id;
                         WS.send({ action: 'connect', user_id: $rootScope.currentUserId });
