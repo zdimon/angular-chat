@@ -185,11 +185,20 @@ def save_message(request):
         if balance < 3:
             return  { 'status': 1, 'message': 'Your account is emply. Please replanish your account.' }
     room = ChatRoom.objects.get(tpa=tpa,id=int(b['room_id']))
+    
+    # Set servers locale to Kiev time to save same date of message for girl and man
+    import pytz, datetime
+    local = pytz.utc
+    naive = datetime.datetime.strptime (time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()), "%Y-%m-%d %H:%M:%S")
+    local_dt = local.localize(naive, is_dst=None)
+    utc_dt = local_dt.astimezone (pytz.timezone ("Europe/Kiev"))
+    
     cm = ChatMessage()
     cm.tpa = tpa
     cm.user = owner
     cm.room = room
     cm.message = message
+    cm.created = utc_dt
     gender = owner.gender
     cm.save()
     charge_for_chat(cm,room,tpa) #charging
