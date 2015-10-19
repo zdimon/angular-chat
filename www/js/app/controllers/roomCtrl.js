@@ -148,7 +148,6 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
                      // sound in unactive chat for women
                      if(data.message.message.owner.user_id!=$rootScope.currentUserId  && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 && $rootScope.gender == 'w' )  {
-                        alert('1');
                         document.getElementById('audio_alert').play();
                      }
 
@@ -157,7 +156,6 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                   
                      // sound in current chat for all
                      if(data.message.message.owner.user_id!=$rootScope.currentUserId  && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 )  {
-                        alert('2');
                         document.getElementById('audio_alert').play();
                      }
 
