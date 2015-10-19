@@ -104,10 +104,6 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
         $scope.$on('show_message', function (event, data) { 
 
-         
-              if(data.message.message.owner.user_id!=$rootScope.currentUserId  && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 )  {
-                    document.getElementById('audio_alert').play();
-                }
               
   
               // unmark room as closed
@@ -150,9 +146,18 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                        }
                     }
 
+                     // sound in unactive chat for women
+                     if(data.message.message.owner.user_id!=$rootScope.currentUserId  && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 && $rootScope.gender == 'w' )  {
+                        document.getElementById('audio_alert').play();
+                     }
 
               } else {
                      $rootScope.feather = false;
+                  
+                     // sound in current chat for all
+                     if(data.message.message.owner.user_id!=$rootScope.currentUserId  && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 )  {
+                        document.getElementById('audio_alert').play();
+                     }
 
                       if($scope.chat_translate==true){
 
