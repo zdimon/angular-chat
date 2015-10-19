@@ -94,6 +94,13 @@ The function :func:`someService` does a some function.
                         $rootScope.close_system_message = function(win_id) {
                             delete $rootScope.system_messages[win_id];
                         }
+                        
+                        $rootScope.busy = function(opponent_id,notify_id){
+                            Status.sayBusy(opponent_id, function(result){
+                                delete $rootScope.notifies[notify_id];
+                            })
+
+                        }
 
                         // show popup alert to force user to top account
                         $rootScope.emptyAccountAlert = function(){
