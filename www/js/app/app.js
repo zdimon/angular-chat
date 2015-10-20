@@ -76,7 +76,7 @@ The function :func:`someService` does a some function.
 
             Auth.isauth(function(result){
                 if(result.id>0) {
-                        WS.send({ action: 'connect', user_id: $rootScope.currentUserId });
+                        WS.send({ action: 'connect', user_id: $rootScope.currentUserId, source: 'chat_side' });
                         $rootScope.isAuthenticated = true;  
                         $rootScope.currentUserId = result.id;
                         $rootScope.currentUsername = result.id;

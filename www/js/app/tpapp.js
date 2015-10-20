@@ -288,7 +288,7 @@ tpapp.js
                 if(result.id>0) {
                         $rootScope.isAuthenticated = true;
                         $rootScope.currentUserId = result.id;
-                        WS.send({ action: 'connect', user_id: $rootScope.currentUserId });
+                        WS.send({ action: 'connect', user_id: $rootScope.currentUserId, source: 'tpa_side' });
                         $rootScope.online = {};
                         $rootScope.activecam = {};
                           Online.getOnline(function(rezult){

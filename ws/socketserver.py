@@ -45,6 +45,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         self.current_user_id = None
         self.tpa_name = None
         self.processor = None
+        self.source = None
 
     def open(self):
         print 'new connection'
@@ -78,7 +79,8 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             self.subscribe(chanel)
             self.current_user_id = message["user_id"]             
             self.tpa_name = message["tpa"]
-
+            self.source = message['source']
+            logger.debug('detect source - %s' % (self.source, )) # Debug
             self.write_message(json.dumps({'action': 'connected', 'status': 0, 'user_id':  self.current_user_id, 'message': 'you have been connected to %s' % chanel })) 
                 #self.set_user_online()
                 #mes = {'action': 'update_users_online'}
@@ -98,9 +100,9 @@ class WSHandler(tornado.websocket.WebSocketHandler):
     def on_close(self):
         ''' Method whith fires when connection is closed. '''
         if(self.tpa_name != None):
-            print 'connection closed'
-            url = get_url_by_name('set_disconnected',{'user_id':self.current_user_id, 'app_name': self.tpa_name})
-            requests.get(url)
+            if(self.source != 'tpa_side'):
+                url = get_url_by_name('set_disconnected',{'user_id':self.current_user_id, 'app_name': self.tpa_name})
+                requests.get(url)
             self.participants.remove(self)
         #self.set_user_offline()
         #mes = {'action': 'update_users_online'}
