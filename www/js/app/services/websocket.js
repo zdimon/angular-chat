@@ -183,6 +183,18 @@
             $rootScope.$broadcast('set_me_offline',{'message':message});
 
         }
+          
+          
+        if(message.action=='contact_activate'){
+            $rootScope.$broadcast('contact_activate',message);
+
+        }     
+          
+        if(message.action=='contact_deactivate'){
+
+            $rootScope.$broadcast('contact_deactivate',message);
+
+        }           
 
 
 

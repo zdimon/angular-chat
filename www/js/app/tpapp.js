@@ -50,21 +50,34 @@ tpapp.js
 
             $rootScope.notifies = {};
             $rootScope.$on('show_new_message_notification',function(event,data){
-                if($rootScope.gender=='w'){ document.getElementById('audio_alert').play(); }
-                $rootScope.notifies[data.id] = data;
+                if(!$rootScope.active_contacts['user_'+data.opponent.user_id]){
+                    if($rootScope.gender=='w'){ document.getElementById('audio_alert').play(); }
+                    $rootScope.notifies[data.id] = data;
+                }
             });
 
             $rootScope.$on('show_invite_notification',function(event,data){
-                if($rootScope.gender=='w'){document.getElementById('audio_alert').play(); }
-                $rootScope.notifies[data.data.id] = data.data;
+                if(!$rootScope.active_contacts['user_'+data.data.opponent.user_id]){
+                    if($rootScope.gender=='w'){document.getElementById('audio_alert').play(); }
+                    $rootScope.notifies[data.data.id] = data.data;
+                }
             });
 
             $rootScope.$on('show_multi_invite_notification',function(event,data){
-                if($rootScope.gender=='w'){document.getElementById('audio_alert').play(); }
-                $rootScope.notifies[data.data.id] = data.data;
+                if(!$rootScope.active_contacts['user_'+data.data.opponent.user_id]){
+                    if($rootScope.gender=='w'){document.getElementById('audio_alert').play(); }
+                    $rootScope.notifies[data.data.id] = data.data;
+                }
             });
 
 
+            $rootScope.$on('contact_activate',function(event,data){
+                        $rootScope.active_contacts['user_'+data.user_id] = true;
+            })  
+
+            $rootScope.$on('contact_deactivate',function(event,data){
+                       delete $rootScope.active_contacts['user_'+data.user_id];
+            })              
 
 
             $scope.goToRoom = function(user_id){
@@ -267,7 +280,7 @@ tpapp.js
 
 .run(function ($rootScope,$window,Online,$log, WS, Auth) {
 
-            
+            $rootScope.active_contacts = {};
             Auth.isauth(function(result){
                 console.log(result);
                 $rootScope.gender = result.gender;

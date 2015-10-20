@@ -343,9 +343,18 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                                                                              'message': data.message,
                                                                              'user': data.user_profile
                                                                             };
-
         })
 
+        
+        $rootScope.$on('contact_activate',function(event,data){
+
+                    $rootScope.active_contacts['user_'+data.user_id] = true;
+        })  
+        
+        $rootScope.$on('contact_deactivate',function(event,data){
+
+                   delete $rootScope.active_contacts['user_'+data.user_id];
+        })         
 
 
     })

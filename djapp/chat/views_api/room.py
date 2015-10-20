@@ -101,6 +101,9 @@ def close_chat_room(request,app_name,room_id, opponent_id, user_id):
           }
    
     bclient.publish('%s_%s' % (app_name, opponent_id), json.dumps(mes))
+    # send commant to remove this opponent from list of the active opponent in js
+    mess_ac = { 'action': 'contact_deactivate', 'user_id': user_id }
+    bclient.publish('%s_%s' % (app_name, opponent_id), json.dumps(mess_ac))    
     return  { 'status': 0, 'message': 'Ok' }
 
 
@@ -181,7 +184,6 @@ def save_message(request):
     
     if (owner.gender=='m'):
         balance = get_user_balance(tpa,owner)
-        print balance
         if balance < 3:
             return  { 'status': 1, 'message': 'Your account is emply. Please replanish your account.' }
     room = ChatRoom.objects.get(tpa=tpa,id=int(b['room_id']))
@@ -241,22 +243,20 @@ def save_message(request):
                     mes_contact = { 'action': 'add_opponent_in_my_contact_list', 'user_id': opponent.user_id, 'profile': serialize_user(opponent) }
                     mes_online = { 'action': 'update_users_online' }
                     owner_chanel = '%s_%s' % (b['app_name'], owner.user_id)
+                    opponent_chanel = '%s_%s' % (b['app_name'], opponent.user_id)
                     bclient.publish(owner_chanel, json.dumps(mes_contact))
                     bclient.publish(owner_chanel, json.dumps(mes_online))
                     if room.get_count_messages()<2999:
                         data = {'message': cm.message, 'id': cm.id, 'opponent': serialize_user(owner)}
                         mes = { 'action': 'show_new_message_notification', 'data': data }
                         bclient.publish('%s_%s' % (tpa.name, opponent.user_id), json.dumps(mes))
-            #else:
-                # mark contact as it has new message if it exists
-                #contact = _get_contact(app_name,opponent.user_id,owner.user_id)
-                #if(contact):
-                #    contact.has_new_message = True
-                #    contact.save()
-                    
+                # send commant to add this opponent to list of the active opponent in js
+                mess_ac = { 'action': 'contact_activate', 'user_id': opponent.user_id, 'profile': serialize_user(opponent) }
+                bclient.publish(owner_chanel, json.dumps(mess_ac))
                 
     except Exception, e:
         print e
+    
     
 
     return  { 'status': 0, 'message': b['message'], 'room_id': str(room.id), 'owner_id': str(owner.id), 'participants': arr_participants }
