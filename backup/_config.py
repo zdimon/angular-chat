@@ -1,0 +1,5 @@
+DB_HOST = 'localhost'
+DB_USER = 'root'
+DB_USER_PASSWORD = '1q2w3e'
+DB_NAME = 'brides'
+BACKUP_PATH = 'data/'
