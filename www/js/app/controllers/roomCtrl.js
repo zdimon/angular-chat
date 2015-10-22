@@ -333,6 +333,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
             if(typeof $rootScope.chat_invitation == 'undefined' || $rootScope.chat_invitation == false)
             {
                 $rootScope.notifies[data.data.id] = data.data;
+                $timeout(function(){ delete $rootScope.notifies[data.data.id] }, 10000);
             }
             
 
