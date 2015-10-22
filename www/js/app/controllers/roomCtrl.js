@@ -126,6 +126,10 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
               delete $rootScope.waiting_to_responce['user_'+data.message.message.owner.user_id]
               //****************************************
 
+             // sound in current chat for all
+             if(data.message.message.owner.user_id!=$rootScope.currentUserId  && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 && $rootScope.active_contacts['user_'+data.message.message.owner.user_id])  {
+                document.getElementById('audio_alert').play();
+             }
 
                //TODO message.message
               if(data.message.message.room_id != $scope.room_id){
@@ -147,17 +151,14 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                     } 
 
                      // sound in unactive chat for women
-                     if(data.message.message.owner.user_id!=$rootScope.currentUserId  && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 && $rootScope.gender == 'w' )  {
-                        document.getElementById('audio_alert').play();
-                     }
+                    // if(data.message.message.owner.user_id!=$rootScope.currentUserId  && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 && $rootScope.gender == 'w' )  {
+                      //  document.getElementById('audio_alert').play();
+                     //}
 
               } else {
                      $rootScope.feather = false;
                   
-                     // sound in current chat for all
-                     if(data.message.message.owner.user_id!=$rootScope.currentUserId  && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 )  {
-                        document.getElementById('audio_alert').play();
-                     }
+
 
                       if($scope.chat_translate==true){
 
