@@ -146,7 +146,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                         }
                    }                  
                    //// show pop up in man case 
-                   if($rootScope.gender=='m') {
+                   if($rootScope.gender=='m' && !$rootScope.active_contacts['user_'+data.message.message.owner.user_id]) {
                         $rootScope.$broadcast('show_invite_notification',{'id': data.message.message.owner.user_id, 'data':{ 'message': data.message.message.message, 'opponent': data.message.message.owner}});
                     } 
 
