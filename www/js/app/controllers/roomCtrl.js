@@ -126,10 +126,18 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
               delete $rootScope.waiting_to_responce['user_'+data.message.message.owner.user_id]
               //****************************************
 
-             // sound in current chat for all
-             if(data.message.message.owner.user_id!=$rootScope.currentUserId  && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 && $rootScope.active_contacts['user_'+data.message.message.owner.user_id])  {
-                document.getElementById('audio_alert').play();
-             }
+             // sound in current chat for man and woman
+             if($rootScope.gender=='m'){
+                 if(data.message.message.owner.user_id!=$rootScope.currentUserId  && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 && $rootScope.active_contacts['user_'+data.message.message.owner.user_id])  {
+                    document.getElementById('audio_alert').play();
+                 }
+              } else {
+
+                 if(data.message.message.owner.user_id!=$rootScope.currentUserId)  {
+                    document.getElementById('audio_alert').play();
+                 }                
+
+              }
 
                //TODO message.message
               if(data.message.message.room_id != $scope.room_id){
