@@ -32,8 +32,6 @@ def set_connected(request,app_name,user_id,source):
         
     # TODO
     bd.update('update users set online=1 where login=%s' % user_id)
-    # update activity in contacts
-    ChatContacts.objects.filter(owner=user).update(activity=time.time())
     return { 'status': 0, 'message': 'ok' } 
 
 
