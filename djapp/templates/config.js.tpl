@@ -32,7 +32,7 @@ apiconf = {
             {
                 'type': 'ajax',
                 'name': 'set_connected',
-                'url':  '[server]/api/[app_name]/[user_id]/set_connected',
+                'url':  '[server]/api/[app_name]/[user_id]/[source]/set_connected',
                 'responce': '{"status": 0, "message": "ok", }]'
             }, 
 
@@ -40,7 +40,7 @@ apiconf = {
             {
                 'type': 'ajax',
                 'name': 'set_disconnected',
-                'url':  '[server]/api/[app_name]/[user_id]/set_disconnected',
+                'url':  '[server]/api/[app_name]/[user_id]/[source]/set_disconnected',
                 'responce': '{"status": 0, "message": "ok", }]'
             }, 
 
