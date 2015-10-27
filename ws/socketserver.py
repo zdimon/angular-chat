@@ -29,7 +29,8 @@ class WSHandler(tornado.websocket.WebSocketHandler):
     Please run `pip install tornado` with python of version 2.7.9 or greater to install tornado.
     ''' 
     participants = set() # List of users online
-
+    global clients
+    clients = []
     def broadcast(self, msg):
         for p in self.participants:
             try:
@@ -76,6 +77,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             except:
                 print '!!ERROR!! can not make a request to %s' % url
             chanel = '%s_%s' % (message["tpa"], message["user_id"])
+            clients.append(int(message["user_id"]))
             self.subscribe(chanel)
             self.current_user_id = message["user_id"]             
             self.tpa_name = message["tpa"]
@@ -103,6 +105,10 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             url = get_url_by_name('set_disconnected',{'user_id':self.current_user_id, 'app_name': self.tpa_name, 'source': self.source})
             requests.get(url)
             self.participants.remove(self)
+            try:
+                clients.remove(int(self.current_user_id))
+            except:
+                print 'Error removing client'
         #self.set_user_offline()
         #mes = {'action': 'update_users_online'}
         #self.broadcast(mes) 
@@ -149,7 +155,18 @@ application = tornado.web.Application([
     (r'/ws', WSHandler),
 ])
  
-
+def clean_online():
+    print 'CLEANING ONLINE!!!'
+    print 'clients %s' % clients
+    #select all online
+    sql = 'select user_id from chat_chatuser where is_online = 1'
+    online = bd.select(sql)
+    for o in online.record: 
+        print 'checking - %s' % o['user_id']
+        if not o['user_id'] in clients:
+            bd.update('update chat_chatuser set is_online=0 where user_id=%s' % o['user_id'])
+        
+        
 
 def send_charge_request():
        
@@ -225,6 +242,7 @@ if __name__ == "__main__":
     myIP = '127.0.0.1'
     print '*** Websocket Server Started at %s***' % myIP
     tornado.ioloop.PeriodicCallback(send_charge_request, 10000).start()
+    tornado.ioloop.PeriodicCallback(clean_online, 60000).start()
     tornado.autoreload.watch('restart')
     tornado.autoreload.watch('socketserver.py')
     io_loop = tornado.ioloop.IOLoop.instance()
