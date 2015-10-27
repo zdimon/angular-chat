@@ -81,7 +81,6 @@ def get_online_ids(request,app_name,user_id):
     contacts = []
     for c in ChatContacts.objects.filter(owner=owner):
         contacts.append(int(c.contact.user_id))
-    print contacts
     for u in users_online: 
         if not u.user_id in contacts:       
             userlst_profile.append(u.user_id)
