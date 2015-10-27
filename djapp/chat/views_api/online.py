@@ -68,7 +68,7 @@ def get_online(request,app_name,user_id):
 @json_view
 def get_online_ids(request,app_name,user_id):
     '''
-    Function return list of users (IDs) with opposite gender who are on line
+    Function return list of users (IDs) with opposite gender who are on line and not in contact list
 
     [server]/api/[app_name]/[user_id]/get_online_ids
 
@@ -78,8 +78,13 @@ def get_online_ids(request,app_name,user_id):
     tpa = Tpa.objects.get(name=app_name)
     owner = ChatUser.objects.get(tpa=tpa,user_id=user_id)
     users_online = ChatUser.objects.filter(tpa=tpa,is_online=1).exclude(gender=owner.gender)
-    for u in users_online:        
-        userlst_profile.append(u.user_id)
+    contacts = []
+    for c in ChatContacts.objects.filter(owner=owner):
+        contacts.append(int(c.contact.user_id))
+    print contacts
+    for u in users_online: 
+        if not u.user_id in contacts:       
+            userlst_profile.append(u.user_id)
     return { 'status': 0, 'message': 'ok', 'count': len(userlst_profile), 'user_list': userlst_profile }
 
 
