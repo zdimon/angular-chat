@@ -165,6 +165,7 @@ def clean_online():
         print 'checking - %s' % o['user_id']
         if not o['user_id'] in clients:
             bd.update('update chat_chatuser set is_online=0 where user_id=%s' % o['user_id'])
+            bd.update('update users set online=0 where login=%s' % o['user_id'])
         
         
 
