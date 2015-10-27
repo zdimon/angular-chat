@@ -14,6 +14,9 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
             log($scope.closed_room_users);
             ///////////////////////////////////////////
 
+           delete $rootScope.active_contacts['user_'+opponent_id]; 
+           log($rootScope.active_contacts);           
+        
             Room.closeRoom(opponent_id,function(result){
                 var url = "http://" + local_config.chat_url  + "#/" + $rootScope.currentUserId;  
                 $scope.hasActiveRoom = false;
@@ -362,8 +365,9 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         })  
         
         $rootScope.$on('contact_deactivate',function(event,data){
-
+                   
                    delete $rootScope.active_contacts['user_'+data.user_id];
+                   
         })         
 
 
