@@ -38,17 +38,18 @@ def set_connected(request,app_name,user_id,source):
 
 @json_view
 def set_disconnected(request,app_name,user_id,source):
-    tpa = Tpa.objects.get(name=app_name)
-    user = ChatUser.objects.get(tpa=tpa,user_id=user_id)
-    user.is_online = 0
-    user.save()
-    mes1 = {'action': 'update_users_online'}
-    mes2 = {'action': 'set_me_offline', 'uid': user_id}
-    for u in ChatUser.objects.filter(is_online=1).exclude(user_id=user_id):
-        bclient.publish('%s_%s' % (app_name,u.user_id), json.dumps(mes1))
-        bclient.publish('%s_%s' % (app_name,u.user_id), json.dumps(mes2))
-    # TODO
-    bd.update('update users set online=0 where login=%s' % user_id)        
+    if(source=='chat_side'):
+        tpa = Tpa.objects.get(name=app_name)
+        user = ChatUser.objects.get(tpa=tpa,user_id=user_id)
+        user.is_online = 0
+        user.save()
+        mes1 = {'action': 'update_users_online'}
+        mes2 = {'action': 'set_me_offline', 'uid': user_id}
+        for u in ChatUser.objects.filter(is_online=1).exclude(user_id=user_id):
+            bclient.publish('%s_%s' % (app_name,u.user_id), json.dumps(mes1))
+            bclient.publish('%s_%s' % (app_name,u.user_id), json.dumps(mes2))
+        # TODO
+        bd.update('update users set online=0 where login=%s' % user_id)        
     return { 'status': 0, 'message': 'ok' } 
 
 
