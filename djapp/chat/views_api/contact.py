@@ -160,7 +160,7 @@ def get_contact_list(request,app_name,user_id):
 @json_view
 def get_contact_list_ids(request,app_name,user_id):
     '''
-    Function returns user's ids contact list
+    Function returns user's ids contact list online for invitation
 
     [server]/api/[app_name]/[user_id]/get_contact_list_ids
 
@@ -174,7 +174,8 @@ def get_contact_list_ids(request,app_name,user_id):
     owner = ChatUser.objects.filter(tpa=tpa,user_id=user_id)
     
     for c in ChatContacts.objects.filter(owner=owner):
-        contactlst.append(c.contact.user_id)
+        if(c.contact.is_online):
+            contactlst.append(c.contact.user_id)
     return { 'status': 0, 'message': 'ok', 'count': len(contactlst), 'contact_list': contactlst }
 
 
