@@ -110,7 +110,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             except:
                 print 'Error removing client'
         #self.set_user_offline()
-        #mes = {'action': 'update_users_online'}
+        #mes = {'action': 'update_users_online'} 
         #self.broadcast(mes) 
         #mes = {'action': 'set_me_offline', 'uid': self.current_user_id}
         #self.broadcast(mes) 
