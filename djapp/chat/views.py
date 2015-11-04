@@ -251,7 +251,12 @@ def _get_profile_brides(user_id, tpa):
     try:
         u['name']
     except:
-        return {'status': 1, 'message': 'Profile does not exist!'}
+        u = {}
+        u['name'] = 'user'+user_id
+        u['country'] = 'undefined'
+        u['city'] = ''
+        u['languages'] = 'en'
+        #return {'status': 1, 'message': 'Profile does not exist!'}
 
     u_photo = bd.get('select image from users_photos where user_id = %d and main = 1' % int(u_login['id']))
     try:
