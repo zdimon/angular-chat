@@ -173,7 +173,7 @@ def clean_online():
                          chat_chatuser.user_id = %s''' % o['user_id']
             rooms = bd.select(ssql)
             for r in rooms.record:             
-                print 'CLOSE ROOM %s' % r['id']
+                print 'CLOSE ROOM %s for user %s' % (r['id'],o['user_id'])
                 bd.update('update chat_chatroom set is_charging_text = 0, is_charging_video = 0, is_charging_audio = 0, is_closed=1 where chat_chatroom.id = %s' % r['id'])
         
 
