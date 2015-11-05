@@ -170,6 +170,7 @@ def clean_online():
                         from  chat_chatroom, chat_chatuser2room, chat_chatuser
                         where chat_chatroom.id = chat_chatuser2room.room_id and
                          chat_chatuser2room.user_id=chat_chatuser.id and
+                         chat_chatroom.is_closed = 0 and
                          chat_chatuser.user_id = %s''' % o['user_id']
             rooms = bd.select(ssql)
             for r in rooms.record:             
