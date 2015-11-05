@@ -166,7 +166,15 @@ def clean_online():
         if not o['user_id'] in clients:
             bd.update('update chat_chatuser set is_online=0 where user_id=%s' % o['user_id'])
             bd.update('update users set online=0 where login=%s' % o['user_id'])
-        
+            ssql = '''select chat_chatroom.id
+                        from  chat_chatroom, chat_chatuser2room, chat_chatuser
+                        where chat_chatroom.id = chat_chatuser2room.room_id and
+                         chat_chatuser2room.user_id=chat_chatuser.id and
+                         chat_chatuser.user_id = %s''' % o['user_id']
+            rooms = bd.select(ssql)
+            for r in rooms.record:             
+                print 'CLOSE ROOM %s' % r['id']
+                bd.update('update chat_chatroom set is_charging_text = 0, is_charging_video = 0, is_charging_audio = 0, is_closed=1 where chat_chatroom.id = %s' % r['id'])
         
 
 def send_charge_request():
