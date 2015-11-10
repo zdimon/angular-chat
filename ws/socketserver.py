@@ -252,7 +252,7 @@ if __name__ == "__main__":
     http_server.listen(8889)
     myIP = '127.0.0.1'
     print '*** Websocket Server Started at %s***' % myIP
-    tornado.ioloop.PeriodicCallback(send_charge_request, 10000).start()
+    tornado.ioloop.PeriodicCallback(send_charge_request, 60000).start()
     tornado.ioloop.PeriodicCallback(clean_online, 60000).start()
     tornado.autoreload.watch('restart')
     tornado.autoreload.watch('socketserver.py')
