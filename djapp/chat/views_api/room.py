@@ -244,7 +244,7 @@ def save_message(request):
                     except:
                         data = {'message': cm.message, 'opponent': serialize_user(owner), 'id': str(owner.user_id) }
                         mes = { 'action': 'show_multi_invite_notification', 'data': data }
-                        #bclient.publish('%s_%s' % (b['app_name'], opponent.user_id), json.dumps(mes))                     
+                        bclient.publish('%s_%s' % (b['app_name'], opponent.user_id), json.dumps(mes))                     
                 contact = _add_contact(tpa.name,owner.user_id,opponent.user_id)
                 mark_new_message(owner,opponent)
                 if(opponent.is_online):
