@@ -104,6 +104,10 @@ The function :func:`someService` does a some function.
 
                         }
 
+
+                        
+
+
                         // show popup alert to force user to top account
                         $rootScope.emptyAccountAlert = function(){
                                      $.magnificPopup.open({

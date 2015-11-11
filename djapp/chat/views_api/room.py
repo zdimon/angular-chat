@@ -224,7 +224,6 @@ def save_message(request):
             #import pdb; pdb.set_trace()
             
             if owner != opponent:
-                print '7744-%s' % b['app_name']
                 # check accessebilities
                 #import pdb; pdb.set_trace()
                 check_avalible_url = get_url_by_name('check_accessebility',{'user_id': opponent.user_id, 'app_name': b['app_name']})
@@ -235,8 +234,17 @@ def save_message(request):
                     mes = { 'action': 'say_busy', 'message': 'Sorry but I am busy now.', 'user_profile':  serialize_user(opponent)}
                     owner_chanel = '%s_%s' % (b['app_name'], owner.user_id)
                     bclient.publish(owner_chanel, json.dumps(mes))
-                # adding contact
-                add_me_to_contact_if_not_exist(tpa,owner,opponent,p)
+                # adding contact 
+                if opponent.gender == 'w':
+                    add_me_to_contact_if_not_exist(tpa,owner,opponent,p)
+                #if it man just show multiinvite popup
+                else:
+                    try:
+                       cont = ChatContacts.objects.get(tpa=tpa,owner=opponent,contact=owner)
+                    except:
+                        data = {'message': cm.message, 'opponent': serialize_user(owner), 'id': str(owner.user_id) }
+                        mes = { 'action': 'show_multi_invite_notification', 'data': data }
+                        bclient.publish('%s_%s' % (b['app_name'], opponent.user_id), json.dumps(mes))                     
                 contact = _add_contact(tpa.name,owner.user_id,opponent.user_id)
                 mark_new_message(owner,opponent)
                 if(opponent.is_online):

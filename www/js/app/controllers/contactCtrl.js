@@ -74,11 +74,12 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
                $scope.contact_user_list.push(data.profile);
                $scope.online['user_'+data.user_id] = true;
 
+               
                $rootScope.system_messages[data.user_id+'_hide'] = {
                                                                      'message': data.profile.name+' just sent you new message.',
                                                                      'user': data.profile
                                                                   }
-
+               
                //Online.removeFromOnline(data.profile.user_id);
                $rootScope.$broadcast('update_users_online'); // TODO
                
