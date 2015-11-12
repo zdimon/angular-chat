@@ -94,13 +94,17 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
          
            
            var is_exist = false;
+           
            for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
                 if($rootScope.contact_user_list[i].user_id==data.user_id) {
                    is_exist = true;
                 }
            }
+
            if(is_exist==false){
+                
                 $rootScope.contact_user_list.push(data.profile);
+                log($rootScope.contact_user_list);
             }
 
            
@@ -179,7 +183,7 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
       $scope.deleteAll = function(){
           Contact.deleteAll(function(rezult){
-            $scope.update();
+            $rootScope.contact_user_list = []
             $rootScope.$broadcast('update_users_online');
             })
         }
