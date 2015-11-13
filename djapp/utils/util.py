@@ -257,7 +257,8 @@ def serialize_user(user):
                     'is_invitation_enabled': user.is_invitation_enabled,
                     'age': user.age,
                     'is_online': user.is_online,
-                    'user_id': user.user_id
+                    'user_id': user.user_id,
+                    'activity': user.activity
             })
 
 

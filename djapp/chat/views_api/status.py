@@ -21,6 +21,7 @@ def set_connected(request,app_name,user_id,source):
     tpa = Tpa.objects.get(name=app_name)
     user = ChatUser.objects.get(tpa=tpa,user_id=user_id)
     user.is_online = 1
+    user.activity = int(time.time())
     user.save()
     #if(source=='chat_side'):
     mes1 = {'action': 'update_users_online'}
