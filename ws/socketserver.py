@@ -160,7 +160,7 @@ def clean_online():
     print 'CLEANING ONLINE!!!'
     print 'clients %s' % clients
     #select all online
-    sql = 'select user_id from chat_chatuser where is_online = 1 and gender="w"'
+    sql = 'select user_id from chat_chatuser where is_online = 1'
     online = bd.select(sql)
     for o in online.record: 
         print 'checking - %s' % o['user_id']
