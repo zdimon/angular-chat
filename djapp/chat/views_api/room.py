@@ -240,7 +240,7 @@ def save_message(request):
                 #if it man just show multiinvite popup
                 else:
                     try:
-                       cont = ChatContacts.objects.get(tpa=tpa,owner=opponent,contact=owner)
+                        cont = ChatContacts.objects.get(tpa=tpa,owner=opponent,contact=owner)
                     except:
                         data = {'message': cm.message, 'opponent': serialize_user(owner), 'id': str(owner.user_id) }
                         mes = { 'action': 'show_multi_invite_notification', 'data': data }
