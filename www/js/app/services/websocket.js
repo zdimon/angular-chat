@@ -3,7 +3,7 @@
 
   angular
     .module('AngularChatApp')
-    .factory('WS', function($websocket, $rootScope){
+    .factory('WS', function($websocket, $rootScope, $timeout){
 
       var dataStream = $websocket("ws://"+local_config.ws_server+"/ws");
 
@@ -229,6 +229,16 @@
       dataStream.onOpen(function(message) {
         
       });
+
+
+      dataStream.onClose(function(message) {
+                $timeout(function(){
+                    //window.location.reload();
+                    dataStream = $websocket("ws://"+local_config.ws_server+"/ws");
+                    dataStream.send(JSON.stringify({ action: 'connect', user_id: $rootScope.currentUserId, source: 'chat_side', tpa: local_config.app_name}));
+                }, 5000);
+      });
+
 
 
       var methods = {
