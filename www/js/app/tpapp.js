@@ -49,6 +49,9 @@ tpapp.js
         .controller('NotifyCtrl', function ($window, $rootScope, $scope, API, Status, $http, $timeout) {
 
             $rootScope.notifies = {};
+            
+            console.log($rootScope.active_contacts);
+
             $rootScope.$on('show_new_message_notification',function(event,data){
                 if(typeof $rootScope.notifies[data.data.id] === 'undefined') {
                     if(!$rootScope.active_contacts['user_'+data.opponent.user_id]){

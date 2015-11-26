@@ -233,7 +233,7 @@
 
       dataStream.onClose(function(message) {
                 $timeout(function(){
-                    //window.location.reload();
+                    // reconnect
                     dataStream = $websocket("ws://"+local_config.ws_server+"/ws");
                     dataStream.send(JSON.stringify({ action: 'connect', user_id: $rootScope.currentUserId, source: 'chat_side', tpa: local_config.app_name}));
                 }, 5000);
