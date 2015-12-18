@@ -54,11 +54,13 @@ tpapp.js
 
             $rootScope.$on('show_new_message_notification',function(event,data){
                 
+                   if(typeof $rootScope.notifies[data] === 'undefined') {
                     if(!$rootScope.active_contacts['user_'+data.opponent.user_id]){
                         if($rootScope.gender=='w'){ document.getElementById('audio_alert').play(); }
                         $rootScope.notifies[data.id] = data;
                         $timeout(function(){ delete $rootScope.notifies[data.id] }, 10000);
                     }
+                   }
             
             });
 
