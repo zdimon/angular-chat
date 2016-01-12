@@ -105,7 +105,14 @@ The function :func:`someService` does a some function.
                         }
 
 
-                        
+                        $rootScope.acceptChatFromPopup = function(opponent_id,id){
+                           
+                            delete $rootScope.system_messages[id];
+                            var url = "http://" + local_config.chat_url + "#/" + $rootScope.currentUserId+'/'+opponent_id;
+                            $window.location.href = url;
+                            Room.invite(opponent_id,function(rezult){}); 
+
+                        }                        
 
 
                         // show popup alert to force user to top account

@@ -69,6 +69,7 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
         }
 
         $scope.goToRoom = function(contact_id,id){
+
             delete $rootScope.notifies[id];
             var url = "http://" + local_config.chat_url + "#/" + $rootScope.currentUserId+'/'+contact_id;
             $window.location.href = url;
