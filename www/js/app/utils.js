@@ -45,7 +45,7 @@ function scroolldown(){
                     $(document).find('.live_write').each(function(index, el) {
                         scrH = scrH + $(this).outerHeight(true);
                     });
-                    $('#chat_content').find('.ms_bar').mCustomScrollbar("scrollTo", 'bottom');
+                    //$('#chat_content').find('.ms_bar').mCustomScrollbar("scrollTo", 'bottom');
                     $('#chat_content').find('.ms_bar').stop().animate({
                         scrollTop: scrH
                     }, 100);
