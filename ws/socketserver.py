@@ -160,7 +160,7 @@ def clean_online():
     print 'CLEANING ONLINE!!!'
     print 'clients %s' % clients
     #select all online
-    sql = 'select user_id from chat_chatuser where is_online = 1'
+    sql = 'select chat_chatuser.user_id, chat_tpa.name from chat_chatuser, chat_tpa where is_online = 1 and chat_chatuser.tpa_id = chat_tpa.id'
     online = bd.select(sql)
     for o in online.record: 
         print 'checking - %s' % o['user_id']
@@ -177,6 +177,9 @@ def clean_online():
             for r in rooms.record:             
                 print 'CLOSE ROOM %s for user %s' % (r['id'],o['user_id'])
                 bd.update('update chat_chatroom set is_charging_text = 0, is_charging_video = 0, is_charging_audio = 0, is_closed=1 where chat_chatroom.id = %s' % r['id'])
+                url = get_url_by_name('set_disconnected',{'user_id':o['user_id'], 'app_name': o['name'], 'source': 'tpa'})
+                print url
+                requests.get(url)
         
 
 def send_charge_request():
