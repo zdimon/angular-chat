@@ -277,8 +277,9 @@ def show_opponent_cam(request,user_id,opponent_id,app_name,room_id):
     u2r = ChatUser2Room.objects.get(user=owner,room=room)
     u2r.is_video_watching = True
     u2r.save()
-    room.is_charging_video = True
-    room.save()
+    if owner.gender=='m':
+        room.is_charging_video = True
+        room.save()
     mes = { 'action': 'i_started_watching_you', 'user_id': owner.user_id, 'opponent_id': opponent_id }
     bclient.publish('%s_%s' % (app_name, opponent_id), json.dumps(mes)) 
 
