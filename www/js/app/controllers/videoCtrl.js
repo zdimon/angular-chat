@@ -68,7 +68,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
       $scope.showMyVideo = function(){
                                  
-
+            
             var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.currentUserId+"&url=rtmp://"+local_config.rtmp_server+"/myapp&micOn=true&type=out" };
             swfobject.embedSWF("Media/chat_with_cam.swf", "myVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
             $scope.isMyVideoActive = true;
@@ -86,6 +86,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
             
             // mark user as is NOT watching in contact list
             delete $rootScope.men_watching['user_'+$rootScope.current_opponent_id];
+            delete $rootScope.women_watching['user_'+$rootScope.current_opponent_id];
             //**************************************
             $(document).find('#myVideoContainer').html('<div id="myVideo"></div>');
             //swfobject.removeSWF("myVideo");
