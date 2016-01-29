@@ -196,7 +196,7 @@ def send_charge_request():
                     chat_tpa.timeout_chating
              from chat_chatroom, chat_tpa  
              where 
-             chat_chatroom.tpa_id = chat_tpa.id and
+             chat_chatroom.tpa_id = chat_tpa.id and chat_chatroom.is_closed = 0 and
              (is_charging_text="%s" or is_charging_video="%s" or is_charging_audio="%s")''' % (1,1,1)
     rooms = bd.select(sql)
     data = []
