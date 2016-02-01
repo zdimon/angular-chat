@@ -9,7 +9,7 @@ Multiply invitation.
 
 */
 
-app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, Video, Online, Block, $interval, $http, Room, Contact, Auth, Status) {
+app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, Video, Online, Block, $interval, $http, Room, Contact, Auth, Status, $timeout) {
 
 
 
@@ -219,10 +219,11 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
 
 
         $rootScope.$on('show_multi_invite_notification',function(event,data){
-            log($rootScope.chat_invitation);
+            
             if(typeof $rootScope.chat_invitation == 'undefined' || $rootScope.chat_invitation == false)
             {
                 $rootScope.notifies[data.data.id] = data.data;
+                $timeout(function(){ delete $rootScope.notifies[data.data.id] }, 8000);
             }
 
         })

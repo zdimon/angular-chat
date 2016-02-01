@@ -121,7 +121,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                         }               
                     }
                 }
-
+               
                
               ////////////////////////
 
@@ -157,6 +157,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                         }
                    }                  
                    //// show pop up in man case 
+
                    if($rootScope.gender=='m' && !$rootScope.active_contacts['user_'+data.message.message.owner.user_id]) {
                        // $rootScope.$broadcast('show_invite_notification',{'id': data.message.message.owner.user_id, 'data':{ 'message': data.message.message.message, 'opponent': data.message.message.owner}});
                     } 
@@ -343,7 +344,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
             
             if(typeof $rootScope.chat_invitation == 'undefined' || $rootScope.chat_invitation == false)
             {
-                alert('1');
+                
                 if(typeof $rootScope.notifies[data.data.id] === 'undefined'){
                     $rootScope.notifies[data.data.id] = data.data;
                     $timeout(function(){ delete $rootScope.notifies[data.data.id] }, 10000);
