@@ -276,7 +276,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                */
                $scope.closed_room_users.push(parseInt(data.user_id));
 		       var url = "http://" + local_config.chat_url  + "#/" + $rootScope.currentUserId;  
-		       //$scope.hasActiveRoom = false;
+		       $scope.hasActiveRoom = false;
 		       //$window.location.href = url; 
 	      }     
         })
