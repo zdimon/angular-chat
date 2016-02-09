@@ -23,6 +23,11 @@ import sockjs.tornado
 import resource
 import tornado.autoreload
 
+from tornado.ioloop import IOLoop
+import tornado.web
+from tornado import gen
+
+
 class WSHandler(tornado.websocket.WebSocketHandler):
     '''
     Websocket server that uses the Tornado websocket handler.
@@ -31,6 +36,9 @@ class WSHandler(tornado.websocket.WebSocketHandler):
     participants = set() # List of users online
     global clients
     clients = []
+    global timers
+    timers = []
+
     def broadcast(self, msg):
         for p in self.participants:
             try:
@@ -48,6 +56,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         self.processor = None
         self.source = None
         self.room = None
+        self.online_timer = 0
 
     def open(self):
         print 'new connection'
@@ -73,6 +82,9 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             print message
 
         if message['action'] == 'connect':
+            #timers.append({'%s_%s' % (message["tpa"],message["user_id"]): int(time.time())})
+            self.replace_timer(message["tpa"],message["user_id"], int(time.time()))
+            print 'set time %s' % time.time()
             try:
                 url = get_url_by_name('set_connected',{'user_id':message["user_id"], 'app_name': message["tpa"], 'source': message['source']})
                 requests.get(url)
@@ -103,8 +115,9 @@ class WSHandler(tornado.websocket.WebSocketHandler):
  
     def on_close(self):
         ''' Method whith fires when connection is closed. '''
+        self.delete_from_online()
         self.client.unsubscribe(self.room)
-        self.client.disconnect()
+        #self.client.disconnect()
         if(self.tpa_name != None):
             #url = get_url_by_name('set_connected',{'user_id':self.current_user_id, 'app_name': self.tpa_name, 'source': self.source})
             #print url
@@ -155,6 +168,18 @@ class WSHandler(tornado.websocket.WebSocketHandler):
  
     def check_origin(self, origin):
         return True
+
+    @tornado.web.asynchronous
+    @gen.engine
+    def delete_from_online(self):
+        yield gen.Task(IOLoop.instance().add_timeout, time.time() + 10)
+        tmnow = time.time()
+        dift = tmnow - self.online_timer
+        print 'Deleting from online %s %s %s ' % (tmnow, self.online_timer, dift)
+        print timers
+
+    def replace_timer(self,tpa,user,timer):
+        print 'qwerty!!!'
  
 application = tornado.web.Application([
     (r'/ws', WSHandler),
