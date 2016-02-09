@@ -58,7 +58,7 @@ tpapp.js
                     if(!$rootScope.active_contacts['user_'+data.opponent.user_id]){
                         if($rootScope.gender=='w'){ document.getElementById('audio_alert').play(); }
                         $rootScope.notifies[data.id] = data;
-                        $timeout(function(){ delete $rootScope.notifies[data.id] }, 10000);
+                        $timeout(function(){ delete $rootScope.notifies[data.id] }, 15000);
                     }
                    }
             
@@ -70,7 +70,7 @@ tpapp.js
                     if(!$rootScope.active_contacts['user_'+data.data.opponent.user_id]){
                         if($rootScope.gender=='w'){document.getElementById('audio_alert').play(); }
                         $rootScope.notifies[data.data.id] = data.data;
-                        $timeout(function(){ delete $rootScope.notifies[data.data.id] }, 10000);
+                        $timeout(function(){ delete $rootScope.notifies[data.data.id] }, 15000);
                     }
                 }
             });
@@ -80,8 +80,11 @@ tpapp.js
                 if(typeof $rootScope.notifies[data.data.id] === 'undefined') {
                     if(!$rootScope.active_contacts['user_'+data.data.opponent.user_id]){
                         if($rootScope.gender=='w'){document.getElementById('audio_alert').play(); }
-                        $rootScope.notifies[data.data.id] = data.data;
-                        $timeout(function(){ delete $rootScope.notifies[data.data.id] }, 10000);
+                        if(typeof $rootScope.notifies[data.data.id] == "undefined") {
+                            $rootScope.notifies[data.data.id] = data.data;
+                            $timeout(function(){ delete $rootScope.notifies[data.data.id] }, 15000);
+                        }
+                        
                     }
                 }
             });
