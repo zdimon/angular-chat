@@ -47,6 +47,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         self.tpa_name = None
         self.processor = None
         self.source = None
+        self.room = None
 
     def open(self):
         print 'new connection'
@@ -55,6 +56,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
     def subscribe(self, room):
         '''Subscribing user to the channel in the REDIS server'''
         self.client.subscribe(room) # Redis subscribe
+        self.room = room
         logger.debug('subscribing to room %s' % (room, )) # Debug
         self.client.listen(self.redis_message)
 
@@ -101,6 +103,8 @@ class WSHandler(tornado.websocket.WebSocketHandler):
  
     def on_close(self):
         ''' Method whith fires when connection is closed. '''
+        self.client.unsubscribe(self.room)
+        self.client.disconnect()
         if(self.tpa_name != None):
             #url = get_url_by_name('set_connected',{'user_id':self.current_user_id, 'app_name': self.tpa_name, 'source': self.source})
             #print url
