@@ -97,8 +97,8 @@ tpapp.js
             $scope.goToRoom = function(user_id){
 
                 var url = "http://" + $window.location.host + "/video-chat#/"+$rootScope.currentUserId+'/'+ user_id;
-                //$window.location.href = url;
-                $window.open(url);
+                $window.location.href = url;
+                //$window.open(url);
          
             }
 
