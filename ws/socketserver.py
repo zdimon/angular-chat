@@ -186,7 +186,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
                 requests.get(url)                
         except:
             pass
-        print timers
+        #print timers
 
     def replace_timer(self,tpa,user,timer):
         flag = 0
