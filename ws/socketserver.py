@@ -175,17 +175,18 @@ class WSHandler(tornado.websocket.WebSocketHandler):
     @gen.engine
     def delete_from_online(self,app_name,user):
         yield gen.Task(IOLoop.instance().add_timeout, time.time() + 10)
-        tmnow = int(time.time())
-        chanel = '%s_%s' % (app_name,user)
-        try:
-            dift = tmnow - timers[chanel]
-            if dift > 10:
-                print 'Deleting from online %s %s %s %s ' % (chanel, tmnow, timers[chanel], dift)
-                url = get_url_by_name('set_disconnected',{'user_id':user, 'app_name': app_name, 'source': 'tpa'})
-                print url
-                requests.get(url)                
-        except:
-            pass
+        if not user in clients:
+            tmnow = int(time.time())
+            chanel = '%s_%s' % (app_name,user)
+            try:
+                dift = tmnow - timers[chanel]
+                if dift > 10:
+                    print 'Deleting from online %s %s %s %s ' % (chanel, tmnow, timers[chanel], dift)
+                    url = get_url_by_name('set_disconnected',{'user_id':user, 'app_name': app_name, 'source': 'tpa'})
+                    print url
+                    requests.get(url)                
+            except:
+                pass
         #print timers
 
     def replace_timer(self,tpa,user,timer):

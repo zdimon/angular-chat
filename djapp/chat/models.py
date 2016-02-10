@@ -182,6 +182,7 @@ class ChatMessage(models.Model):
     user = models.ForeignKey(ChatUser, verbose_name = _('User'))
     room = models.ForeignKey(ChatRoom, verbose_name = _('Chat session'))
     message = models.TextField(blank = True, verbose_name = _('Message'))
+    message_trans = models.TextField(blank = True, verbose_name = _('Message'))
     created = models.DateTimeField( default=datetime.now, blank = True)
     tpa = models.ForeignKey(Tpa, verbose_name = _('TPA'))
     is_old = models.BooleanField(verbose_name = _('Is active?'), default = False)
