@@ -37,7 +37,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
     global clients
     clients = []
     global timers
-    timers = []
+    timers = {'test': 12}
 
     def broadcast(self, msg):
         for p in self.participants:
@@ -82,8 +82,8 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             print message
 
         if message['action'] == 'connect':
-            #timers.append({'%s_%s' % (message["tpa"],message["user_id"]): int(time.time())})
-            self.replace_timer(message["tpa"],message["user_id"], int(time.time()))
+            timers['%s_%s' % (message["tpa"],message["user_id"])] = int(time.time())
+            #self.replace_timer(message["tpa"],message["user_id"], int(time.time()))
             print 'set time %s' % time.time()
             try:
                 url = get_url_by_name('set_connected',{'user_id':message["user_id"], 'app_name': message["tpa"], 'source': message['source']})
@@ -96,7 +96,6 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             self.current_user_id = message["user_id"]             
             self.tpa_name = message["tpa"]
             self.source = message['source']
-            logger.debug('detect source - %s' % (self.source, )) # Debug
             self.write_message(json.dumps({'action': 'connected', 'status': 0, 'user_id':  self.current_user_id, 'message': 'you have been connected to %s' % chanel })) 
                 #self.set_user_online()
                 #mes = {'action': 'update_users_online'}
@@ -115,9 +114,12 @@ class WSHandler(tornado.websocket.WebSocketHandler):
  
     def on_close(self):
         ''' Method whith fires when connection is closed. '''
-        self.delete_from_online()
-        self.client.unsubscribe(self.room)
-        #self.client.disconnect()
+        self.delete_from_online(self.tpa_name, self.current_user_id)
+        try:
+            self.client.unsubscribe(self.room)
+            self.client.disconnect()
+        except:
+            pass
         if(self.tpa_name != None):
             #url = get_url_by_name('set_connected',{'user_id':self.current_user_id, 'app_name': self.tpa_name, 'source': self.source})
             #print url
@@ -171,15 +173,27 @@ class WSHandler(tornado.websocket.WebSocketHandler):
 
     @tornado.web.asynchronous
     @gen.engine
-    def delete_from_online(self):
+    def delete_from_online(self,app_name,user):
         yield gen.Task(IOLoop.instance().add_timeout, time.time() + 10)
-        tmnow = time.time()
-        dift = tmnow - self.online_timer
-        print 'Deleting from online %s %s %s ' % (tmnow, self.online_timer, dift)
+        tmnow = int(time.time())
+        chanel = '%s_%s' % (app_name,user)
+        try:
+            dift = tmnow - timers[chanel]
+            if dift > 10:
+                print 'Deleting from online %s %s %s %s ' % (chanel, tmnow, timers[chanel], dift)
+                url = get_url_by_name('set_disconnected',{'user_id':user, 'app_name': app_name, 'source': 'tpa'})
+                print url
+                requests.get(url)                
+        except:
+            pass
         print timers
 
     def replace_timer(self,tpa,user,timer):
+        flag = 0
+        search = '%s_%s' % (tpa,user)
+        
         print 'qwerty!!!'
+        
  
 application = tornado.web.Application([
     (r'/ws', WSHandler),
@@ -285,7 +299,7 @@ if __name__ == "__main__":
     myIP = '127.0.0.1'
     print '*** Websocket Server Started at %s***' % myIP
     tornado.ioloop.PeriodicCallback(send_charge_request, 60000).start()
-    tornado.ioloop.PeriodicCallback(clean_online, 60000).start()
+    #tornado.ioloop.PeriodicCallback(clean_online, 60000).start()
     tornado.autoreload.watch('restart')
     tornado.autoreload.watch('socketserver.py')
     io_loop = tornado.ioloop.IOLoop.instance()

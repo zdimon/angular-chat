@@ -42,6 +42,7 @@ def set_disconnected(request,app_name,user_id,source):
     tpa = Tpa.objects.get(name=app_name)
     user = ChatUser.objects.get(tpa=tpa,user_id=user_id)
     user.is_online = 0
+    user.is_camera_active = 0
     user.save()
     mes1 = {'action': 'update_users_online'}
     mes2 = {'action': 'set_me_offline', 'uid': user_id}
@@ -49,7 +50,18 @@ def set_disconnected(request,app_name,user_id,source):
         bclient.publish('%s_%s' % (app_name,u.user_id), json.dumps(mes1))
         bclient.publish('%s_%s' % (app_name,u.user_id), json.dumps(mes2))
     # TODO
-    bd.update('update users set online=0 where login=%s' % user_id)        
+    bd.update('update users set online=0 where login=%s' % user_id)  
+    # close active rooms
+    ssql = '''select chat_chatroom.id
+            from  chat_chatroom, chat_chatuser2room, chat_chatuser
+            where chat_chatroom.id = chat_chatuser2room.room_id and
+             chat_chatuser2room.user_id=chat_chatuser.id and
+             chat_chatroom.is_closed = 0 and
+             chat_chatuser.user_id = %s''' % user_id
+    rooms = bd.select(ssql)
+    for r in rooms.record:             
+        print 'CLOSE ROOM %s for user %s' % (r['id'],user_id)
+        bd.update('update chat_chatroom set is_charging_text = 0, is_charging_video = 0, is_charging_audio = 0, is_closed=1 where chat_chatroom.id = %s' % r['id'])      
     return { 'status': 0, 'message': 'ok' } 
 
 
