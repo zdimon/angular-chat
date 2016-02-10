@@ -175,7 +175,8 @@ class WSHandler(tornado.websocket.WebSocketHandler):
     @gen.engine
     def delete_from_online(self,app_name,user):
         yield gen.Task(IOLoop.instance().add_timeout, time.time() + 10)
-        if not user in clients:
+        u = int(user)
+        if not u in clients:
             tmnow = int(time.time())
             chanel = '%s_%s' % (app_name,user)
             try:
