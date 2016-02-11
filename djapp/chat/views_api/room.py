@@ -256,7 +256,7 @@ def save_message(request):
                     opponent_chanel = '%s_%s' % (b['app_name'], opponent.user_id)
                     bclient.publish(owner_chanel, json.dumps(mes_contact))
                     bclient.publish(owner_chanel, json.dumps(mes_online))
-                    if not is_sent:
+                    if is_sent == False:
                         data = {'message': cm.message, 'id': cm.id, 'opponent': serialize_user(owner)}
                         mes = { 'action': 'show_new_message_notification', 'data': data }
                         bclient.publish('%s_%s' % (tpa.name, opponent.user_id), json.dumps(mes))
