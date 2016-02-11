@@ -235,11 +235,12 @@ def save_message(request):
                     owner_chanel = '%s_%s' % (b['app_name'], owner.user_id)
                     bclient.publish(owner_chanel, json.dumps(mes))
                 # adding contact 
+                is_sent = False
                 if opponent.gender == 'w':
                     add_me_to_contact_if_not_exist(tpa,owner,opponent,p)
                 #if it man just show multiinvite popup
                 else:
-                    is_sent = False
+                    
                     try:
                         cont = ChatContacts.objects.get(tpa=tpa,owner=opponent,contact=owner)
                     except:
