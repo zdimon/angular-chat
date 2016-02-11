@@ -317,7 +317,7 @@ def get_messages(request,room_id):
 
     for m in message:
         user_info = ChatUser.objects.get(user_id=m.user.user_id)
-        lst_chat_message.append({'id':m.id, 'created': str(m.created.time()), 'owner': serialize_user(m.user), 'message':m.message })
+        lst_chat_message.append({'id':m.id, 'created': str(m.created.time()), 'owner': serialize_user(m.user), 'message':m.message, 'is_translated': m.is_translated, 'message_translate': m.message_trans })
     return  { 'status': 0, 'message': lst_chat_message }
 
 
@@ -416,6 +416,22 @@ def charge_for_chat(lm,room,tpa):
     #    room.is_charging = False
     #    room.save()
    
+
+
+
+@csrf_exempt
+@json_view
+def save_translation(request,app_name):
+    '''
+    Function saves translation 
+
+    '''
+    m = ChatMessage.objects.get(pk=request.POST['message_id'])
+    m.is_translated = True
+    m.message_trans = request.POST['translation']
+    m.save()
+    return  { 'status': 0, 'message': 'Ok trans %s %s' % (request.POST['message_id'],request.POST['translation']) }
+
 
 
 

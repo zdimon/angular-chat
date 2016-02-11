@@ -6,7 +6,8 @@
 
 
             return {
-                        translate: translate
+                        translate: translate,
+                        save_translate: save_translate
                     }
 
 
@@ -24,6 +25,18 @@
 
                     }
                     return deferredObject.promise;
+        }
+
+
+        function save_translate(message,translation) {
+            alert(message.message.id);
+            var url = utils.prepare_url(apiconf.api.save_translation.url,{'[app_name]':local_config.app_name});
+            var data = {"message_id": message.message.id, "translation": translation}
+            $.ajax({
+              type: "POST",
+              url: url,
+              data: data
+            });
         }
 
 

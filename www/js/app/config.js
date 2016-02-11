@@ -423,7 +423,14 @@ apiconf = {
                 'type': 'outapi',
                 'name': 'billing_page',
                 'url':  '{{ tpa.billing_page }}'
-            }  
+            },
+
+        'save_translation':
+            {
+                'type': 'ajax',
+                'name': 'save_translation',
+                'url':  '[server]/api/[app_name]/save_translation'
+            },  
 
 
 

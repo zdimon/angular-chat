@@ -16,6 +16,8 @@ bclient.connect()
 from utils.db import MyDB
 bd = MyDB()
 import time 
+
+
 @json_view
 def set_connected(request,app_name,user_id,source):
     tpa = Tpa.objects.get(name=app_name)
@@ -49,6 +51,7 @@ def set_disconnected(request,app_name,user_id,source):
     for u in ChatUser.objects.filter(is_online=1).exclude(user_id=user_id):
         bclient.publish('%s_%s' % (app_name,u.user_id), json.dumps(mes1))
         bclient.publish('%s_%s' % (app_name,u.user_id), json.dumps(mes2))
+        print 'send to %s_%s' % (app_name,u.user_id)
     # TODO
     bd.update('update users set online=0 where login=%s' % user_id)  
     # close active rooms

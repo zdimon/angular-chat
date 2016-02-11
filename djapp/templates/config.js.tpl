@@ -412,6 +412,13 @@ apiconf = {
                 'url':  '{{ tpa.get_balance_url }}'
             },
 
+
+        'save_translation':
+            {
+                'type': 'ajax',
+                'name': 'save_translation',
+                'url':  '[server]/api/[app_name]/save_translation'
+            },  
          
 
 

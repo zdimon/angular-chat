@@ -173,10 +173,12 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
 
                       if($scope.chat_translate==true){
-
+                             console.log(data.message);
+                             GoogleTranslate.save_translate(data.message,'hello');
                              GoogleTranslate.translate('en','ru',data.message.message.message).then(function(resulf){
                              data.message.message.translated_message = resulf;
                              $scope.messages.push(data.message.message);
+                              
                             });
 
 
@@ -236,6 +238,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
            Room.getMessages(data.room_id, function(result) {
               
               $scope.messages = result.message;
+              console.log($scope.messages);
               setTimeout(function(){scroolldown(),1000});
 
               $(document).find('#chat_message').bind("DOMSubtreeModified",function(){
