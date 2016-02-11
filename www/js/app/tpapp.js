@@ -53,8 +53,8 @@ tpapp.js
          
 
             $rootScope.$on('show_new_message_notification',function(event,data){
-                   alert('show_new_message_notification');
-                   if(typeof $rootScope.notifies[data] != 'undefined') {
+                   //alert('show_new_message_notification');
+                   if(typeof $rootScope.notifies[data] !== 'undefined') {
                     if(!$rootScope.active_contacts['user_'+data.opponent.user_id]){
                         if($rootScope.gender=='w'){ document.getElementById('audio_alert').play(); }
                         $rootScope.notifies[data.id] = data;
@@ -65,8 +65,8 @@ tpapp.js
             });
 
             $rootScope.$on('show_invite_notification',function(event,data){
-                alert('show_invite_notification');
-                if(typeof $rootScope.notifies[data.data.id] != 'undefined') {
+                //alert('show_invite_notification');
+                if(typeof $rootScope.notifies[data.data.id] !== 'undefined') {
                     if(!$rootScope.active_contacts['user_'+data.data.opponent.user_id]){
                         if($rootScope.gender=='w'){document.getElementById('audio_alert').play(); }
                         $rootScope.notifies[data.data.id] = data.data;

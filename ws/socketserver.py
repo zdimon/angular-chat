@@ -173,7 +173,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
 
     @tornado.web.asynchronous
     @gen.engine
-    def delete_from_online(self,app_name,user):
+    def delete_from_online(self,app_name,user=1):
         yield gen.Task(IOLoop.instance().add_timeout, time.time() + 10)
         u = int(user)
         if not u in clients:
