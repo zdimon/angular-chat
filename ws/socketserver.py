@@ -114,7 +114,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
  
     def on_close(self):
         ''' Method whith fires when connection is closed. '''
-        self.delete_from_online(self.tpa_name, self.current_user_id)
+        #self.delete_from_online(self.tpa_name, self.current_user_id)
         try:
             self.client.unsubscribe(self.room)
             self.client.disconnect()
@@ -301,7 +301,7 @@ if __name__ == "__main__":
     myIP = '127.0.0.1'
     print '*** Websocket Server Started at %s***' % myIP
     tornado.ioloop.PeriodicCallback(send_charge_request, 60000).start()
-    #tornado.ioloop.PeriodicCallback(clean_online, 60000).start()
+    tornado.ioloop.PeriodicCallback(clean_online, 60000).start()
     tornado.autoreload.watch('restart')
     tornado.autoreload.watch('socketserver.py')
     io_loop = tornado.ioloop.IOLoop.instance()
