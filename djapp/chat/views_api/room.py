@@ -239,12 +239,14 @@ def save_message(request):
                     add_me_to_contact_if_not_exist(tpa,owner,opponent,p)
                 #if it man just show multiinvite popup
                 else:
+                    is_sent = False
                     try:
                         cont = ChatContacts.objects.get(tpa=tpa,owner=opponent,contact=owner)
                     except:
                         data = {'message': cm.message, 'opponent': serialize_user(owner), 'id': str(owner.user_id) }
                         mes = { 'action': 'show_multi_invite_notification', 'data': data }
-                        bclient.publish('%s_%s' % (b['app_name'], opponent.user_id), json.dumps(mes))                     
+                        bclient.publish('%s_%s' % (b['app_name'], opponent.user_id), json.dumps(mes))
+                        is_sent = True                     
                 contact = _add_contact(tpa.name,owner.user_id,opponent.user_id)
                 mark_new_message(owner,opponent)
                 if(opponent.is_online):
@@ -254,7 +256,7 @@ def save_message(request):
                     opponent_chanel = '%s_%s' % (b['app_name'], opponent.user_id)
                     bclient.publish(owner_chanel, json.dumps(mes_contact))
                     bclient.publish(owner_chanel, json.dumps(mes_online))
-                    if room.get_count_messages()<2999:
+                    if not is_sent:
                         data = {'message': cm.message, 'id': cm.id, 'opponent': serialize_user(owner)}
                         mes = { 'action': 'show_new_message_notification', 'data': data }
                         bclient.publish('%s_%s' % (tpa.name, opponent.user_id), json.dumps(mes))
