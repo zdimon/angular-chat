@@ -173,7 +173,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
 
                       if($scope.chat_translate==true){
-                             console.log(data.message);
+                            
                              
                              GoogleTranslate.translate('en','ru',data.message.message.message).then(function(resulf){
                              data.message.message.translated_message = resulf;
