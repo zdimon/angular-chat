@@ -53,7 +53,7 @@ tpapp.js
          
 
             $rootScope.$on('show_new_message_notification',function(event,data){
-                   //alert('show_new_message_notification');
+                   alert('show_new_message_notification');
                    if(typeof $rootScope.notifies[data] !== 'undefined') {
                     if(!$rootScope.active_contacts['user_'+data.opponent.user_id]){
                         if($rootScope.gender=='w'){ document.getElementById('audio_alert').play(); }
