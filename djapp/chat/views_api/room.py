@@ -254,10 +254,10 @@ def save_message(request):
                     opponent_chanel = '%s_%s' % (b['app_name'], opponent.user_id)
                     bclient.publish(owner_chanel, json.dumps(mes_contact))
                     bclient.publish(owner_chanel, json.dumps(mes_online))
-                    if room.get_count_messages()<2999:
-                        data = {'message': cm.message, 'id': cm.id, 'opponent': serialize_user(owner)}
-                        mes = { 'action': 'show_new_message_notification', 'data': data }
-                        bclient.publish('%s_%s' % (tpa.name, opponent.user_id), json.dumps(mes))
+                    #if room.get_count_messages()<2999:
+                    #    data = {'message': cm.message, 'id': cm.id, 'opponent': serialize_user(owner)}
+                    #    mes = { 'action': 'show_new_message_notification', 'data': data }
+                    #    bclient.publish('%s_%s' % (tpa.name, opponent.user_id), json.dumps(mes))
                 # send commant to add this opponent to list of the active opponent in js
                 mess_ac = { 'action': 'contact_activate', 'user_id': opponent.user_id, 'profile': serialize_user(opponent) }
                 bclient.publish(owner_chanel, json.dumps(mess_ac))
