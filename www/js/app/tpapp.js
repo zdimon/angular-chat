@@ -53,7 +53,7 @@ tpapp.js
          
 
             $rootScope.$on('show_new_message_notification',function(event,data){
-                   //alert($rootScope.notifies[data]);
+                   console.log('how_new_message_notification');
                    if(typeof $rootScope.notifies[data] == 'undefined') {
                     if(!$rootScope.active_contacts['user_'+data.opponent.user_id]){
                         if($rootScope.gender=='w'){ document.getElementById('audio_alert').play(); }
@@ -65,7 +65,7 @@ tpapp.js
             });
 
             $rootScope.$on('show_invite_notification',function(event,data){
-                //alert('show_invite_notification');
+                console.log('show_invite_notification');
                 if(typeof $rootScope.notifies[data.data.id] == 'undefined') {
                     if(!$rootScope.active_contacts['user_'+data.data.opponent.user_id]){
                         if($rootScope.gender=='w'){document.getElementById('audio_alert').play(); }
@@ -76,12 +76,11 @@ tpapp.js
             }); 
 
             $rootScope.$on('show_multi_invite_notification',function(event,data){
-                
+                console.log('show_invite_notification');
                 if(typeof $rootScope.notifies[data.data.id] == 'undefined') {
                     if(!$rootScope.active_contacts['user_'+data.data.opponent.user_id]){
                         if($rootScope.gender=='w'){document.getElementById('audio_alert').play(); }
                        
-                            alert($rootScope.notifies[data.data.id]);
                             $rootScope.notifies[data.data.id] = data.data;
                             $timeout(function(){ delete $rootScope.notifies[data.data.id] }, 15000);
                         
