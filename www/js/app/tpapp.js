@@ -73,7 +73,7 @@ tpapp.js
                         $timeout(function(){ delete $rootScope.notifies[data.data.id] }, 15000);
                     }
                 }
-            });
+            }); 
 
             $rootScope.$on('show_multi_invite_notification',function(event,data){
                 
