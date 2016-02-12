@@ -1,7 +1,7 @@
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
-
+import tornado.httpserver
 from tornado.options import parse_command_line
 from tornado import gen
 
@@ -19,14 +19,14 @@ logging = logging.getLogger('base.tornado')
 # store clients in dictionary..
 clients = dict()
 
-# REDIS_URL = 'redis://localhost:6379/'
+REDIS_URL = 'redis://localhost:6379/'
 # REDIS_UPDATES_CHANNEL = 'django_bus'
 
-class WebSocketHandler(tornado.websocket.WebSocketHandler):
+class WSHandler(tornado.websocket.WebSocketHandler):
     def __init__(self, *args, **kwargs):
         self.client_id = None
         self._redis_client = None
-        super(WebSocketHandler, self).__init__(*args, **kwargs)
+        super(WSHandler, self).__init__(*args, **kwargs)
         self._connect_to_redis()
         self._listen()
 
@@ -86,14 +86,29 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         self._redis_client.connect()
 
 
-app = tornado.web.Application([
-    (r'/socket', WebSocketHandler),
+application = tornado.web.Application([
+    (r'/ws', WSHandler),
 ])
+
+
+if __name__ == "__main__":
+    http_server = tornado.httpserver.HTTPServer(application)
+    http_server.listen(8889)
+    myIP = '127.0.0.1'
+    print '*** Websocket Server Started at %s***' % myIP
+    #tornado.ioloop.PeriodicCallback(send_charge_request, 60000).start()
+    #tornado.ioloop.PeriodicCallback(clean_online, 60000).start()
+    #tornado.autoreload.watch('restart')
+    #tornado.autoreload.watch('socketserver.py')
+    io_loop = tornado.ioloop.IOLoop.instance()
+    #tornado.autoreload.start(io_loop)
+    io_loop.start()  
+
 
 
 class Command(NoArgsCommand):
     def handle_noargs(self, **kwargs):
         logging.info('Started Tornado')
         parse_command_line()
-        app.listen(8888)
+        app.listen(8889)
         tornado.ioloop.IOLoop.instance().start()

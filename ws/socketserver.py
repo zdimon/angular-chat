@@ -26,7 +26,7 @@ import tornado.autoreload
 from tornado.ioloop import IOLoop
 import tornado.web
 from tornado import gen
-
+import tornadoredis
 
 class WSHandler(tornado.websocket.WebSocketHandler):
     '''
@@ -49,14 +49,44 @@ class WSHandler(tornado.websocket.WebSocketHandler):
     def __init__(self,*args):
         '''Initialization'''
         super(WSHandler, self).__init__(*args)  
-        self.client = brukva.Client()
-        self.client.connect()
+        #self.client = brukva.Client()
+        #self.client.connect()
+        self._connect_to_redis()
+        #self._listen()
         self.current_user_id = None
         self.tpa_name = None
         self.processor = None
         self.source = None
         self.room = None
         self.online_timer = 0
+
+
+    def _connect_to_redis(self):
+        """
+        Extracts connection parameters from settings variable 'REDIS_URL' and
+        connects stored client to Redis server.
+        """
+        self._redis_client = tornadoredis.Client(host='localhost', port=6379)
+        self._redis_client.connect()
+
+    @tornado.gen.engine
+    def _listen(self,chanel):
+        """
+        Listening chanel 
+        """
+        yield tornado.gen.Task(self._redis_client.subscribe, chanel)
+        self._redis_client.listen(self._on_update)
+
+    @gen.coroutine
+    def _on_update(self, message):
+        """
+        Receive Message from Redis when data become published and send it to selected client.
+        :param message (Redis Message): data from redis
+        """
+        body = json.loads(message.body)
+        self.write_message(message.body)
+
+            
 
     def open(self):
         print 'new connection'
@@ -92,7 +122,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
                 print '!!ERROR!! can not make a request to %s' % url
             chanel = '%s_%s' % (message["tpa"], message["user_id"])
             clients.append(int(message["user_id"]))
-            self.subscribe(chanel)
+            self._listen(chanel)
             self.current_user_id = message["user_id"]             
             self.tpa_name = message["tpa"]
             self.source = message['source']
@@ -114,12 +144,10 @@ class WSHandler(tornado.websocket.WebSocketHandler):
  
     def on_close(self):
         ''' Method whith fires when connection is closed. '''
-        #self.delete_from_online(self.tpa_name, self.current_user_id)
-        try:
-            self.client.unsubscribe(self.room)
-            self.client.disconnect()
-        except:
-            pass
+        chanel = '%s_%s' % (self.tpa_name, self.current_user_id)
+
+        self._redis_client.unsubscribe(chanel)
+        self._redis_client.disconnect()
         if(self.tpa_name != None):
             #url = get_url_by_name('set_connected',{'user_id':self.current_user_id, 'app_name': self.tpa_name, 'source': self.source})
             #print url
