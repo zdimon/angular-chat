@@ -89,6 +89,12 @@ def initialization(request,app_name,user_id, contact_id):
 
     return {'status': 0, 'online_except_contact': online_except_contact, 'contact': contact, 'owner': owner, 'online_full': online_full}
 
+def restart_websocket(request):
+    path = '/home/webmaster/ngchat_ve/angular-chat/ws/restart'
+    f = open(path, "w")
+    f.write("+")
+    f.close()
+    return HttpResponse('server restarted')  
 
 
 def config(request,app_name):

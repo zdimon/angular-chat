@@ -432,7 +432,12 @@ apiconf = {
                 'url':  '[server]/api/[app_name]/save_translation'
             },  
 
-
+        'restart_websocket':
+            {
+                'type': 'ajax',
+                'name': 'restart_websocket',
+                'url':  '[server]/api/restart_websocket'
+            }, 
 
 
         }

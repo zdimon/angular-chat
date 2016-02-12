@@ -421,6 +421,12 @@ apiconf = {
             },  
          
 
+        'restart_websocket':
+            {
+                'type': 'ajax',
+                'name': 'restart_websocket',
+                'url':  '[server]/api/restart_websocket'
+            },  
 
 
 
