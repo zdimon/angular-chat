@@ -25,9 +25,9 @@ from local import *
 SECRET_KEY = 'gp=)qm!=2cfoeb&8z8gu*_f!vv1sjx%j%^m&4-82f4&f-v24@*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
