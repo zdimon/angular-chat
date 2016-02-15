@@ -157,7 +157,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
 
       $scope.showOpponentVideo = function(){
-
+                $rootScope.i_am_watching = true;
                 
                 var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.current_opponent_id+"&url=rtmp://"+local_config.rtmp_server+"/myapp&micOn=true&type=in" }; 
                 
@@ -197,7 +197,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
 
       $scope.hideOpponentVideo = function(){
-       
+            $rootScope.i_am_watching = false
             swfobject.removeSWF("opponentVideo");
             $(document).find('#oponent_video_container').append('<div id="opponentVideo"></div>');
             $rootScope.isOpponentCamEnabled = false;

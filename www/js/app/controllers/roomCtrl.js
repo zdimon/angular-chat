@@ -142,11 +142,14 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
               }
 
+
+                    // blinking title                    
+                    $scope.blink_title_interval = setInterval(blinkTitle, 700);
+
                //TODO message.message
               if(data.message.message.room_id != $scope.room_id){
                     
-                    // blinking title                    
-                    $scope.blink_title_interval = setInterval(blinkTitle, 700);
+
                     
 
                     //log(data.message.message.room_id +'!='+ $scope.room_id);
@@ -202,7 +205,6 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
         $scope.$on('put_me_in_room', function (event, data) {
            var isOldTitle;
-           log(data);
            $rootScope.feather = false;
            $scope.room_just_closed = false;
            $scope.room_participants = [local_config.app_name+'_'+data.owner_id, local_config.app_name+'_'+data.contact_id];
@@ -215,7 +217,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
             clearInterval($scope.blink_title_interval);
             document.title = oldTitle;
            // remove blinking envelop 
-	   
+	        
            for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
                 if($rootScope.contact_user_list[i].user_id==data.contact_id) {
                     $rootScope.contact_user_list[i].has_new_message = false;

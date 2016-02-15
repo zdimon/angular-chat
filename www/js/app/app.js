@@ -92,6 +92,7 @@ The function :func:`someService` does a some function.
                         $rootScope.new_messages = {};
                         $rootScope.active_contacts = {};
                         $rootScope.online = {};
+                        $rootScope.i_am_watching = false
                         
                         $rootScope.close_system_message = function(win_id) {
                             delete $rootScope.system_messages[win_id];
