@@ -14,3 +14,4 @@ sphinxcontrib-autoanysrc
 django-suit==0.2.13
 boto
 tornado-redis
+django-tornado
