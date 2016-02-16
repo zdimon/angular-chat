@@ -251,8 +251,11 @@ def clean_online():
                 print 'CLOSE ROOM %s for user %s' % (r['id'],o['user_id'])
                 bd.update('update chat_chatroom set is_charging_text = 0, is_charging_video = 0, is_charging_audio = 0, is_closed=1 where chat_chatroom.id = %s' % r['id'])
                 url = get_url_by_name('set_disconnected',{'user_id':o['user_id'], 'app_name': o['name'], 'source': 'tpa'})
-                print url
-                requests.get(url)
+                #print url
+                try:
+                    requests.get(url)
+                except:
+                    print 'Error: Can not do request to %s' % url
         
 
 def send_charge_request():
