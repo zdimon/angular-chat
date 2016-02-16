@@ -143,8 +143,10 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
               }
 
 
-                    // blinking title                    
+                    // blinking title     
+                    if(data.message.message.owner.user_id!=$rootScope.currentUserId){               
                     $scope.blink_title_interval = setInterval(blinkTitle, 700);
+                    }
 
                //TODO message.message
               if(data.message.message.room_id != $scope.room_id){
