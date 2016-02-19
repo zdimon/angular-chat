@@ -262,8 +262,8 @@ def save_message(request):
                         mes = { 'action': 'show_new_message_notification', 'data': data }
                         bclient.publish('%s_%s' % (tpa.name, opponent.user_id), json.dumps(mes))
                 # send commant to add this opponent to list of the active opponent in js
-                mess_ac = { 'action': 'contact_activate', 'user_id': opponent.user_id, 'profile': serialize_user(opponent) }
-                bclient.publish(owner_chanel, json.dumps(mess_ac))
+                mess_ac = { 'action': 'contact_activate', 'user_id': owner.user_id, 'profile': serialize_user(owner) }
+                bclient.publish(opponent_chanel, json.dumps(mess_ac))
                 
     except Exception, e:
         print e
