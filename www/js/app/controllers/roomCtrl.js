@@ -4,6 +4,7 @@
 app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTranslate, $log, $http, $window, $timeout) {
         $scope.ws = WS;
         var text_changed = 0;
+        var audio_alerts = {};
         scroolldown();
 
         $scope.stopChat = function(opponent_id){
@@ -68,8 +69,8 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
             if(chm.length>0) {
             
            Room.sendMessage($scope.room_id, message, $rootScope.currentUserId, $scope.room_participants, $rootScope.gender, function(result) {
-              log(result);
-
+             
+    
 
 
               if(result.status==1) {
@@ -80,6 +81,8 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                     // mark opponent as waiting to responce
                     for (var i = 0; i < result.participants.length; i++) {
                         $rootScope.waiting_to_responce['user_'+result.participants[i]] = true;
+                        /// delete audio_alerts to hear new messages
+                        delete audio_alerts[result.participants[i]];
                     }              
                     //**************************************
                     } 
@@ -131,8 +134,15 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
              // sound in current chat for man and woman
              if($rootScope.gender=='m'){
-                 if(data.message.message.owner.user_id!=$rootScope.currentUserId  && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 && $rootScope.active_contacts['user_'+data.message.message.owner.user_id])  {
+                 if(
+                    data.message.message.owner.user_id!=$rootScope.currentUserId  
+                    && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 
+                    && $rootScope.active_contacts['user_'+data.message.message.owner.user_id]
+                    && audio_alerts[data.message.message.owner.user_id] != 'true'
+                    ){
                     document.getElementById('audio_alert').play();
+                    audio_alerts[data.message.message.owner.user_id] = 'true';
+                    console.log(audio_alerts);
                  }
               } else {
 
