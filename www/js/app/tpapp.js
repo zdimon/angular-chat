@@ -35,8 +35,14 @@ tpapp.js
 
         var url = utils.prepare_url(local_config.outapi.login,{'[user_id]': user_id});
         $http.get(url).then(function(res){
-                var url = "http://" + $window.location.host + "/video-chat#/" + res.data.id + "/"+ opponent_id;
-                $window.location.href = url;
+                var url =  $window.location.host + "/video-chat#/" + res.data.id + "/"+ opponent_id;
+                //$window.location.href = url;
+                //alert('sss');
+                //$window.open (url,'_self',false);
+                //window.open("http://www.w3schools.com");
+
+                myWindow = $window.open('//'+url, 'C-Sharpcorner',"_self","chat");
+                myWindow.focus();
 
             });
       }
@@ -180,8 +186,12 @@ tpapp.js
                     if(result.status == 1) {
                          alert(result.message)
                     } else {
-                         var url = "http://" + $window.location.host + "/video-chat#/"+ $rootScope.currentUserId + '/' +user_id;  
-                         $window.location.href = url;    
+                         var url = $window.location.host + "/video-chat#/"+ $rootScope.currentUserId + '/' +user_id;  
+                         //$window.location.href = url;  
+
+                        myWindow = $window.open('//'+url, 'C-Sharpcorner',"_self","chat");
+                        myWindow.focus();
+  
                     }
                 
                 })
