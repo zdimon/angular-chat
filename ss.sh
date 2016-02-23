@@ -1,2 +1,2 @@
 cd djapp
-./manage.py runserver 8008
+./manage.py runserver 8888

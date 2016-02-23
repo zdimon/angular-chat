@@ -41,8 +41,12 @@ tpapp.js
                 //$window.open (url,'_self',false);
                 //window.open("http://www.w3schools.com");
 
-                myWindow = $window.open('//'+url, 'C-Sharpcorner',"_self","chat");
+                myWindow = window.open('//'+url, 'C-Sharpcorner',"_self","chat");
                 myWindow.focus();
+                setTimeout(function(){
+                    myWindow.location.reload();
+                }, 500);
+                
 
             });
       }
@@ -197,6 +201,9 @@ tpapp.js
 
                         myWindow = $window.open('//'+url, 'C-Sharpcorner',"_self","chat");
                         myWindow.focus();
+                        setTimeout(function(){
+                            myWindow.location.reload();
+                        }, 500);
   
                     }
                 

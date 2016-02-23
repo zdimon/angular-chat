@@ -96,6 +96,25 @@
                 
             })  
 
+            .state('pop_up_win', {
+
+                url: "/pop/:user/:opponent",
+                //templateUrl: "/static/templates/active.html",
+
+                controller: function($stateParams, Room, $rootScope, $log, $interval){
+                            alert('sss');
+                            
+                        $rootScope.$on('connected', function (event, data) {
+                            
+                            Room.invite($stateParams.opponent,function(rezult){
+                                
+                            })
+                        });
+                                                                
+                }
+                
+            }) 
+
 
             .state('active_ocam', {
 
