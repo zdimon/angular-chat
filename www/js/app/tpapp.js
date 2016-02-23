@@ -177,6 +177,12 @@ tpapp.js
      
     })
 
+    .controller('OpenChatCtrl', function ($window, $rootScope, $scope, $http) {
+         var url = $window.location.host + "/video-chat#/"+ $rootScope.currentUserId;
+         myWindow = $window.open('//'+url, 'C-Sharpcorner',"_self","chat");
+         myWindow.focus();
+    }
+
     .controller('ActionCtrl', function ($window, $rootScope, $scope, $http, Status) {
         
         $scope.invite = function(user_id){
