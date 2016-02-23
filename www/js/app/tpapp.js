@@ -182,9 +182,16 @@ tpapp.js
     })
 
     .controller('OpenChatCtrl', function ($window, $rootScope, $scope, $http) {
-         var url = $window.location.host + "/video-chat#/"+ $rootScope.currentUserId;
-         myWindow = $window.open('//'+url, 'C-Sharpcorner',"_self","chat");
-         myWindow.focus();
+
+         $scope.open_popup = function(user_id){
+             var url = $window.location.host + "/video-chat#/"+ $rootScope.currentUserId;
+             myWindow = $window.open('//'+url, 'C-Sharpcorner',"_self","chat");
+             myWindow.focus();
+                setTimeout(function(){
+                    myWindow.location.reload();
+                }, 500);
+         }
+
     })
 
     .controller('ActionCtrl', function ($window, $rootScope, $scope, $http, Status) {
