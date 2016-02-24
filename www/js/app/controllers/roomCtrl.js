@@ -82,7 +82,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                     for (var i = 0; i < result.participants.length; i++) {
                         $rootScope.waiting_to_responce['user_'+result.participants[i]] = true;
                         /// delete audio_alerts to hear new messages
-                        // delete audio_alerts[result.participants[i]];
+                        delete audio_alerts[result.participants[i]];
                     }              
                     //**************************************
                     } 
