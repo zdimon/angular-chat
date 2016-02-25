@@ -4,7 +4,8 @@ tpapp.js
 :author: Dimas zdimon77@gmail.com
     
 */ 
-
+    var seconds = new Date().getTime() / 1000;
+    document.cookie = "timer_update="+seconds;
     var app = angular.module('AngularChatApp', [
         'ngCookies',
         'ngSanitize',

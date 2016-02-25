@@ -5,6 +5,12 @@ Services
 The function :func:`someService` does a some function.
 */
 
+
+
+
+
+
+
     var app = angular.module('AngularChatApp', [
         'ui.router',
         'restangular',
@@ -25,7 +31,6 @@ The function :func:`someService` does a some function.
 .run(function ($rootScope, Auth, $window, WS, Online, Status, $stateParams, $state, $timeout, Room, WS) {
 
             // Initialization
-
 
 
             $rootScope.$on('connected', function (event, data) {

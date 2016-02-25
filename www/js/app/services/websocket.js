@@ -237,7 +237,23 @@
                     //dataStream = $websocket("ws://"+local_config.ws_server+"/ws");
                     //dataStream.send(JSON.stringify({ action: 'connect', user_id: $rootScope.currentUserId, source: 'chat_side', tpa: local_config.app_name}));
 
-                    //window.location.reload();            
+                    
+
+                    if (window.location.href.indexOf("video-chat") > 1)
+                    {
+                        var seconds = new Date().getTime() / 1000;
+                        var cur = getCookie('timer_update');
+                        
+                        var diff = seconds - cur;
+                       
+                        if(diff<10000){
+                          
+                            window.location.reload();        
+                           
+                           document.cookie = "timer_update=0";
+                        }
+                    }
+                        
 
                 }, 5000);
       });
