@@ -112,9 +112,16 @@ tpapp.js
 
             $scope.goToRoom = function(user_id){
 
-                var url = "http://" + $window.location.host + "/video-chat#/"+$rootScope.currentUserId+'/'+ user_id;
-                $window.location.href = url;
+                var url = $window.location.host + "/video-chat#/"+$rootScope.currentUserId+'/'+ user_id;
+                //$window.location.href = url;
                 //$window.open(url);
+
+                myWindow = window.open('//'+url, 'C-Sharpcorner',"_self","chat");
+                myWindow.focus();
+                setTimeout(function(){
+                    myWindow.location.reload();
+                }, 500);
+
          
             }
 
@@ -198,7 +205,7 @@ tpapp.js
     .controller('ActionCtrl', function ($window, $rootScope, $scope, $http, Status) {
         
         $scope.invite = function(user_id){
-            
+              
                 Status.checkAccessibility(user_id,function(result){
                     log(result);
                     if(result.status == 1) {
@@ -225,8 +232,15 @@ tpapp.js
                     if(result.status == 1) {
                          alert(result.message)
                     } else {
-                         var url = "http://" + $window.location.host + "/video-chat#/"+ $rootScope.currentUserId + '/' +user_id+'/ocam';  
-                         $window.location.href = url;    
+                         var url = $window.location.host + "/video-chat#/"+ $rootScope.currentUserId + '/' +user_id+'/ocam';  
+                         //$window.location.href = url;    
+
+                         myWindow = $window.open('//'+url, 'C-Sharpcorner',"_self","chat");
+                         myWindow.focus();
+                            setTimeout(function(){
+                                myWindow.location.reload();
+                            }, 500);
+
                     }
                 
                 })
@@ -235,12 +249,19 @@ tpapp.js
         $scope.inviteWithMyVideo = function(user_id){
          
                 Status.checkAccessibility(user_id,function(result){
-                    log(result);
+                    
                     if(result.status == 1) {
                          alert(result.message)
                     } else {
-                         var url = "http://" + $window.location.host + "/video-chat#/"+ $rootScope.currentUserId + '/' +user_id+'/mcam';  
-                         $window.location.href = url;    
+                         var url = $window.location.host + "/video-chat#/"+ $rootScope.currentUserId + '/' +user_id+'/mcam';  
+                         //$window.location.href = url;    
+
+                         myWindow = $window.open('//'+url, 'C-Sharpcorner',"_self","chat");
+                         myWindow.focus();
+                            setTimeout(function(){
+                                myWindow.location.reload();
+                            }, 500);
+
                     }
                 
                 })
