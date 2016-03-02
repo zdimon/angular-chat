@@ -161,6 +161,12 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                 
                 var par = { flashvars:"codecOn=true&ww=800&hh=600&fps=20&streamName="+local_config.app_name+'_'+$rootScope.current_opponent_id+"&url=rtmp://"+local_config.rtmp_server+"/myapp&micOn=true&type=in" }; 
                 
+                if(  $(document).find('#oponent_video_container').is(":visible") == false )
+                {
+                    //alert('hidden');
+                    $(document).find('#oponent_video_container').show();
+                }
+                
 
                 if($rootScope.gender=='m') { // if man check balance and turn charging every min
 
@@ -193,13 +199,16 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
            
 
             
-        
+      $scope.unhideOpponentVideo = function(){
+        $(document).find('#oponent_video_container').show();
+      }  
 
 
       $scope.hideOpponentVideo = function(){
             $rootScope.i_am_watching = false
-            swfobject.removeSWF("opponentVideo");
-            $(document).find('#oponent_video_container').append('<div id="opponentVideo"></div>');
+            //swfobject.removeSWF("opponentVideo");
+            //$(document).find('#oponent_video_container').append('<div id="opponentVideo"></div>');
+            $(document).find('#oponent_video_container').hide();
             $rootScope.isOpponentCamEnabled = false;
             $rootScope.alert_mic_on = false;
             
