@@ -185,6 +185,13 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                      //}
 
               } else {
+
+                      // remove overmessages
+                    
+                      if($scope.messages.length>60){
+                         $scope.messages.shift();   
+                      }
+
                      $rootScope.feather = false;
                   
 
