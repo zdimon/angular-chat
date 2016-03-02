@@ -178,7 +178,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                             
                         } else {
 
-                             swfobject.embedSWF("Media/chat.swf", "opponentVideo", "265", "200", "9.0.0", "expressInstall.swf", par);
+                             swfobject.embedSWF("Media/chat.swf", "opponentVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
                              $rootScope.isOpponentCamEnabled = true;
 
                         }
@@ -187,7 +187,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                 } else { // if woman just turn cam on
 
                         $rootScope.isOpponentCamEnabled = true;
-                        swfobject.embedSWF("Media/chat.swf", "opponentVideo", "265", "200", "9.0.0", "expressInstall.swf", par);
+                        swfobject.embedSWF("Media/chat.swf", "opponentVideo", "100%", "100%", "9.0.0", "expressInstall.swf", par);
                 }
                 
                 Video.showOpponentCam($rootScope.current_opponent_id,function(result){});
