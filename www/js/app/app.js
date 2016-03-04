@@ -140,6 +140,7 @@ The function :func:`someService` does a some function.
 
                   // watch changes of allow invitation trigger TODO
                   $rootScope.$watch('chat_invitation', function() {
+                         
                          if($rootScope.is_bootstrapted == true  ){
                             if($rootScope.chat_invitation == false || typeof $rootScope.chat_invitation == 'undefined') {
                             
