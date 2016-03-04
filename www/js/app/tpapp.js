@@ -87,8 +87,8 @@ tpapp.js
             }); 
 
             $rootScope.$on('show_multi_invite_notification',function(event,data){
-                 console.log('show_multi_invite_notification');
-                if(typeof $rootScope.notifies[data.data.id] == 'undefined') {
+                 console.log('show_multi_invite_notification1');
+                
                     
                         if($rootScope.gender=='w'){document.getElementById('audio_alert').play(); }
                        
@@ -97,7 +97,7 @@ tpapp.js
                         
                         
                     
-                }
+                
             });
 
 
