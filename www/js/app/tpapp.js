@@ -65,7 +65,7 @@ tpapp.js
 
             $rootScope.$on('show_new_message_notification',function(event,data){
                    
-                   
+                        console.log('show_new_message_notification');
                    
                         if($rootScope.gender=='w'){ document.getElementById('audio_alert').play(); }
                         $rootScope.notifies[data.id] = data;

@@ -142,12 +142,12 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                     ){
                     document.getElementById('audio_alert').play();
                     audio_alerts[data.message.message.owner.user_id] = 'true';
-                    console.log(audio_alerts);
+                    
                  }
               } else {
 
                  if(data.message.message.owner.user_id!=$rootScope.currentUserId)  {
-                    document.getElementById('audio_alert').play();
+                    //document.getElementById('audio_alert').play();
                  }                
 
               }
