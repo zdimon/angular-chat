@@ -17,6 +17,7 @@ The function :func:`someService` does a some function.
         'app.controllers',
         'ngCookies',
         'ngSanitize',
+        'SimpleWebRTC',
         'ngWebSocket' 
     ]).config(function($interpolateProvider,$httpProvider) {
     $interpolateProvider.startSymbol('[[');

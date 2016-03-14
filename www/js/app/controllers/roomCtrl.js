@@ -2,6 +2,28 @@
 
 
 app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTranslate, $log, $http, $window, $timeout) {
+
+
+        $scope.hasStream = false;
+        $scope.roomName = '';
+        $scope.isBroadcasting = '';
+        $scope.prepare = function prepare() {
+          $scope.$broadcast('prepare');
+        };
+        $scope.start = function start() {
+          $scope.$broadcast('start');
+        };
+
+
+        $scope.joinedRoom = false;
+        $scope.joinRoom = function () {
+          $scope.$broadcast('joinRoom');
+        };
+        $scope.leaveRoom = function () {
+          $scope.$broadcast('leaveRoom');
+        };
+
+
         $scope.ws = WS;
         var text_changed = 0;
         var audio_alerts = {};
