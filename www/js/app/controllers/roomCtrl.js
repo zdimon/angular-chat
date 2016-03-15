@@ -188,7 +188,8 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
                       // remove overmessages
                     
-                      if($scope.messages.length>60){
+                      if($scope.messages.length>10){
+                        
                          $scope.messages.shift();   
                       }
 
@@ -320,7 +321,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                 // close window after some time
                 $timeout(function(){
                     delete $rootScope.system_messages[data.user_id+'_show'];
-                }, 5000);
+                }, 15000);
 
                 Room.getUserInfo(data.user_id,function(result){ 
                     $rootScope.system_messages[data.user_id+'_show'] = {
@@ -348,7 +349,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                 // close window after some time
                 $timeout(function(){
                     delete $rootScope.system_messages[data.user_id+'_hide'];
-                }, 5000);
+                }, 15000);
 
                 Room.getUserInfo(data.user_id,function(result){ 
                     $rootScope.system_messages[data.user_id+'_hide'] = {
@@ -373,7 +374,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                 
                 if(typeof $rootScope.notifies[data.data.id] === 'undefined'){
                     $rootScope.notifies[data.data.id] = data.data;
-                    $timeout(function(){ delete $rootScope.notifies[data.data.id] }, 10000);
+                    $timeout(function(){ delete $rootScope.notifies[data.data.id] }, 15000);
                 }
                 
             }
