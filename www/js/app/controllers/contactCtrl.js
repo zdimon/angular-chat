@@ -44,14 +44,15 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
       $rootScope.$on('set_me_online',function(event, data){
            
            $rootScope.online['user_'+data.message.uid] = true;
-           /*
-           for(key in $scope.contact_list){
-                if ($scope.contact_list[key].user_id == data.message.uid) {
-                    $scope.update();
+     
+           for(key in $rootScope.contact_user_list){
+                
+                if ($rootScope.contact_user_list[key].user_id == data.message.uid) {
+                    $rootScope.contact_user_list[key].is_online = 1;
                 }
               
             }
-           */
+           
            
       })
 
@@ -120,8 +121,17 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
       })
 
       $rootScope.$on('set_me_offline',function(event, data){
-            log(data);
+           
             delete $scope.watch_profile['user_'+data.message.uid];
+
+           for(key in $rootScope.contact_user_list){
+                
+                if ($rootScope.contact_user_list[key].user_id == data.message.uid) {
+                    $rootScope.contact_user_list[key].is_online = 1;
+                }
+              
+            }
+
       })
 
 
