@@ -1,0 +1,21 @@
+{
+    "name": "angular-chat",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "node app"
+    },
+    
+    "devDependencies": {
+        "gulp": "*",
+        "gulp-load-plugins": "*",
+        "gulp-concat": "*",
+        "gulp-less": "*",
+        "gulp-uglify": "*",
+        "gulp-clean": "*",
+        "gulp-minify-css": "*",
+        "gulp-strip-comments": "*"
+    }
+}
+
+

@@ -5,7 +5,7 @@ var gulp = require('gulp'),
    concat = require('gulp-concat'),
    uglify = require('gulp-uglify');
    var strip = require('gulp-strip-comments');
-
+   var minifyCSS = require('gulp-minify-css');
 /*
     <link rel="stylesheet" href="/chatapp/angular.css">
     <script src="/__HTML/js/lib/angular/angular.min.js"></script>
@@ -30,6 +30,19 @@ var gulp = require('gulp'),
 
 */
 
+
+
+var chatCss = [
+
+        '../../marriage-brides.com/Media/css/plugin.css',
+        '../../marriage-brides.com/Media/css/chat.css',
+        '../../marriage-brides.com/Media/css/responsive_chat.css',
+        '../../marriage-brides.com/Media/css/jquery.mCustomScrollbar.css',
+        '../../marriage-brides.com/Media/js/css/wysiwyg-editor.css',
+        '../../marriage-brides.com/Media/js/css/programmer/my.css',
+
+
+]
 
 var chatVendorLib = [
         '../../marriage-brides.com/Media/js/modernizr.js',
@@ -112,35 +125,43 @@ function vendors_javascript(glob, fileName) {
 }
 
 
-gulp.task('build', ['main']);
+gulp.task('default', ['main']);
 
 gulp.task('main', [
     'angularScripts',
     'chatVendorLib',
-    'angularChatLib'
+    'angularChatLib',
+    'chatCss'
 ]);
+
+
+gulp.task('chatCss', function () {
+     return gulp.src(chatCss)
+        .pipe(minifyCSS())
+        .pipe(concat('chat.min.css'))
+        .pipe(gulp.dest('./www/js/app/build/'));
+});
 
 
 
 gulp.task('angularScripts', function () {
-    return vendors_javascript(angularScripts, 'angular.scripts.min.js')
+    return vendors_javascript(angularScripts, 'angular.chat.app.js')
         .pipe(strip())
-        .pipe(gulp.dest('./www/js/build/'));
+        .pipe(gulp.dest('./www/js/app/build/'));
 });
 
 
 
 gulp.task('angularChatLib', function () {
     return vendors_javascript(angularChatLib, 'angular.chat.lib.min.js')
-        .pipe(strip())
-        .pipe(gulp.dest('./www/js/build/'));
+        .pipe(gulp.dest('./www/js/app/build/'));
         //.pipe(uglify());
 });
 
 
 gulp.task('chatVendorLib', function () {
     return vendors_javascript(chatVendorLib, 'chat.vendor.lib.min.js')
-        .pipe(gulp.dest('./www/js/build/'));
+        .pipe(gulp.dest('./www/js/app/build/'));
 });
 
 
