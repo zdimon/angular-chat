@@ -188,10 +188,10 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
                       // remove overmessages
                     
-                      if($scope.messages.length>10){
+                      //if($scope.messages.length>10){
                         
-                         $scope.messages.shift();   
-                      }
+                     //    $scope.messages.shift();   
+                     // }
 
                      $rootScope.feather = false;
                   
