@@ -111,12 +111,16 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         if message['action'] == 'test_overload':
             print message
 
+        if message['action'] == 'ping':
+            self.write_message('pong');
+
+
         if message['action'] == 'connect':
             timers['%s_%s' % (message["tpa"],message["user_id"])] = int(time.time())
             #self.replace_timer(message["tpa"],message["user_id"], int(time.time()))
             print 'set time %s' % time.time()
+            url = get_url_by_name('set_connected',{'user_id':message["user_id"], 'app_name': message["tpa"], 'source': message['source']})
             try:
-                url = get_url_by_name('set_connected',{'user_id':message["user_id"], 'app_name': message["tpa"], 'source': message['source']})
                 requests.get(url)
             except:
                 print '!!ERROR!! can not make a request to %s' % url

@@ -23,19 +23,17 @@ def test():
         print message
 
     def on_error(ws, error):
-        print error
+        #print error
+        print 'errrrrr'
 
     def on_close(ws):
         print "### closed ###"
 
     def on_open(ws):
         print 'start serve'
-        data = { 'action': 'connect', 'tpa': 'test', 'user_id': 'test' }
+        data = { 'action': 'connect', 'tpa': 'test', 'user_id': '150032', 'source': 'site' }
         ws.send(json.dumps(data))
-        data = { 'action': 'test_overload' }
-        ws.send(json.dumps(data))
-        time.sleep(1)
-        test_brukva()
+
 
     ws = websocket.WebSocketApp("ws://localhost:8889/ws",
     on_message = on_message,
@@ -43,11 +41,15 @@ def test():
     on_close = on_close)
     ws.on_open = on_open
     ws.run_forever()
+    ws.close()
+    
         
         
 
 
 if __name__ == '__main__':
     test()
-    
+    import sys
+    sys.exit("quit")
+
 
