@@ -5,8 +5,8 @@ import os
 import sys
 from subprocess import call
 bashCommand = '/home/zdimon/www/ngchat_ve/chat/djapp/kill.sh'
-
-
+print 'connect'
+ws = create_connection("ws://marriage-brides.com:8889/ws")
 
 try:
     ws = create_connection("ws://marriage-brides.com:8889/ws")
