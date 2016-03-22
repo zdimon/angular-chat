@@ -4,6 +4,13 @@ import json
 import os
 import sys
 from subprocess import call
+
+print 'try http'
+url = 'http://marriage-brides.com:8889/ws'
+#url = 'http://localhost:8889/ws'
+rez = requests.get(url)
+print rez
+
 bashCommand = '/home/zdimon/www/ngchat_ve/chat/djapp/kill.sh'
 print 'connect'
 ws = create_connection("ws://marriage-brides.com:8889/ws")
