@@ -12,7 +12,7 @@ url = 'http://marriage-brides.com:8889/ws'
 
 #bashCommand = '/home/zdimon/www/ngchat_ve/chat/djapp/kill.sh'
 bashCommand = '/home/webmaster/ngchat_ve/angular-chat/djapp/kill.sh'
-
+rez = requests.get(url,timeout=(connect_timeout, 5.0))
 try:
     rez = requests.get(url,timeout=(connect_timeout, 5.0))
 except:
