@@ -6,15 +6,24 @@ import sys
 from subprocess import call
 
 print 'try http'
+connect_timeout = 1
 url = 'http://marriage-brides.com:8889/ws'
 #url = 'http://localhost:8889/ws'
-rez = requests.get(url)
-print rez
 
 bashCommand = '/home/zdimon/www/ngchat_ve/chat/djapp/kill.sh'
-print 'connect'
-ws = create_connection("ws://marriage-brides.com:8889/ws")
-print 'connect'
+
+
+try:
+    rez = requests.get(url,timeout=(connect_timeout, 5.0))
+except requests.exceptions.ConnectTimeout as e:
+    print 'killing websocket becouse timeout!!'
+    call(bashCommand)
+    sys.exit("quit")
+
+
+
+
+
 try:
     ws = create_connection("ws://marriage-brides.com:8889/ws")
 except:
