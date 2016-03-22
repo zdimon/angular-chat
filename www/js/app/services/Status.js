@@ -11,6 +11,7 @@
                         setVisible: setVisible,
                         declineInvitation: declineInvitation,
                         acceptInvitation: acceptInvitation,
+                        restartServer: restartServer,
                         checkAccessibility: checkAccessibility               
                     }
             function sayBusy(opponent_id,callback) {
@@ -20,6 +21,18 @@
                                                                         '[opponent_id]':opponent_id
                                                                      });
                 return $http.get(url).success(callback); 
+
+                 
+            } ;
+
+            function restartServer(opponent_id,callback) {
+
+
+                var url = utils.prepare_url(apiconf.api.restart_websocket.url);
+                return $http.get(url).success(callback); 
+
+             
+
 
                  
             } ;

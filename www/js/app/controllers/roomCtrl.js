@@ -1,7 +1,7 @@
  
 
 
-app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTranslate, $log, $http, $window, $timeout) {
+app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTranslate, $log, $http, $window, $timeout, Status) {
         $scope.ws = WS;
         var text_changed = 0;
         var audio_alerts = {};
@@ -62,8 +62,10 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         */
 
         $scope.sendMessage = function(){
+        
+            var message = $(document).find('#chat_message').html();
 
-            var message = $(document).find('#chat_message').html()
+            $scope.tm = Date.now();
 
             chm = message.replace('<br>','');
             if(chm.length>0) {
@@ -110,8 +112,15 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
         $scope.$on('show_message', function (event, data) { 
 
+              var def = Date.now()-$scope.tm
               
-  
+               
+
+              if(def>1500){
+                    
+                    Status.restartServer();
+              }
+
               // unmark room as closed
                 for (var i = 0; i < data.message.message.participants.length; i++) {
                     var user_id = parseInt(data.message.message.participants[i].split('_')[1]);

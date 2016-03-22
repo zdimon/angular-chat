@@ -91,7 +91,8 @@ def initialization(request,app_name,user_id, contact_id):
 
 def restart_websocket(request):
     path = '/home/webmaster/ngchat_ve/angular-chat/ws/restart'
-    f = open(path, "w")
+    #path = '/home/zdimon/www/ngchat_ve/chat/ws/restart'
+    f = open(path, "a")
     f.write("+")
     f.close()
     return HttpResponse('server restarted')  
