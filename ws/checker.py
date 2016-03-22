@@ -15,11 +15,10 @@ bashCommand = '/home/zdimon/www/ngchat_ve/chat/djapp/kill.sh'
 
 try:
     rez = requests.get(url,timeout=(connect_timeout, 5.0))
-except requests.exceptions.ConnectTimeout as e:
+except:
     print 'killing websocket becouse timeout!!'
     call(bashCommand)
     sys.exit("quit")
-
 
 
 
