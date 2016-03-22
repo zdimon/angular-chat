@@ -119,7 +119,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
               if(def>1500){
                     
                     Status.restartServer(function(rezult){
-                        alert('Sorry, but we have got some problem with chat server and you page wil be reloaded in 15 sec.');
+                        alert('Sorry, but we have got some problem with the chat server and you page wil be reloaded in 15 sec. Please copy yor message if you have something wrote.');
                     });
               }
 
