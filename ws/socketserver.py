@@ -89,7 +89,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             
 
     def open(self):
-        print 'new connection'
+        #print 'new connection'
         self.participants.add(self)
 
     def subscribe(self, room):
@@ -105,11 +105,10 @@ class WSHandler(tornado.websocket.WebSocketHandler):
       
     def on_message(self, message):
         'Accepting message from javasctipt client'
-        print 'message received:  %s' % message
+        #print 'message received:  %s' % message
         message = json.loads(message) 
 
-        if message['action'] == 'test_overload':
-            print message
+
 
         if message['action'] == 'ping':
             self.write_message('pong'); 
@@ -118,7 +117,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         if message['action'] == 'connect':
             timers['%s_%s' % (message["tpa"],message["user_id"])] = int(time.time())
             #self.replace_timer(message["tpa"],message["user_id"], int(time.time()))
-            print 'set time %s' % time.time()
+            #print 'set time %s' % time.time()
             url = get_url_by_name('set_connected',{'user_id':message["user_id"], 'app_name': message["tpa"], 'source': message['source']})
             try:
                 requests.get(url)
@@ -214,9 +213,9 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             try:
                 dift = tmnow - timers[chanel]
                 if dift > 10:
-                    print 'Deleting from online %s %s %s %s ' % (chanel, tmnow, timers[chanel], dift)
+                    #print 'Deleting from online %s %s %s %s ' % (chanel, tmnow, timers[chanel], dift)
                     url = get_url_by_name('set_disconnected',{'user_id':user, 'app_name': app_name, 'source': 'tpa'})
-                    print url
+                    #print url
                     requests.get(url)                
             except:
                 pass
@@ -226,7 +225,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         flag = 0
         search = '%s_%s' % (tpa,user)
         
-        print 'qwerty!!!'
+        #print 'qwerty!!!'
         
  
 application = tornado.web.Application([
@@ -234,13 +233,13 @@ application = tornado.web.Application([
 ])
  
 def clean_online():
-    print 'CLEANING ONLINE!!!'
-    print 'clients %s' % clients
+    #print 'CLEANING ONLINE!!!'
+    #print 'clients %s' % clients
     #select all online
     sql = 'select chat_chatuser.user_id, chat_tpa.name from chat_chatuser, chat_tpa where is_online = 1 and chat_chatuser.tpa_id = chat_tpa.id'
     online = bd.select(sql)
     for o in online.record: 
-        print 'checking - %s' % o['user_id']
+        #print 'checking - %s' % o['user_id']
         if not o['user_id'] in clients:
             bd.update('update chat_chatuser set is_online=0 where user_id=%s' % o['user_id'])
             bd.update('update users set online=0 where login=%s' % o['user_id'])
@@ -252,7 +251,7 @@ def clean_online():
                          chat_chatuser.user_id = %s''' % o['user_id']
             rooms = bd.select(ssql)
             for r in rooms.record:             
-                print 'CLOSE ROOM %s for user %s' % (r['id'],o['user_id'])
+                #print 'CLOSE ROOM %s for user %s' % (r['id'],o['user_id'])
                 bd.update('update chat_chatroom set is_charging_text = 0, is_charging_video = 0, is_charging_audio = 0, is_closed=1 where chat_chatroom.id = %s' % r['id'])
                 url = get_url_by_name('set_disconnected',{'user_id':o['user_id'], 'app_name': o['name'], 'source': 'tpa'})
                 #print url
@@ -293,7 +292,7 @@ def send_charge_request():
 
         users = bd.select(sql)
         for u in users.record:
-            print 'room %s user %s' % (room['id'],u['gender'])
+            #print 'room %s user %s' % (room['id'],u['gender'])
             if u['gender'] == 'm':
                 man = u['user_id']
             else:
@@ -318,11 +317,11 @@ def send_charge_request():
         if(room['is_charging_audio']==1):     
              data.append({'action': 'audio', 'app_name': room['app_name'],  'user_id': man, 'opponent_id': woman, 'room_id': room['id'], 'price': str(room['price_audio']) })       
 
-    if url:  
-        print "Charge request to %s " % url
-        print "DATA %s" % data
-        print requests.post(url,json=data).content  
-        print 'Memory usage: %s (kb)' % resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    #if url:  
+        #print "Charge request to %s " % url
+        #print "DATA %s" % data
+        #print requests.post(url,json=data).content  
+        #print 'Memory usage: %s (kb)' % resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
 
 
         
