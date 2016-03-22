@@ -25,7 +25,7 @@
                  
             } ;
 
-            function restartServer(opponent_id,callback) {
+            function restartServer(callback) {
 
 
                 var url = utils.prepare_url(apiconf.api.restart_websocket.url);
