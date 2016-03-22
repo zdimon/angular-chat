@@ -171,7 +171,7 @@ def save_message(request):
     '''
     #import pdb; pdb.set_trace()
     b = json.loads(request.body)
-    #time.sleep(1)
+    #time.sleep(2)
 
     b['message'] = stop_words(b['message'])
 

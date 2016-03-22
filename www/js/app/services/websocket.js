@@ -241,21 +241,21 @@
 
                     if (window.location.href.indexOf("video-chat") > 1)
                     {
-                        var seconds = new Date().getTime() / 1000;
-                        var cur = getCookie('timer_update');
+                        //var seconds = new Date().getTime() / 1000;
+                        //var cur = getCookie('timer_update');
                         
-                        var diff = seconds - cur;
+                        //var diff = seconds - cur;
                        
-                        if(diff<10000){
+                        //if(diff<10000){
                           
                             window.location.reload();        
                            
-                           document.cookie = "timer_update=0";
-                        }
+                       //    document.cookie = "timer_update=0";
+                       // }
                     }
                         
 
-                }, 5000);
+                }, 15000);
       });
 
 

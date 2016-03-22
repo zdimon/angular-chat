@@ -295,7 +295,9 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
                                            if(def>1500){
 
-                                        Status.restartServer();
+                                        Status.restartServer(function(rezult){
+                        alert('Sorry, but we have got some problem with chat server and you page wil be reloaded in 15 sec.');
+                    });
               }
 
                 for (var i = 0; i < data.message.message.participants.length; i++) {
@@ -1926,7 +1928,7 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
 
                              } ;
 
-            function restartServer(opponent_id,callback) {
+            function restartServer(callback) {
 
 
                 var url = utils.prepare_url(apiconf.api.restart_websocket.url);
@@ -2480,21 +2482,15 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
 
                                         if (window.location.href.indexOf("video-chat") > 1)
                     {
-                        var seconds = new Date().getTime() / 1000;
-                        var cur = getCookie('timer_update');
 
-                                                var diff = seconds - cur;
 
-                                               if(diff<10000){
 
                                                       window.location.reload();        
 
-                                                      document.cookie = "timer_update=0";
-                        }
                     }
 
 
-                                        }, 5000);
+                                        }, 15000);
       });
 
 
