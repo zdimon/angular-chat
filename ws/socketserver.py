@@ -112,7 +112,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             print message
 
         if message['action'] == 'ping':
-            self.write_message('pong');
+            self.write_message('pong'); 
 
 
         if message['action'] == 'connect':
