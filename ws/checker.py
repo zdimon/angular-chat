@@ -6,7 +6,7 @@ import sys
 from subprocess import call
 
 print 'try http'
-connect_timeout = 1
+connect_timeout = 1.0
 url = 'http://marriage-brides.com:8889/ws'
 #url = 'http://localhost:8889/ws'
 
