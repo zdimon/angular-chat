@@ -5,7 +5,7 @@ import os
 import sys
 from subprocess import call
 
-print 'try http'
+#print 'try http'
 connect_timeout = 1
 url = 'http://marriage-brides.com:8889/ws'
 #url = 'http://localhost:8889/ws'
@@ -30,12 +30,12 @@ except:
     call(bashCommand)
     sys.exit("quit")
 
-print "Sending ping"
+#print "Sending ping"
 data = { 'action': 'ping' }
 ws.send(json.dumps(data))
-print "Receiving..."
+#print "Receiving..."
 result =  ws.recv()
-print "Received '%s'" % result
+#print "Received '%s'" % result
 if result!='pong':
     print 'killing websocket becouse no ping!!'
     call(bashCommand)
