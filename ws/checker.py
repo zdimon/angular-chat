@@ -11,7 +11,7 @@ bashCommand = '/home/zdimon/www/ngchat_ve/chat/djapp/kill.sh'
 try:
     ws = create_connection("ws://marriage-brides.com:8889/ws")
 except:
-    print 'killing websocket!!'
+    print 'killing websocket becouse no connection!!'
     call(bashCommand)
     sys.exit("quit")
 
@@ -22,6 +22,6 @@ print "Receiving..."
 result =  ws.recv()
 print "Received '%s'" % result
 if result!='pong':
-    print 'killing websocket!!'
+    print 'killing websocket becouse no ping!!'
     call(bashCommand)
 ws.close()
