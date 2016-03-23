@@ -115,13 +115,15 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
               var def = Date.now()-$scope.tm
               
                
-
+/*
               if(def>1500){
                     
                     Status.restartServer(function(rezult){
                         alert('Sorry, but we have got some problem with the chat server and you page wil be reloaded in 15 sec. Please copy yor message if you have something wrote.');
                     });
               }
+
+*/
 
               // unmark room as closed
                 for (var i = 0; i < data.message.message.participants.length; i++) {
