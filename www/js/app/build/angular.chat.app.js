@@ -293,6 +293,15 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
 
 
+                                           if(def>1500 && data.message.message.owner.user_id==$rootScope.currentUserId){
+
+                                        Status.restartServer(function(rezult){
+                        alert('Sorry, but we have got some problem with the chat server and you page wil be reloaded in 15 sec. Please copy yor message if you have something wrote.');
+                    });
+              }
+
+
+
                 for (var i = 0; i < data.message.message.participants.length; i++) {
                     var user_id = parseInt(data.message.message.participants[i].split('_')[1]);
                     if(user_id!=data.message.message.owner.user_id){
