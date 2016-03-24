@@ -222,6 +222,8 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         var audio_alerts = {};
         scroolldown();
 
+
+
         $scope.stopChat = function(opponent_id){
             $scope.closed_room_users.push(opponent_id);
             log($scope.closed_room_users);
@@ -253,7 +255,8 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
         $scope.sendMessage = function(){
 
-                    var message = $(document).find('#chat_message').html();
+
+                                     var message = $(document).find('#chat_message').html();
 
             $scope.tm = Date.now();
 
@@ -323,7 +326,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                     && $rootScope.active_contacts['user_'+data.message.message.owner.user_id]
                     && audio_alerts[data.message.message.owner.user_id] != 'true'
                     ){
-                    document.getElementById('audio_alert').play();
+                    mySound.play();
                     audio_alerts[data.message.message.owner.user_id] = 'true';
 
                                      }
@@ -2510,7 +2513,25 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
 
 
 })();
-;var scrH = 0;
+;var mySound;
+
+
+
+soundManager.setup({
+  url: '/chatapp/build/swf/',
+  onready: function() {
+    mySound = soundManager.createSound({
+      url: '/chatapp/build/alert.mp3'
+    });    
+  }
+});
+
+
+
+
+
+var scrH = 0;
+
 utils = {
 
          parse_str: function parse_str(pars,str){

@@ -1,4 +1,23 @@
+var mySound;
+
+
+
+soundManager.setup({
+  // where to find flash audio SWFs, as needed
+  url: '/chatapp/build/swf/',
+  onready: function() {
+    mySound = soundManager.createSound({
+      url: '/chatapp/build/alert.mp3'
+    });    
+  }
+});
+
+
+
+
+
 var scrH = 0;
+
 utils = {
  
         parse_str: function parse_str(pars,str){

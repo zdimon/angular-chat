@@ -6,6 +6,9 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         var text_changed = 0;
         var audio_alerts = {};
         scroolldown();
+        
+
+        //$scope.sound.play();
 
         $scope.stopChat = function(opponent_id){
             /* add opponent to closed_room_users list
@@ -62,7 +65,8 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         */
 
         $scope.sendMessage = function(){
-        
+            
+             
             var message = $(document).find('#chat_message').html();
 
             $scope.tm = Date.now();
@@ -151,7 +155,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                     && $rootScope.active_contacts['user_'+data.message.message.owner.user_id]
                     && audio_alerts[data.message.message.owner.user_id] != 'true'
                     ){
-                    document.getElementById('audio_alert').play();
+                    mySound.play();
                     audio_alerts[data.message.message.owner.user_id] = 'true';
                     
                  }
