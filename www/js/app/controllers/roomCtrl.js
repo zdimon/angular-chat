@@ -158,6 +158,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                     && audio_alerts[data.message.message.owner.user_id] != 'true'
                     ){
                     mySound.play();
+                    document.getElementById('audio_alert').play();
                     audio_alerts[data.message.message.owner.user_id] = 'true';
                     
                  }
