@@ -335,6 +335,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
               } else {
 
                  if(data.message.message.owner.user_id!=$rootScope.currentUserId)  {
+                    mySound.play();
                  }                
 
               }
