@@ -52,6 +52,7 @@ var chatVendorLib = [
         '../../marriage-brides.com/Media/js/wysiwyg-editor.js',
         '../../marriage-brides.com/Media/js/chat.js',
         '../../marriage-brides.com/Media/js/jquery.mCustomScrollbar.js',
+        
 
     ]
 
@@ -67,6 +68,7 @@ var angularChatLib = [
         './www/js/lib/angular-websocket/angular-websocket.js',
         './www/js/lib/angular-sanitize/angular-sanitize.min.js',
         './www/js/lib/swfobject/swfobject/swfobject.js',
+        './www/js/lib/soundmanager2/script/soundmanager2-jsmin.js',
 
     ]
 

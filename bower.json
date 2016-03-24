@@ -15,6 +15,7 @@
     "sockjs": "0.3",
     "angular-sockjs": "0.1",
     "angular-sanitize": "~1.4.3",
-    "swfobject": "*"
+    "swfobject": "*",
+    "angular-soundmanager2": "*"
   }
 }
