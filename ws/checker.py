@@ -16,7 +16,7 @@ while True:
 
     #bashCommand = '/home/zdimon/www/ngchat_ve/chat/djapp/kill.sh'
     bashCommand = '/home/webmaster/ngchat_ve/angular-chat/djapp/kill.sh'
-    rez = requests.get(url,timeout=(connect_timeout, 5))
+    #rez = requests.get(url,timeout=(connect_timeout, 5))
     try:
         rez = requests.get(url,timeout=(connect_timeout, 5))
     except:
