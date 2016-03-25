@@ -320,7 +320,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
 
               delete $rootScope.waiting_to_responce['user_'+data.message.message.owner.user_id]
-              mySound.play();
+
              if($rootScope.gender=='m'){
                  if(
                     data.message.message.owner.user_id!=$rootScope.currentUserId  
@@ -328,12 +328,14 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                     && $rootScope.active_contacts['user_'+data.message.message.owner.user_id]
                     && audio_alerts[data.message.message.owner.user_id] != 'true'
                     ){
+                    document.getElementById('audio_alert').play();
                     audio_alerts[data.message.message.owner.user_id] = 'true';
 
                                      }
               } else {
 
                  if(data.message.message.owner.user_id!=$rootScope.currentUserId)  {
+                    document.getElementById('audio_alert').play();
                  }                
 
               }
