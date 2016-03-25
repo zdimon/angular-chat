@@ -326,8 +326,8 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                     data.message.message.owner.user_id!=$rootScope.currentUserId  
                     && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 
                     && $rootScope.active_contacts['user_'+data.message.message.owner.user_id]
-                    && audio_alerts[data.message.message.owner.user_id] != 'true'
-                    ){
+
+                                        ){
                     document.getElementById('audio_alert').play();
                     audio_alerts[data.message.message.owner.user_id] = 'true';
 
@@ -335,7 +335,6 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
               } else {
 
                  if(data.message.message.owner.user_id!=$rootScope.currentUserId)  {
-                    document.getElementById('audio_alert').play();
                  }                
 
               }
