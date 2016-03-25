@@ -148,7 +148,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
               // mark user as is not waiting to responce 
               delete $rootScope.waiting_to_responce['user_'+data.message.message.owner.user_id]
               //****************************************
-              
+              mySound.play();
              // sound in current chat for man and woman
              if($rootScope.gender=='m'){
                  if(
@@ -157,8 +157,8 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                     && $rootScope.active_contacts['user_'+data.message.message.owner.user_id]
                     && audio_alerts[data.message.message.owner.user_id] != 'true'
                     ){
-                    mySound.play();
-                    document.getElementById('audio_alert').play();
+                    //mySound.play();
+                    //document.getElementById('audio_alert').play();
                     audio_alerts[data.message.message.owner.user_id] = 'true';
                     
                  }
