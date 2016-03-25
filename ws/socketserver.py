@@ -317,11 +317,11 @@ def send_charge_request():
         if(room['is_charging_audio']==1):     
              data.append({'action': 'audio', 'app_name': room['app_name'],  'user_id': man, 'opponent_id': woman, 'room_id': room['id'], 'price': str(room['price_audio']) })       
 
-    #if url:  
-        #print "Charge request to %s " % url
-        #print "DATA %s" % data
-        #print requests.post(url,json=data).content  
-        #print 'Memory usage: %s (kb)' % resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    if url:  
+        print "Charge request to %s " % url
+        print "DATA %s" % data
+        print requests.post(url,json=data).content  
+        print 'Memory usage: %s (kb)' % resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
 
 
         
