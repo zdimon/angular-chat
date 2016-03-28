@@ -9,7 +9,7 @@ Manipulate with video blocks.
 
 */
 
-app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$interval, WS, Room) {
+app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$interval, Room) {
 
 
          $rootScope.active_cams = {}

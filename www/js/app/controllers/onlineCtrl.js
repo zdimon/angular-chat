@@ -2,7 +2,7 @@
     
  app.controller('UserOnlineCtrl',
         
-        function ($scope, Online , WS, Contact, Room, $rootScope, $window) {
+        function ($scope, Online , Contact, Room, $rootScope, $window) {
      
          $scope.send_message = function(user_id){
 

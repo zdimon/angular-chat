@@ -26,8 +26,8 @@ angular.module('app.controllers', [])
 
  
 
- .controller('InvitationCtrl', function ($scope, WS, $rootScope) {
-        $scope.ws = WS;
+ .controller('InvitationCtrl', function ($scope, $rootScope) {
+     
         $scope.show_intitation = true;
         $scope.close = function(){
             $scope.show_intitation = false;
@@ -37,13 +37,7 @@ angular.module('app.controllers', [])
 
 
 
- .controller('MyVideoCtrl', function ($scope, WS) {
-      $scope.ws = WS;
-    })
 
- .controller('OpponentVideoCtrl', function ($scope, WS) {
-      $scope.ws = WS;
-    })
 
 
 

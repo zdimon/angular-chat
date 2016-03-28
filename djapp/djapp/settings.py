@@ -40,8 +40,17 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djcelery',
     'chat',
+    'ws',
+    'django_sockjs_tornado',
+    
 )
+
+SOCKJS_CLASSES = (
+    'ws.server.ChatConnection',
+)
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -124,6 +133,28 @@ SUIT_CONFIG = {
        
     )
 }
+
+REDIS_HOST = "localhost"
+REDIS_PORT = 6379
+
+BROKER_URL = "redis://" + REDIS_HOST + "/0"
+CELERYBEAT_SCHEDULER='djcelery.schedulers.DatabaseScheduler'
+
+
+from datetime import timedelta
+import djcelery
+djcelery.setup_loader()
+from celery.schedules import crontab
+    
+CELERYBEAT_SCHEDULE = {
+
+    'charge-money': {
+        'task': 'chat.tasks.charge_money',
+        'schedule': timedelta(seconds=60)
+    },
+
+}
+
 
 
 

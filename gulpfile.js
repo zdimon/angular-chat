@@ -65,7 +65,7 @@ var angularChatLib = [
         './www/js/lib/restangular/dist/restangular.min.js',
         './www/js/lib/underscore/underscore-min.js',
         './www/js/lib/angular-cookies/angular-cookies.js',
-        './www/js/lib/angular-websocket/angular-websocket.js',
+
         './www/js/lib/angular-sanitize/angular-sanitize.min.js',
         './www/js/lib/swfobject/swfobject/swfobject.js',
         './www/js/lib/soundmanager2/script/soundmanager2-jsmin.js',
@@ -114,7 +114,7 @@ var angularScripts = [
         './www/js/app/services/Room.js',
         './www/js/app/directives/chat-invitation.js',
         './www/js/app/directives/chat-translator.js',
-        './www/js/app/services/websocket.js',
+        './www/js/app/services/ngSocket.js',
         './www/js/app/utils.js'
     ]
 

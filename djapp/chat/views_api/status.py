@@ -10,13 +10,11 @@ from chat.models import ChatUser, ChatContacts
 from chat.models import Tpa
 from utils.util import serialize_user, get_url_by_name
 from djapp.local import TPA_SERVER
-import brukva
-bclient = brukva.Client()
-bclient.connect()
 from utils.db import MyDB
 bd = MyDB()
 import time 
-
+from utils.redisender import bclient
+bclient = bclient()
 
 @json_view
 def set_connected(request,app_name,user_id,source):

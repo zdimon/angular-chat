@@ -9,7 +9,7 @@ tpapp.js
     var app = angular.module('AngularChatApp', [
         'ngCookies',
         'ngSanitize',
-        'ngWebSocket' 
+        'ng-socket'
     ]).config(function($interpolateProvider,$httpProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
@@ -347,19 +347,40 @@ tpapp.js
 })
 
 
+            .config(function($socketProvider){ 
+                $socketProvider.configure({ address: local_config['ws_server'] }); 
+            })
+
+.run(function ($rootScope,$window,Online,$log, Auth, $socket) {
+
+             $socket.on("open", function(event, data){
+                console.log('open connection');
+
+             });
+             $socket.start();
+
+            
+            // add broadcasters from settings
+            for (var i = 0; i < local_config.events.length; i++) {
+
+                $socket.on(local_config.events[i], function(event, data){
+                    console.log(data);
+                    $rootScope.$broadcast(local_config.events[i],data);
+                 });
+            }
 
 
-.run(function ($rootScope,$window,Online,$log, WS, Auth) {
-
+         
             $rootScope.active_contacts = {};
             Auth.isauth(function(result){
-                console.log(result);
+                
                 $rootScope.gender = result.gender;
                 
                 if(result.id>0) {
                         $rootScope.isAuthenticated = true;
                         $rootScope.currentUserId = result.id;
-                        WS.send({ action: 'connect', user_id: $rootScope.currentUserId, source: 'tpa_side' });
+                        //WS.send({ action: 'connect', user_id: $rootScope.currentUserId, source: 'tpa_side' });
+                        $socket.send('connect',JSON.stringify({user_id: $rootScope.currentUserId, source: 'tpa_side', tpa: 'tpa1com'}));
                         $rootScope.online = {};
                         $rootScope.activecam = {};
                           Online.getOnline(function(rezult){

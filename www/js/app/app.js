@@ -17,7 +17,7 @@ The function :func:`someService` does a some function.
         'app.controllers',
         'ngCookies',
         'ngSanitize',
-        'ngWebSocket' 
+        'ng-socket'
     ]).config(function($interpolateProvider,$httpProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
@@ -27,19 +27,46 @@ The function :func:`someService` does a some function.
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 })
 
+.config(function($socketProvider){ 
+    $socketProvider.configure({ address: local_config['ws_server'] }); 
+})
 
-.run(function ($rootScope, Auth, $window, WS, Online, Status, $stateParams, $state, $timeout, Room, WS) {
+.run(function ($rootScope, Auth, $window, Online, Status, $stateParams, $state, $timeout, Room, $socket) {
 
             // Initialization
 
 
-            $rootScope.$on('connected', function (event, data) {
+             $socket.on("open", function(event, data){
+                console.log('open connection');
+                $rootScope.$broadcast('connected');
+             });
+             $socket.start();
 
+
+            // add broadcasters from settings
+            for (var i = 0; i < local_config.events.length; i++) {
+
+                $socket.on(local_config.events[i], function(event, data){
+                    console.log(data);
+                    $rootScope.$broadcast(local_config.events[i],data);
+                 });
+            }
+
+
+                $socket.on("put_me_in_room", function(event, data){
+                    $rootScope.$broadcast("put_me_in_room",data);
+
+                });
+
+
+
+            $rootScope.$on('connected', function (event, data) {
+                        
                         if (typeof $rootScope.current_opponent_id == 'undefined') {
 			    $rootScope.current_opponent_id = 0;
                         }
                         if($rootScope.current_opponent_id.length != 0) {
-
+                                
                             Auth.initialization($rootScope.current_opponent_id,function(result){
                                 $rootScope.contact_user_list = result.contact.user_list;
                                 $rootScope.online_user_list = result.online_except_contact.user_list;
@@ -85,7 +112,8 @@ The function :func:`someService` does a some function.
 
             Auth.isauth(function(result){
                 if(result.id>0) {
-                        WS.send({ action: 'connect', user_id: $rootScope.currentUserId, source: 'chat_side' });
+                        //WS.send({ action: 'connect', user_id: $rootScope.currentUserId, source: 'chat_side' });
+                        $socket.send('connect',JSON.stringify({user_id: $rootScope.currentUserId, source: 'chat_side', tpa: 'tpa1com'}));
                         $rootScope.isAuthenticated = true;  
                         $rootScope.currentUserId = result.id;
                         $rootScope.currentUsername = result.id;

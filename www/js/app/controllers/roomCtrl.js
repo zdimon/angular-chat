@@ -1,8 +1,8 @@
  
 
 
-app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTranslate, $log, $http, $window, $timeout, Status) {
-        $scope.ws = WS;
+app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, $log, $http, $window, $timeout, Status) {
+        
         var text_changed = 0;
         var audio_alerts = {};
         scroolldown();
@@ -151,12 +151,11 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
               
              // sound in current chat for man and woman
              if($rootScope.gender=='m'){
-                   //&& audio_alerts[data.message.message.owner.user_id] != 'true'
                  if(
                     data.message.message.owner.user_id!=$rootScope.currentUserId  
                     && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 
                     && $rootScope.active_contacts['user_'+data.message.message.owner.user_id]
-                    
+                    && audio_alerts[data.message.message.owner.user_id] != 'true'
                     ){
                     //mySound.play();
                     document.getElementById('audio_alert').play();
@@ -246,6 +245,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
         
 
         $scope.$on('put_me_in_room', function (event, data) {
+          
            var isOldTitle;
            $rootScope.feather = false;
            $scope.room_just_closed = false;
@@ -254,6 +254,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
            $scope.room_id = data.room_id;
            $rootScope.room_id = data.room_id;
            $scope.hasActiveRoom=true;
+           console.log($scope.hasActiveRoom);
 
             // remove title blinking
             clearInterval($scope.blink_title_interval);
@@ -278,7 +279,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                 $rootScope.isOpponentVideoActive = false;
             }
          });
-    
+           
            Room.getMessages(data.room_id, function(result) {
               
               $scope.messages = result.message;

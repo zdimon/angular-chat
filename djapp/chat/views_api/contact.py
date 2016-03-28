@@ -4,10 +4,9 @@ from chat.models import Tpa, ChatUser, ChatContacts
 from jsonview.decorators import json_view
 from utils.util import serialize_user
 import time
-import brukva
-bclient = brukva.Client()
-bclient.connect()
 from django.views.decorators.csrf import csrf_exempt
+from utils.redisender import bclient
+bclient = bclient()
 
 def _get_contact(app_name,owner_id,contact_id):
     ''' 

@@ -11,9 +11,9 @@ from chat.models import Tpa
 from utils.util import read_conf, serialize_user
 from utils.db import MyDB
 from contact import _add_contact, _get_contact
-import brukva
-bclient = brukva.Client()
-bclient.connect()
+from utils.redisender import bclient
+bclient = bclient()
+
 import re
 bd = MyDB()
 import time
@@ -359,8 +359,9 @@ def invite(request,app_name,owner_id,contact_id):
     tpa = Tpa.objects.get(name=app_name)
     owner = ChatUser.objects.get(user_id=owner_id,tpa=tpa)
     contact_user = ChatUser.objects.get(user_id=contact_id,tpa=tpa)
-    print "SEND TO "+ owner_chanel
+    
     mes = { 'action': 'put_me_in_room', 'room_id': rm['room_id'], 'owner_id': owner_id,'contact_id':contact_id, 'contact': serialize_user(contact_user), 'contact_data': contact_data, 'source': 'views/room.py'}
+    #print "SEND TO %s %s" % (owner_chanel,mes)
     bclient.publish(owner_chanel, json.dumps(mes))
     
     if(contact_user.is_online):

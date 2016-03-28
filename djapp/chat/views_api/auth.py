@@ -8,12 +8,11 @@ from django.contrib.auth.models import User
 from chat.models import ChatUser, Tpa
 from utils.api_router import get_url_by_name
 from utils.util import serialize_user
-import brukva
-bclient = brukva.Client()
-bclient.connect()
 from djapp.local import TPA_SERVER
 from utils.db import MyDB
 bd = MyDB()
+from utils.redisender import bclient
+bclient = bclient()
 
 
 @json_view

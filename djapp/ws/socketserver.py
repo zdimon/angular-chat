@@ -321,7 +321,7 @@ def send_charge_request():
         print "Charge request to %s " % url
         print "DATA %s" % data
         print requests.post(url,json=data).content  
-        print 'Memory usage: %s (kb)' % resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        #print 'Memory usage: %s (kb)' % resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
 
 
         

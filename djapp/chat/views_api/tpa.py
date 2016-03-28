@@ -4,7 +4,8 @@ from jsonview.decorators import json_view
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from chat.models import Tpa
-
+from utils.redisender import bclient
+bclient = bclient()
 
 @json_view
 def get_prices(request,app_name):

@@ -9,11 +9,9 @@ from django.contrib.auth.models import User
 from chat.models import ChatUser, Tpa, ChatRoom, ChatUser2Room
 from utils.db import MyDB
 bd = MyDB()
-import brukva
-bclient = brukva.Client()
-bclient.connect()
 from utils.util import serialize_user
-
+from utils.redisender import bclient
+bclient = bclient()
 
 @json_view
 def opponent_mic_on(request,user_id,opponent_id,room_id,app_name):

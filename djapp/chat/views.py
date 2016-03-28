@@ -23,10 +23,13 @@ from chat.views_api.status import *
 from chat.views_api.tpa import *
 from jsonview.decorators import json_view
 from djapp.local import TPA_SERVER
+from utils.redisender import bclient
+bclient = bclient()
+#import brukva
+#bclient = brukva.Client()
+#bclient.connect()
 
-import brukva
-bclient = brukva.Client()
-bclient.connect()
+
 
 bd = MyDB()
 
@@ -60,6 +63,7 @@ def initialization(request,app_name,user_id, contact_id):
     '''
     tpa = Tpa.objects.get(name=app_name)
     
+    #bclient.publish('150032', {'mess':'hello', 'action': 'ping'})
     #1
     #is_login_url = get_url_by_name('is_login',{'user_id':user_id,'app_name':app_name,'signal_server': TPA_SERVER})
     #owner = requests.get(is_login_url).content

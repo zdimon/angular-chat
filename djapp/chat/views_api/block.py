@@ -7,10 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 import requests
 from django.contrib.auth.models import User
 from chat.models import ChatUser, Tpa, ChatBlocklist
-
-import brukva
-bclient = brukva.Client()
-bclient.connect()
+from utils.redisender import bclient
+bclient = bclient()
 
 
 @json_view

@@ -11,7 +11,7 @@
         'app.controllers',
         'ngCookies',
         'ngSanitize',
-        'ngWebSocket' 
+        'ng-socket'
     ]).config(function($interpolateProvider,$httpProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
@@ -21,9 +21,28 @@
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 })
 
+.config(function($socketProvider){ 
+    $socketProvider.configure({ address: local_config['ws_server'] }); 
+})
 
-.run(function ($rootScope, Auth, $window, WS, Online, Status, $stateParams, $state, $timeout, Room, WS) {
+.run(function ($rootScope, Auth, $window, Online, Status, $stateParams, $state, $timeout, Room, $socket) {
 
+
+
+             $socket.on("open", function(event, data){
+                console.log('open connection');
+
+             });
+             $socket.start();
+
+
+            for (var i = 0; i < local_config.events.length; i++) {
+
+                $socket.on(local_config.events[i], function(event, data){
+                    console.log(data);
+                    $rootScope.$broadcast(local_config.events[i],data);
+                 });
+            }
 
 
             $rootScope.$on('connected', function (event, data) {
@@ -78,7 +97,7 @@
 
             Auth.isauth(function(result){
                 if(result.id>0) {
-                        WS.send({ action: 'connect', user_id: $rootScope.currentUserId, source: 'chat_side' });
+                        $socket.send('connect',JSON.stringify({user_id: $rootScope.currentUserId, source: 'chat_side'}));
                         $rootScope.isAuthenticated = true;  
                         $rootScope.currentUserId = result.id;
                         $rootScope.currentUsername = result.id;
@@ -190,9 +209,9 @@ angular.module('app.controllers', [])
 
 
 
-  .controller('InvitationCtrl', function ($scope, WS, $rootScope) {
-        $scope.ws = WS;
-        $scope.show_intitation = true;
+  .controller('InvitationCtrl', function ($scope, $rootScope) {
+
+             $scope.show_intitation = true;
         $scope.close = function(){
             $scope.show_intitation = false;
         }
@@ -201,13 +220,7 @@ angular.module('app.controllers', [])
 
 
 
- .controller('MyVideoCtrl', function ($scope, WS) {
-      $scope.ws = WS;
-    })
 
- .controller('OpponentVideoCtrl', function ($scope, WS) {
-      $scope.ws = WS;
-    })
 
 
 
@@ -216,9 +229,9 @@ angular.module('app.controllers', [])
 ; 
 
 
-app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTranslate, $log, $http, $window, $timeout, Status) {
-        $scope.ws = WS;
-        var text_changed = 0;
+app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, $log, $http, $window, $timeout, Status) {
+
+                var text_changed = 0;
         var audio_alerts = {};
         scroolldown();
 
@@ -326,8 +339,8 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
                     data.message.message.owner.user_id!=$rootScope.currentUserId  
                     && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 
                     && $rootScope.active_contacts['user_'+data.message.message.owner.user_id]
-
-                                        ){
+                    && audio_alerts[data.message.message.owner.user_id] != 'true'
+                    ){
                     document.getElementById('audio_alert').play();
                     audio_alerts[data.message.message.owner.user_id] = 'true';
 
@@ -588,7 +601,7 @@ app.controller('RoomCtrl', function ($scope, WS, Room, $rootScope, GoogleTransla
 
      app.controller('UserOnlineCtrl',
 
-                function ($scope, Online , WS, Contact, Room, $rootScope, $window) {
+                function ($scope, Online , Contact, Room, $rootScope, $window) {
 
               $scope.send_message = function(user_id){
 
@@ -850,7 +863,7 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
 ;
 
-app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$interval, WS, Room) {
+app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$interval, Room) {
 
 
          $rootScope.active_cams = {}
@@ -2251,270 +2264,128 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
 
     return directive;
 });
-;(function () {
-  'use strict';
+;
 
-  angular
-    .module('AngularChatApp')
-    .factory('WS', function($websocket, $rootScope, $timeout){
+angular.module("ng-socket", [])
 
-      var dataStream = $websocket("ws://"+local_config.ws_server+"/ws");
+.provider("$socket", function() {
 
+        var options = {
+        address: null,
+        broadcastPrefix: "$socket.",
+        reconnectInterval: 5000,
+        receiveInterval: 500,
+        parser: null,
+        formatter: null,
+        logger: function() {}
+    };
 
-      dataStream.onMessage(function(message) {
-        message = JSON.parse(message.data)
+    function parser(msg) {
+        return angular.fromJson(msg);
+    }
 
+    function formatter(event, data) {
+        return angular.toJson([event, data]);
+    }
 
-                if(message.action=='connected'){
+    var queue = [];
+    var fireQueue = [];
+    var firePromise = null;
+    var socket;
+    var socketConnected;
 
-                        $rootScope.$broadcast('connected');
+    function socketFactory($rootScope, $timeout) {
 
-                           }
+        function on(event, listener, scope) {
+            return (scope || $rootScope).$on(options.broadcastPrefix + event, listener);
+        }
 
+        function send(event, data) {
+            var message = (options.formatter || formatter)(event, data);
+            if (socketConnected) {
+                socket.send(message);
+            } else {
+                queue.push(message);
+            }
+        }
 
-        if(message.action=='show_new_message_notification'){
-            $rootScope.$broadcast('show_new_message_notification', message.data);
+        function newSocket() {
+            socketConnected = false;
+            socket = null;
+            if (!window.SockJS) {
+                return options.logger(new Error("Must include SockJS for ng-socket to work"));
+            }
+            if (!options.address) {
+                return options.logger(new Error("Must configure the address"));
+            }
+            socket = new SockJS(options.address);
+
+                        socket.onopen = function() {
+
+                                socketConnected = true;
+                $rootScope.$broadcast(options.broadcastPrefix + "open");
+                for (var i in queue) {
+                    socket.send(queue[i]);
+                }
+                queue = [];
+            };
+
+            socket.onmessage = function(msg) {
+
+                                msg = (options.parser || parser)(msg.data);
+                if (!Array.isArray(msg) || msg.length !== 2) {
+                    return options.logger(new Error("Invalid message " + msg.toString()));
+                }
+
+                fire(msg[0], msg[1]);
+            };
+
+            socket.onclose = function() {
+                socketConnected = false;
+                socket = null;
+                $timeout(newSocket, options.reconnectInterval);
+            };
 
         }
 
-
-        if(message.action=='update_contact'){
-
-                        $rootScope.$broadcast('update_contact');
-
-                           }
-
-        if(message.action=='add_me_in_contact_list'){
-            $rootScope.$broadcast('add_me_in_contact_list',message);
-
+        function fireAll() {
+            for (var i in fireQueue) {
+                $rootScope.$broadcast(options.broadcastPrefix + fireQueue[i].event, fireQueue[i].data);
+            }
+            fireQueue = [];
         }
 
-        if(message.action=='add_opponent_in_my_contact_list'){
-            $rootScope.$broadcast('add_opponent_in_my_contact_list',message);
-
+        function fire(event, data) {
+            fireQueue.push({
+                event: event,
+                data: data
+            });
+            if (!firePromise) {
+                firePromise = $timeout(fireAll, options.receiveInterval, true)['finally'](function() {
+                    firePromise = null;
+                });
+            }
         }
 
+        return {
+            start: newSocket,
+            send: send,
+            on: on,
+            socket: function() {
+                return socket;
+            }
+        };
+    }
 
-        if(message.action=='put_me_in_room'){
 
-                        $rootScope.$broadcast('put_me_in_room', message);
+    this.$get = socketFactory;
 
-                           }
+    this.configure = function(opt) {
+        angular.extend(options, opt);
+    };
 
-        if(message.action=='mark_watching_profile'){
+});
 
-                        $rootScope.$broadcast('mark_watching_profile', message);
-
-                           }
-
-
-        if(message.action=='show_inv_win'){
-
-                        $rootScope.$broadcast('show_inv_win',{'message':message}); 
-
-                          }
-
-
-        if(message.action=='update_users_online'){
-
-                        $rootScope.$broadcast('update_users_online');
-
-                           }
-
-        if(message.action=='set_me_online'){
-
-            $rootScope.$broadcast('set_me_online',{'message':message});
-
-        }
-
-
-
-
-         if(message.action=='update_cam_indicators'){
-
-                        $rootScope.$broadcast('update_cam_indicators',message);
-
-        }
-
-        if(message.action=='say_busy'){
-
-                        $rootScope.$broadcast('say_busy',message);
-
-        }
-
-
-
-        if(message.action=='close_room'){
-
-                        $rootScope.$broadcast('close_room',message);
-
-        }
-
-
-        if(message.action=='i_started_watching_you'){
-
-
-                     $rootScope.$broadcast('i_started_watching_you',message);
-
-
-                    }
-
-        if(message.action=='update_balance'){
-
-                       $rootScope.$broadcast('update_balance',message);
-
-        }
-
-
-        if(message.action=='i_stopted_watching_you'){
-
-            $rootScope.$broadcast('i_stopted_watching_you',message);
-
-        }
-
-        if(message.action=='alert_mic_on'){
-
-                        $rootScope.$broadcast('alert_mic_on',message);
-
-        }
-
-        if(message.action=='alert_mic_off'){
-
-                       $rootScope.$broadcast('alert_mic_off',message);
-
-        }
-
-        if(message.action=='only_mic_on'){
-
-                        $rootScope.$broadcast('only_mic_on',message);
-
-        }
-
-        if(message.action=='only_mic_off'){
-
-                       $rootScope.$broadcast('only_mic_off',message);
-
-        }
-
-
-        if(message.action=='opponent_mic_on'){
-
-                        $rootScope.$broadcast('opponent_mic_on',message);
-
-        }
-
-        if(message.action=='opponent_mic_off'){
-
-                       $rootScope.$broadcast('opponent_mic_off',message);
-
-        }
-
-
-        if(message.action=='show_multi_invite_notification'){
-
-            $rootScope.$broadcast('show_multi_invite_notification',message);
-
-        }
-
-        if(message.action=='show_feather'){
-
-            $rootScope.$broadcast('show_feather',message);
-
-        }
-
-
-        if(message.action=='show_invite_notification'){
-
-            $rootScope.$broadcast('show_invite_notification',message);
-
-        }
-
-
-
-        if(message.action=='set_me_offline'){
-
-            $rootScope.$broadcast('set_me_offline',{'message':message});
-
-        }
-
-
-                            if(message.action=='contact_activate'){
-            $rootScope.$broadcast('contact_activate',message);
-
-        }     
-
-                  if(message.action=='contact_deactivate'){
-
-            $rootScope.$broadcast('contact_deactivate',message);
-
-        }           
-
-
-
-        if(message.action=='close_video'){
-
-            $rootScope.$broadcast('close_video', message);
-
-                           }
-
-
-
-        if(message.action=='show_message'){
-
-
-            $rootScope.$broadcast('show_message', {'message':  message});
-
-                           }
-
-        if(message.action=='put_user_to_room'){
-
-            $rootScope.$broadcast('put_user_to_room', {'message':  message.message});
-
-                           }
-
-
-      });
-
-      dataStream.onOpen(function(message) {
-
-              });
-
-
-      dataStream.onClose(function(message) {
-                $timeout(function(){
-
-
-
-                                        if (window.location.href.indexOf("video-chat") > 1)
-                    {
-
-
-
-                                                      window.location.reload();        
-
-                    }
-
-
-                                        }, 15000);
-      });
-
-
-
-      var methods = {
-
-        send: function(mess) {
-          mess['tpa'] = local_config.app_name
-          dataStream.send(JSON.stringify(mess));
-        }
-
-      };
-
-      return methods;   
-
-    });
-
-
-})();
 ;var mySound;
 
 
