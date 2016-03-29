@@ -74,10 +74,8 @@ class ChatConnection(SockJSConnection):
     def on_close(self):
         if self in cl:
             cl.remove(self)
-        try:
-            clients.remove(int(self.current_user_id))
-        except:
-            print 'Error removing client'
+        if  int(self.current_user_id) in clients:
+            clients.remove()
 
 ChatRouter = SockJSRouter(ChatConnection, '/chat')
 
