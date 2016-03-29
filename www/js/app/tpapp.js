@@ -353,7 +353,7 @@ tpapp.js
 
 .run(function ($rootScope,$window,Online,$log, Auth, $socket) {
 
-             console.log(local_config['ws_server']);
+         
              $socket.on("open", function(event, data){
                 console.log('open connection');
 

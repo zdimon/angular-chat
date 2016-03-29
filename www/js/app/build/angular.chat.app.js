@@ -31,28 +31,23 @@
 
              $socket.on("open", function(event, data){
                 console.log('open connection');
-
+                $rootScope.$broadcast('connected');
              });
              $socket.start();
 
 
-            for (var i = 0; i < local_config.events.length; i++) {
-
-                $socket.on(local_config.events[i], function(event, data){
-                    console.log(data);
-                    $rootScope.$broadcast(local_config.events[i],data);
-                 });
-            }
 
 
-            $rootScope.$on('connected', function (event, data) {
 
-                        if (typeof $rootScope.current_opponent_id == 'undefined') {
+
+                        $rootScope.$on('connected', function (event, data) {
+
+                                                if (typeof $rootScope.current_opponent_id == 'undefined') {
 			    $rootScope.current_opponent_id = 0;
                         }
                         if($rootScope.current_opponent_id.length != 0) {
 
-                            Auth.initialization($rootScope.current_opponent_id,function(result){
+                                                            Auth.initialization($rootScope.current_opponent_id,function(result){
                                 $rootScope.contact_user_list = result.contact.user_list;
                                 $rootScope.online_user_list = result.online_except_contact.user_list;
                                 $rootScope.online = {};
@@ -97,7 +92,7 @@
 
             Auth.isauth(function(result){
                 if(result.id>0) {
-                        $socket.send('connect',JSON.stringify({user_id: $rootScope.currentUserId, source: 'chat_side'}));
+                        $socket.send('connect',JSON.stringify({user_id: $rootScope.currentUserId, source: 'chat_side', tpa: 'tpa1com'}));
                         $rootScope.isAuthenticated = true;  
                         $rootScope.currentUserId = result.id;
                         $rootScope.currentUsername = result.id;
@@ -309,18 +304,18 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
 
 
 
-                                           if(def>1500 && data.message.message.owner.user_id==$rootScope.currentUserId){
+                                           if(def>1500 && data.message.owner.user_id==$rootScope.currentUserId){
 
                                         Status.restartServer(function(rezult){
                         alert('Sorry, but we have got some problem with the chat server and you page wil be reloaded in 15 sec. Please copy yor message if you have something wrote.');
                     });
               }
 
+                console.log(data);
 
-
-                for (var i = 0; i < data.message.message.participants.length; i++) {
-                    var user_id = parseInt(data.message.message.participants[i].split('_')[1]);
-                    if(user_id!=data.message.message.owner.user_id){
+                for (var i = 0; i < data.message.participants.length; i++) {
+                    var user_id = parseInt(data.message.participants[i].split('_')[1]);
+                    if(user_id!=data.message.owner.user_id){
 
                                                 var index = $scope.closed_room_users.indexOf(user_id);
 
@@ -332,45 +327,46 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
 
 
 
-              delete $rootScope.waiting_to_responce['user_'+data.message.message.owner.user_id]
+              delete $rootScope.waiting_to_responce['user_'+data.message.owner.user_id]
 
              if($rootScope.gender=='m'){
                  if(
-                    data.message.message.owner.user_id!=$rootScope.currentUserId  
-                    && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 
-                    && $rootScope.active_contacts['user_'+data.message.message.owner.user_id]
-                    && audio_alerts[data.message.message.owner.user_id] != 'true'
+                    data.message.owner.user_id!=$rootScope.currentUserId  
+                    && $scope.closed_room_users.indexOf(data.message.owner.user_id) == -1 
+                    && $rootScope.active_contacts['user_'+data.message.owner.user_id]
+                    && audio_alerts[data.message.owner.user_id] != 'true'
                     ){
                     document.getElementById('audio_alert').play();
-                    audio_alerts[data.message.message.owner.user_id] = 'true';
+                    audio_alerts[data.message.owner.user_id] = 'true';
 
                                      }
               } else {
 
-                 if(data.message.message.owner.user_id!=$rootScope.currentUserId)  {
+                 if(data.message.owner.user_id!=$rootScope.currentUserId)  {
+                    document.getElementById('audio_alert').play();
                  }                
 
               }
 
 
-                    if(data.message.message.owner.user_id!=$rootScope.currentUserId){               
+                    if(data.message.owner.user_id!=$rootScope.currentUserId){               
                         $scope.blink_title_interval = setInterval(blinkTitle, 700);
                     } else {
                         clearInterval($scope.blink_title_interval);
                     }
 
-              if(data.message.message.room_id != $scope.room_id){
+              if(data.message.room_id != $scope.room_id){
 
 
 
 
                    for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
-                        if($rootScope.contact_user_list[i].user_id==data.message.message.owner.user_id) {
+                        if($rootScope.contact_user_list[i].user_id==data.message.owner.user_id) {
                             $rootScope.contact_user_list[i].has_new_message = true;
                         }
                    }                  
 
-                   if($rootScope.gender=='m' && !$rootScope.active_contacts['user_'+data.message.message.owner.user_id]) {
+                   if($rootScope.gender=='m' && !$rootScope.active_contacts['user_'+data.message.owner.user_id]) {
                     } 
 
 
@@ -386,16 +382,16 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
                                         if($scope.chat_translate==true){
 
 
-                                                                                      GoogleTranslate.translate('en','ru',data.message.message.message).then(function(resulf){
-                             data.message.message.translated_message = resulf;
-                             $scope.messages.push(data.message.message);
-                             GoogleTranslate.save_translate(data.message,resulf); 
+                                                                                      GoogleTranslate.translate('en','ru',data.message).then(function(resulf){
+                             data.message.translated_message = resulf;
+                             $scope.messages.push(data.message);
+                             GoogleTranslate.save_translate(data,resulf); 
                             });
 
 
                        } else {
 
-                        $scope.messages.push(data.message.message);
+                        $scope.messages.push(data.message);
 
                        }
               }
@@ -412,7 +408,8 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
 
 
                                 $scope.$on('put_me_in_room', function (event, data) {
-           var isOldTitle;
+
+                     var isOldTitle;
            $rootScope.feather = false;
            $scope.room_just_closed = false;
            $scope.room_participants = [local_config.app_name+'_'+data.owner_id, local_config.app_name+'_'+data.contact_id];
@@ -420,6 +417,7 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
            $scope.room_id = data.room_id;
            $rootScope.room_id = data.room_id;
            $scope.hasActiveRoom=true;
+           console.log($scope.hasActiveRoom);
 
             clearInterval($scope.blink_title_interval);
             document.title = oldTitle;
@@ -443,7 +441,7 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
             }
          });
 
-               Room.getMessages(data.room_id, function(result) {
+                      Room.getMessages(data.room_id, function(result) {
 
                             $scope.messages = result.message;
 
@@ -689,11 +687,11 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
       $rootScope.$on('set_me_online',function(event, data){
 
-                      $rootScope.online['user_'+data.message.uid] = true;
+                      $rootScope.online['user_'+data.uid] = true;
 
                 for(key in $rootScope.contact_user_list){
 
-                                if ($rootScope.contact_user_list[key].user_id == data.message.uid) {
+                                if ($rootScope.contact_user_list[key].user_id == data.uid) {
                     $rootScope.contact_user_list[key].is_online = 1;
                 }
 
@@ -757,11 +755,12 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
       $rootScope.$on('set_me_offline',function(event, data){
 
-                       delete $scope.watch_profile['user_'+data.message.uid];
+
+                                delete $scope.watch_profile['user_'+data.uid];
 
            for(key in $rootScope.contact_user_list){
 
-                                if ($rootScope.contact_user_list[key].user_id == data.message.uid) {
+                                if ($rootScope.contact_user_list[key].user_id == data.uid) {
                     $rootScope.contact_user_list[key].is_online = 1;
                 }
 
@@ -773,7 +772,7 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
       $rootScope.$on('set_me_offline',function(event, data){
 
-                      $rootScope.online['user_'+data.message.uid] = false;
+                      $rootScope.online['user_'+data.uid] = false;
 
                  })
 
@@ -850,7 +849,7 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
             $rootScope.current_opponent_id = contact_id;
             Room.invite(contact_id,function(result){
 
-                               if(result.video_charging == true && result.opponent.gender == 'w' && !$rootScope.i_am_watching) {
+                                if(result.video_charging == true && result.opponent.gender == 'w' && !$rootScope.i_am_watching) {
                     $rootScope.$broadcast('show_opponent_video',{})
                 }
 
@@ -1877,6 +1876,185 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
 
   angular
     .module('AngularChatApp')
+    .run(function( $socket, $rootScope){
+
+                $socket.on("put_me_in_room", function(event, data){
+                    $rootScope.$broadcast("put_me_in_room",data);
+
+                });
+
+
+                $socket.on("show_message", function(event, data){
+                    $rootScope.$broadcast("show_message",data);
+
+                });
+
+
+                $socket.on("ping", function(event, data){
+                    $rootScope.$broadcast("ping",data);
+
+                });
+
+
+                $socket.on("show_new_message_notification", function(event, data){
+                    $rootScope.$broadcast("show_new_message_notification",data);
+
+                });
+
+
+                $socket.on("update_contact", function(event, data){
+                    $rootScope.$broadcast("update_contact",data);
+
+                });
+
+
+                $socket.on("add_me_in_contact_list", function(event, data){
+                    $rootScope.$broadcast("add_me_in_contact_list",data);
+
+                });
+
+
+                $socket.on("add_opponent_in_my_contact_list", function(event, data){
+                    $rootScope.$broadcast("add_opponent_in_my_contact_list",data);
+
+                });
+
+
+                $socket.on("mark_watching_profile", function(event, data){
+                    $rootScope.$broadcast("mark_watching_profile",data);
+
+                });
+
+                $socket.on("show_inv_win", function(event, data){
+                    $rootScope.$broadcast("show_inv_win",data);
+
+                });
+
+                $socket.on("update_users_online", function(event, data){
+                    $rootScope.$broadcast("update_users_online",data);
+
+                });
+
+                $socket.on("set_me_online", function(event, data){
+                    $rootScope.$broadcast("set_me_online",data);
+
+                });
+
+                $socket.on("update_cam_indicators", function(event, data){
+                    $rootScope.$broadcast("update_cam_indicators",data);
+
+                });
+
+                $socket.on("say_busy", function(event, data){
+                    $rootScope.$broadcast("say_busy",data);
+
+                });
+
+                $socket.on("close_room", function(event, data){
+                    $rootScope.$broadcast("close_room",data);
+
+                });
+
+                $socket.on("i_started_watching_you", function(event, data){
+                    $rootScope.$broadcast("i_started_watching_you",data);
+
+                });
+
+                $socket.on("update_balance", function(event, data){
+                    $rootScope.$broadcast("update_balance",data);
+
+                });
+
+                $socket.on("i_stopted_watching_you", function(event, data){
+                    $rootScope.$broadcast("i_stopted_watching_you",data);
+
+                });
+
+                $socket.on("alert_mic_on", function(event, data){
+                    $rootScope.$broadcast("alert_mic_on",data);
+
+                });
+
+                $socket.on("alert_mic_off", function(event, data){
+                    $rootScope.$broadcast("alert_mic_off",data);
+
+                });
+
+                $socket.on("only_mic_on", function(event, data){
+                    $rootScope.$broadcast("only_mic_on",data);
+
+                });
+
+                $socket.on("only_mic_off", function(event, data){
+                    $rootScope.$broadcast("only_mic_off",data);
+
+                });
+
+                $socket.on("opponent_mic_on", function(event, data){
+                    $rootScope.$broadcast("opponent_mic_on",data);
+
+                });
+
+                $socket.on("opponent_mic_off", function(event, data){
+                    $rootScope.$broadcast("opponent_mic_off",data);
+
+                });
+
+                $socket.on("show_multi_invite_notification", function(event, data){
+                    $rootScope.$broadcast("show_multi_invite_notification",data);
+
+                });
+
+                $socket.on("show_feather", function(event, data){
+                    $rootScope.$broadcast("show_feather",data);
+
+                });
+
+                $socket.on("show_invite_notification", function(event, data){
+                    $rootScope.$broadcast("show_invite_notification",data);
+
+                });
+
+
+                $socket.on("set_me_offline", function(event, data){
+                    $rootScope.$broadcast("set_me_offline",data);
+
+                });
+
+
+                $socket.on("contact_activate", function(event, data){
+                    $rootScope.$broadcast("contact_activate",data);
+
+                });
+
+
+                $socket.on("contact_deactivate", function(event, data){
+                    $rootScope.$broadcast("contact_deactivate",data);
+
+                });
+
+                $socket.on("close_video", function(event, data){
+                    $rootScope.$broadcast("close_video",data);
+
+                });
+
+                $socket.on("put_user_to_room", function(event, data){
+                    $rootScope.$broadcast("put_user_to_room",data);
+
+                });
+
+
+
+
+    });
+
+
+})();
+;(function () {
+  'use strict';
+
+  angular
+    .module('AngularChatApp')
     .factory('Block', ['$http', '$rootScope', function($http, $rootScope){
             return {
                         blockUser: blockUser,
@@ -2129,7 +2307,7 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
 
   angular
     .module('AngularChatApp')
-    .factory('Room', ['$http','$rootScope', function($http,$rootScope){
+    .factory('Room', ['$http','$rootScope', '$socket', function($http,$rootScope, $socket){
             return {
                         invite: invite,
                         getUserInfo: getUserInfo,
@@ -2180,6 +2358,15 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
                                     'room_id':room_id,
                                     'message':message, 
                                     'participants':participants, 
+                                    'gender': gender};
+
+
+                            var data = {'app_name':local_config.app_name,
+                                    'owner_id':owner_id,
+                                    'room_id':room_id,
+                                    'message':message, 
+                                    'participants':participants, 
+                                    'action': 'send_message',
                                     'gender': gender}
 
                             return $http.post(url, data).success(callback);

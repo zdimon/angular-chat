@@ -44,6 +44,23 @@ var chatCss = [
 
 ]
 
+var commonCss = [
+
+        '../../marriage-brides.com/Media/css/plugin.css',
+        '../../marriage-brides.com/Media/css/my.css',
+        '../../marriage-brides.com/Media/css/responsive.css',
+        '../../marriage-brides.com/Media/css/responsive-landscape.css',
+        '../../marriage-brides.com/Media/css/responsive-portrait.css',
+        '../../marriage-brides.com/Media/css/responsive-min.css',
+        '../../marriage-brides.com/Media/css/wysiwyg-editor.css',
+
+
+
+]
+
+
+
+
 var chatVendorLib = [
         '../../marriage-brides.com/Media/js/modernizr.js',
         '../../marriage-brides.com/Media/js/jquery-1.11.0.min.js',
@@ -119,6 +136,34 @@ var angularScripts = [
     ]
 
 
+var angularTpa = [
+        './www/js/app/utils.js',
+        './www/js/app/tpapp.js',
+        './www/js/app/services/ngSocket.js',
+        './www/js/app/services/Online.js',
+        './www/js/app/services/Contact.js',
+        './www/js/app/services/Status.js',
+        './www/js/app/services/Auth.js',
+        './www/js/app/services/websocket.js',
+        './www/js/app/config.js',
+        './www/js/app/local_config.js'
+    ]
+
+
+var common_js = [
+        '../../marriage-brides.com/Media/js/modernizr.js',
+        '../../marriage-brides.com/Media/js/jquery-1.11.0.min.js',
+        '../../marriage-brides.com/Media/js/plugins.js',
+        '../../marriage-brides.com/Media/js/wysiwyg.js',
+        '../../marriage-brides.com/Media/js/spash-slider.js',
+        '../../marriage-brides.com/Media/js/init.js',
+        '../../marriage-brides.com/Media/js/my.js',
+        
+
+    ]
+
+
+
 function vendors_javascript(glob, fileName) {
     return gulp.src(glob)
         //.pipe(strip())
@@ -133,7 +178,10 @@ gulp.task('main', [
     'angularScripts',
     'chatVendorLib',
     'angularChatLib',
-    'chatCss'
+    'chatCss',
+    'commonCss',
+    'common_js',
+    'chatTpa'
 ]);
 
 
@@ -141,6 +189,14 @@ gulp.task('chatCss', function () {
      return gulp.src(chatCss)
         .pipe(minifyCSS())
         .pipe(concat('chat.min.css'))
+        .pipe(gulp.dest('./www/js/app/build/'));
+});
+
+
+gulp.task('commonCss', function () {
+     return gulp.src(commonCss)
+        .pipe(minifyCSS())
+        .pipe(concat('common.min.css'))
         .pipe(gulp.dest('./www/js/app/build/'));
 });
 
@@ -165,5 +221,21 @@ gulp.task('chatVendorLib', function () {
     return vendors_javascript(chatVendorLib, 'chat.vendor.lib.min.js')
         .pipe(gulp.dest('./www/js/app/build/'));
 });
+
+
+
+gulp.task('chatTpa', function () {
+    return vendors_javascript(angularTpa, 'tpa.min.js')
+        .pipe(gulp.dest('./www/js/app/build/'));
+});
+
+gulp.task('common_js', function () {
+    return vendors_javascript(common_js, 'common_js.min.js')
+        .pipe(gulp.dest('./www/js/app/build/'));
+});
+
+
+
+
 
 
