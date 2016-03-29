@@ -32,7 +32,7 @@ class ChatConnection(SockJSConnection):
         """
         
         body = json.loads(message.body)
-        #print body
+        print body
         self.send(message.body)
         #self.write_message(message.body)
 
