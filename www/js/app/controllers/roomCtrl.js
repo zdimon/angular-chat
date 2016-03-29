@@ -214,15 +214,17 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
 
                      $rootScope.feather = false;
                   
-
+			
 
                       if($scope.chat_translate==true){
                             
                              
-                             GoogleTranslate.translate('en','ru',data.message).then(function(resulf){
-                             data.message.translated_message = resulf;
+                             GoogleTranslate.translate('en','ru',data.message.message).then(function(result){
+				
+                             data.message.translated_message = result;
                              $scope.messages.push(data.message);
-                             GoogleTranslate.save_translate(data,resulf); 
+			
+                             GoogleTranslate.save_translate(data,result); 
                             });
 
 
