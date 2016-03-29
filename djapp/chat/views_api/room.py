@@ -205,68 +205,68 @@ def save_message(request):
     cm.save()
     charge_for_chat(cm,room,tpa) #charging
     
-    try:
-        arr_participants = []
-        for p in b['participants']:
-            arr_participants.append(p.split('_')[1])
-            mes = { 'action': 'show_message', 'room_id': b['room_id'], 
-                    'message': {'id': cm.id, 
-                                'created': str(cm.created.time().strftime('%H:%M:%S')),
-                                'message':cm.message,
-                                'room_id':cm.room_id,
-                                'owner': serialize_user(owner),  
-                                'participants': b['participants']          
-                                }
-                  }
-           
-            bclient.publish(p, json.dumps(mes))
-            opponent = ChatUser.objects.get(user_id=p.split('_')[1])
+    #try:
+    arr_participants = []
+    for p in b['participants']:
+        arr_participants.append(p.split('_')[1])
+        mes = { 'action': 'show_message', 'room_id': b['room_id'], 
+                'message': {'id': cm.id, 
+                            'created': str(cm.created.time().strftime('%H:%M:%S')),
+                            'message':cm.message,
+                            'room_id':cm.room_id,
+                            'owner': serialize_user(owner),  
+                            'participants': b['participants']          
+                            }
+              }
+        print 'send to %s' % p
+        bclient.publish(p, json.dumps(mes))
+        opponent = ChatUser.objects.get(user_id=p.split('_')[1])
+        #import pdb; pdb.set_trace()
+        
+        if owner != opponent:
+            # check accessebilities
             #import pdb; pdb.set_trace()
-            
-            if owner != opponent:
-                # check accessebilities
-                #import pdb; pdb.set_trace()
-                check_avalible_url = get_url_by_name('check_accessebility',{'user_id': opponent.user_id, 'app_name': b['app_name']})
-                print 'REQUEST_____%s' % check_avalible_url
-                res = json.loads(requests.get(check_avalible_url).content)
-                if(res['status']==1):
-                    print 'noooooo'
-                    mes = { 'action': 'say_busy', 'message': 'Sorry but I am busy now.', 'user_profile':  serialize_user(opponent)}
-                    owner_chanel = '%s_%s' % (b['app_name'], owner.user_id)
-                    bclient.publish(owner_chanel, json.dumps(mes))
-                # adding contact 
-                is_sent = False
-                if opponent.gender == 'w':
-                    add_me_to_contact_if_not_exist(tpa,owner,opponent,p)
-                #if it man just show multiinvite popup
-                else:
-                    
-                    try:
-                        cont = ChatContacts.objects.get(tpa=tpa,owner=opponent,contact=owner)
-                    except:
-                        data = {'message': cm.message, 'opponent': serialize_user(owner), 'id': str(owner.user_id) }
-                        mes = { 'action': 'show_multi_invite_notification', 'data': data }
-                        bclient.publish('%s_%s' % (b['app_name'], opponent.user_id), json.dumps(mes))
-                        is_sent = True                     
-                contact = _add_contact(tpa.name,owner.user_id,opponent.user_id)
-                mark_new_message(owner,opponent)
-                if(opponent.is_online):
-                    mes_contact = { 'action': 'add_opponent_in_my_contact_list', 'user_id': opponent.user_id, 'profile': serialize_user(opponent) }
-                    mes_online = { 'action': 'update_users_online' }
-                    owner_chanel = '%s_%s' % (b['app_name'], owner.user_id)
-                    opponent_chanel = '%s_%s' % (b['app_name'], opponent.user_id)
-                    bclient.publish(owner_chanel, json.dumps(mes_contact))
-                    bclient.publish(owner_chanel, json.dumps(mes_online))
-                    if is_sent == False:
-                        data = {'message': cm.message, 'id': cm.id, 'opponent': serialize_user(owner)}
-                        mes = { 'action': 'show_new_message_notification', 'data': data }
-                        bclient.publish('%s_%s' % (tpa.name, opponent.user_id), json.dumps(mes))
-                # send commant to add this opponent to list of the active opponent in js
-                mess_ac = { 'action': 'contact_activate', 'user_id': owner.user_id, 'profile': serialize_user(owner) }
-                bclient.publish(opponent_chanel, json.dumps(mess_ac))
+            check_avalible_url = get_url_by_name('check_accessebility',{'user_id': opponent.user_id, 'app_name': b['app_name']})
+            print 'REQUEST_____%s' % check_avalible_url
+            res = json.loads(requests.get(check_avalible_url).content)
+            if(res['status']==1):
+                print 'noooooo'
+                mes = { 'action': 'say_busy', 'message': 'Sorry but I am busy now.', 'user_profile':  serialize_user(opponent)}
+                owner_chanel = '%s_%s' % (b['app_name'], owner.user_id)
+                bclient.publish(owner_chanel, json.dumps(mes))
+            # adding contact 
+            is_sent = False
+            if opponent.gender == 'w':
+                add_me_to_contact_if_not_exist(tpa,owner,opponent,p)
+            #if it man just show multiinvite popup
+            else:
                 
-    except Exception, e:
-        print e
+                try:
+                    cont = ChatContacts.objects.get(tpa=tpa,owner=opponent,contact=owner)
+                except:
+                    data = {'message': cm.message, 'opponent': serialize_user(owner), 'id': str(owner.user_id) }
+                    mes = { 'action': 'show_multi_invite_notification', 'data': data }
+                    bclient.publish('%s_%s' % (b['app_name'], opponent.user_id), json.dumps(mes))
+                    is_sent = True                     
+            contact = _add_contact(tpa.name,owner.user_id,opponent.user_id)
+            mark_new_message(owner,opponent)
+            if(opponent.is_online):
+                mes_contact = { 'action': 'add_opponent_in_my_contact_list', 'user_id': opponent.user_id, 'profile': serialize_user(opponent) }
+                mes_online = { 'action': 'update_users_online' }
+                owner_chanel = '%s_%s' % (b['app_name'], owner.user_id)
+                opponent_chanel = '%s_%s' % (b['app_name'], opponent.user_id)
+                bclient.publish(owner_chanel, json.dumps(mes_contact))
+                bclient.publish(owner_chanel, json.dumps(mes_online))
+                if is_sent == False:
+                    data = {'message': cm.message, 'id': cm.id, 'opponent': serialize_user(owner)}
+                    mes = { 'action': 'show_new_message_notification', 'data': data }
+                    bclient.publish('%s_%s' % (tpa.name, opponent.user_id), json.dumps(mes))
+            # send commant to add this opponent to list of the active opponent in js
+            mess_ac = { 'action': 'contact_activate', 'user_id': owner.user_id, 'profile': serialize_user(owner) }
+            bclient.publish(opponent_chanel, json.dumps(mess_ac))
+            
+    #except Exception, e:
+    #    print e
     
     
 

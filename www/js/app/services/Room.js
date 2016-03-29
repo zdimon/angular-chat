@@ -3,7 +3,7 @@
 
   angular
     .module('AngularChatApp')
-    .factory('Room', ['$http','$rootScope', function($http,$rootScope){
+    .factory('Room', ['$http','$rootScope', '$socket', function($http,$rootScope, $socket){
             return {
                         invite: invite,
                         getUserInfo: getUserInfo,
@@ -54,6 +54,16 @@
                                     'room_id':room_id,
                                     'message':message, 
                                     'participants':participants, 
+                                    'gender': gender};
+                    
+                            //$socket.send('submit_message',JSON.stringify(data));
+
+                            var data = {'app_name':local_config.app_name,
+                                    'owner_id':owner_id,
+                                    'room_id':room_id,
+                                    'message':message, 
+                                    'participants':participants, 
+                                    'action': 'send_message',
                                     'gender': gender}
 
                             return $http.post(url, data).success(callback);

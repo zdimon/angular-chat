@@ -66,10 +66,10 @@ tpapp.js
             $rootScope.$on('show_new_message_notification',function(event,data){
                    
                         console.log('show_new_message_notification');
-                   
+                        console.log(data);
                         if($rootScope.gender=='w'){ document.getElementById('audio_alert').play(); }
-                        $rootScope.notifies[data.id] = data;
-                        $timeout(function(){ delete $rootScope.notifies[data.id] }, 15000);
+                        $rootScope.notifies[data.data.id] = data.data;
+                        $timeout(function(){ delete $rootScope.notifies[data.data.id] }, 15000);
                   
                    
             
@@ -360,14 +360,7 @@ tpapp.js
              $socket.start();
 
             
-            // add broadcasters from settings
-            for (var i = 0; i < local_config.events.length; i++) {
-
-                $socket.on(local_config.events[i], function(event, data){
-                    console.log(data);
-                    $rootScope.$broadcast(local_config.events[i],data);
-                 });
-            }
+            
 
 
          

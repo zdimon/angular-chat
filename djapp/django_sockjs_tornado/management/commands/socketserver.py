@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 from django.utils.importlib import import_module
 from tornado import web, ioloop
 from sockjs.tornado import SockJSRouter
-
+from ws.server import check_online
 
 class Command(BaseCommand):
 
@@ -45,6 +45,7 @@ class Command(BaseCommand):
         PORT = int(options['port'])
         app = web.Application(router.urls, **app_settings)
         app.listen(PORT, no_keep_alive=options['no_keep_alive'])
+        ioloop.PeriodicCallback(check_online, 10000).start()
         print "Running sock app on port", PORT, "with channel", channel
         try:
             ioloop.IOLoop.instance().start()

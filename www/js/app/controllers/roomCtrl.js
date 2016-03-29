@@ -120,19 +120,19 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
               
                
 
-              if(def>1500 && data.message.message.owner.user_id==$rootScope.currentUserId){
+              if(def>1500 && data.message.owner.user_id==$rootScope.currentUserId){
                     
                     Status.restartServer(function(rezult){
                         alert('Sorry, but we have got some problem with the chat server and you page wil be reloaded in 15 sec. Please copy yor message if you have something wrote.');
                     });
               }
 
-
+                console.log(data);
 
               // unmark room as closed
-                for (var i = 0; i < data.message.message.participants.length; i++) {
-                    var user_id = parseInt(data.message.message.participants[i].split('_')[1]);
-                    if(user_id!=data.message.message.owner.user_id){
+                for (var i = 0; i < data.message.participants.length; i++) {
+                    var user_id = parseInt(data.message.participants[i].split('_')[1]);
+                    if(user_id!=data.message.owner.user_id){
                         
                         var index = $scope.closed_room_users.indexOf(user_id);
                         
@@ -146,41 +146,41 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
               ////////////////////////
 
               // mark user as is not waiting to responce 
-              delete $rootScope.waiting_to_responce['user_'+data.message.message.owner.user_id]
+              delete $rootScope.waiting_to_responce['user_'+data.message.owner.user_id]
               //****************************************
               
              // sound in current chat for man and woman
              if($rootScope.gender=='m'){
                  if(
-                    data.message.message.owner.user_id!=$rootScope.currentUserId  
-                    && $scope.closed_room_users.indexOf(data.message.message.owner.user_id) == -1 
-                    && $rootScope.active_contacts['user_'+data.message.message.owner.user_id]
-                    && audio_alerts[data.message.message.owner.user_id] != 'true'
+                    data.message.owner.user_id!=$rootScope.currentUserId  
+                    && $scope.closed_room_users.indexOf(data.message.owner.user_id) == -1 
+                    && $rootScope.active_contacts['user_'+data.message.owner.user_id]
+                    && audio_alerts[data.message.owner.user_id] != 'true'
                     ){
                     //mySound.play();
                     document.getElementById('audio_alert').play();
-                    audio_alerts[data.message.message.owner.user_id] = 'true';
+                    audio_alerts[data.message.owner.user_id] = 'true';
                     
                  }
               } else {
 
-                 if(data.message.message.owner.user_id!=$rootScope.currentUserId)  {
+                 if(data.message.owner.user_id!=$rootScope.currentUserId)  {
                     //mySound.play();
-                    //document.getElementById('audio_alert').play();
+                    document.getElementById('audio_alert').play();
                  }                
 
               }
 
 
                     // blinking title     
-                    if(data.message.message.owner.user_id!=$rootScope.currentUserId){               
+                    if(data.message.owner.user_id!=$rootScope.currentUserId){               
                         $scope.blink_title_interval = setInterval(blinkTitle, 700);
                     } else {
                         clearInterval($scope.blink_title_interval);
                     }
 
                //TODO message.message
-              if(data.message.message.room_id != $scope.room_id){
+              if(data.message.room_id != $scope.room_id){
                     
 
                     
@@ -188,13 +188,13 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
                     //log(data.message.message.room_id +'!='+ $scope.room_id);
                    // set envelop blinking (new message)
                    for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
-                        if($rootScope.contact_user_list[i].user_id==data.message.message.owner.user_id) {
+                        if($rootScope.contact_user_list[i].user_id==data.message.owner.user_id) {
                             $rootScope.contact_user_list[i].has_new_message = true;
                         }
                    }                  
                    //// show pop up in man case 
 
-                   if($rootScope.gender=='m' && !$rootScope.active_contacts['user_'+data.message.message.owner.user_id]) {
+                   if($rootScope.gender=='m' && !$rootScope.active_contacts['user_'+data.message.owner.user_id]) {
                        // $rootScope.$broadcast('show_invite_notification',{'id': data.message.message.owner.user_id, 'data':{ 'message': data.message.message.message, 'opponent': data.message.message.owner}});
                     } 
 
@@ -219,16 +219,16 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
                       if($scope.chat_translate==true){
                             
                              
-                             GoogleTranslate.translate('en','ru',data.message.message.message).then(function(resulf){
-                             data.message.message.translated_message = resulf;
-                             $scope.messages.push(data.message.message);
-                             GoogleTranslate.save_translate(data.message,resulf); 
+                             GoogleTranslate.translate('en','ru',data.message).then(function(resulf){
+                             data.message.translated_message = resulf;
+                             $scope.messages.push(data.message);
+                             GoogleTranslate.save_translate(data,resulf); 
                             });
 
 
                        } else {
 
-                        $scope.messages.push(data.message.message);
+                        $scope.messages.push(data.message);
 
                        }
               }

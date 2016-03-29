@@ -43,11 +43,11 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
       $rootScope.$on('set_me_online',function(event, data){
            
-           $rootScope.online['user_'+data.message.uid] = true;
+           $rootScope.online['user_'+data.uid] = true;
      
            for(key in $rootScope.contact_user_list){
                 
-                if ($rootScope.contact_user_list[key].user_id == data.message.uid) {
+                if ($rootScope.contact_user_list[key].user_id == data.uid) {
                     $rootScope.contact_user_list[key].is_online = 1;
                 }
               
@@ -122,11 +122,12 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
       $rootScope.$on('set_me_offline',function(event, data){
            
-            delete $scope.watch_profile['user_'+data.message.uid];
+         
+            delete $scope.watch_profile['user_'+data.uid];
 
            for(key in $rootScope.contact_user_list){
                 
-                if ($rootScope.contact_user_list[key].user_id == data.message.uid) {
+                if ($rootScope.contact_user_list[key].user_id == data.uid) {
                     $rootScope.contact_user_list[key].is_online = 1;
                 }
               
@@ -144,7 +145,7 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
 
       $rootScope.$on('set_me_offline',function(event, data){
            
-           $rootScope.online['user_'+data.message.uid] = false;
+           $rootScope.online['user_'+data.uid] = false;
            /*
            for(key in $scope.contact_list){
                 if ($scope.contact_list[key].user_id == data.message.uid) {

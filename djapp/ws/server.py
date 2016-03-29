@@ -1,20 +1,23 @@
 from tornado import websocket, web, ioloop, autoreload
 from sockjs.tornado import SockJSRouter, SockJSConnection
+from sockjs.tornado.periodic import Callback
 import json
 import os
 import tornadoredis
 from tornado import gen
-sender = tornadoredis.Client(host='localhost', port=6379)
 cl = []
-from chat.tasks import set_online
-
+from chat.tasks import set_online, clean_online
+from utils.redisender import bclient
+bclient = bclient()
 
 
 class ChatConnection(SockJSConnection): 
-
+    global clients
+    clients = []
     def __init__(self,*args):
         super(ChatConnection, self).__init__(*args)  
         self._connect_to_redis()
+        self.current_user_id = None
 
     @gen.engine
     def _listen(self,channel):
@@ -47,17 +50,16 @@ class ChatConnection(SockJSConnection):
         #print message[1]['user_id']
         act = message[0]
         data = json.loads(message[1])
+        #print data
         self.send(message)
-        if act == 'send_message':
-            try:
-                sender.publish(message['user_id'],json.dumps(message))
-            except:
-                print 'can not publish to %s' % data['user_id']
 
         if act == 'connect':
             try:
                 chanel = '%s_%s' % (data['tpa'],data['user_id'])
                 self._listen(chanel)
+                if not data["user_id"] in clients:
+                    clients.append(int(data["user_id"]))
+                self.current_user_id = data["user_id"]
             except:
                 print 'error'
             print 'I an listening %s chanel' % chanel
@@ -71,20 +73,38 @@ class ChatConnection(SockJSConnection):
     def on_close(self):
         if self in cl:
             cl.remove(self)
+        try:
+            clients.remove(int(self.current_user_id))
+        except:
+            print 'Error removing client'
 
 ChatRouter = SockJSRouter(ChatConnection, '/chat')
 
 app = web.Application(ChatRouter.urls)
 
+
+def check_online():
+    print 'clean online %s' % clients
+    clean_online.delay(clients)
+
+
+
+
+
 if __name__ == '__main__':
     import logging
     logging.getLogger().setLevel(logging.DEBUG)
     app.listen(5555)
+    clean_online.delay([])
     # to reload tornado server after changing index.html template
     #autoreload.watch('index.html') 
     #autoreload.watch('angular.html')
+    #sockjs.tornado.periodic.Callback(clean_online, 1000).start()
+    #tornado.ioloop.PeriodicCallback(clean_online, 1000).start()
     io_loop = ioloop.IOLoop.instance()
     autoreload.start(io_loop)  
     ioloop.IOLoop.instance().start()
+
+
     print "server is runing on 5555 port"
 

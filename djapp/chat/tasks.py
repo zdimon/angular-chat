@@ -13,6 +13,34 @@ import requests
 
 from utils.api_router import get_url_by_name
 
+
+@task()
+def clean_online(clients):
+    sql = 'select chat_chatuser.user_id, chat_tpa.name from chat_chatuser, chat_tpa where is_online = 1 and chat_chatuser.tpa_id = chat_tpa.id'
+    online = bd.select(sql)
+    for o in online.record: 
+        print 'checking - %s' % o['user_id']
+        if not o['user_id'] in clients:
+            bd.update('update chat_chatuser set is_online=0 where user_id=%s' % o['user_id'])
+            bd.update('update users set online=0 where login=%s' % o['user_id'])
+            ssql = '''select chat_chatroom.id
+                        from  chat_chatroom, chat_chatuser2room, chat_chatuser
+                        where chat_chatroom.id = chat_chatuser2room.room_id and
+                         chat_chatuser2room.user_id=chat_chatuser.id and
+                         chat_chatroom.is_closed = 0 and
+                         chat_chatuser.user_id = %s''' % o['user_id']
+            rooms = bd.select(ssql)
+            for r in rooms.record:             
+                print 'CLOSE ROOM %s for user %s' % (r['id'],o['user_id'])
+                bd.update('update chat_chatroom set is_charging_text = 0, is_charging_video = 0, is_charging_audio = 0, is_closed=1 where chat_chatroom.id = %s' % r['id'])
+                url = get_url_by_name('set_disconnected',{'user_id':o['user_id'], 'app_name': o['name'], 'source': 'tpa'})
+                print url
+                try:
+                    requests.get(url)
+                except:
+                    print 'Error: Can not do request to %s' % url
+
+
 @task()
 def set_online(message):
     url = get_url_by_name('set_connected',{'user_id':message["user_id"], 'app_name': message["tpa"], 'source': message['source']})

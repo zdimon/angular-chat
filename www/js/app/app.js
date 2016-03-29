@@ -43,20 +43,7 @@ The function :func:`someService` does a some function.
              $socket.start();
 
 
-            // add broadcasters from settings
-            for (var i = 0; i < local_config.events.length; i++) {
-
-                $socket.on(local_config.events[i], function(event, data){
-                    console.log(data);
-                    $rootScope.$broadcast(local_config.events[i],data);
-                 });
-            }
-
-
-                $socket.on("put_me_in_room", function(event, data){
-                    $rootScope.$broadcast("put_me_in_room",data);
-
-                });
+            
 
 
 

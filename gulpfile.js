@@ -65,7 +65,6 @@ var angularChatLib = [
         './www/js/lib/restangular/dist/restangular.min.js',
         './www/js/lib/underscore/underscore-min.js',
         './www/js/lib/angular-cookies/angular-cookies.js',
-
         './www/js/lib/angular-sanitize/angular-sanitize.min.js',
         './www/js/lib/swfobject/swfobject/swfobject.js',
         './www/js/lib/soundmanager2/script/soundmanager2-jsmin.js',
@@ -107,6 +106,7 @@ var angularScripts = [
         './www/js/app/services/Auth.js',
         './www/js/app/services/Online.js',
         './www/js/app/services/Video.js',
+        './www/js/app/services/websocket.js',
         './www/js/app/services/Block.js',
         './www/js/app/services/Status.js',
         './www/js/app/services/Contact.js',
