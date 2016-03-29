@@ -18,6 +18,7 @@ class ChatConnection(SockJSConnection):
         super(ChatConnection, self).__init__(*args)  
         self._connect_to_redis()
         self.current_user_id = None
+        self.is_subscribed = False
 
     @gen.engine
     def _listen(self,channel):
@@ -54,15 +55,17 @@ class ChatConnection(SockJSConnection):
         self.send(message)
 
         if act == 'connect':
-            try:
+            print clients
+            self.current_user_id = data["user_id"]
+            if not int(data["user_id"]) in clients:
+                clients.append(int(data["user_id"]))
+            if self.is_subscribed==False:
                 chanel = '%s_%s' % (data['tpa'],data['user_id'])
                 self._listen(chanel)
-                if not data["user_id"] in clients:
-                    clients.append(int(data["user_id"]))
-                self.current_user_id = data["user_id"]
-            except:
-                print 'error'
-            print 'I an listening %s chanel' % chanel
+                print 'I an listening %s chanel' % chanel
+                self.is_subscribed = True
+
+            
             set_online.delay(data)
         
 
