@@ -55,12 +55,11 @@ class ChatConnection(SockJSConnection):
 
         if act == 'connect':
             print clients
-            if not data["user_id"] in clients:
+            if not int(data["user_id"]) in clients:
                 try:
                     chanel = '%s_%s' % (data['tpa'],data['user_id'])
                     self._listen(chanel)
-                    if not data["user_id"] in clients:
-                        clients.append(int(data["user_id"]))
+                    clients.append(int(data["user_id"]))
                     self.current_user_id = data["user_id"]
                 except:
                     print 'error'
