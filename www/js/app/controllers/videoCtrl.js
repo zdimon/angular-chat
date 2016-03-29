@@ -219,7 +219,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                     $interval.cancel($scope.invite_promise);
                     $scope.invite_promise = undefined;
                 }                
-                location.reload(); 
+                //location.reload(); 
             })     
             
 
