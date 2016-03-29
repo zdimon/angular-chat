@@ -32,7 +32,7 @@ class ChatConnection(SockJSConnection):
         """
         
         body = json.loads(message.body)
-        print body
+        #print body
         self.send(message.body)
         #self.write_message(message.body)
 
@@ -64,7 +64,7 @@ class ChatConnection(SockJSConnection):
                 self.current_user_id = data["user_id"]
             except:
                 print 'error'
-            print 'I an listening %s chanel' % chanel
+            print 'I am listening %s chanel' % chanel
             set_online.delay(data)
         
 
