@@ -397,13 +397,13 @@ tpapp.js
     //WS.send({ action: 'get_users_online'});
 
     $rootScope.$on('set_me_online',function(event,data){
-        $rootScope.online['user_'+data.message.uid] = true;
-        log('set online - '+data.message.uid)
+        $rootScope.online['user_'+data.uid] = true;
+        log('set online - '+data.uid)
     });
 
 
     $rootScope.$on('update_cam_indicators',function(event,data){
-        
+  
         $rootScope.activecam = {}
         for (var i = 0; i < data.data.length; i++) {
             $rootScope.activecam['user_'+data.data[i]] = true;
@@ -414,8 +414,8 @@ tpapp.js
 
 
     $rootScope.$on('set_me_offline',function(event,data){
-        delete $rootScope.online['user_'+data.message.uid];
-        log('set offline - '+data.message.uid)
+        delete $rootScope.online['user_'+data.uid];
+        log('set offline - '+data.uid)
     });
 
 
