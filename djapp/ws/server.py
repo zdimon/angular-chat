@@ -54,6 +54,7 @@ class ChatConnection(SockJSConnection):
         self.send(message)
 
         if act == 'connect':
+            print clients
             if not data["user_id"] in clients:
                 try:
                     chanel = '%s_%s' % (data['tpa'],data['user_id'])
