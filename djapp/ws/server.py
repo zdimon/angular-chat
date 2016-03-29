@@ -56,15 +56,15 @@ class ChatConnection(SockJSConnection):
         if act == 'connect':
             print clients
             if not int(data["user_id"]) in clients:
-                clients.append(int(data["user_id"]))
-            try:
-                chanel = '%s_%s' % (data['tpa'],data['user_id'])
-                self._listen(chanel)
-                
-                self.current_user_id = data["user_id"]
-            except:
-                print 'error'
-            print 'I am listening %s chanel' % chanel
+                try:
+                    chanel = '%s_%s' % (data['tpa'],data['user_id'])
+                    self._listen(chanel)
+                    if not data["user_id"] in clients:
+                        clients.append(int(data["user_id"]))
+                    self.current_user_id = data["user_id"]
+                except:
+                    print 'error'
+                print 'I an listening %s chanel' % chanel
             set_online.delay(data)
         
 
@@ -75,8 +75,10 @@ class ChatConnection(SockJSConnection):
     def on_close(self):
         if self in cl:
             cl.remove(self)
-        if  int(self.current_user_id) in clients:
-            clients.remove()
+        try:
+            clients.remove(int(self.current_user_id))
+        except:
+            print 'Error removing client'
 
 ChatRouter = SockJSRouter(ChatConnection, '/chat')
 
