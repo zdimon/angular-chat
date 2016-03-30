@@ -11,7 +11,7 @@ while True:
     time.sleep(60) 
     print 'check'
     connect_timeout = 1
-    url = 'http://marriage-brides.com:8889/ws'
+    url = 'http://marriage-brides.com:5555/info'
     #url = 'http://localhost:8889/ws'
 
     #bashCommand = '/home/zdimon/www/ngchat_ve/chat/djapp/kill.sh'
