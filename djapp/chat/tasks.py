@@ -71,6 +71,7 @@ def charge_money():
     rooms = bd.select(sql)
     data = []
     url = False
+    print 'Charging!!!!'
     for room in rooms.record: 
         #url = room['charge_url']
         url = get_url_by_name('charge_request',{ 'app_name': room["app_name"]})

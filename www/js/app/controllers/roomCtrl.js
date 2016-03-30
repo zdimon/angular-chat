@@ -118,7 +118,7 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
 
               var def = Date.now()-$scope.tm
               
-               
+               /*
 
               if(def>1500 && data.message.owner.user_id==$rootScope.currentUserId){
                     
@@ -126,8 +126,8 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
                         alert('Sorry, but we have got some problem with the chat server and you page wil be reloaded in 15 sec. Please copy yor message if you have something wrote.');
                     });
               }
-
-                console.log(data);
+                */
+                //console.log(data);
 
               // unmark room as closed
                 for (var i = 0; i < data.message.participants.length; i++) {
@@ -214,15 +214,17 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
 
                      $rootScope.feather = false;
                   
-
+			
 
                       if($scope.chat_translate==true){
                             
                              
-                             GoogleTranslate.translate('en','ru',data.message).then(function(resulf){
-                             data.message.translated_message = resulf;
+                             GoogleTranslate.translate('en','ru',data.message.message).then(function(result){
+				
+                             data.message.translated_message = result;
                              $scope.messages.push(data.message);
-                             GoogleTranslate.save_translate(data,resulf); 
+			
+                             GoogleTranslate.save_translate(data,result); 
                             });
 
 

@@ -53,7 +53,7 @@ The function :func:`someService` does a some function.
 			    $rootScope.current_opponent_id = 0;
                         }
                         if($rootScope.current_opponent_id.length != 0) {
-                                
+                            $socket.send('connect',JSON.stringify({user_id: $rootScope.currentUserId, source: 'chat_side', tpa: 'tpa1com'}));
                             Auth.initialization($rootScope.current_opponent_id,function(result){
                                 $rootScope.contact_user_list = result.contact.user_list;
                                 $rootScope.online_user_list = result.online_except_contact.user_list;

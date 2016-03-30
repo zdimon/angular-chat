@@ -45,7 +45,7 @@ class Command(BaseCommand):
         PORT = int(options['port'])
         app = web.Application(router.urls, **app_settings)
         app.listen(PORT, no_keep_alive=options['no_keep_alive'])
-        ioloop.PeriodicCallback(check_online, 10000).start()
+        ioloop.PeriodicCallback(check_online, 60000).start()
         print "Running sock app on port", PORT, "with channel", channel
         try:
             ioloop.IOLoop.instance().start()

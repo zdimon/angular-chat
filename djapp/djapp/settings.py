@@ -145,15 +145,6 @@ import djcelery
 djcelery.setup_loader()
 from celery.schedules import crontab
     
-CELERYBEAT_SCHEDULE = {
-
-    'charge-money': {
-        'task': 'chat.tasks.charge_money',
-        'schedule': timedelta(seconds=60)
-    },
-
-}
-
 
 
 
