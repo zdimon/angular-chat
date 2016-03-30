@@ -8,7 +8,7 @@ import time
 
 while True:
 
-    time.sleep(60) 
+    time.sleep(10) 
     print 'check'
     connect_timeout = 1
     url = 'http://marriage-brides.com:5555/info'
@@ -25,10 +25,10 @@ while True:
         sys.exit("quit")
 
 
-
+'''
 
     try:
-        ws = create_connection("ws://marriage-brides.com:8889/ws")
+        ws = create_connection("http://marriage-brides.com:5555/info")
     except:
         print 'killing websocket becouse no connection!!'
         call(bashCommand)
@@ -44,3 +44,5 @@ while True:
         print 'killing websocket becouse no ping!!'
         call(bashCommand)
     ws.close()
+
+'''
