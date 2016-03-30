@@ -1,2 +1,2 @@
 #!/bin/bash
-kill $(lsof -t -i:8889)
+kill $(lsof -t -i:5555)
