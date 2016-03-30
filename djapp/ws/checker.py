@@ -8,7 +8,7 @@ import time
 
 while True:
 
-    time.sleep(10) 
+    time.sleep(30) 
     print 'check'
     connect_timeout = 1
     url = 'http://marriage-brides.com:5555/info'
