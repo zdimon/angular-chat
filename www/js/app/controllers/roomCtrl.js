@@ -171,7 +171,14 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
 
               }
 
-
+	            // update activity
+			
+			for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
+		                if($rootScope.contact_user_list[i].user_id==data.message.owner.user_id) {
+		                 
+				    $rootScope.contact_user_list[i].activity = Date.now();
+		                }
+                   	}  
                     // blinking title     
                     if(data.message.owner.user_id!=$rootScope.currentUserId){               
                         $scope.blink_title_interval = setInterval(blinkTitle, 700);
@@ -190,6 +197,7 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
                    for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
                         if($rootScope.contact_user_list[i].user_id==data.message.owner.user_id) {
                             $rootScope.contact_user_list[i].has_new_message = true;
+			    $rootScope.contact_user_list[i].activity = Date.now();
                         }
                    }                  
                    //// show pop up in man case 
@@ -246,8 +254,8 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
 
         
 
-        $scope.$on('put_me_in_room', function (event, data) {
-          
+        $rootScope.$on('put_me_in_room', function (event, data) {
+       
            var isOldTitle;
            $rootScope.feather = false;
            $scope.room_just_closed = false;

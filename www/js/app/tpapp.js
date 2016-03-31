@@ -193,7 +193,7 @@ tpapp.js
 
          $scope.open_popup = function(user_id){
              var url = $window.location.host + "/video-chat#/"+ $rootScope.currentUserId;
-             myWindow = $window.open('//'+url, 'C-Sharpcorner',"_self","chat",'status=1,width=100,height=100,scrollbars=1');
+             myWindow = $window.open('//'+url, 'C-Sharpcorner',"_self, status=1,width=1200,height=1400,scrollbars=1");
              myWindow.focus();
                 setTimeout(function(){
                     myWindow.location.reload();
@@ -214,7 +214,7 @@ tpapp.js
                          var url = $window.location.host + "/video-chat#/"+ $rootScope.currentUserId + '/' +user_id;  
                          //$window.location.href = url;  
 
-                        myWindow = $window.open('//'+url, 'C-Sharpcorner',"_self","chat",'status=1,width=100%,height=100%,scrollbars=1');
+                        myWindow = $window.open('//'+url, 'C-Sharpcorner',"_self, status=1,width=1200,height=1400,scrollbars=1");
                         myWindow.focus();
                         setTimeout(function(){
                             myWindow.location.reload();
@@ -235,7 +235,7 @@ tpapp.js
                          var url = $window.location.host + "/video-chat#/"+ $rootScope.currentUserId + '/' +user_id+'/ocam';  
                          //$window.location.href = url;    
 
-                         myWindow = $window.open('//'+url, 'C-Sharpcorner',"_self","chat",'status=1,width=100%,height=100%,scrollbars=1');
+                         myWindow = $window.open('//'+url, 'C-Sharpcorner',"_self, status=1,width=1200,height=1400,scrollbars=1");
                          myWindow.focus();
                             setTimeout(function(){
                                 myWindow.location.reload();

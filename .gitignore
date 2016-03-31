@@ -10,3 +10,5 @@
 /backup/config.py
 ws/restart
 log.chat
+djapp/celerybeat.pid
+djapp/log

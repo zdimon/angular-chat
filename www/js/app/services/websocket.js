@@ -7,7 +7,7 @@
 
                 $socket.on("put_me_in_room", function(event, data){
                     $rootScope.$broadcast("put_me_in_room",data);
-
+			
                 });
 
 

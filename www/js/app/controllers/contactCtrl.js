@@ -128,7 +128,7 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
            for(key in $rootScope.contact_user_list){
                 
                 if ($rootScope.contact_user_list[key].user_id == data.uid) {
-                    $rootScope.contact_user_list[key].is_online = 1;
+                    $rootScope.contact_user_list[key].is_online = 0;
                 }
               
             }
