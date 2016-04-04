@@ -6,7 +6,7 @@ import os
 import tornadoredis
 from tornado import gen
 cl = []
-from chat.tasks import set_online, clean_online
+from chat.tasks import set_online, clean_online, set_activity, clean_online_by_activity
 from utils.redisender import bclient
 bclient = bclient()
 
@@ -87,8 +87,10 @@ app = web.Application(ChatRouter.urls)
 
 
 def check_online():
-    print 'clean online %s' % clients
-    clean_online.delay(clients)
+    print 'set online %s' % clients
+    #clean_online.delay(clients)
+    set_activity.delay(clients)
+    
 
 
 

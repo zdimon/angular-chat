@@ -9,8 +9,7 @@ from django.conf import settings
 from utils.db import MyDB
 bd = MyDB()
 import requests
-import requests
-
+from chat.models import ChatUser
 from utils.api_router import get_url_by_name
 
 
@@ -113,5 +112,30 @@ def charge_money():
         print "Charge request to %s " % url
         print "DATA %s" % data
         print requests.post(url,json=data).content  
+
+
+
+def clean_online_by_activity():
+    print 'clean online by activity'
+    now = time.time()
+    now = now - 180
+    user = ChatUser.objects.filter(activity__lt=now, is_online=True)
+    for u in user:
+        print 'offline - %s' % u.name    
+        url = get_url_by_name('set_disconnected',{'user_id':u.user_id, 'app_name': 'tpa1com', 'source': 'tpa'})
+        print url
+        try:
+            requests.get(url)
+        except:
+            print 'Error: Can not do request to %s' % url
+    
+@task(name='set_activity')
+def set_activity(clients):
+    for c in clients:
+        print 'set activity to %s' % c
+        user = ChatUser.objects.get(user_id=c)    
+        user.activity = time.time()
+        user.save()
+    clean_online_by_activity()
 
 
