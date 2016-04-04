@@ -78,7 +78,14 @@
             
             var url = "http://" + local_config.chat_url + "#/" + $rootScope.currentUserId+'/'+contact_id;
             $window.location.href = url;
-           
+ 
+           for (var i = 0; i < $rootScope.online_user_list.length; i++) {
+		 
+                if($rootScope.online_user_list[i].user_id==contact_id) {
+                   $rootScope.current_opponent = $rootScope.online_user_list[i];
+                }
+           }
+          
             
             Room.invite(contact_id,function(rezult){
                 $rootScope.$broadcast('update_users_online');   

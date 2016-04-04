@@ -73,7 +73,14 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
 
             chm = message.replace('<br>','');
             if(chm.length>0) {
-            
+
+           // immidiatly show message in sender's list
+           var myDate = new Date().toString().split(" ")[4];
+	   mes = {'created': myDate, 'id': $scope.tm, 'owner': {'image': $rootScope.my_image}, 'message': message};
+	   console.log(mes); 
+           $(document).find('#chat_message').html("");
+	   $scope.messages.push(mes);
+           scroolldown();
            Room.sendMessage($scope.room_id, message, $rootScope.currentUserId, $scope.room_participants, $rootScope.gender, function(result) {
              
     
@@ -82,7 +89,7 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
               if(result.status==1) {
                     $rootScope.emptyAccountAlert(); // when user has not money
                 } else { 
-                    $(document).find('#chat_message').html("");
+                    //$(document).find('#chat_message').html("");
                     text_changed = 0;
                     // mark opponent as waiting to responce
                     for (var i = 0; i < result.participants.length; i++) {
@@ -239,6 +246,8 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
                        } else {
 
                         $scope.messages.push(data.message);
+			console.log(data.message);
+			
 
                        }
               }
@@ -264,7 +273,7 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
            $scope.room_id = data.room_id;
            $rootScope.room_id = data.room_id;
            $scope.hasActiveRoom=true;
-           console.log($scope.hasActiveRoom);
+           
 
             // remove title blinking
             clearInterval($scope.blink_title_interval);

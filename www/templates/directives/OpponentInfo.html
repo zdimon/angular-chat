@@ -1,16 +1,16 @@
         <div class="man_who_write clearFix">
             <div class="fll">
                 <a href="#" class="img_man_w">
-                    <img ng-src="[[opponent.image]]" alt="">
+                    <img ng-src="[[current_opponent.image]]" alt="">
 
-                    <div ng-show="online['user_'+opponent.user_id]" class="on_line"><span></span></div>
-                    <div ng-show="!online['user_'+opponent.user_id]" class="off_line"><span></span></div>
+                    <div ng-show="online['user_'+current_opponent.user_id]" class="on_line"><span></span></div>
+                    <div ng-show="!online['user_'+current_opponent.user_id]" class="off_line"><span></span></div>
                                  
 
                 </a>
             </div>
             <div class="flr">
-                <a target=_blank href="[[ opponent.profile_url ]]" class="name_age_id">[[opponent.name]], [[opponent.age]] (ID [[opponent.user_id]])</a>
-                <div class="city_country">[[opponent.city]], [[opponent.country]]</div>
+                <a target=_blank href="[[ current_opponent.profile_url ]]" class="name_age_id">[[current_opponent.name]], [[current_opponent.age]] (ID [[current_opponent.user_id]])</a>
+                <div class="city_country">[[current_opponent.city]], [[current_opponent.country]]</div>
             </div>
         </div>

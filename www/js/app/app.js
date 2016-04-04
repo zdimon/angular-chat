@@ -58,6 +58,7 @@ The function :func:`someService` does a some function.
                                 $rootScope.contact_user_list = result.contact.user_list;
                                 $rootScope.online_user_list = result.online_except_contact.user_list;
                                 $rootScope.online = {};
+				$rootScope.my_image = result.owner.user_profile.image;
                                 $rootScope.active_cams = {};
                                 for (var i = 0; i < result.online_full.user_list.length; i++) {
                                     $rootScope.online['user_'+result.online_full.user_list[i].user_id] = true;

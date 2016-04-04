@@ -219,11 +219,14 @@ def save_message(request):
                             }
               }
         print 'send to %s' % p
-        bclient.publish(p, json.dumps(mes))
-        opponent = ChatUser.objects.get(user_id=p.split('_')[1])
+	opponent = ChatUser.objects.get(user_id=p.split('_')[1])
+        if owner != opponent:
+            bclient.publish(p, json.dumps(mes))        
+        
         #import pdb; pdb.set_trace()
         
         if owner != opponent:
+	    
             # check accessebilities
             #import pdb; pdb.set_trace()
             check_avalible_url = get_url_by_name('check_accessebility',{'user_id': opponent.user_id, 'app_name': b['app_name']})

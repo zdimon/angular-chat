@@ -275,6 +275,14 @@ app.controller('ContactListCtrl', function ($scope, Contact, $rootScope, $window
             var url = "http://" + local_config.chat_url + "#/" + $rootScope.currentUserId+'/'+contact_id;
             $window.location.href = url;
             $rootScope.current_opponent_id = contact_id;
+	      
+           for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
+		 
+                if($rootScope.contact_user_list[i].user_id==contact_id) {
+                   $rootScope.current_opponent = $rootScope.contact_user_list[i];
+                }
+           }
+		
             Room.invite(contact_id,function(result){
                 
                 if(result.video_charging == true && result.opponent.gender == 'w' && !$rootScope.i_am_watching) {
