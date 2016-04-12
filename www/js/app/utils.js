@@ -1,7 +1,7 @@
 var mySound;
 
 
-
+/*
 soundManager.setup({
   // where to find flash audio SWFs, as needed
   url: '/chatapp/build/swf/',
@@ -12,7 +12,7 @@ soundManager.setup({
   }
 });
 
-
+*/
 
 
 
