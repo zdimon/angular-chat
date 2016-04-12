@@ -319,7 +319,7 @@ def get_messages(request,room_id):
     #import pdb; pdb.set_trace()
     lst_chat_message = []
     room = ChatRoom.objects.get(id=int(room_id))
-    message = ChatMessage.objects.filter(room=room).order_by("id")[-30]
+    message = ChatMessage.objects.filter(room=room).order_by("id")[:-30]
 
     for m in message:
         user_info = ChatUser.objects.get(user_id=m.user.user_id)
