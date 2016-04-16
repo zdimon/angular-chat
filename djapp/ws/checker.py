@@ -24,6 +24,13 @@ while True:
         call(bashCommand)
         sys.exit("quit")
 
+    Command_reload = 'service uwsgi restart'
+    url2 = 'http://marriage-brides.com/api/tpa1com/config.js'
+    rez = requests.get(url2)
+    if rez.status_code != 200:
+        call(Command_reload)
+        sys.exit("quit")
+
 
 '''
 
