@@ -16,7 +16,7 @@ while True:
     time.sleep(10) 
     print 'check'
    
-    Command_reload = 'service uwsgi restart'
+    Command_reload = '/home/webmaster/ngchat_ve/angular-chat/djapp/restart_uwsgi.sh'
     url2 = 'http://marriage-brides.com/api/tpa1com/config.js'
     rez = requests.get(url2)
     if rez.status_code != 200:
