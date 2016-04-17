@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from websocket import create_connection
 import requests
 import json
