@@ -22,7 +22,7 @@ while True:
     if rez.status_code != 200:
         call(Command_reload) 
         print 'restarting'   
-        f = open('restart.log','w+')
+        f = open('restart.log','a')
         f.write('reloading - %s' % datetime.datetime.now() )
         f.close()
 #        sys.exit("quit")
