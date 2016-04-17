@@ -6,32 +6,27 @@ import sys
 from subprocess import call
 import time
 
+import datetime
+
+
+
 while True:
 
-    time.sleep(30) 
+    time.sleep(10) 
     print 'check'
-    connect_timeout = 1
-    url = 'http://marriage-brides.com:5555/info'
-    #url = 'http://localhost:8889/ws'
-
-    #bashCommand = '/home/zdimon/www/ngchat_ve/chat/djapp/kill.sh'
-    bashCommand = '/home/webmaster/ngchat_ve/angular-chat/djapp/kill.sh'
-    #rez = requests.get(url,timeout=(connect_timeout, 5))
-    try:
-        rez = requests.get(url,timeout=(connect_timeout, 5))
-    except:
-        print 'killing websocket becouse timeout!!'
-        call(bashCommand)
-        sys.exit("quit")
-'''
+   
     Command_reload = 'service uwsgi restart'
     url2 = 'http://marriage-brides.com/api/tpa1com/config.js'
     rez = requests.get(url2)
     if rez.status_code != 200:
-        call(Command_reload)
-        sys.exit("quit")
+        call(Command_reload) 
+        print 'restarting'   
+        f = open('restart.log','w+')
+        f.write('reloading - %s' % datetime.datetime.now() )
+        f.close()
+#        sys.exit("quit")
 
-'''
+
 '''
 
     try:
