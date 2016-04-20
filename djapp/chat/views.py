@@ -373,7 +373,7 @@ def get_profile(request,user_id,app_name):
         print 'REQUEST TO %s' % url
         responce = requests.get(url)
         outdata = json.loads(responce.content)
-        print outdata  
+        #print outdata  
        
         out = {
             'status': 0,

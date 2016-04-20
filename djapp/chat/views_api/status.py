@@ -30,7 +30,7 @@ def set_connected(request,app_name,user_id,source):
     #for u in ChatUser.objects.all().exclude(user_id=user_id):
         bclient.publish('%s_%s' % (app_name,u.user_id), json.dumps(mes1))
         bclient.publish('%s_%s' % (app_name,u.user_id), json.dumps(mes2))
-        
+        print 'dddddddddddddddddddddddddddddddd %s_%s' % (app_name,u.user_id)
     # TODO
     bd.update('update users set online=1 where login=%s' % user_id)
     return { 'status': 0, 'message': 'ok' } 
