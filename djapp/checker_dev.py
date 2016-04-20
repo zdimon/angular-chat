@@ -32,7 +32,7 @@ while True:
 
 
 
-    for p in [8882,8883,8884]
+    for p in [8882,8883,8884]:
         url = 'http://marriage-brides.com:%s/api/tpa1com/config.js' % p
         print 'check %s post on timeout' % p
         try:
