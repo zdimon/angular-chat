@@ -185,7 +185,10 @@ def save_message(request):
     if (owner.gender=='m'):
         balance = get_user_balance(tpa,owner)
         if balance < 3:
-            return  { 'status': 1, 'message': 'Your account is emply. Please replanish your account.' }
+            return  { 'status': 1, 'message': 'Your account is emply. Please replanish your account.' }  
+        owner.activity = time.time()
+        owner.save()
+
     room = ChatRoom.objects.get(tpa=tpa,id=int(b['room_id']))
     
     # Set servers locale to Kiev time to save same date of message for girl and man
