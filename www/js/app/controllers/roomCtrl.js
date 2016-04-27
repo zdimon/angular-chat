@@ -65,6 +65,12 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
         */
 
         $scope.sendMessage = function(){
+
+            if($rootScope.gender=='m' && $rootScope.balance<4 ){
+                $rootScope.emptyAccountAlert();
+                return;
+            }   
+                        
             
              
             var message = $(document).find('#chat_message').html();
