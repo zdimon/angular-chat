@@ -87,6 +87,11 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
            $(document).find('#chat_message').html("");
 	   $scope.messages.push(mes);
            scroolldown();
+
+
+
+
+
            Room.sendMessage($scope.room_id, message, $rootScope.currentUserId, $scope.room_participants, $rootScope.gender, function(result) {
              
     
@@ -100,6 +105,11 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
                     // mark opponent as waiting to responce
                     for (var i = 0; i < result.participants.length; i++) {
                         $rootScope.waiting_to_responce['user_'+result.participants[i]] = true;
+
+                     if($rootScope.gender=='m'){
+                        $rootScope.active_contacts['user_'+result.participants[i]] = true;
+                        
+                     }
                         /// delete audio_alerts to hear new messages
                         delete audio_alerts[result.participants[i]];
                     }              
@@ -175,6 +185,7 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
                     audio_alerts[data.message.owner.user_id] = 'true';
                     
                  }
+
               } else {
 
                  if(data.message.owner.user_id!=$rootScope.currentUserId)  {
@@ -438,8 +449,9 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
 
         
         $rootScope.$on('contact_activate',function(event,data){
-
-                    $rootScope.active_contacts['user_'+data.user_id] = true;
+                    if($rootScope.gender=='w'){
+                        $rootScope.active_contacts['user_'+data.user_id] = true;
+                    }
         })  
         
         $rootScope.$on('contact_deactivate',function(event,data){
