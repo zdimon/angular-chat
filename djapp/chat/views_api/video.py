@@ -12,6 +12,7 @@ bd = MyDB()
 from utils.util import serialize_user
 from utils.redisender import bclient
 bclient = bclient()
+from djapp.local import SS_SERVER
 
 @json_view
 def opponent_mic_on(request,user_id,opponent_id,room_id,app_name):
@@ -288,7 +289,31 @@ def show_opponent_cam(request,user_id,opponent_id,app_name,room_id):
         print requests.post(tpa.charge_url,data=json.dumps(data)).content
 
 
-    return {'status': 0, 'message': 'ok', 'user_id': user_id}
+    flashtpl = '''
+
+        <div id="flashContent" >
+                <object type="application/x-shockwave-flash" data="/Media/chat.swf" width="%s" height="%s">
+                    <param name="movie" value="/Media/chat.swf" />
+                    <param name="quality" value="high" />
+                    <param name="bgcolor" value="#ffffff" />
+                    <param name="play" value="true" />
+                    <param name="loop" value="true" />
+                    <param name="wmode" value="window" />
+                    <param name="scale" value="showall" />
+                    <param name="menu" value="true" />
+                    <param name="devicefont" value="false" />
+                    <param name="salign" value="" />
+                    <param name="allowScriptAccess" value="sameDomain" />
+                    <param name="FlashVars" value="streamName=%s&url=rtmp://%s/myapp&micOn=false&type=in" />
+                    
+                </object>
+        </div>
+
+    '''
+    sname = '%s_%s' % (app_name,opponent_id)
+    html = flashtpl % ('100%', '100%', sname, SS_SERVER)
+
+    return {'status': 0, 'message': 'ok', 'user_id': user_id, 'html': html}
 
 
 
