@@ -1,0 +1,58 @@
+-- MySQL dump 10.13  Distrib 5.6.30, for debian-linux-gnu (x86_64)
+--
+-- Host: marriage-brides.com    Database: brides
+-- ------------------------------------------------------
+-- Server version	5.5.44-0ubuntu0.14.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `users_videos_paid`
+--
+
+DROP TABLE IF EXISTS `users_videos_paid`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users_videos_paid` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) NOT NULL,
+  `video_id` int(10) NOT NULL,
+  `paid` tinyint(1) NOT NULL DEFAULT '0',
+  `time` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`) USING BTREE,
+  KEY `video_id` (`video_id`) USING BTREE,
+  CONSTRAINT `users_videos_paid_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `users_videos_paid_ibfk_2` FOREIGN KEY (`video_id`) REFERENCES `users_videos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users_videos_paid`
+--
+
+LOCK TABLES `users_videos_paid` WRITE;
+/*!40000 ALTER TABLE `users_videos_paid` DISABLE KEYS */;
+INSERT INTO `users_videos_paid` VALUES (22,26,26,1,1444812036),(26,175,34,1,1445076148),(27,175,25,1,1445079662),(28,175,34,1,1445082492),(29,175,26,1,1445082553),(30,175,26,1,1445238393),(34,26,38,1,1448008603),(35,26,38,1,1448008809),(36,26,38,1,1448009037),(38,26,44,1,1452262692),(39,14,53,1,1453527874),(40,14,53,1,1455007948);
+/*!40000 ALTER TABLE `users_videos_paid` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-05-04 14:50:43

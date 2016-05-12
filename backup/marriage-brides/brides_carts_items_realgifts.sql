@@ -1,0 +1,58 @@
+-- MySQL dump 10.13  Distrib 5.6.30, for debian-linux-gnu (x86_64)
+--
+-- Host: marriage-brides.com    Database: brides
+-- ------------------------------------------------------
+-- Server version	5.5.44-0ubuntu0.14.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `carts_items_realgifts`
+--
+
+DROP TABLE IF EXISTS `carts_items_realgifts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `carts_items_realgifts` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `cart_id` int(10) NOT NULL,
+  `realgift_id` int(10) NOT NULL,
+  `count` int(6) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_cart` (`cart_id`) USING BTREE,
+  KEY `id_goods` (`realgift_id`) USING BTREE,
+  KEY `cart_id` (`cart_id`) USING BTREE,
+  KEY `catalog_id` (`realgift_id`) USING BTREE,
+  CONSTRAINT `carts_items_realgifts_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `carts_realgifts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=280 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `carts_items_realgifts`
+--
+
+LOCK TABLES `carts_items_realgifts` WRITE;
+/*!40000 ALTER TABLE `carts_items_realgifts` DISABLE KEYS */;
+INSERT INTO `carts_items_realgifts` VALUES (25,3205,53,1),(26,3210,34,3),(29,3217,52,1),(43,3274,53,1),(44,3274,37,1),(45,3274,49,1),(50,3208,44,5),(51,3274,34,1),(52,3274,35,1),(53,3274,52,1),(54,3274,54,1),(56,37414,35,1),(92,38353,34,5),(93,38353,35,6),(128,38419,53,2),(131,38419,52,1),(133,38419,54,5),(134,39872,39,5),(156,40281,40,2),(167,41435,40,1),(182,41748,59,1),(184,41698,40,3),(185,41757,40,2),(193,41750,53,1),(194,41750,54,1),(252,41477,50,0),(253,41477,51,1),(254,41477,54,1),(261,60213,39,1),(262,64626,39,1),(263,64626,40,1),(264,64626,43,1),(266,78458,40,1),(270,123447,41,10),(271,122204,45,1),(272,161200,40,1),(273,161699,39,1),(274,162286,55,1),(275,162422,40,0),(276,164747,40,1),(277,165186,40,1),(278,226792,40,1),(279,312748,39,1);
+/*!40000 ALTER TABLE `carts_items_realgifts` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-05-04 14:51:39

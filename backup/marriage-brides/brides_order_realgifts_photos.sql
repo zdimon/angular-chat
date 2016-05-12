@@ -1,0 +1,54 @@
+-- MySQL dump 10.13  Distrib 5.6.30, for debian-linux-gnu (x86_64)
+--
+-- Host: marriage-brides.com    Database: brides
+-- ------------------------------------------------------
+-- Server version	5.5.44-0ubuntu0.14.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `order_realgifts_photos`
+--
+
+DROP TABLE IF EXISTS `order_realgifts_photos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `order_realgifts_photos` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id_order_real` int(10) DEFAULT NULL,
+  `image` varchar(250) DEFAULT NULL,
+  `created_at` int(10) DEFAULT NULL,
+  `updated_at` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order_realgifts_photos`
+--
+
+LOCK TABLES `order_realgifts_photos` WRITE;
+/*!40000 ALTER TABLE `order_realgifts_photos` DISABLE KEYS */;
+INSERT INTO `order_realgifts_photos` VALUES (1,2,'65eb3283bf5fb4c2add7cdf63d9792e6.jpg',1444807740,NULL),(2,2,'83236ae47186b586e6b421ca70678d3f.jpg',1444807743,NULL),(3,2,'d598adaac1043162f89952c51f1f7c16.jpg',1444807745,NULL),(4,51,'7d0e462726780093d705c2da05861617.jpg',1445601213,NULL),(5,51,'f1b071f1f1ece6ad6d82424ff3b169c7.jpg',1445601216,NULL),(6,51,'6da6151cefc5d12c0d031c4862c28217.jpg',1445601218,NULL),(7,54,'32dd3b8c6332409a5441bee8e14dd767.jpg',1445861057,NULL),(9,54,'7b3ace6fe3b8b4f1bb07e7713e891ebd.jpg',1445861071,NULL),(10,54,'90c57ae9820715f682fd49a343bb4e99.jpg',1445861072,NULL),(11,57,'bc574ad34e24fa11eb4cee1777e4b407.jpg',1446103743,NULL),(12,57,'7208eea5d0843c13f952d4a4174d78b3.jpg',1446103752,NULL),(13,57,'61058baf4dd62586e9c10749fe33438f.jpg',1446103755,NULL);
+/*!40000 ALTER TABLE `order_realgifts_photos` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-05-04 14:52:08
