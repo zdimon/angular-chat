@@ -5,6 +5,12 @@
     .module('AngularChatApp')
     .run(function( $socket, $rootScope){
 
+
+                $socket.on("close", function(event, data){
+                    $rootScope.$broadcast("close",data);
+			
+                });
+
                 $socket.on("put_me_in_room", function(event, data){
                     $rootScope.$broadcast("put_me_in_room",data);
 			

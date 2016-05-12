@@ -37,13 +37,19 @@ The function :func:`someService` does a some function.
 
 
              $socket.on("open", function(event, data){
-                console.log('open connection');
+                console.log($socket);
                 $rootScope.$broadcast('connected');
+                $('.wLost').hide();
              });
+
+            
              $socket.start();
 
 
-            
+            $rootScope.$on('close', function (event, data) {
+                console.log('close connection');
+                $('.wLost').show();
+            });
 
 
 
