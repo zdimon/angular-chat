@@ -87,7 +87,7 @@ sends the message if connected or queues it for later
             };
 
             socket.onclose = function() {
-                $rootScope.$broadcast("close");
+                //$rootScope.$broadcast("close");
                 socketConnected = false;
                 socket = null;
                 $timeout(newSocket, options.reconnectInterval);
