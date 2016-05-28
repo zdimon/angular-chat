@@ -240,6 +240,7 @@ def hide_my_cam(request,user_id,app_name):
         for u in users:
             mes = { 'action': 'update_cam_indicators', 'data': camerausers, 'owner': owner.user_id, 'cam_status': 'off' }
             bclient.publish('%s_%s' % (tpa.name, u.user_id), json.dumps(mes))  
+ 
         # mark rooms as no video charging
         for c2r in ChatUser2Room.objects.filter(user=owner).all():
             room = c2r.room
