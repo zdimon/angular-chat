@@ -215,8 +215,9 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
       $scope.hideOpponentVideo = function(){
             $rootScope.i_am_watching = false
+            
             //swfobject.removeSWF("opponentVideo");
-            //$(document).find('#oponent_video_container').append('<div id="opponentVideo"></div>');
+            $(document).find('#oponent_video_container').append('<div id="opponentVideo"></div>');
             $(document).find('#oponent_video_container').hide();
             $rootScope.isOpponentCamEnabled = false;
             $rootScope.alert_mic_on = false;
@@ -291,7 +292,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
 
     $rootScope.$on('close_video',function(event,data){
-
+      
         $scope.hideOpponentVideo();
         $rootScope.emptyAccountAlert();
     })
@@ -311,11 +312,12 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
     })
 
     $rootScope.$on('hide_opponent_video',function(event,data){
-
+   
         $scope.hideOpponentVideo();
     })
 
 
+    
     $rootScope.$on('turn_opponent_mic_on',function(event,data){
         $scope.turnMicOn();
     })
@@ -369,12 +371,15 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
                 var arr = val.split('_');
                 log(arr);
                 if(arr[1]==data.owner && data.owner!= $rootScope.currentUserId){
+                    
                     log(data);
                     if(data.cam_status=='on') { 
                         $rootScope.isOpponentVideoActive = true;
                     } else {
-                        swfobject.removeSWF("opponentVideo");
-                        $(document).find('#oponent_video_container').append('<div id="opponentVideo"></div>');
+                        
+                        //swfobject.removeSWF("opponentVideo");
+                        $(document).find('#opponentVideo').empty();
+                        //$(document).find('#oponent_video_container').append('<div id="opponentVideo"></div>');
                         $rootScope.isOpponentVideoActive = false;
                         if($rootScope.gender=='m')
                         $('.video_online').addClass('hide_chat_window');     
