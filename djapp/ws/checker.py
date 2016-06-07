@@ -1,4 +1,3 @@
-from websocket import create_connection
 import requests
 import json
 import os
