@@ -18,8 +18,8 @@ while True:
     #rez = requests.get(url,timeout=(connect_timeout, 5))
     try:
         rez = requests.get(url,timeout=(connect_timeout, 5))
-    except:
-        print 'killing websocket becouse timeout!!'
+    except Exception, e:
+        print 'killing websocket becouse %s!!' % str(e)
         call(bashCommand)
         sys.exit("quit")
 '''
