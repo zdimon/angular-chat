@@ -75,7 +75,7 @@ class ChatConnection(SockJSConnection):
             cl.append(self)
 
     def on_close(self):
-        #self._redis_client.disconnect()
+        self._redis_client.disconnect()
         if self in cl:
             cl.remove(self)
         try:
