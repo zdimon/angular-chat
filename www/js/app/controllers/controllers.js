@@ -1,6 +1,6 @@
 
 
-angular.module('app.controllers', [])
+app.module('app.controllers', [])
         
     .controller('RegistrationController', function($scope,Auth) {
 
