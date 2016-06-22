@@ -154,7 +154,8 @@ The function :func:`someService` does a some function.
                                         src: '#empty_account_alert'
                                       },
                                       type: 'inline'
-                                    }, 0);           
+                                    }, 0); 
+                                    $(document).find('#opponentVideo').empty();          
                             }
 
 
