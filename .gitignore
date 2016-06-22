@@ -12,3 +12,5 @@ ws/restart
 log.chat
 djapp/celerybeat.pid
 djapp/log
+djapp/chat-uwsgi.log
+djapp/restart.log
