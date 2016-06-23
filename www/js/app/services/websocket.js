@@ -176,6 +176,11 @@
 
                 });
 
+                $socket.on("delete_me_from_contact", function(event, data){
+                    $rootScope.$broadcast("delete_me_from_contact",data);
+                    
+                });
+
 
 
 

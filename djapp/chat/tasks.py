@@ -11,7 +11,9 @@ bd = MyDB()
 import requests
 from chat.models import ChatUser
 from utils.api_router import get_url_by_name
-
+from utils.redisender import bclient
+bclient = bclient()
+import json
 
 @task()
 def clean_online(clients):
@@ -93,10 +95,16 @@ def charge_money():
             now = int(time.time())
             timeout = room['activity']+room['timeout_chating']
             #print 'checking %s %s' % (now,timeout)
+
+
             if(now>timeout):
                 sql_update = ''' update chat_chatroom set is_charging_text=0 where id = %s  ''' % room['id']
                 bd.update(sql_update)
                 #print 'TIMOUT   00000000'
+                #send command to remove user from contact list
+                mess_ac = { 'action': 'delete_me_from_contact', 'opponent_id': u['user_id'] }
+                bclient.publish('%s_%s' % (room["app_name"], man), json.dumps(mess_ac))                 
+
             else:
                 data.append({'action': 'text_chat', 'app_name': room['app_name'],  'user_id': man, 'opponent_id': woman, 'room_id': room['id'], 'price': str(room['price_text_chat']) })
                 #print data

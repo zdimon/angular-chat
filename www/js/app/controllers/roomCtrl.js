@@ -1,7 +1,7 @@
  
 
 
-app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, $log, $http, $window, $timeout, Status) {
+app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, $log, $http, $window, $timeout, Status, Contact) {
         
         var text_changed = 0;
         var audio_alerts = {};
@@ -10,16 +10,30 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
 
         //$scope.sound.play();
 
+        $scope.$on('delete_me_from_contact', function (event, data) {
+            alert('deleting');
+            alert(data.contact_id)
+            Contact.delContact(data.opponent_id,function(result){
+               for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
+                    if($rootScope.contact_user_list[i].user_id==data.opponent_id) {
+                       $rootScope.contact_user_list.splice(i,1);  
+                       
+                    }
+               }
+               $rootScope.$broadcast('update_users_online');
+            })            
+        }); 
+
         $scope.stopChat = function(opponent_id){
             /* add opponent to closed_room_users list
                to prevent sound alert in reapeted messages
             */
             $scope.closed_room_users.push(opponent_id);
-            log($scope.closed_room_users);
+            $rootScope.$broadcast('delete_me_from_contact',{'opponent_id': opponent_id});
             ///////////////////////////////////////////
 
            delete $rootScope.active_contacts['user_'+opponent_id]; 
-           log($rootScope.active_contacts);           
+                
         
             Room.closeRoom(opponent_id,function(result){
                 var url = "http://" + local_config.chat_url  + "#/" + $rootScope.currentUserId;  
