@@ -11,8 +11,7 @@ app.controller('RoomCtrl', function ($scope, Room, $rootScope, GoogleTranslate, 
         //$scope.sound.play();
 
         $scope.$on('delete_me_from_contact', function (event, data) {
-            alert('deleting');
-            alert(data.contact_id)
+
             Contact.delContact(data.opponent_id,function(result){
                for (var i = 0; i < $rootScope.contact_user_list.length; i++) {
                     if($rootScope.contact_user_list[i].user_id==data.opponent_id) {
