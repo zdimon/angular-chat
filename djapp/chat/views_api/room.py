@@ -103,7 +103,9 @@ def close_chat_room(request,app_name,room_id, opponent_id, user_id):
     bclient.publish('%s_%s' % (app_name, opponent_id), json.dumps(mes))
     # send commant to remove this opponent from list of the active opponent in js
     mess_ac = { 'action': 'contact_deactivate', 'user_id': user_id }
-    bclient.publish('%s_%s' % (app_name, opponent_id), json.dumps(mess_ac))    
+    bclient.publish('%s_%s' % (app_name, opponent_id), json.dumps(mess_ac))  
+    mess_ac = { 'action': 'delete_me_from_contact', 'opponent_id': user_id }
+    bclient.publish('%s_%s' % (app_name, opponent_id), json.dumps(mess_ac))   
     return  { 'status': 0, 'message': 'Ok' }
 
 
