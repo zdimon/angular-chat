@@ -22,7 +22,7 @@ class bclient():
         #m.append(message['action'])
         #message = [message['action'],message]
         mes = json.dumps(mes)
-        print "%s mess %s" % (channel,mes)
+        #print "%s mess %s" % (channel,mes)
         bc.publish(str(channel), mes)
         bc.disconnect()
    
