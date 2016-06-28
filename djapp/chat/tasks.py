@@ -103,7 +103,9 @@ def charge_money():
                 #print 'TIMOUT   00000000'
                 #send command to remove user from contact list
                 mess_ac = { 'action': 'delete_me_from_contact', 'opponent_id': u['user_id'] }
-                bclient.publish('%s_%s' % (room["app_name"], man), json.dumps(mess_ac))                 
+                bclient.publish('%s_%s' % (room["app_name"], man), json.dumps(mess_ac))   
+                mess_ac = { 'action': 'delete_me_from_contact', 'opponent_id': man }
+                bclient.publish('%s_%s' % (room["app_name"], u['user_id']), json.dumps(mess_ac))              
 
             else:
                 data.append({'action': 'text_chat', 'app_name': room['app_name'],  'user_id': man, 'opponent_id': woman, 'room_id': room['id'], 'price': str(room['price_text_chat']) })
