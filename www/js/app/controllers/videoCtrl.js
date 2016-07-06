@@ -356,8 +356,6 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
 
       $rootScope.$on('set_me_offline',function(event, data){
            
-         
-            alert('sss');
             $rootScope.active_cams['user_'+data.uid] = false;
 
       })
