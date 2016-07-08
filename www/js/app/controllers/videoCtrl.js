@@ -287,7 +287,7 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
              Video.hideOpponentOnlyMic($rootScope.current_opponent_id, function(){});     
             
 
-        }
+        };
 
 
 
@@ -295,70 +295,76 @@ app.controller('VideoCtrl', function ($scope, $rootScope, $window, $log, Video,$
       
         $scope.hideOpponentVideo();
         $rootScope.emptyAccountAlert();
-    })
+    });
+
+    $rootScope.$on('close_room',function(event,data){
+       
+        $rootScope.isOpponentVideoActive = false;
+    });
 
 
     $rootScope.$on('show_my_video',function(event,data){
         $scope.showMyVideo();
-    })
+    });
 
     $rootScope.$on('show_my_flash',function(event,data){
         $scope.showMyFlash();
-    })
+    });
 
 
     $rootScope.$on('show_opponent_video',function(event,data){
         $scope.showOpponentVideo();
-    })
+    });
 
     $rootScope.$on('hide_opponent_video',function(event,data){
    
         $scope.hideOpponentVideo();
-    })
+    });
 
 
     
     $rootScope.$on('turn_opponent_mic_on',function(event,data){
         $scope.turnMicOn();
-    })
+    });
 
     $rootScope.$on('turn_opponent_mic_off',function(event,data){
        $scope.turnMicOff();
-    })
+    });
 
     $scope.$on('alert_mic_on',function(event,data){
         $scope.alert_mic_on = true;
-    })
+    });
 
     $rootScope.$on('alert_mic_off',function(event,data){
        $scope.alert_mic_on = false;
        $scope.opponent_mic_on = false;
-    })
+    });
 
     $scope.$on('only_mic_on',function(event,data){
        $scope.only_mic_on = true;
-    })
+    });
 
     $rootScope.$on('only_mic_off',function(event,data){
        $scope.only_mic_on = false;
        $scope.opponent_only_mic_on = false;
        $scope.hideOpponentOnlyMic();
        
-    })
+    });
 
     $scope.$on('opponent_mic_on',function(event,data){
        $scope.turnMicOn(); 
-    })
+    });
 
     $rootScope.$on('opponent_mic_off',function(event,data){
        $scope.turnMicOff();
-    })
+    });
 
       $rootScope.$on('set_me_offline',function(event, data){
            
             $rootScope.active_cams['user_'+data.uid] = false;
+            $rootScope.isOpponentVideoActive = false;
 
-      })
+      });
 
 
     $rootScope.$on('update_cam_indicators',function(event,data){
