@@ -43,8 +43,11 @@ INSTALLED_APPS = (
     'chat',
     'ws',
     'django_sockjs_tornado',
-    
+    'dbbackup',
 )
+
+
+
 
 SOCKJS_CLASSES = (
     'ws.server.ChatConnection',

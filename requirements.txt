@@ -3,7 +3,7 @@ sockjs-tornado==1.0.1
 tornado==4.0.2
 fabric
 sphinx
-Django==1.8
+Django==1.8.2
 websocket-client==0.32.0
 sphinxcontrib-plantuml
 sphinx-autobuild
@@ -17,3 +17,4 @@ django-tornado
 django-celery==3.1.17
 django-celery-email==1.0.3
 tornado-redis==2.4.18
+django-dbbackup
