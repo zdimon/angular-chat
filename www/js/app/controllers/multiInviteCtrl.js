@@ -81,7 +81,7 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
         $scope.startSending = function(){
 
             var message = $(document).find('#multi_invite_text').html();
-
+            $scope.hide_send_button = true;
             if (message.length == 0) {
                 alert('You can not sent empty message!');   
                 return true;         
@@ -184,7 +184,7 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
         $scope.stopSending = function(){
             $scope.isSending = false;
             $scope.currentCursor = 0;
-
+            $scope.hide_send_button = false;
             if (angular.isDefined($scope.invite_promise)) {
                 $interval.cancel($scope.invite_promise);
                 $scope.invite_promise = undefined;
@@ -203,10 +203,12 @@ app.controller('multiInviteCtrl', function ($scope, $rootScope, $window, $log, V
                     }); 
                 }
                 $scope.currentCursor += 1;
-                log($scope.currentCursor+'--'+$scope.countUsersInvite)
+                log($scope.currentCursor+'--'+$scope.countUsersInvite);
+                
                 if (parseInt($scope.currentCursor)==parseInt($scope.countUsersInvite)){
                     $interval.cancel($scope.invite_promise);
                     $scope.invite_promise = undefined;
+                    $scope.hide_send_button = false;
                 }
                 
             }) 
