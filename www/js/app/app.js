@@ -6,11 +6,6 @@ The function :func:`someService` does a some function.
 */
 
 
-
-
-
-
-
     var app = angular.module('AngularChatApp', [
         'ui.router',
         'restangular',

@@ -351,7 +351,7 @@ tpapp.js
                 $socketProvider.configure({ address: local_config['ws_server'] }); 
             })
 
-.run(function ($rootScope,$window,Online,$log, Auth, $socket) {
+.run(function ($rootScope,$window,Online,$log, Auth, $socket, $interval) {
 
          
              $socket.on("open", function(event, data){
@@ -384,6 +384,10 @@ tpapp.js
                                 }       
                              }); 
 
+                        $interval(function(){
+                            console.log('...');
+                            $socket.send('keep_online',JSON.stringify({user_id: $rootScope.currentUserId}));
+                        }, 60000);
 
                     } else { 
                         $rootScope.isAuthenticated = false;                   
