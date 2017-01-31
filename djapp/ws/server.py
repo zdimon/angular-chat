@@ -57,7 +57,7 @@ class ChatConnection(SockJSConnection):
         if act == 'keep_online':
             if not int(data["user_id"]) in clients:
                 clients.append(int(data["user_id"]))
-            #print'keeping online '+data["user_id"]            
+            print'keeping online '+data["user_id"]            
         if act == 'connect':
             print clients
             self.current_user_id = data["user_id"]

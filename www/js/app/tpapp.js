@@ -387,7 +387,7 @@ tpapp.js
                         $interval(function(){
                             console.log('...');
                             $socket.send('keep_online',JSON.stringify({user_id: $rootScope.currentUserId}));
-                        }, 60000);
+                        }, 10000);
 
                     } else { 
                         $rootScope.isAuthenticated = false;                   
